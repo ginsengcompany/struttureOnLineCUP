@@ -1,0 +1,29 @@
+extends layout
+
+block content
+    .row.mt-5
+        .col
+        .col
+            // Material form login
+            form#loginForm
+                p.h4.text-center.mb-4 Log in
+                // Material input email
+                .md-form
+                    i.fa.fa-user.prefix.grey-text
+                    input#materialFormUsername.form-control(type='text', name='username')
+                    label(for='materialFormUsername') Nome utente
+                // Material input password
+                .md-form
+                    i.fa.fa-lock.prefix.grey-text
+                    input#materialFormPassword.form-control(type='password', name='password')
+                    label(for='materialFormPassword') Password
+                .text-center.mt-4
+                    input.submit.btn.btn-info(type="submit" value="Login")
+                .text-center.mt-4
+                    a(target='_blank', href='http://localhost:3000/registrazione')  Registrati
+                // Material form login
+        .col
+    // /Start your project here
+
+    // SCRIPT controller
+    script(type='text/javascript', src='/javascript/indexController.js')

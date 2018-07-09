@@ -1,0 +1,35 @@
+extends layout
+
+block content
+    .row.mt-5
+        // Material form register
+        form
+            p.h4.text-center.mb-4 Sign up
+            // Material input text
+            .md-form
+                i.fa.fa-user.prefix.grey-text
+                input#materialFormRegisterNameEx.form-control(type='text')
+                label(for='materialFormRegisterNameEx') Your name
+            // Material input email
+            .md-form
+                i.fa.fa-envelope.prefix.grey-text
+                input#materialFormRegisterEmailEx.form-control(type='email')
+                label(for='materialFormRegisterEmailEx') Your email
+            // Material input email
+            .md-form
+                i.fa.fa-exclamation-triangle.prefix.grey-text
+                input#materialFormRegisterConfirmEx.form-control(type='email')
+                label(for='materialFormRegisterConfirmEx') Confirm your email
+            // Material input password
+            .md-form
+                i.fa.fa-lock.prefix.grey-text
+                input#materialFormRegisterPasswordEx.form-control(type='password')
+                label(for='materialFormRegisterPasswordEx') Your password
+            .text-center.mt-4
+                button.btn.btn-primary(type='submit') Register
+
+            .text-center.mt-4
+                input.submit.btn.btn-info(type="submit" value="Login")
+
+    // SCRIPT controller
+    script(type='text/javascript', src='/javascript/index.js')
