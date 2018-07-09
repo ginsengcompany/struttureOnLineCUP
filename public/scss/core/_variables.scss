@@ -52,7 +52,8 @@ $responsive-headings: map-merge((
 // Blockquote
 $blockquote-padding-y:      .5rem !default;
 $blockquote-padding-x:      1rem !default;
-$blockquote-p-padding-y:    $blockquote-padding-x !default;
+$blockquote-p-padding-t:    $blockquote-padding-x !default;
+$blockquote-p-padding-b:    $blockquote-padding-x !default;
 $blockquote-p-padding-l:    2rem !default;
 $blockquote-p-font-size:    1.1rem !default;
 
@@ -73,7 +74,7 @@ $border-radius-base:          .125rem !default;
 $border-radius-circle:        50% !default;
 
 // Buttons
-$btn-color-basic:             $white-base !default;
+$btn-color-basic:             $white !default;
 $btn-margin-basic:            .375rem !default;
 $btn-padding-y-basic:         .84rem !default;
 $btn-padding-x-basic:         2.14rem !default;
@@ -128,7 +129,7 @@ $hide-sidenav: "only screen and (max-width : #{$sidenav-breakpoint})" !default;
 $link-color: #0275d8 !default;
 
 // Dividers colors
-$hr-light:            $white-base !default;
+$hr-light:            $white !default;
 $hr-dark:             #666 !default;
 $flex-center-ul-mb:   1rem !default;
 
@@ -151,7 +152,7 @@ $md-card-font-size:              .9rem !default;
 $md-card-text-color:             #747373 !default;
 
 // Images
-$image-path: "../../img/" !default;
+$image-path: "../img/" !default;
 $avatar-img-max-width: 100px !default;
 
 // Carousels
@@ -171,21 +172,23 @@ $badge-pill-padding-x:                .6rem !default;
 $badge-pill-border-radius:            10rem !default;
 
 // Footers
-$footer-copyright-color:               rgba($white-base, .6) !default;
-$footer-copyright-bg-color:            rgba($black-base, .2) !default;
+$footer-margin-top:                    1.25rem !default;
+$footer-padding-top:                   $footer-margin-top !default;
+$footer-copyright-color:               rgba($white, .6) !default;
+$footer-copyright-bg-color:            rgba($black, .2) !default;
 $footer-font-size:                     .9rem !default;
 
 // Forms
-$input-bg-color:                      $white-base !default;
+$input-bg-color:                      $white !default;
 $label-font-size:                     .8rem !default;
 $input-transition:                    all .3s !default;
 $input-disabled-color:                rgba(0,0,0, .46) !default;
-$input-md-focus-color:                $primary-color !default;
+$input-focus-color:                   $primary-color !default;
 $input-error-color:                   $error-color !default;
 $input-success-color:                 $success-color !default;
 $input-label-after-top:               65px !default;
 $input-label-after-transition:        .2s opacity ease-out, .2s color ease-out !default;
-$input-border-color:                  #ced4da !default;
+$input-border-color: #ced4da !default;
 
 $input-label-transition:              .2s ease-out !default;
 $input-label-color:                   #757575 !default;
@@ -194,7 +197,6 @@ $input-label-active-transform:        translateY(-140%) !default;
 $input-prefix-transition:             color .2s !default;
 
 $input-md-form-margin-top:            1.5rem !default;
-$input-md-form-margin-bottom:         $input-md-form-margin-top !default;
 $input-label-font-size:               1rem !default;
 $input-label-active-font-size:        .8rem !default;
 $input-prefix-top:                    .25rem !default;
@@ -203,9 +205,6 @@ $input-prefix-margin-left:             2.5rem !default;
 $input-prefix-width:                   calc(100% - 2.5rem) !default;
 $input-group-addon-font-size:          1.4rem !default;
 $input-form-text-ml:                   2.6rem !default;
-$input-validate-mb:                    2.5rem !default;
-$input-label-valid-top:                3.56rem !default;
-$input-label-invalid-top:              3.44rem !default;
 
 $input-label-font-size-lg:             1.25rem !default;
 $input-label-active-font-size-lg:      .95rem !default;
@@ -215,9 +214,6 @@ $input-prefix-margin-left-lg:          3rem !default;
 $input-prefix-width-lg:                calc(100% - 3rem) !default;
 $input-group-addon-font-size-lg:       1.65rem !default;
 $input-form-text-ml-lg:                3.1rem !default;
-$input-validate-mb-lg:                 2.8rem !default;
-$input-label-valid-top-lg:             4.1rem !default;
-$input-label-invalid-top-lg:           4rem !default;
 
 $input-label-font-size-sm:             .875rem !default;
 $input-label-active-font-size-sm:      .75rem !default;
@@ -227,9 +223,6 @@ $input-prefix-margin-left-sm:          2rem !default;
 $input-prefix-width-sm:                calc(100% - 2rem) !default;
 $input-group-addon-font-size-sm:       1.15rem !default;
 $input-form-text-ml-sm:                2rem !default;
-$input-validate-mb-sm:                 2.3rem !default;
-$input-label-valid-top-sm:             3.2rem !default;
-$input-label-invalid-top-sm:           3.1rem !default;
 
 $textarea-padding:                     1.5rem !default;
 
@@ -239,9 +232,11 @@ $input-form-control-padding-bottom:    .55rem !default;
 $input-disabled-solid-color:           #BDBDBD !default;
 
 // Input group
-$input-group-text-bgc:                #e0e0e0 !default;
-$input-group-form-control-px:         .75rem !default;
-$input-group-form-control-py:         .375rem !default;
+$input-group-text-placeholder-pl:     1rem !default;
+$input-group-form-control-mt:         3px !default;
+$input-group-form-control-pt:         14px !default;
+$input-group-form-control-pb:         7px !default;
+$input-group-form-control-pl:         1.2rem !default;
 
 // List group
 $list-group-padding:                   0 10px 10px 0 !default;
@@ -290,13 +285,13 @@ $navbar-font-weight:                   300 !default;
 $navbar-double-font-size:              15px !default;
 
 $navbar-light-toggler-icon:            url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(0, 0, 0, 0.9)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E") !default;
-$navbar-light-bg-active-color:         rgba($black-base, .1) !default;
-$navbar-light-hover-color:             rgba($black-base, .75) !default;
+$navbar-light-bg-active-color:         rgba($black, .1) !default;
+$navbar-light-hover-color:             rgba($black, .75) !default;
 $navbar-light-disabled-color:          rgba(0, 0, 0, 0.5) !default;
 
 $navbar-dark-toggler-icon:             url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255, 255, 255, 0.9)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E") !default;
-$navbar-dark-bg-active-color:          rgba($white-base, .1) !default;
-$navbar-dark-hover-color:              rgba($white-base, .75) !default;
+$navbar-dark-bg-active-color:          rgba($white, .1) !default;
+$navbar-dark-hover-color:              rgba($white, .75) !default;
 $navbar-dark-disabled-color:           rgba(255, 255, 255, 0.5) !default;
 
 $navbar-scrolling-transition:          background .5s ease-in-out, padding .5s ease-in-out !default;
@@ -337,11 +332,6 @@ $table-a-color:                        #212529 !default;
 $table-hover-transition:               .5s !default;
 $table-hover-background-color:         rgba(0, 0, 0, 0.075) !default;
 $table-sm-padding-y:                   .6rem !default;
-$table-inverse-color-border:           $white-base !default;
+$table-inverse-color-border:           $white !default;
 $product-table-img-max-height:         150px !default;
 $product-table-img-min-width:          50px !default;
-$table-th-lg-min-width:                9rem !default;
-$table-th-sm-min-width:                6rem !default;
-$table-scroll-vertical-max-height:     300px !default;
-$table-label-height:                   0.94rem !default;
-$table-label-line-height:              $table-label-height !default;

@@ -1,6 +1,6 @@
 // Buttons
 .btn {
-  box-shadow: $z-depth-1;
+  @extend .z-depth-1;
   @include button-size($btn-padding-y-basic, $btn-padding-x-basic, $btn-font-size-basic);
   transition: $btn-transition;
   margin: $btn-margin-basic;
@@ -14,12 +14,12 @@
   &:hover,
   &:active,
   &:focus {
-    box-shadow: $z-depth-1-half;
+    @extend .z-depth-1-half;
     outline: 0;
   }
   &:not([disabled]):not(.disabled):active,
   &:not([disabled]):not(.disabled).active {
-    box-shadow: $z-depth-1-half;
+    @extend .z-depth-1-half;
   }
   .fa {
     position: relative;
@@ -57,7 +57,7 @@
     &:active,
     &:focus,
     &:hover {
-      box-shadow: $z-depth-1;
+      @extend .z-depth-1;
     }
   }
   &.btn-block {
@@ -108,15 +108,3 @@
   @include make-button($btn_name, $color_value);
   @include make-outline-button($btn_name, $color_value);
 }
-
-// button,
-// html [type="file"] {
-//   -webkit-appearance: button; 
-//   appearance: button;
-// }
-
-// button::-moz-focus-inner,
-// [type="file"]::-moz-focus-inner {
-//   padding: 0;
-//   border-style: none;
-// }

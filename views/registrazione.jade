@@ -12,26 +12,47 @@ block content
                         .md-form
                             i.fa.fa-user.prefix.grey-text
                             input#formNome.form-control(type='text')
-                            label(for='formNome') Nome
-                    .col-4
-                        // Material input email
-                        .md-form
-                            i.fa.fa-envelope.prefix.grey-text
-                            input#materialFormRegisterEmailEx.form-control(type='email')
-                            label(for='materialFormRegisterEmailEx') Your email
-                    .col-4
-                        // Material input email
-                        .md-form
-                            i.fa.fa-exclamation-triangle.prefix.grey-text
-                            input#materialFormRegisterConfirmEx.form-control(type='email')
-                            label(for='materialFormRegisterConfirmEx') Confirm your email
-                .row.mt-5
+                            label(for='formNome') Username
                     .col-4
                         // Material input password
                         .md-form
                             i.fa.fa-lock.prefix.grey-text
                             input#materialFormRegisterPasswordEx.form-control(type='password')
-                            label(for='materialFormRegisterPasswordEx') Your password
+                            label(for='materialFormRegisterPasswordEx') Scegli Password
+                    .col-4
+                        // Material input email
+                        .md-form
+                            i.fa.fa-envelope.prefix.grey-text
+                            input#materialFormRegisterEmailEx.form-control(type='email')
+                            label(for='materialFormRegisterEmailEx') La tua email
+                .row.mt-5
+                    .col-4
+                        // Material input email
+                        .md-form
+                            i.fa.fa-exclamation-triangle.prefix.grey-text
+                            input#materialFormRegisterConfirmEx.form-control(type='email')
+                            label(for='materialFormRegisterConfirmEx') Conferma email
+                    .col-4
+                        .md-form
+                            i.fa.fa-user.prefix.grey-text
+                            input#formNome.form-control(type='text')
+                            label(for='formNome') Inserisci Nome
+                    .col-4
+                        .md-form
+                            i.fa.fa-user.prefix.grey-text
+                            input#formNome.form-control(type='text')
+                            label(for='formNome') Inserisci Cognome
+                .row.mt-5
+                    .col-4
+                        br
+                        select.mdb-select(multiple='')
+                            option.rounded-circle(value='M', data-icon='https://image.freepik.com/icone-gratis/maschio-simbolo-genere_318-82673.jpg') Maschio
+                            option.rounded-circle(value='F', data-icon='https://mdbootstrap.com/img/Photos/Avatars/avatar-2.jpg') Femmina
+
+                    .col-4
+                        .md-form
+                            input#form1.form-control(type='text')
+                            label(for='form1') Codice Fiscale
                     .col-4
                         .text-center.mt-4
                             button.btn.btn-primary(type='submit') Register
@@ -41,3 +62,7 @@ block content
 
     // SCRIPT controller
     script(type='text/javascript', src='/javascript/registrazioneController.js')
+    script.
+        $(document).ready(function() {
+            $('.mdb-select').material_select();
+        });

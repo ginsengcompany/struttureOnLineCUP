@@ -1,6 +1,7 @@
 // Navbars
 .navbar {
-  box-shadow: $z-depth-1;
+  @extend .z-depth-1;
+  padding-right: 1rem !important;
   font-weight: $navbar-font-weight;
   form {
     .md-form {
@@ -16,7 +17,7 @@
     font-size: $navbar-double-font-size;
     font-weight: $navbar-font-weight;
     .breadcrumb-item {
-      color: $white-base;
+      color: $white;
       &.active {
         color: $navbar-breadcrumb-color;
       }
@@ -29,6 +30,7 @@
     outline: 0;
     border-width: 0;
   }
+  // &.double-nav,
   .nav-flex-icons {
     flex-direction: row;
   }
@@ -67,14 +69,6 @@
       font-weight: $navbar-font-weight;
       color: $black !important;
     }
-    form {
-      @media (max-width: $small-screen) {
-        width: 17rem;
-      }
-      @media (min-width: $small-screen) {
-        width: 22rem;
-      }
-    }
   }
   &.navbar-light {
     @include make-navbar($navbar-light-disabled-color, $navbar-light-toggler-icon, $black, $navbar-light-hover-color, $navbar-light-bg-active-color);
@@ -83,6 +77,7 @@
     @include make-navbar($navbar-dark-disabled-color, $navbar-dark-toggler-icon, $white, $navbar-dark-hover-color, $navbar-dark-bg-active-color);
   }
   &.scrolling-navbar {
+    // z-index: 100;
     @media (min-width: $small-screen) {
       transition: $navbar-scrolling-transition;
       padding-top: $navbar-scrolling-padding;

@@ -33,23 +33,15 @@
   border-top: 1px solid $hr-dark;
 }
 
-// Responsive width
-.w-responsive {
-  width: 75%;
-  @media (max-width: 740px) {
-    width: 100%;
-  }
-}
-
 // Collapsible body
 .collapsible-body {
   display: none;
 }
 
 .jumbotron {
-  box-shadow: $z-depth-1;
+  @extend .z-depth-1;
   border-radius: $border-radius-base;
-  background-color: $white-base;
+  background-color: $white;
 }
 
 @each $name, $color in $basic-mdb-colors {
@@ -57,13 +49,4 @@
   .border-#{$name} {
     border-color: $color !important;
   }
-}
-
-.card-img-100 {
-  width: 100px;
-  height: 100px;
-}
-.card-img-64 {
-  width: 64px;
-  height: 64px;
 }

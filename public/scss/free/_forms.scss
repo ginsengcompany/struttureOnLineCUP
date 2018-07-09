@@ -26,11 +26,11 @@
 
     // Focused input style
     &:focus:not([readonly]) {
-      box-shadow: 0 1px 0 0 $input-md-focus-color;
-      border-bottom: 1px solid $input-md-focus-color;
+      box-shadow: 0 1px 0 0 $input-focus-color;
+      border-bottom: 1px solid $input-focus-color;
       // Focused label style
       + label {
-        color: $input-md-focus-color;
+        color: $input-focus-color;
       }
     }
 
@@ -64,31 +64,6 @@
       content: attr(data-error);
       color: $input-error-color;
       opacity: 1;
-    }
-
-    &.form-control.valid + label:after,
-    &.form-control:focus.valid + label:after  {
-      top: $input-label-valid-top;
-    }
-    &.form-control.invalid + label:after,
-    &.form-control:focus.invalid + label:after  {
-      top: $input-label-invalid-top;
-    }
-    &.form-control-lg.valid + label:after,
-    &.form-control-lg:focus.valid + label:after  {
-      top: $input-label-valid-top-lg;
-    }
-    &.form-control-lg.invalid + label:after,
-    &.form-control-lg:focus.invalid + label:after  {
-      top: $input-label-invalid-top-lg;
-    }
-    &.form-control-sm.valid + label:after,
-    &.form-control-sm:focus.valid + label:after  {
-      top: $input-label-valid-top-sm;
-    }
-    &.form-control-sm.invalid + label:after,
-    &.form-control-sm:focus.invalid + label:after  {
-      top: $input-label-invalid-top-sm;
     }
   }
 
@@ -134,15 +109,14 @@
     }
     &:disabled,
     &[readonly] {
-      border-bottom: 1px solid $grey-lighten-1;
+      border-bottom: 1px solid map-get($grey, lighten-1);
       background-color: transparent;
     }
   }
 
-  @include make-input($input-validate-mb, $input-label-font-size, $input-label-active-font-size, $input-prefix-top, $input-prefix-font-size, $input-prefix-margin-left, $input-prefix-width, $input-form-text-ml);
+  @include make-input($input-label-font-size, $input-label-active-font-size, $input-prefix-top, $input-prefix-font-size, $input-prefix-margin-left, $input-prefix-width, $input-form-text-ml);
   position: relative;
   margin-top: $input-md-form-margin-top;
-  margin-bottom: $input-md-form-margin-bottom;
   label {
     position: absolute;
     top: $input-label-top;
@@ -158,14 +132,14 @@
     position: absolute;
     transition: $input-prefix-transition;
     &.active {
-      color: $input-md-focus-color;
+      color: $input-focus-color;
     }
   }
   &.form-lg {
-    @include make-input($input-validate-mb-lg, $input-label-font-size-lg, $input-label-active-font-size-lg, $input-prefix-top-lg, $input-prefix-font-size-lg, $input-prefix-margin-left-lg, $input-prefix-width-lg, $input-form-text-ml-lg);
+    @include make-input($input-label-font-size-lg, $input-label-active-font-size-lg, $input-prefix-top-lg, $input-prefix-font-size-lg, $input-prefix-margin-left-lg, $input-prefix-width-lg, $input-form-text-ml-lg);
   }
   &.form-sm {
-    @include make-input($input-validate-mb-sm, $input-label-font-size-sm, $input-label-active-font-size-sm, $input-prefix-top-sm, $input-prefix-font-size-sm, $input-prefix-margin-left-sm, $input-prefix-width-sm, $input-form-text-ml-sm);
+    @include make-input($input-label-font-size-sm, $input-label-active-font-size-sm, $input-prefix-top-sm, $input-prefix-font-size-sm, $input-prefix-margin-left-sm, $input-prefix-width-sm, $input-form-text-ml-sm);
   }
 
   // Textarea
