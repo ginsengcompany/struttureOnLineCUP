@@ -11,38 +11,43 @@ block content
                     .col-4
                         .md-form
                             i.fa.fa-user.prefix.grey-text
-                            input#formNome.form-control(type='text')
-                            label(for='formNome') Username
+                            input#formUsername.form-control(type='text')
+                            label(for='formUsername') Username
                     .col-4
                         // Material input password
                         .md-form
                             i.fa.fa-lock.prefix.grey-text
-                            input#materialFormRegisterPasswordEx.form-control(type='password')
-                            label(for='materialFormRegisterPasswordEx') Scegli Password
-                    .col-4
-                        // Material input email
-                        .md-form
-                            i.fa.fa-envelope.prefix.grey-text
-                            input#materialFormRegisterEmailEx.form-control(type='email')
-                            label(for='materialFormRegisterEmailEx') La tua email
-                .row.mt-5
+                            input#formPassword.form-control(type='password')
+                            label(for='formPassword') Scegli Password
                     .col-4
                         // Material input email
                         .md-form
                             i.fa.fa-exclamation-triangle.prefix.grey-text
-                            input#materialFormRegisterConfirmEx.form-control(type='email')
-                            label(for='materialFormRegisterConfirmEx') Conferma email
+                            input#formConfermaPassword.form-control(type='password')
+                            label(for='formConfermaPassword') Conferma Password
+                .row.mt-5
+                    .col-4
+                        .md-form
+                            i.fa.fa-envelope.prefix.grey-text
+                            input#formEmail.form-control(type='email')
+                            label(for='formEmail') La tua email
+                        // Material input email
+                    .col-4
+                        .md-form
+                            i.fa.fa-exclamation-triangle.prefix.grey-text
+                            input#formConfermaEmail.form-control(type='email')
+                            label(for='formConfermaEmail') Conferma email
                     .col-4
                         .md-form
                             i.fa.fa-user.prefix.grey-text
                             input#formNome.form-control(type='text')
                             label(for='formNome') Inserisci Nome
+                .row.mt-5
                     .col-4
                         .md-form
                             i.fa.fa-user.prefix.grey-text
-                            input#formNome.form-control(type='text')
-                            label(for='formNome') Inserisci Cognome
-                .row.mt-5
+                            input#formCognome.form-control(type='text')
+                            label(for='formCognome') Inserisci Cognome
                     .col-4
                         br
                         select.mdb-select(multiple='')
@@ -51,14 +56,14 @@ block content
 
                     .col-4
                         .md-form
-                            input#form1.form-control(type='text')
-                            label(for='form1') Codice Fiscale
+                            input#formCodFisc.form-control(type='text')
+                            label(for='formCodFisc') Codice Fiscale
+                .row.mt-5
+                    .col-4
                     .col-4
                         .text-center.mt-4
-                            button.btn.btn-primary(type='submit') Register
+                            input.submit.btn.btn-info(type="submit" value="Registrati")
                     .col-4
-                        .text-center.mt-4
-                            input.submit.btn.btn-info(type="submit" value="Login")
 
     // SCRIPT controller
     script(type='text/javascript', src='/javascript/registrazioneController.js')

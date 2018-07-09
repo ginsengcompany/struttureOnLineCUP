@@ -2,8 +2,8 @@ extends layout
 
 block content
     .row.mt-5
-        .col
-        .col
+        .col-4
+        .col-4
             // Material form login
             form#loginForm
                 p.h4.text-center.mb-4 Log in
@@ -22,7 +22,12 @@ block content
                 .text-center.mt-4
                     a(target='_blank', href='http://localhost:3000/registrazione')  Registrati
                 // Material form login
-        .col
+        .col-4
+    .row.mt-5
+        .col-md-3
+        .col-md-6
+            img.img-fluid(src='/img/loginTooltip.png', alt='Responsive image')
+        .col-md-3
     // /Start your project here
 
     // SCRIPT controller
