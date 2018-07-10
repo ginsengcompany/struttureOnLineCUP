@@ -1,4 +1,24 @@
 $(document).ready(function () {
+    $(".button-collapse").sideNav();
+    
+    $('.datepicker').pickadate({
+        monthsFull: ['Gennaio', 'Febbraio', 'Marzo', 'Aprile', 'Maggio', 'Giugno', 'Luglio', 'Agosto', 'Settembre', 'Ottobre', 'Novembre', 'Dicembre'],
+        monthsShort: ['Gen', 'Feb', 'Mar', 'Apr', 'Mag', 'Giu', 'Lug', 'Ago', 'Set', 'Ott', 'Nov', 'Dic'],
+        weekdaysFull: ['Domenica', 'Lunedì', 'Martedì', 'Mercoledì', 'Giovedì', 'Venerdì', 'Sabato'],
+        weekdaysShort: ['Dom', 'Lun', 'Mar', 'Mer', 'Gio', 'Ven', 'Sab'],
+        showMonthsShort: undefined,
+        showWeekdaysFull: undefined,
+        today: 'Oggi',
+        clear: 'Cancella',
+        close: 'Chiudi',
+        firstDay: 1,
+        format: 'dd/mm/yyyy',
+        formatSubmit: 'dd/mm/yyyy',
+        labelMonthNext: 'Mese successivo',
+        labelMonthPrev: 'Mese precedente',
+        labelMonthSelect: 'Seleziona un mese',
+        labelYearSelect: 'Seleziona un anno'
+    });
     $('.mdb-select').material_select();
     var selectProvinceNascita = $("#listaprovincenascita");
     $.ajax({
