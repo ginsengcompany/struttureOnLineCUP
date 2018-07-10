@@ -1,0 +1,82 @@
+extends layout
+
+block title
+    title Menu
+block style
+    link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css')
+    link(href='/stylesheet/bootstrap.min.css', rel='stylesheet')
+    link(href='/stylesheet/mdb.min.css', rel='stylesheet')
+    link(href='/stylesheet/style.css', rel='stylesheet')
+block body
+    body.hidden-sn.mdb-skin
+        header
+            // Sidebar navigation
+            #slide-out.side-nav.sn-bg-4.mdb-sidenav
+                ul.custom-scrollbar.list-unstyled(style='max-height:100vh;')
+                    //li
+                        .logo-wrapper.waves-light
+                            a(href='#')
+                                img.img-fluid.flex-center(src='images/logo.png')
+                    li
+                        ul.collapsible.collapsible-accordion
+                            li
+                                a.collapsible-header.waves-effect.arrow-r
+                                    i.fa.fa-desktop
+                                    |  Client
+                                    i.fa.fa-angle-down.rotate-icon
+                                .collapsible-body
+                                    ul
+                                        li
+                                            a.waves-effect(href='#{addClientUrl}') Associa Utente a Client
+                                        li
+                                            a.waves-effect(href='#{listClientUrl}') Lista Client
+                            li
+                                a.collapsible-header.waves-effect.arrow-r
+                                    i.fa.fa-user-o
+                                    |  Utenti
+                                    i.fa.fa-angle-down.rotate-icon
+                                .collapsible-body
+                                    ul
+                                        li
+                                            a.waves-effect(href='#{addUserUrl}') Aggiungi Utente
+                                        li
+                                            a.waves-effect(href='#{listUserUrl}') Lista Utenti
+                            li
+                                a.collapsible-header.waves-effect.arrow-r
+                                    i.fa.fa-lock
+                                    |  Gestione Token
+                                    i.fa.fa-angle-down.rotate-icon
+                                .collapsible-body
+                                    ul
+                                        li
+                                            a.waves-effect(href='#') Elimina Token Scaduti
+                                        li
+                .sidenav-bg.mask-strong
+            nav.navbar.fixed-top.navbar-toggleable-md.navbar-expand-lg.scrolling-navbar.double-nav
+                .float-left
+                    a.button-collapse(href='#', data-activates='slide-out')
+                        i.fa.fa-bars
+                .breadcrumb-dn.mr-auto
+                    p Ecupt
+                ul.nav.navbar-nav.nav-flex-icons.ml-auto
+                    li.nav-item
+                        a.nav-link
+                            i.fa.fa-user
+                            span.clearfix.d-none.d-sm-inline-block Account
+                    li.nav-item
+                        a.nav-link(href='/')
+                            i.fa.fa-times
+                            span.clearfix.d-none.d-sm-inline-block Logout
+        main
+            .container-fluid.m-3
+
+block javascript
+    script(type='text/javascript', src='/javascript/jquery-3.3.1.min.js')
+    // Bootstrap tooltips
+    script(type='text/javascript', src='/javascript/popper.min.js')
+    // Bootstrap core JavaScript
+    script(type='text/javascript', src='/javascript/bootstrap.min.js')
+    // MDB core JavaScript
+    script(type='text/javascript', src='/javascript/mdb.min.js')
+
+    script(type='text/javascript', src='/javascript/menuController.js')
