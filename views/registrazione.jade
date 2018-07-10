@@ -51,8 +51,9 @@ block content
                     .col-4
                         br
                         select.mdb-select()
-                            option.rounded-circle(value='M', data-icon='./img/uomo.png') Maschio
-                            option.rounded-circle(value='F', data-icon='./img/donna.png') Femmina
+                            option(value='', disabled='',selected='') Seleziona sesso
+                                option.rounded-circle(value='M', data-icon='./img/uomo.png') Maschio
+                                option.rounded-circle(value='F', data-icon='./img/donna.png') Femmina
 
                     .col-4
                         .md-form
@@ -80,6 +81,15 @@ block content
                         br
                         select#listacomunenascita.mdb-select(searchable="Cerca...")
                             option(value='', disabled='',selected='') Seleziona Comune di nascita
+                    .col-4
+                        br
+                        select#listaprovinceresidenza.mdb-select(searchable="Cerca...",name="listaprovince")
+                            option(value='', disabled='',selected='') Seleziona Provincia di residenza
+                .row.mt-5
+                    .col-4
+                        br
+                        select#listacomuneresidenza.mdb-select(searchable="Cerca...")
+                            option(value='', disabled='',selected='') Seleziona Comune di residenza
                 .row.mt-5
                     .col-4
                     .col-4
