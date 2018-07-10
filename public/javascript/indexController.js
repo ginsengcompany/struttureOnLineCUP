@@ -9,7 +9,6 @@ function eseguiLogin() {
         password : String
     };
     parametriLogin.username = $('#materialFormUsername').val();
-    console.log(parametriLogin.username);
     parametriLogin.password = $('#materialFormPassword').val();
     $.ajax({
         type: "POST",
@@ -18,10 +17,13 @@ function eseguiLogin() {
         dataType : "json",
         contentType : 'application/json',
         success: function (data, textStatus, jqXHR) {
-            console.log(data)
+            if(data.auth){
+                localStorage.setItem('tkn',data.token);
+                window.location.href = '/menu';
+            }
         },
         error: function(jqXHR, textStatus, errorThrown) {
-            console.log(textStatus);
+            alert(jqXHR.responseText);
         }
     });
 }
