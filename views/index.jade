@@ -4,26 +4,20 @@ block title
     title Ecupt
 block style
     link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css')
-    // Bootstrap core CSS
     link(href='/stylesheet/bootstrap.min.css', rel='stylesheet')
-    // Material Design Bootstrap
     link(href='/stylesheet/mdb.min.css', rel='stylesheet')
-    // Your custom styles (optional)
     link(href='/stylesheet/style.css', rel='stylesheet')
 block body
     body
         .row.mt-5
             .col-4
             .col-4
-                // Material form login
                 form#loginForm
                     p.h4.text-center.mb-4 Log in
-                    // Material input email
                     .md-form
                         i.fa.fa-user.prefix.grey-text
                         input#materialFormUsername.form-control(type='text', name='username')
                         label(for='materialFormUsername') Nome utente
-                    // Material input password
                     .md-form
                         i.fa.fa-lock.prefix.grey-text
                         input#materialFormPassword.form-control(type='password', name='password')
@@ -32,14 +26,12 @@ block body
                         input.submit.btn.btn-info(type="submit" value="Login")
                     .text-center.mt-4
                         a(target='_blank', href='http://localhost:3000/registrazione')  Registrati
-                    // Material form login
             .col-4
         .row.mt-5
             .col-md-3
             .col-md-6
                 img.img-fluid(src='/img/loginTooltip.png', alt='Responsive image')
             .col-md-3
-        // /Start your project here
 
 
     script(type='text/javascript', src='/javascript/jquery-3.3.1.min.js')
