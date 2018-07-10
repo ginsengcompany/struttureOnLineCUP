@@ -1,0 +1,36 @@
+extends menu
+
+block title
+    title Rubrica
+block style
+    link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css')
+    link(href='/stylesheet/bootstrap.min.css', rel='stylesheet')
+    link(href='/stylesheet/mdb.min.css', rel='stylesheet')
+    link(href='/stylesheet/style.css', rel='stylesheet')
+
+block content
+    .container-fluid
+        h1 Rubrica
+        // Search form
+        .row
+            .col-sm-12(style='background-color:white')
+                form.form-inline.md-form.form-sm
+                    i.fa.fa-search(aria-hidden='true')
+                    input.form-control.form-control-sm.ml-3.w-75(type='text', placeholder='Cerca Contatto', aria-label='Ricerca')
+
+            .col-sm-12(style='background-color:lavenderblush;') Profilo Presonale
+            .col-sm-10 Contatto
+            .col-sm-2(style='background-color:littlegray') freccia
+            .col-sm-12(style='background-color:Blue') Contatti
+            .list-group
+                a.list-group-item.active(href='#') A
+                a.list-group-item(href='#') B
+                a.list-group-item(href='#') C
+
+    block javascript
+
+script(type='text/javascript', src='/javascript/jquery-3.3.1.min.js')
+script(type='text/javascript', src='/javascript/popper.min.js')
+script(type='text/javascript', src='/javascript/bootstrap.min.js')
+script(type='text/javascript', src='/javascript/mdb.min.js')
+script(type='text/javascript', src='/javascript/registrazioneController.js')
