@@ -11,8 +11,6 @@ block style
 block content
     .container
         .col
-            // Material form register
-            form
                 p.h4.text-center.mt-5 Registrati
                 // Material input text
                 .row.mt-5
@@ -58,7 +56,7 @@ block content
                             label(for='formCognome') Inserisci Cognome
                     .col-4
                         br
-                        select.mdb-select()
+                        select#formSesso.mdb-select()
                             option(value='', disabled='',selected='') Seleziona sesso
                                 option.rounded-circle(value='M', data-icon='./img/uomo.png') Maschio
                                 option.rounded-circle(value='F', data-icon='./img/donna.png') Femmina
@@ -106,7 +104,7 @@ block content
                     .col-4
                     .col-4
                         .text-center.mt-4
-                            input.submit.btn.btn-info(type="submit" value="Registrati")
+                            input#registrazione.submit.btn.btn-info(type="submit" value="Registrati")
                     .col-4
 
 block javascript
