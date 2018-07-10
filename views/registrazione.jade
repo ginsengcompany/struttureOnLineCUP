@@ -66,16 +66,16 @@ block content
                     .col-4
                         br
                         select#statocivile.mdb-select()
-                        option(value='', disabled='',selected='') Seleziona stato civile
+                            option(value='', disabled='',selected='') Seleziona stato civile
                     .col-4
                         .md-form
                             input#date-picker-example.form-control.datepicker(placeholder='Seleziona data di nascita', type='text')
                             label(for='date-picker-example') Data di nascita
+                .row.mt-5
                     .col-4
                         br
-                        select#listaprovincenascita.mdb-select(searchable="Cerca...")
+                        select#listaprovincenascita.mdb-select(searchable="Cerca...",name="listaprovince")
                             option(value='', disabled='',selected='') Seleziona Provincia di nascita
-                .row.mt-5
                     .col-4
                         br
                         select#listacomunenascita.mdb-select(searchable="Cerca...")
