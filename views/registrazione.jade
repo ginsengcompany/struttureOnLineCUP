@@ -1,7 +1,15 @@
-extends layout
+extends menu
+
+block title
+    title Registrazione
+block style
+    link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css')
+    link(href='/stylesheet/bootstrap.min.css', rel='stylesheet')
+    link(href='/stylesheet/mdb.min.css', rel='stylesheet')
+    link(href='/stylesheet/style.css', rel='stylesheet')
 
 block content
-    .row.mx-5
+    .container
         .col
             // Material form register
             form
@@ -101,24 +109,9 @@ block content
                             input.submit.btn.btn-info(type="submit" value="Registrati")
                     .col-4
 
-    // SCRIPT controller
-    script(type='text/javascript', src='/javascript/registrazioneController.js')
-    script.
-        $('.datepicker').pickadate({
-            monthsFull: ['Gennaio', 'Febbraio', 'Marzo', 'Aprile', 'Maggio', 'Giugno', 'Luglio', 'Agosto', 'Settembre', 'Ottobre', 'Novembre', 'Dicembre'],
-            monthsShort: ['Gen', 'Feb', 'Mar', 'Apr', 'Mag', 'Giu', 'Lug', 'Ago', 'Set', 'Ott', 'Nov', 'Dic'],
-            weekdaysFull: ['Domenica', 'Lunedì', 'Martedì', 'Mercoledì', 'Giovedì', 'Venerdì', 'Sabato'],
-            weekdaysShort: ['Dom', 'Lun', 'Mar', 'Mer', 'Gio', 'Ven', 'Sab'],
-            showMonthsShort: undefined,
-            showWeekdaysFull: undefined,
-            today: 'Oggi',
-            clear: 'Cancella',
-            close: 'Chiudi',
-            firstDay: 1,
-            format: 'dd/mm/yyyy',
-            formatSubmit: 'dd/mm/yyyy',
-            labelMonthNext: 'Mese successivo',
-            labelMonthPrev: 'Mese precedente',
-            labelMonthSelect: 'Seleziona un mese',
-            labelYearSelect: 'Seleziona un anno'
-        });
+block javascript
+        script(type='text/javascript', src='/javascript/jquery-3.3.1.min.js')
+        script(type='text/javascript', src='/javascript/popper.min.js')
+        script(type='text/javascript', src='/javascript/bootstrap.min.js')
+        script(type='text/javascript', src='/javascript/mdb.min.js')
+        script(type='text/javascript', src='/javascript/registrazioneController.js')
