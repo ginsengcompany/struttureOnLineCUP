@@ -1,0 +1,47 @@
+{
+    "data": [
+    {
+
+       "id": "1",
+      "nome": "ANTONIETTA",
+      "cognome": "FIUME",
+      "sesso": "F",
+      "codice_fiscale": "FMINNFMIETTNACOS",
+      "istatComuneNascita": null,
+      "luogo_nascita": "POSITANO",
+      "istatComuneResidenza": null,
+      "comune_residenza": "MARANELLO",
+      "telefono": "333333153",
+      "codStatoCivile": null,
+      "statocivile": null,
+      "indirizzores": "VIA CAPOCCHIONE 29",
+      "provincia": null,
+      "email": null,
+      "nomeCompletoConCodiceFiscale": null,
+      "accountPrimario": false,
+      "data_nascita": "01/01/01",
+      "listaMedici": null
+    },
+    {
+        "id": "2",
+        "nome": "ANTTONIETTA",
+        "cognome": "Rivoli",
+      "sesso": "F",
+      "codice_fiscale": "FMINNFMIETTNACOS",
+      "istatComuneNascita": null,
+      "luogo_nascita": "POSITANO",
+      "istatComuneResidenza": null,
+      "comune_residenza": "MARANELLO",
+      "telefono": "333333153",
+      "codStatoCivile": null,
+      "statocivile": null,
+      "indirizzores": "VIA CAPOCCHIONE 29",
+      "provincia": null,
+      "email": null,
+      "nomeCompletoConCodiceFiscale": null,
+      "accountPrimario": false,
+      "data_nascita": "01/01/01",
+      "listaMedici": null
+    }
+]
+}
