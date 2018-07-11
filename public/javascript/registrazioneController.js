@@ -160,7 +160,7 @@ $(document).ready(function () {
         };
         $.ajax({
             type: "POST",
-            url: "http://192.168.125.24:3001/auth/registrazione",
+            url: "http://ecuptservice.ak12srl.it/auth/registrazione",
             data: JSON.stringify(sendObject),
             dataType: "json",
             contentType: 'application/json',
