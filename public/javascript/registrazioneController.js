@@ -116,59 +116,96 @@ $(document).ready(function () {
             }
         });
     });
-    $( "#registrazione" ).click(function() {
-        var username = $('#formUsername').val();
-        var password = $('#formPassword').val();
-        var password2 = $('#formConfermaPassword').val();
-        var email = $('#formEmail').val();
-        var email2 = $('#formConfermaEmail').val();
-        var nome = $('#formNome').val();
-        var cognome = $('#formCognome').val();
-        var sesso = $('#formSesso').val();
-        var codicefiscale = $('#formCodFisc').val();
-        var telefono = $('#formTelefono').val();
-        var codicestatocivile = $('#statocivile').val();
-        var datanascita = $('#date-picker-example').val();
-        var provincianascita = $('#listaprovincenascita').val();
-        var codicecomunenascita = $('#listacomunenascita').val();
-        var comunenascita = $("#listacomunenascita option[value='" + codicecomunenascita +"']").text();
-        var codiceprovinciaresidenza = $("#listaprovinceresidenza").val();
-        var provinciaresidenza = $("#listaprovinceresidenza option[value='" + codiceprovinciaresidenza +"']").text();
-        var codicecomuneresidenza = $('#listacomuneresidenza').val();
-        var indirizzo = $('#formIndirizzo').val();
-        var comuneresidenza = $("#listacomuneresidenza option[value='" + codicecomuneresidenza +"']").text();
-        var codicestatocivile = $("#statocivile").val();
-        var statocivile = $("#statocivile option[value='" + codicestatocivile +"']").text();
-        var sendObject = {
-            username: username,
-            password: password,
-            email: email,
-            nome: nome,
-            cognome: cognome,
-            sesso: sesso,
-            codice_fiscale: codicefiscale,
-            telefono: telefono,
-            codStatoCivile: codicestatocivile,
-            data_nascita: datanascita,
-            luogo_nascita: comunenascita,
-            istatComuneNascita: codicecomunenascita,
-            provincia: provinciaresidenza,
-            comune_residenza: comuneresidenza,
-            indirizzores: indirizzo,
-            istatComuneResidenza: codicecomuneresidenza,
-            statocivile: statocivile
-        };
-        $.ajax({
-            type: "POST",
-            url: "http://ecuptservice.ak12srl.it/auth/registrazione",
-            data: JSON.stringify(sendObject),
-            dataType: "json",
-            contentType: 'application/json',
-            success: function (data, textStatus, jqXHR) {},
-            error: function (jqXHR, textStatus, errorThrown) {
-                alert(jqXHR.responseText);
-            }
-        });
+    $("#registrazioneform").submit(function() {
+        eseguiregistrazione();
+        return false;
         //console.log(sendObject);
     });
 });
+
+function eseguiregistrazione(){
+    var username = $('#formUsername').val();
+    var password = $('#formPassword').val();
+    var password2 = $('#formConfermaPassword').val();
+    var email = $('#formEmail').val();
+    var email2 = $('#formConfermaEmail').val();
+    var nome = $('#formNome').val();
+    var cognome = $('#formCognome').val();
+    var sesso = $('#formSesso').val();
+    var codicefiscale = $('#formCodFisc').val();
+    var telefono = $('#formTelefono').val();
+    var codicestatocivile = $('#statocivile').val();
+    var datanascita = $('#date-picker-example').val();
+    var provincianascita = $('#listaprovincenascita').val();
+    var codicecomunenascita = $('#listacomunenascita').val();
+    var comunenascita = $("#listacomunenascita option[value='" + codicecomunenascita + "']").text();
+    var codiceprovinciaresidenza = $("#listaprovinceresidenza").val();
+    var provinciaresidenza = $("#listaprovinceresidenza option[value='" + codiceprovinciaresidenza + "']").text();
+    var codicecomuneresidenza = $('#listacomuneresidenza').val();
+    var indirizzo = $('#formIndirizzo').val();
+    var comuneresidenza = $("#listacomuneresidenza option[value='" + codicecomuneresidenza + "']").text();
+    var codicestatocivile = $("#statocivile").val();
+    var statocivile = $("#statocivile option[value='" + codicestatocivile + "']").text();
+    //Validazione campi
+    if ((!username) || (!password) || (!password2) || (!email) || (!email2) || (!nome) || (!cognome) || (!codicefiscale) || (!telefono) || (!datanascita) || (!indirizzo)) {
+        alert("Inserire tutti i campi.");
+    }
+    if (password != password2) {
+        alert("La password confermata è diversa da quella scelta, controllare.");
+        document.password2.value = "";
+    }
+    if (email != email2) {
+        alert("L'email confermata è diversa da quella scelta, controllare.");
+        document.email2.value = "";
+    }
+    /*var selectsesso = $('#formSesso').val();
+    var optionsesso = $('option:selected', selectsesso);
+    if (!optionsesso[0].value) {
+
+    }
+    var selectstatocivile = $('#statocivile').val();
+    var optionstatocivile = $('option:selected', selectstatocivile);
+    if (!optionstatocivile[0].value) {
+    }
+    var selectcomunenascita = $('#listacomunenascita').val();
+    var optioncomunenascita = $('option:selected', selectcomunenascita);
+    if (!optioncomunenascita[0].value) {
+    }
+    var selectcomuneresidenza = $('#listacomuneresidenza').val();
+    var optioncomuneresidenza = $('option:selected', selectcomuneresidenza);
+    if (!optioncomuneresidenza[0].value) {
+    }*/
+
+    var sendObject = {
+        username: username,
+        password: password,
+        email: email,
+        nome: nome,
+        cognome: cognome,
+        sesso: sesso,
+        codice_fiscale: codicefiscale,
+        telefono: telefono,
+        codStatoCivile: codicestatocivile,
+        data_nascita: datanascita,
+        luogo_nascita: comunenascita,
+        istatComuneNascita: codicecomunenascita,
+        provincia: provinciaresidenza,
+        comune_residenza: comuneresidenza,
+        indirizzores: indirizzo,
+        istatComuneResidenza: codicecomuneresidenza,
+        statocivile: statocivile
+    };
+    $.ajax({
+        type: "POST",
+        url: "http://192.168.125.24:3001/auth/registrazione",
+        data: JSON.stringify(sendObject),
+        dataType: "json",
+        contentType: 'application/json',
+        success: function (data, textStatus, jqXHR) {
+            alert(data);
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            alert(jqXHR.responseText);
+        }
+    });
+}
