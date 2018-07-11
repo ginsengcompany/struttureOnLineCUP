@@ -4,3 +4,11 @@
 .btn-color-primary {
     background-color: #003964;
 }
+td.details-control {
+    background: url('../img/show.png') no-repeat center center;
+    cursor: pointer;
+}
+
+tr.shown td.details-control {
+    background: url('../img/hide.png') no-repeat center center;
+}
