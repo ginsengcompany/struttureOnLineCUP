@@ -139,6 +139,46 @@ $(document).ready(function () {
         var comuneresidenza = $("#listacomuneresidenza option[value='" + codicecomuneresidenza +"']").text();
         var codicestatocivile = $("#statocivile").val();
         var statocivile = $("#statocivile option[value='" + codicestatocivile +"']").text();
+        //Validazione campi
+        if ((username == "") || (username == "undefined")) {
+            alert("Il campo Username è obbligatorio.");
+        }
+        if ((password == "") || (password == "undefined")) {
+            alert("Il campo Password è obbligatorio.");
+        }
+        if (password != password2) {
+            alert("La password confermata è diversa da quella scelta, controllare.");
+            document.password2.value = "";
+        }
+        if ((email == "") || (email == "undefined")) {
+            alert("Il campo Email è obbligatorio.");
+        }
+        if (email != email2) {
+            alert("L'email confermata è diversa da quella scelta, controllare.");
+            document.email2.value = "";
+        }
+        if ((nome == "") || (nome == "undefined")) {
+            alert("Il campo Nome è obbligatorio.");
+        }
+        if ((cognome == "") || (cognome == "undefined")) {
+            alert("Il campo Cognome è obbligatorio.");
+        }
+        if ((sesso == "") || (sesso == "undefined")) {
+            alert("Il campo Sesso di nascita è obbligatorio.");
+        }
+        if ((codicefiscale == "") || (codicefiscale == "undefined")) {
+            alert("Il campo Codice fiscale è obbligatorio.");
+        }
+        if ((telefono == "") || (telefono == "undefined")) {
+            alert("Il campo Numero di telefono è obbligatorio.");
+        }
+        if ((datanascita == "") || (datanascita == "undefined")) {
+            alert("Il campo Data di nascita è obbligatorio.");
+        }
+        if ((indirizzo == "") || (indirizzo == "undefined")) {
+            alert("Il campo Indirizzo è obbligatorio.");
+            return false;
+        }
         var sendObject = {
             username: username,
             password: password,
@@ -164,7 +204,9 @@ $(document).ready(function () {
             data: JSON.stringify(sendObject),
             dataType: "json",
             contentType: 'application/json',
-            success: function (data, textStatus, jqXHR) {},
+            success: function (data, textStatus, jqXHR) {
+                alert(data);
+            },
             error: function (jqXHR, textStatus, errorThrown) {
                 alert(jqXHR.responseText);
             }
