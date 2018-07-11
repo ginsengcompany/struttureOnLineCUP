@@ -1,9 +1,10 @@
+$('#rowcard').hide();
 $(document).ready(function () {
     $('#imglogo').addClass('animated fadeInDown');
     setTimeout(function () {
-        var rowcard = $('#rowcard');
-        rowcard.addClass('animated rubberBand')
-    }, 3000);
+        $('#rowcard').show();
+        $('#rowcard').addClass('animated rubberBand')
+    }, 1000);
     $('#loginForm').submit(function () {
         eseguiLogin();
         return false;

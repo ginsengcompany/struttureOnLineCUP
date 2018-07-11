@@ -12,28 +12,30 @@ block body
         div(style='height: 6em')
             .row.my-5
                 img#imglogo.img-fluid(style='margin:auto; display:block', src='img/iconmenu.png', alt='Card image cap')
-            .row.h-100#rowcard(style='visibility:hidden')
-                .col-sm-12.my-auto
+            .row.h-100#rowcard
+                .col-sm-3
+                .col-sm-6.my-auto
                     .card.mx-auto.w-50
                         .card-body
-                            .form-header.blue-gradient.rounded
+                            .form-header.morpheus-den-gradient.rounded
                                 h3
                                     i.fa.fa-lock
                                     |  Autenticazione:
-                            form#loginForm.md-form
-                                .md-form.font-weight-light
+                            form#loginForm
+                                .md-form
                                     i.fa.fa-user.prefix.grey-text
-                                    input#materialFormUsername.form-control(type='text', name='username', placeholder='Nome utente', required='')
+                                    input#materialFormUsername.form-control(type='text', name='username', required='', style='color:#003964')
                                     label(for='materialFormUsername') Nome utente
-                                .md-form.font-weight-light
+                                .md-form
                                     i.fa.fa-lock.prefix.grey-text
-                                    input#materialFormPassword.form-control(type='password', name='password', placeholder='Password', required='')
+                                    input#materialFormPassword.form-control(type='password', name='password', required='', style='color:#003964')
                                     label(for='materialFormPassword') Password
                                 .text-center.mt-4
-                                    button.btn.btn-light-blue.waves-effect.waves-light(type='submit') Entra
+                                    button.btn.btn-color-primary.waves-effect.waves-light(type='submit') Entra
                             .text-center.mt-4
-                                a.btn.btn-light-blue.waves-effect.waves-light(href='/registrazione') Registrati
-                            img.img-fluid(src='/img/loginTooltip.png', alt='Responsive image')
+                                a.btn.btn-color-primary.waves-effect.waves-light(href='/registrazione') Registrati
+                .col-sm-3
+                            //img.img-fluid(src='/img/loginTooltip.png', alt='Responsive image')
     script(type='text/javascript', src='/javascript/jquery-3.3.1.min.js')
     // Bootstrap tooltips
     script(type='text/javascript', src='/javascript/popper.min.js')
