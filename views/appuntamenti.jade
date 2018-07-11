@@ -1,0 +1,52 @@
+extends menu
+
+block title
+    title Lista Appuntamenti
+block style
+    link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css')
+    link(href='/stylesheet/bootstrap.min.css', rel='stylesheet')
+    link(href='/stylesheet/mdb.min.css', rel='stylesheet')
+    link(href='/stylesheet/style.css', rel='stylesheet')
+    link(href='https://cdnjs.cloudflare.com/ajax/libs/material-design-lite/1.1.0/material.min.css', rel='stylesheet')
+
+block content
+    .container
+        .row
+            .col
+                select#selectContatto.mdb-select.colorful-select.dropdown-ins(searchable="Cerca...")
+                    option(value='', disabled='',selected='') Seleziona l'assistito
+                    option(value='David') David Beckham
+        .row
+            .col.table-responsive
+                table.table.table-striped
+                    thead.mdb-color.darken-3
+                        tr.text-white
+                            th #
+                            th First Name
+                            th Last Name
+                            th Username
+                    tbody
+                        tr
+                            th(scope='row') 1
+                            td Mark
+                            td Otto
+                            td @mdo
+                        tr
+                            th(scope='row') 2
+                            td Jacob
+                            td Thornton
+                            td @fat
+                        tr
+                            th(scope='row') 3
+                            td Larry
+                            td the Bird
+                            td @twitter
+
+
+
+block javascript
+    script(type='text/javascript', src='/javascript/jquery-3.3.1.min.js')
+    script(type='text/javascript', src='/javascript/popper.min.js')
+    script(type='text/javascript', src='/javascript/bootstrap.min.js')
+    script(type='text/javascript', src='/javascript/mdb.min.js')
+    script(src='/javascript/appuntamentiController.js', type='text/javascript')

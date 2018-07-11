@@ -1,6 +1,14 @@
-$('#loginForm').submit(function () {
-    eseguiLogin();
-    return false;
+$('#rowcard').hide();
+$(document).ready(function () {
+    $('#imglogo').addClass('animated fadeInDown');
+    setTimeout(function () {
+        $('#rowcard').show();
+        $('#rowcard').addClass('animated rubberBand')
+    }, 1000);
+    $('#loginForm').submit(function () {
+        eseguiLogin();
+        return false;
+    });
 });
 
 function eseguiLogin() {
@@ -9,19 +17,21 @@ function eseguiLogin() {
         password : String
     };
     parametriLogin.username = $('#materialFormUsername').val();
-    console.log(parametriLogin.username);
     parametriLogin.password = $('#materialFormPassword').val();
     $.ajax({
         type: "POST",
-        url: "http://192.168.125.24:3001/auth/login",
+        url: "http://ecuptservice.ak12srl.it/auth/login",
         data: JSON.stringify(parametriLogin),
         dataType : "json",
         contentType : 'application/json',
         success: function (data, textStatus, jqXHR) {
-            console.log(data)
+            if(data.auth){
+                localStorage.setItem('tkn',data.token);
+                window.location.href = '/menu';
+            }
         },
         error: function(jqXHR, textStatus, errorThrown) {
-            console.log(textStatus);
+            alert(jqXHR.responseText);
         }
     });
 }

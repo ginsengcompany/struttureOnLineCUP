@@ -24,8 +24,8 @@ $(document).ready(function () {
     $.ajax({
         type: "GET",
         url: "http://192.168.125.24:3001/comuni/listaprovince",
-        dataType : "json",
-        contentType : 'plain/text',
+        dataType: "json",
+        contentType: 'plain/text',
         success: function (data, textStatus, jqXHR) {
             $('select[name="listaprovince"]').material_select('destroy');
             for (var i = 0; i < data.length; i++) {
@@ -33,7 +33,7 @@ $(document).ready(function () {
             }
             $('select[name="listaprovince"]').material_select();
         },
-        error: function(jqXHR, textStatus, errorThrown) {
+        error: function (jqXHR, textStatus, errorThrown) {
             console.log(textStatus);
         }
     });
@@ -42,15 +42,15 @@ $(document).ready(function () {
         var send = {codIstat: this.value};
         $.ajax({
             type: "POST",
-            url:"http://192.168.125.24:3001/comuni/listacomuni",
+            url: "http://192.168.125.24:3001/comuni/listacomuni",
             data: JSON.stringify(send),
-            dataType:"json",
-            contentType:'application/json',
+            dataType: "json",
+            contentType: 'application/json',
             success: function (data, textStatus, jqXHR) {
                 $('#listacomunenascita').material_select('destroy');
                 $('#listacomunenascita').find('option').remove();
                 selectComuneNascita.append('<option value="" disabled="" selected="">' + "Seleziona il comune" + '</option>');
-                for (var i = 0; i < data.length; i++){
+                for (var i = 0; i < data.length; i++) {
                     selectComuneNascita.append('<option value="' + data[i].codice + '">' + data[i].nome + '</option>');
                 }
                 $('#listacomunenascita').material_select();
@@ -63,11 +63,11 @@ $(document).ready(function () {
     var selectStatoCivile = $("#statocivile");
     $.ajax({
         type: "GET",
-        url:"http://192.168.125.24:3001/statocivile",
-        dataType:"json",
-        contentType:'plain/text',
+        url: "http://192.168.125.24:3001/statocivile",
+        dataType: "json",
+        contentType: 'plain/text',
         success: function (data, textStatus, jqXHR) {
-            for (var i = 0; i < data.length; i++){
+            for (var i = 0; i < data.length; i++) {
                 selectStatoCivile.append('<option value="' + data[i].id + '">' + data[i].descrizione + '</option>');
             }
             $('#statocivile').material_select();
@@ -76,44 +76,136 @@ $(document).ready(function () {
             console.log(textStatus);
         }
     });
-        var selectProvinceResidenza = $("#listaprovinceresidenza");
+    var selectProvinceResidenza = $("#listaprovinceresidenza");
+    $.ajax({
+        type: "GET",
+        url: "http://192.168.125.24:3001/comuni/listaprovince",
+        dataType: "json",
+        contentType: 'plain/text',
+        success: function (data, textStatus, jqXHR) {
+            $('select[name="listaprovince"]').material_select('destroy');
+            for (var i = 0; i < data.length; i++) {
+                selectProvinceResidenza.append('<option value="' + data[i].codIstat + '">' + data[i].provincia + '</option>');
+            }
+            $('select[name="listaprovince"]').material_select();
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            console.log(textStatus);
+        }
+    });
+    $('#listaprovinceresidenza').on('change', function () {
+        var selectComuneResidenza = $("#listacomuneresidenza");
+        var send = {codIstat: this.value};
         $.ajax({
-            type: "GET",
-            url: "http://192.168.125.24:3001/comuni/listaprovince",
-            dataType : "json",
-            contentType : 'plain/text',
+            type: "POST",
+            url: "http://192.168.125.24:3001/comuni/listacomuni",
+            data: JSON.stringify(send),
+            dataType: "json",
+            contentType: 'application/json',
             success: function (data, textStatus, jqXHR) {
-                $('select[name="listaprovince"]').material_select('destroy');
+                $('#listacomuneresidenza').material_select('destroy');
+                $('#listacomuneresidenza').find('option').remove();
+                selectComuneResidenza.append('<option value="" disabled="" selected="">' + "Seleziona il comune" + '</option>');
                 for (var i = 0; i < data.length; i++) {
-                    selectProvinceResidenza.append('<option value="' + data[i].codIstat + '">' + data[i].provincia + '</option>');
+                    selectComuneResidenza.append('<option value="' + data[i].codice + '">' + data[i].nome + '</option>');
                 }
-                $('select[name="listaprovince"]').material_select();
+                $('#listacomuneresidenza').material_select();
             },
-            error: function(jqXHR, textStatus, errorThrown) {
+            error: function (jqXHR, textStatus, errorThrown) {
                 console.log(textStatus);
             }
         });
-        $('#listaprovinceresidenza').on('change', function () {
-            var selectComuneResidenza = $("#listacomuneresidenza");
-            var send = {codIstat: this.value};
-            $.ajax({
-                type: "POST",
-                url:"http://192.168.125.24:3001/comuni/listacomuni",
-                data: JSON.stringify(send),
-                dataType:"json",
-                contentType:'application/json',
-                success: function (data, textStatus, jqXHR) {
-                    $('#listacomuneresidenza').material_select('destroy');
-                    $('#listacomuneresidenza').find('option').remove();
-                    selectComuneResidenza.append('<option value="" disabled="" selected="">' + "Seleziona il comune" + '</option>');
-                    for (var i = 0; i < data.length; i++){
-                        selectComuneResidenza.append('<option value="' + data[i].codice + '">' + data[i].nome + '</option>');
-                    }
-                    $('#listacomuneresidenza').material_select();
-                },
-                error: function (jqXHR, textStatus, errorThrown) {
-                    console.log(textStatus);
-                }
-            });
-        });
+    });
+    $("#registrazioneform").sumbit(function() {
+        eseguiregistrazione();
+        return false;
+        //console.log(sendObject);
+    });
 });
+
+function eseguiregistrazione(){
+    var username = $('#formUsername').val();
+    var password = $('#formPassword').val();
+    var password2 = $('#formConfermaPassword').val();
+    var email = $('#formEmail').val();
+    var email2 = $('#formConfermaEmail').val();
+    var nome = $('#formNome').val();
+    var cognome = $('#formCognome').val();
+    var sesso = $('#formSesso').val();
+    var codicefiscale = $('#formCodFisc').val();
+    var telefono = $('#formTelefono').val();
+    var codicestatocivile = $('#statocivile').val();
+    var datanascita = $('#date-picker-example').val();
+    var provincianascita = $('#listaprovincenascita').val();
+    var codicecomunenascita = $('#listacomunenascita').val();
+    var comunenascita = $("#listacomunenascita option[value='" + codicecomunenascita + "']").text();
+    var codiceprovinciaresidenza = $("#listaprovinceresidenza").val();
+    var provinciaresidenza = $("#listaprovinceresidenza option[value='" + codiceprovinciaresidenza + "']").text();
+    var codicecomuneresidenza = $('#listacomuneresidenza').val();
+    var indirizzo = $('#formIndirizzo').val();
+    var comuneresidenza = $("#listacomuneresidenza option[value='" + codicecomuneresidenza + "']").text();
+    var codicestatocivile = $("#statocivile").val();
+    var statocivile = $("#statocivile option[value='" + codicestatocivile + "']").text();
+    //Validazione campi
+    if ((!username) || (!password) || (!password2) || (!email) || (!email2) || (!nome) || (!cognome) || (!codicefiscale) || (!telefono) || (!datanascita) || (!indirizzo)) {
+        alert("Inserire tutti i campi.");
+    }
+    if (password != password2) {
+        alert("La password confermata è diversa da quella scelta, controllare.");
+        document.password2.value = "";
+    }
+    if (email != email2) {
+        alert("L'email confermata è diversa da quella scelta, controllare.");
+        document.email2.value = "";
+    }
+    /*var selectsesso = $('#formSesso').val();
+    var optionsesso = $('option:selected', selectsesso);
+    if (!optionsesso[0].value) {
+
+    }
+    var selectstatocivile = $('#statocivile').val();
+    var optionstatocivile = $('option:selected', selectstatocivile);
+    if (!optionstatocivile[0].value) {
+    }
+    var selectcomunenascita = $('#listacomunenascita').val();
+    var optioncomunenascita = $('option:selected', selectcomunenascita);
+    if (!optioncomunenascita[0].value) {
+    }
+    var selectcomuneresidenza = $('#listacomuneresidenza').val();
+    var optioncomuneresidenza = $('option:selected', selectcomuneresidenza);
+    if (!optioncomuneresidenza[0].value) {
+    }*/
+
+    var sendObject = {
+        username: username,
+        password: password,
+        email: email,
+        nome: nome,
+        cognome: cognome,
+        sesso: sesso,
+        codice_fiscale: codicefiscale,
+        telefono: telefono,
+        codStatoCivile: codicestatocivile,
+        data_nascita: datanascita,
+        luogo_nascita: comunenascita,
+        istatComuneNascita: codicecomunenascita,
+        provincia: provinciaresidenza,
+        comune_residenza: comuneresidenza,
+        indirizzores: indirizzo,
+        istatComuneResidenza: codicecomuneresidenza,
+        statocivile: statocivile
+    };
+    $.ajax({
+        type: "POST",
+        url: "http://192.168.125.24:3001/auth/registrazione",
+        data: JSON.stringify(sendObject),
+        dataType: "json",
+        contentType: 'application/json',
+        success: function (data, textStatus, jqXHR) {
+            alert(data);
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            alert(jqXHR.responseText);
+        }
+    });
+}

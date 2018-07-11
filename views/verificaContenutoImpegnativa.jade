@@ -1,0 +1,69 @@
+extends menu
+
+block title
+    title Verifica Contenuto Impegnativa
+block style
+    link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css')
+    link(href='/stylesheet/bootstrap.min.css', rel='stylesheet')
+    link(href='/stylesheet/mdb.min.css', rel='stylesheet')
+    link(href='/stylesheet/style.css', rel='stylesheet')
+    link(href='https://cdnjs.cloudflare.com/ajax/libs/material-design-lite/1.1.0/material.min.css', rel='stylesheet')
+    link(href='//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css', rel='stylesheet')
+
+block content
+    .container
+        .row.m-3
+            .col
+            .col-8
+                // Card
+                .card.card-cascade.m-5
+                    // Card image
+                    .view.view-cascade.gradient-card-header.blue-gradient
+                        // Title
+                        h2.card-header-title.mb-3 Dettagli Impegnativa
+                        // Subtitle
+                        p.card-header-subtitle.mb-0 Verifica contenuto Impegnativa
+                    // Card content
+                    .card-body.card-body-cascade.text-center
+                        // Text
+                        h5.pink-text
+                            i.fa.fa-user
+                            p#nome
+                        h5.pink-text
+                            i.fa.fa-user
+                            p#cognome
+                        h5.pink-text
+                            i.fa.fa-barcode
+                            p#codiceImpegnativa
+                        p.card-text
+                            | Di seguito puoi scegliere il reparto utilizzando il menù a tendina contenuto in tabella.
+                        hr
+
+                // Card
+
+            .col
+        .row.m-3
+            .col.table-responsive
+                table#example.display.nowrap(cellspacing='0', width='100%')
+                    thead
+                        tr
+                            th
+                            th Prestazione
+                            th Reparto
+                    tbody
+                        td 1
+                        td prova
+                        td prova 2
+                    tfoot
+                        tr
+                            th
+                            th Prestazione
+                            th Reparto
+
+block javascript
+    script(type='text/javascript', src='/javascript/jquery-3.3.1.min.js')
+    script(type='text/javascript', src='/javascript/popper.min.js')
+    script(type='text/javascript', src='/javascript/bootstrap.min.js')
+    script(type='text/javascript', src='/javascript/mdb.min.js')
+    script(type='text/javascript', src='//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js')
+    script(src='/javascript/verificaContenutoImpegnativaController.js', type='text/javascript')

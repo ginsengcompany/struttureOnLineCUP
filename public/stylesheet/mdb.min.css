@@ -8013,13 +8013,13 @@ body.scrollable {
 }
 
 .md-form input[type=date]:focus:not([readonly]), .md-form input[type=datetime-local]:focus:not([readonly]), .md-form input[type=email]:focus:not([readonly]), .md-form input[type=number]:focus:not([readonly]), .md-form input[type=password]:focus:not([readonly]), .md-form input[type=search-md]:focus:not([readonly]), .md-form input[type=search]:focus:not([readonly]), .md-form input[type=tel]:focus:not([readonly]), .md-form input[type=text]:focus:not([readonly]), .md-form input[type=time]:focus:not([readonly]), .md-form input[type=url]:focus:not([readonly]), .md-form textarea.md-textarea:focus:not([readonly]) {
-    -webkit-box-shadow: 0 1px 0 0 #4285f4;
-    box-shadow: 0 1px 0 0 #4285f4;
-    border-bottom: 1px solid #4285f4
+    -webkit-box-shadow: 0 1px 0 0 #6C94B2;
+    box-shadow: 0 1px 0 0 #6C94B2;
+    border-bottom: 1px solid #6C94B2
 }
 
 .md-form input[type=date]:focus:not([readonly]) + label, .md-form input[type=datetime-local]:focus:not([readonly]) + label, .md-form input[type=email]:focus:not([readonly]) + label, .md-form input[type=number]:focus:not([readonly]) + label, .md-form input[type=password]:focus:not([readonly]) + label, .md-form input[type=search-md]:focus:not([readonly]) + label, .md-form input[type=search]:focus:not([readonly]) + label, .md-form input[type=tel]:focus:not([readonly]) + label, .md-form input[type=text]:focus:not([readonly]) + label, .md-form input[type=time]:focus:not([readonly]) + label, .md-form input[type=url]:focus:not([readonly]) + label, .md-form textarea.md-textarea:focus:not([readonly]) + label {
-    color: #4285f4
+    color: #6C94B2
 }
 
 .md-form input[type=date] + label:after, .md-form input[type=datetime-local] + label:after, .md-form input[type=email] + label:after, .md-form input[type=number] + label:after, .md-form input[type=password] + label:after, .md-form input[type=search-md] + label:after, .md-form input[type=search] + label:after, .md-form input[type=tel] + label:after, .md-form input[type=text] + label:after, .md-form input[type=time] + label:after, .md-form input[type=url] + label:after, .md-form textarea.md-textarea + label:after {
@@ -8141,7 +8141,7 @@ body.scrollable {
     -o-transition: .2s ease-out;
     transition: .2s ease-out;
     cursor: text;
-    color: #757575
+    color: #6C94B2
 }
 
 .btn-floating, .card .card-reveal .card-title, .card-wrapper .card-rotating .card-title {

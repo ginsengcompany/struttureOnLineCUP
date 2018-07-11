@@ -5,4 +5,5 @@ router.get('/', function(req, res) {
     res.render('registrazione');
 });
 
+
 module.exports = router;
