@@ -1,11 +1,8 @@
 var express = require('express');
 var router = express.Router();
 
-router.get('/', function(req, res) {
-    res.render('prenotazione');
-});
-
-router.get('/verificaContenutoImpegnativa', function(req, res) {
+/* GET verificaContenutoImpegnativa page. */
+router.get('/', function(req, res, next) {
     res.render('verificaContenutoImpegnativa');
 });
 

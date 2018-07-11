@@ -12,6 +12,7 @@ var menu = require('./routes/menu');
 var rubrica = require('./routes/rubrica');
 var prenotazione = require('./routes/prenotazione');
 var appuntamenti = require('./routes/appuntamenti');
+var verificaContenutoImpegnativa = require('./routes/verificaContenutoImpegnativa');
 var cors = require('cors');
 
 var app = express();
@@ -41,6 +42,7 @@ app.use('/menu', menu);
 app.use('/prenotazione', prenotazione);
 app.use('/rubrica', rubrica);
 app.use('/appuntamenti', appuntamenti);
+app.use('/verificaContenutoImpegnativa',verificaContenutoImpegnativa);
 app.use(cors());
 
 // error handler
