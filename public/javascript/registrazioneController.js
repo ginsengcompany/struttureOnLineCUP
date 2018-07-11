@@ -131,14 +131,72 @@ $(document).ready(function () {
         var datanascita = $('#date-picker-example').val();
         var provincianascita = $('#listaprovincenascita').val();
         var codicecomunenascita = $('#listacomunenascita').val();
-        var comunenascita = $("#listacomunenascita option[value='" + codicecomunenascita +"']").text();
+        var comunenascita = $("#listacomunenascita option[value='" + codicecomunenascita + "']").text();
         var codiceprovinciaresidenza = $("#listaprovinceresidenza").val();
-        var provinciaresidenza = $("#listaprovinceresidenza option[value='" + codiceprovinciaresidenza +"']").text();
+        var provinciaresidenza = $("#listaprovinceresidenza option[value='" + codiceprovinciaresidenza + "']").text();
         var codicecomuneresidenza = $('#listacomuneresidenza').val();
         var indirizzo = $('#formIndirizzo').val();
-        var comuneresidenza = $("#listacomuneresidenza option[value='" + codicecomuneresidenza +"']").text();
+        var comuneresidenza = $("#listacomuneresidenza option[value='" + codicecomuneresidenza + "']").text();
         var codicestatocivile = $("#statocivile").val();
-        var statocivile = $("#statocivile option[value='" + codicestatocivile +"']").text();
+        var statocivile = $("#statocivile option[value='" + codicestatocivile + "']").text();
+        //Validazione campi
+        if ((username == "") || (username == "undefined")) {
+            alert("Il campo Username è obbligatorio.");
+        }
+        if ((password == "") || (password == "undefined")) {
+            alert("Il campo Password è obbligatorio.");
+        }
+        if (password != password2) {
+            alert("La password confermata è diversa da quella scelta, controllare.");
+            document.password2.value = "";
+        }
+        if ((email == "") || (email == "undefined")) {
+            alert("Il campo Email è obbligatorio.");
+        }
+        if (email != email2) {
+            alert("L'email confermata è diversa da quella scelta, controllare.");
+            document.email2.value = "";
+        }
+        if ((nome == "") || (nome == "undefined")) {
+            alert("Il campo Nome è obbligatorio.");
+        }
+        if ((cognome == "") || (cognome == "undefined")) {
+            alert("Il campo Cognome è obbligatorio.");
+        }
+        var selectsesso = $('#formSesso').val();
+        var optionsesso = $('option:selected', selectsesso);
+        if (!optionsesso[0].value) {
+            alert("Devi selezionare un sesso.");
+        }
+        if ((codicefiscale == "") || (codicefiscale == "undefined")) {
+            alert("Il campo Codice fiscale è obbligatorio.");
+        }
+        if ((telefono == "") || (telefono == "undefined")) {
+            alert("Il campo Numero di telefono è obbligatorio.");
+        }
+        var selectstatocivile = $('#statocivile').val();
+        var optionstatocivile = $('option:selected', selectstatocivile);
+        if (!optionstatocivile[0].value) {
+            alert("Devi selezionare lo stato civile.");
+        }
+        if ((datanascita == "") || (datanascita == "undefined")) {
+            alert("Il campo Data di nascita è obbligatorio.");
+        }
+        var selectcomunenascita = $('#listacomunenascita').val();
+        var optioncomunenascita = $('option:selected', selectcomunenascita);
+        if (!optioncomunenascita[0].value) {
+            alert("Devi selezionare una Provincia e un Comune di nascita.");
+        }
+        var selectcomuneresidenza = $('#listacomuneresidenza').val();
+        var optioncomuneresidenza = $('option:selected', selectcomuneresidenza);
+        if (!optioncomuneresidenza[0].value) {
+            alert("Devi selezionare una Provincia e un Comune di residenza.");
+        }
+
+        if ((indirizzo == "") || (indirizzo == "undefined")) {
+            alert("Il campo Indirizzo è obbligatorio.");
+            return false;
+        }
         var sendObject = {
             username: username,
             password: password,
@@ -164,7 +222,9 @@ $(document).ready(function () {
             data: JSON.stringify(sendObject),
             dataType: "json",
             contentType: 'application/json',
-            success: function (data, textStatus, jqXHR) {},
+            success: function (data, textStatus, jqXHR) {
+                alert(data);
+            },
             error: function (jqXHR, textStatus, errorThrown) {
                 alert(jqXHR.responseText);
             }
