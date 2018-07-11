@@ -9,31 +9,31 @@ block style
     link(href='/stylesheet/style.css', rel='stylesheet')
 block body
     body
-        .row.mt-5
-            .col-4
-            .col-4
-                form#loginForm
-                    p.h4.text-center.mb-4 Log in
-                    .md-form
-                        i.fa.fa-user.prefix.grey-text
-                        input#materialFormUsername.form-control(type='text', name='username')
-                        label(for='materialFormUsername') Nome utente
-                    .md-form
-                        i.fa.fa-lock.prefix.grey-text
-                        input#materialFormPassword.form-control(type='password', name='password')
-                        label(for='materialFormPassword') Password
-                    .text-center.mt-4
-                        input.submit.btn.btn-info(type="submit" value="Login")
-                    .text-center.mt-4
-                        a(target='_blank', href='http://localhost:3000/registrazione')  Registrati
-            .col-4
-        .row.mt-5
-            .col-md-3
-            .col-md-6
-                img.img-fluid(src='/img/loginTooltip.png', alt='Responsive image')
-            .col-md-3
-
-
+        div(style='height: 6em')
+            .row.my-5
+                img#imglogo.img-fluid(style='margin:auto; display:block', src='img/iconmenu.png', alt='Card image cap')
+            .row.h-100#rowcard(style='visibility:hidden')
+                .col-sm-12.my-auto
+                    .card.mx-auto.w-50
+                        .card-body
+                            .form-header.blue-gradient.rounded
+                                h3
+                                    i.fa.fa-lock
+                                    |  Autenticazione:
+                            form#loginForm.md-form
+                                .md-form.font-weight-light
+                                    i.fa.fa-user.prefix.grey-text
+                                    input#materialFormUsername.form-control(type='text', name='username', placeholder='Nome utente', required='')
+                                    label(for='materialFormUsername') Nome utente
+                                .md-form.font-weight-light
+                                    i.fa.fa-lock.prefix.grey-text
+                                    input#materialFormPassword.form-control(type='password', name='password', placeholder='Password', required='')
+                                    label(for='materialFormPassword') Password
+                                .text-center.mt-4
+                                    button.btn.btn-light-blue.waves-effect.waves-light(type='submit') Entra
+                            .text-center.mt-4
+                                a.btn.btn-light-blue.waves-effect.waves-light(href='/registrazione') Registrati
+                            img.img-fluid(src='/img/loginTooltip.png', alt='Responsive image')
     script(type='text/javascript', src='/javascript/jquery-3.3.1.min.js')
     // Bootstrap tooltips
     script(type='text/javascript', src='/javascript/popper.min.js')
