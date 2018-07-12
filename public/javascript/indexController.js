@@ -31,7 +31,8 @@ function eseguiLogin() {
             }
         },
         error: function(jqXHR, textStatus, errorThrown) {
-            alert(jqXHR.responseText);
+            $('#paragrafomodalLogin').text(jqXHR.responseText);
+            $('#centralModalInfo').modal('show');
         }
     });
 }
