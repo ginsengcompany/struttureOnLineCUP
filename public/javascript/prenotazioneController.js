@@ -1,6 +1,7 @@
 $( "#rowCodiceImpegnativa1" ).hide();
 $( "#rowCodiceImpegnativa2" ).hide();
 $( "#rowAutoFill" ).hide();
+$( "#rowBottoneInvio" ).hide();
 $(document).ready(function () {
     $('#nomeAutofill').val('');
     $('#cognomeAutofill').val('');
@@ -43,9 +44,10 @@ $(document).ready(function () {
         }
     });
     $('#codiceImpegnativa1').on('input',function (){
-        if($('#codiceImpegnativa1').val().length > 5) {
+        if($('#codiceImpegnativa1').val().length > 5 && $('#codiceImpegnativa1').val().length === 15) {
             $('#labelcodiceImpegnativa1').text("Inserisci il codice SAR");
             $("#rowCodiceImpegnativa2").hide();
+            $( "#rowBottoneInvio" ).show();
         }
         else if($('#codiceImpegnativa1').val().length === 5) {
             $("#rowCodiceImpegnativa2").show();
@@ -53,7 +55,14 @@ $(document).ready(function () {
         else {
             $('#labelcodiceImpegnativa1').text("Inserisci il codice Impegnativa");
             $("#rowCodiceImpegnativa2").hide();
+            $("#rowBottoneInvio").hide();
         }
+    });
+    $('#codiceImpegnativa2').on('input',function (){
+        if($('#codiceImpegnativa2').val() === '' || $('#codiceImpegnativa2').val().length < 10)
+            $("#rowBottoneInvio").hide();
+        else
+            $("#rowBottoneInvio").show();
     });
     /*let selectNominativiPlaceholder = ["Giancarlo Magalli", "Fabrizi Frizzi", "Carlo Conti", "Flavio Insinna"];
     $('.mdb-select').material_select('destroy');
@@ -71,3 +80,32 @@ $(document).ready(function () {
         $("#codiceFiscaleAutofill").val(nomeSelezionato);
     });*/
 });
+
+function invioPrenotazione() {
+    let sendObject = {
+        nre: $('#codiceImpegnativa1').val() + $('#codiceImpegnativa2').val(),
+        assistito: {
+            codice_fiscale: $("#codiceFiscaleAutofill").val(),
+            nome: $("#nomeAutofill").val(),
+            cognome: $("#cognomeAutofill").val()
+        }
+    };
+    console.log(sendObject);
+    $.ajax({
+        type: "POST",
+        url: "http://192.168.125.24:3001/ricetta",
+        headers: {
+            "x-access-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVhZmVkNWM2Mjc1MTNiN2ZiYjI5Yjc2MCIsImlhdCI6MTUzMTI5NTc3M30.BQGMg3W-bhpziOSRotEOAnazPLSsWyIlFridkhBbo_s",
+            "struttura": "150907"
+        },
+        data: JSON.stringify(sendObject),
+        dataType: "json",
+        contentType: 'application/json',
+        success: function (data, textStatus, jqXHR) {
+            alert(data);
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            alert(jqXHR.responseText);
+        }
+    });
+}

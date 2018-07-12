@@ -11,33 +11,57 @@ block style
 block content
     .container
         .row
-            .col
+            .col-md-8
                 blockquote.blockquote.bq-primary
                     p.h4.bq-title Prenotazione
+                        a.btn-floating.btn-sm.btn-color-primary(data-toggle="modal" data-target='#centralModalInfo')
+                            i.fa.fa-info
                     p
                         | Invio richiesta prenotazione
+
         .row
             .container.col-md-6
                     select#selectNominativo.mdb-select
                     label Selezionare il nominativo per continuare
         .row#rowAutoFill
-            .container.col-md-6
+            .container
+                .col-md-4
                     label.disabled(for='nomeAutofill') Nome
                     input#nomeAutofill.form-control(type='text', disabled='')
+                .col-md-4
                     label.disabled(for='cognomeAutofill') Cognome
                     input#cognomeAutofill.form-control(type='text', disabled='')
+                .col-md-4
                     label.disabled(for='codiceFiscaleAutofill') Codice Fiscale
                     input#codiceFiscaleAutofill.form-control(type='text', disabled='')
-        .row.m-5#rowCodiceImpegnativa1
-            .container.col-md-6
+        .row#rowCodiceImpegnativa1
+            .container
+                .col-md-6
+                    .text-center.mt-4
+                        label#labelcodiceImpegnativa1(for='codiceImpegnativa1') Inserisci il codice Impegnativa
+                        input#codiceImpegnativa1.form-control(type='text')
+        .row#rowCodiceImpegnativa2
+            .container
+                .col-md-6
+                    .text-center.mt-4
+                        label(for='codiceImpegnativa2') Inserisci il secondo codice Impegnativa
+                        input#codiceImpegnativa2.form-control(type='text')
+        .row#rowBottoneInvio
+            .container.col-md-8
                 .text-center.mt-4
-                    label#labelcodiceImpegnativa1(for='codiceImpegnativa1') Inserisci il codice Impegnativa
-                    input#codiceImpegnativa1.form-control(type='text')
-        .row.m-5#rowCodiceImpegnativa2
-            .container.col-md-6
-                .text-center.mt-4
-                    label(for='codiceImpegnativa2') Inserisci il secondo codice Impegnativa
-                    input#codiceImpegnativa2.form-control(type='text')
+                    button#invioPrenotazione.btn.btn-outline-primary.waves-effect(type='button' onclick='invioPrenotazione();') Invio
+
+    div#centralModalInfo.modal.fade(tabindex='-1' role='dialog' aria-hidden='true')
+        div.modal-dialog.modal-notify(role='document')
+            div.modal-content
+                div.modal-header.btn-color-primary.text-center
+                    h4.modal-title.w-100.font-weight-bold(style="color:white;") Info
+                    button.close(type='button' data-dismiss='modal' aria-label='Close')
+                        span.white-text(aria-hidden='true') &times;
+                div.modal-body
+                    img.img-fluid(src='/img/loginTooltip.png', alt='immagini impegnative')
+                    div.text-center
+                        p Il portale gestisce solo ed esclusivamente le impegnative NRE
 
 block javascript
         script(type='text/javascript', src='/javascript/jquery-3.3.1.min.js')
