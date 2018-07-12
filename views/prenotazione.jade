@@ -24,8 +24,7 @@ block content
                     select#selectNominativo.mdb-select
                     label Selezionare il nominativo per continuare
         .row#rowAutoFill
-            .container
-                .col-md-4
+            .container.col-md-4
                     label.disabled(for='nomeAutofill') Nome
                     input#nomeAutofill.form-control(type='text', disabled='')
                 .col-md-4
@@ -35,20 +34,22 @@ block content
                     label.disabled(for='codiceFiscaleAutofill') Codice Fiscale
                     input#codiceFiscaleAutofill.form-control(type='text', disabled='')
         .row#rowCodiceImpegnativa1
+            .col-md-3
             .container.col-md-6
                     .text-center.mt-4
                         label#labelcodiceImpegnativa1(for='codiceImpegnativa1') Inserisci il codice Impegnativa
                         input#codiceImpegnativa1.form-control(type='text')
-            .container.col-md-6
+            .container.col-md-3
                 .mt-5
                     a.btn-floating.btn-sm.btn-color-primary(data-toggle="modal" data-target='#centralModalCod1')
                         i.fa.fa-info
         .row#rowCodiceImpegnativa2
+            .col-md-3
             .container.col-md-6
                     .text-center.mt-4
                         label(for='codiceImpegnativa2') Inserisci il secondo codice Impegnativa
                         input#codiceImpegnativa2.form-control(type='text')
-            .container.col-md-6
+            .container.col-md-3
                 .mt-5
                     a.btn-floating.btn-sm.btn-color-primary(data-toggle="modal" data-target='#centralModalCod2')
                         i.fa.fa-info
