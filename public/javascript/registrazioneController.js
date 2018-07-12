@@ -116,7 +116,7 @@ $(document).ready(function () {
             }
         });
     });
-    $("#registrazioneform").sumbit(function() {
+    $("#registrazioneform").submit(function() {
         eseguiregistrazione();
         return false;
         //console.log(sendObject);
