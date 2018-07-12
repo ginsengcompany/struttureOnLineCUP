@@ -4,6 +4,11 @@
 .btn-color-primary {
     background-color: #003964;
 }
+
+.btn-color-primary:hover{
+    color: white;
+}
+
 td.details-control {
     background: url('../img/show.png') no-repeat center center;
     cursor: pointer;

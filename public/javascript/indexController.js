@@ -33,6 +33,7 @@ function eseguiLogin() {
         error: function(jqXHR, textStatus, errorThrown) {
             $('#paragrafomodalLogin').text(jqXHR.responseText);
             $('#centralModalInfo').modal('show');
+            alert(jqXHR.responseText);
         }
     });
 }

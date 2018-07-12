@@ -1,4 +1,4 @@
-extends menu
+extends layout
 
 block title
     title Registrazione
@@ -7,107 +7,117 @@ block style
     link(href='/stylesheet/bootstrap.min.css', rel='stylesheet')
     link(href='/stylesheet/mdb.min.css', rel='stylesheet')
     link(href='/stylesheet/style.css', rel='stylesheet')
+    link(href='/stylesheet/stylemodalregistrazione.css', rel='stylesheet')
 
 block content
-    .container
-        .col
-            form#registrazioneform
-                p.h4.text-center.mt-5 Registrati
-                // Material input text
-                .row.mt-5
-                    .col-4
+    body
+        .container
+            br
+            br
+            .steps-form-2
+                .steps-row-2.setup-panel-2.d-flex.justify-content-between
+                    .steps-step-2
+                        a.btn.btn-amber.btn-circle-2.waves-effect.ml-0(href='#step-1', type='button', data-toggle='tooltip', data-placement='top', title='Dati account')
+                            i.fa.fa-user(aria-hidden='true')
+                    .steps-step-2
+                        a.btn.btn-blue-grey.btn-circle-2.waves-effect(href='#step-2', type='button', data-toggle='tooltip', data-placement='top', title='Dati personali')
+                            i.fa.fa-pencil(aria-hidden='true')
+                    .steps-step-2
+                        a.btn.btn-blue-grey.btn-circle-2.waves-effect(href='#step-3', type='button', data-toggle='tooltip', data-placement='top', title='Termini e condizioni')
+                            i.fa.fa-sticky-note(aria-hidden='true')
+            form#registrazioneform1
+                //step-1
+                div.row.setup-content-2#step-1
+                    .col-sm-12
+                        strong
+                            h3.font-weight-bold.pl-0.my-4 Dati account
                         .md-form
-                            i.fa.fa-user.prefix.grey-text
+                            i.fa.fa-user.prefix.dark-grey-text
                             input#formUsername.form-control(type='text' required='')
                             label(for='formUsername') Username
-                    .col-4
-                        // Material input password
                         .md-form
-                            i.fa.fa-lock.prefix.grey-text
+                            i.fa.fa-lock.prefix.dark-grey-text
                             input#formPassword.form-control(type='password' required='')
                             label(for='formPassword') Scegli Password
-                    .col-4
-                        // Material input email
                         .md-form
-                            i.fa.fa-exclamation-triangle.prefix.grey-text
+                            i.fa.fa-exclamation-triangle.prefix.dark-grey-text
                             input#formConfermaPassword.form-control(type='password' required='')
                             label(for='formConfermaPassword') Conferma Password
-                .row.mt-5
-                    .col-4
                         .md-form
-                            i.fa.fa-envelope.prefix.grey-text
+                            i.fa.fa-envelope.prefix.dark-grey-text
                             input#formEmail.form-control(type='email' required='')
                             label(for='formEmail') La tua email
-                        // Material input email
-                    .col-4
                         .md-form
-                            i.fa.fa-exclamation-triangle.prefix.grey-text
+                            i.fa.fa-exclamation-triangle.prefix.dark-grey-text
                             input#formConfermaEmail.form-control(type='email' required='')
                             label(for='formConfermaEmail') Conferma email
-                    .col-4
-                        .md-form
-                            i.fa.fa-user.prefix.grey-text
-                            input#formNome.form-control(type='text' required='')
-                            label(for='formNome') Inserisci Nome
-                .row.mt-5
-                    .col-4
-                        .md-form
-                            i.fa.fa-user.prefix.grey-text
-                            input#formCognome.form-control(type='text' required='')
-                            label(for='formCognome') Inserisci Cognome
-                    .col-4
-                        br
-                        div#sesso
-                         select#formSesso.mdb-select(required='')
-                            option(value='', disabled='',selected='') Seleziona sesso
-                                option.rounded-circle(value='M', data-icon='./img/uomo.png') Maschio
-                                option.rounded-circle(value='F', data-icon='./img/donna.png') Femmina
-
-                    .col-4
-                        .md-form
-                            input#formCodFisc.form-control(type='text' required='')
-                            label(for='formCodFisc') Codice Fiscale
-                .row.mt-5
-                    .col-4
-                        .md-form
-                            input#formTelefono.form-control(type='text' required='')
-                            label(for='formTelefono') Inserisci numero telefono
-                    .col-4
-                        br
-                        select#statocivile.mdb-select(name='statocivile' required='')
-                            option(value='', disabled='',selected='') Seleziona stato civile
-                    .col-4
-                        .md-form
-                            input#date-picker-example.form-control.datepicker(placeholder='Seleziona data di nascita', type='text' required='')
-                            label(for='date-picker-example') Data di nascita
-                .row.mt-5
-                    .col-4
-                        br
-                        select#listaprovincenascita.mdb-select(searchable="Cerca...",name="listaprovince" required='')
-                            option(value='', disabled='',selected='') Seleziona Provincia di nascita
-                    .col-4
-                        br
-                        select#listacomunenascita.mdb-select(searchable="Cerca..." required='')
-                            option(value='', disabled='',selected='') Seleziona Comune di nascita
-                    .col-4
-                        br
-                        select#listaprovinceresidenza.mdb-select(searchable="Cerca...",name="listaprovince" required='')
-                            option(value='', disabled='',selected='') Seleziona Provincia di residenza
-                .row.mt-5
-                    .col-4
-                        br
-                        select#listacomuneresidenza.mdb-select(searchable="Cerca..." required='')
-                            option(value='', disabled='',selected='') Seleziona Comune di residenza
-                    .col-4
-                        .md-form
-                            input#formIndirizzo.form-control(type='text' required='')
-                            label(for='formIndirizzo') Inserisci indirizzo residenza
-                .row.mt-5
-                    .col-4
-                    .col-4
-                        .text-center.mt-4
-                            input#registrazione.submit.btn.btn-info(type="submit" value="Registrati")
-                    .col-4
+                        button.btn.btn-color-primary.btn-rounded.nextBtn-2.float-right(type='button') Avanti
+                //step-2
+                div.row.setup-content-2#step-2
+                    .col-sm-12
+                        strong
+                            h3.font-weight-bold.pl-0.my-4 Dati personali
+                        .row
+                            .col-6
+                                .md-form
+                                    input#formNome.form-control(type='text' required='')
+                                    label(for='formNome') Inserisci Nome
+                            .col-6
+                                .md-form
+                                    input#formCognome.form-control(type='text' required='')
+                                    label(for='formCognome') Inserisci Cognome
+                        .row
+                            .col-6
+                                .md-form
+                                    input#date-picker-example.form-control.datepicker(placeholder='Data di nascita', type='text' required='')
+                                    label(for='date-picker-example') Data di nascita
+                            .col-6
+                                .md-form#sesso
+                                    select#formSesso.mdb-select
+                                        option(value='', disabled='', selected='') Sesso
+                                        option.rounded-circle(value='M', data-icon='./img/uomo.png') Maschio
+                                        option.rounded-circle(value='F', data-icon='./img/donna.png') Femmina
+                        .row
+                            .col-6
+                                .md-form
+                                    select#listaprovincenascita.mdb-select(searchable="Cerca...", name="listaprovince" required='' initialized)
+                                        option(value='', disabled='', selected='') Provincia di nascita
+                            .col-6
+                                .md-form
+                                    select#listacomunenascita.mdb-select(searchable="Cerca...", required='', name="comuni")
+                                        option(value='', disabled='', selected='') Comune di nascita
+                        .row
+                            .col-6
+                                .md-form
+                                    input#formCodFisc.form-control(type='text' required='')
+                                    label(for='formCodFisc') Codice Fiscale
+                            .col-6
+                                .md-form
+                                    select#statocivile.mdb-select(name='statocivile' required='')
+                                        option(value='', disabled='', selected='') Stato civile
+                        .row
+                            .col-6
+                                .md-form
+                                    input#formTelefono.form-control(type='text' required='')
+                                    label(for='formTelefono') Numero mobile
+                            .col-6
+                                .md-form
+                                    select#listaprovinceresidenza.mdb-select(searchable="Cerca...", name="listaprovince" required='')
+                                        option(value='', disabled='', selected='') Provincia di residenza
+                        .row
+                            .col-6
+                                .md-form
+                                    select#listacomuneresidenza.mdb-select(searchable="Cerca...", required='', name="comuni")
+                                        option(value='', disabled='', selected='') Comune di residenza
+                            .col-6
+                                .md-form
+                                    input#formIndirizzo.form-control(type='text' required='')
+                                    label(for='formIndirizzo') Indirizzo di residenza
+                        button.btn.btn-color-primary.btn-rounded.prevBtn-2.float-left(type='button') Indietro
+                        button.btn.btn-color-primary.btn-rounded.nextBtn-2.float-right(type='button') Avanti
+                div.row.setup-content-2#step-3
+                    .col-sm-12
+                        button#registrazione.submit.btn.btn-mdb-color.btn-rounded.nextBtn-2.float-left(type='button') Registrati
 
 block javascript
         script(type='text/javascript', src='/javascript/jquery-3.3.1.min.js')
