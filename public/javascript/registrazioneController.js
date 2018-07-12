@@ -147,10 +147,8 @@ function eseguiregistrazione(){
     var codicestatocivile = $("#statocivile").val();
     var statocivile = $("#statocivile option[value='" + codicestatocivile + "']").text();
     //Validazione campi
-    if ((!username) || (!password) || (!password2) || (!email) || (!email2) || (!nome) || (!cognome) || (!codicefiscale) || (!telefono) || (!datanascita) || (!indirizzo)) {
-        alert("Inserire tutti i campi.");
-    }
-    if (password != password2) {
+
+    /*if (password != password2) {
         alert("La password confermata è diversa da quella scelta, controllare.");
         document.password2.value = "";
     }
@@ -158,10 +156,10 @@ function eseguiregistrazione(){
         alert("L'email confermata è diversa da quella scelta, controllare.");
         document.email2.value = "";
     }
-    /*var selectsesso = $('#formSesso').val();
+    var selectsesso = $('#formSesso').val();
     var optionsesso = $('option:selected', selectsesso);
     if (!optionsesso[0].value) {
-
+        alert("Devi scegliere un sesso.");
     }
     var selectstatocivile = $('#statocivile').val();
     var optionstatocivile = $('option:selected', selectstatocivile);
@@ -174,6 +172,8 @@ function eseguiregistrazione(){
     var selectcomuneresidenza = $('#listacomuneresidenza').val();
     var optioncomuneresidenza = $('option:selected', selectcomuneresidenza);
     if (!optioncomuneresidenza[0].value) {
+        alert("Devi selezionare una Provincia e un Comune di residenza.");
+        return false;
     }*/
 
     var sendObject = {
