@@ -36,7 +36,14 @@ $(document).ready(function() {
         language: {
             url: '../localisation/it-IT.json'
         },
-        "ajax":"../javascript/modules/objects.txt",
+        "ajax":{
+            url: "http://192.168.125.24:3001/auth/me",
+            type: 'GET',
+            dataType: 'json',
+            beforeSend: function (request) {
+                request.setRequestHeader('x-access-token','eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVhZmVkNWM2Mjc1MTNiN2ZiYjI5Yjc2MCIsImlhdCI6MTUzMTI5NTc3M30.BQGMg3W-bhpziOSRotEOAnazPLSsWyIlFridkhBbo_s');
+            }
+        },
         "columns": [
             {
                 "className":      'details-control',
