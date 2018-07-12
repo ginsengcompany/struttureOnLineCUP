@@ -4,6 +4,12 @@
 .btn-color-primary {
     background-color: #003964;
 }
+.bq-primary {
+    border-left: 3px solid #003964 !important;
+}
+.bq-primary .bq-title {
+    color: #003964 !important;
+}
 td.details-control {
     background: url('../img/show.png') no-repeat center center;
     cursor: pointer;
@@ -11,4 +17,8 @@ td.details-control {
 
 tr.shown td.details-control {
     background: url('../img/hide.png') no-repeat center center;
+}
+input[type=text] {
+    border-bottom: 1px solid #003964;
+    box-shadow: 0 1px 0 0 #003964;
 }
