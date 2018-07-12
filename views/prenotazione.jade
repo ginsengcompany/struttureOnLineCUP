@@ -24,8 +24,7 @@ block content
                     select#selectNominativo.mdb-select
                     label Selezionare il nominativo per continuare
         .row#rowAutoFill
-            .container
-                .col-md-4
+            .container.col-md-4
                     label.disabled(for='nomeAutofill') Nome
                     input#nomeAutofill.form-control(type='text', disabled='')
                 .col-md-4
@@ -35,17 +34,25 @@ block content
                     label.disabled(for='codiceFiscaleAutofill') Codice Fiscale
                     input#codiceFiscaleAutofill.form-control(type='text', disabled='')
         .row#rowCodiceImpegnativa1
-            .container
-                .col-md-6
+            .col-md-3
+            .container.col-md-6
                     .text-center.mt-4
                         label#labelcodiceImpegnativa1(for='codiceImpegnativa1') Inserisci il codice Impegnativa
                         input#codiceImpegnativa1.form-control(type='text')
+            .container.col-md-3
+                .mt-5
+                    a.btn-floating.btn-sm.btn-color-primary(data-toggle="modal" data-target='#centralModalCod1')
+                        i.fa.fa-info
         .row#rowCodiceImpegnativa2
-            .container
-                .col-md-6
+            .col-md-3
+            .container.col-md-6
                     .text-center.mt-4
                         label(for='codiceImpegnativa2') Inserisci il secondo codice Impegnativa
                         input#codiceImpegnativa2.form-control(type='text')
+            .container.col-md-3
+                .mt-5
+                    a.btn-floating.btn-sm.btn-color-primary(data-toggle="modal" data-target='#centralModalCod2')
+                        i.fa.fa-info
         .row#rowBottoneInvio
             .container.col-md-8
                 .text-center.mt-4
@@ -62,7 +69,31 @@ block content
                     img.img-fluid(src='/img/loginTooltip.png', alt='immagini impegnative')
                     div.text-center
                         p Il portale gestisce solo ed esclusivamente le impegnative NRE
-
+    div#centralModalCod1.modal.fade(tabindex='-1' role='dialog' aria-hidden='true')
+        div.modal-dialog.modal-notify(role='document')
+            div.modal-content
+                div.modal-header.btn-color-primary.text-center
+                    h4.modal-title.w-100.font-weight-bold(style="color:white;") Info
+                    button.close(type='button' data-dismiss='modal' aria-label='Close')
+                        span.white-text(aria-hidden='true') &times;
+                div.modal-body
+                    img.img-fluid(src='/img/coddue.png', alt='immagini impegnative')
+                    div.text-center
+                        p
+                            strong Inserire il codice impegnativa di 5 cifre nel caso di un impegnativa di tipo no SAR
+                        p
+                            strong Inserire il codice impegnativa di 15 cifre nel caso di un impegnativa di tipo SAR
+    div#centralModalCod2.modal.fade(tabindex='-1' role='dialog' aria-hidden='true')
+        div.modal-dialog.modal-notify(role='document')
+            div.modal-content
+                div.modal-header.btn-color-primary.text-center
+                    h4.modal-title.w-100.font-weight-bold(style="color:white;") Info
+                    button.close(type='button' data-dismiss='modal' aria-label='Close')
+                        span.white-text(aria-hidden='true') &times;
+                div.modal-body
+                    img.img-fluid(src='/img/codtre.png', alt='immagini impegnative')
+                    div.text-center
+                        p Il portale gestisce solo ed esclusivamente le impegnative NRE
 block javascript
         script(type='text/javascript', src='/javascript/jquery-3.3.1.min.js')
         script(type='text/javascript', src='/javascript/popper.min.js')
