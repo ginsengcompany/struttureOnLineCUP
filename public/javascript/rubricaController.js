@@ -36,25 +36,26 @@ $(document).ready(function() {
         language: {
             url: '../localisation/it-IT.json'
         },
-        "ajax":{
+        ajax :{
             url: "http://192.168.125.24:3001/auth/me",
             type: 'GET',
             dataType: 'json',
-            beforeSend: function (request) {
-                request.setRequestHeader('x-access-token','eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVhZmVkNWM2Mjc1MTNiN2ZiYjI5Yjc2MCIsImlhdCI6MTUzMTI5NTc3M30.BQGMg3W-bhpziOSRotEOAnazPLSsWyIlFridkhBbo_s');
+            dataSrc:'',
+            headers: {
+                "x-access-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVhZmVkNWM2Mjc1MTNiN2ZiYjI5Yjc2MCIsImlhdCI6MTUzMTI5NTc3M30.BQGMg3W-bhpziOSRotEOAnazPLSsWyIlFridkhBbo_s"
             }
         },
-        "columns": [
+        columns : [
             {
-                "className":      'details-control',
-                "orderable":      false,
-                "data":           null,
-                "defaultContent": ''
+                className:      'details-control',
+                orderable:      false,
+                data:           null,
+                defaultContent: ''
             },
-            { "data": "nome" },
-            { "data": "cognome" }
+            { data : "nome" },
+            { data : "cognome" }
         ],
-        "order": [[1, 'asc']]
+        order: [[1, 'asc']]
     } );
     // Add event listener for opening and closing details
     $('#example tbody').on('click', 'td.details-control', function () {
