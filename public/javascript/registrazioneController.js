@@ -110,6 +110,7 @@ $(document).ready(function () {
         clear: 'Cancella',
         close: 'Chiudi',
         firstDay: 1,
+        selectYears: 150,
         format: 'dd/mm/yyyy',
         formatSubmit: 'dd/mm/yyyy',
         labelMonthNext: 'Mese successivo',
