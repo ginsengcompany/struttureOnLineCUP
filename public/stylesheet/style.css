@@ -29,3 +29,12 @@ input[type=text] {
     border-bottom: 1px solid #003964;
     box-shadow: 0 1px 0 0 #003964;
 }
+#btn-step-1 {
+    pointer-events: none;
+}
+#btn-step-2 {
+    pointer-events: none;
+}
+#btn-step-3 {
+    pointer-events: none;
+}

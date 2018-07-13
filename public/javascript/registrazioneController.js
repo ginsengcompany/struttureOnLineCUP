@@ -13,14 +13,12 @@ navListItems.click(function (e) {
     e.preventDefault();
     var $target = $($(this).attr('href')),
         $item = $(this);
+    navListItems.removeClass('btn-amber').addClass('btn-blue-grey');
+    $item.addClass('btn-amber');
+    allWells.hide();
+    $target.show();
+    //$target.find('input:eq(0)').focus();
 
-    if (!$item.hasClass('disabled')) {
-        navListItems.removeClass('btn-amber').addClass('btn-blue-grey');
-        $item.addClass('btn-amber');
-        allWells.hide();
-        $target.show();
-        $target.find('input:eq(0)').focus();
-    }
 });
 
 allPrevBtn.click(function(){
@@ -35,7 +33,7 @@ allNextBtn.click(function(){
     var curStep = $(this).closest(".setup-content-2"),
         curStepBtn = curStep.attr("id"),
         nextStepSteps = $('div.setup-panel-2 div a[href="#' + curStepBtn + '"]').parent().next().children("a"),
-        curInputs = curStep.find("input[type='text'],input[type='url']"),
+        curInputs = curStep.find("input[type='text'],input[type='url'],input[type='password'],input[type='email']"),
         isValid = true;
     $(".form-group").removeClass("has-error");
     for(var i=0; i< curInputs.length; i++){
@@ -44,14 +42,35 @@ allNextBtn.click(function(){
             $(curInputs[i]).closest(".form-group").addClass("has-error");
         }
     }
-
-    if (isValid){
+    if (isValid)
         nextStepSteps.removeAttr('disabled').trigger('click');
-    }
-
+    return false;
 });
+
 $('div.setup-panel-2 div a.btn-amber').trigger('click');
+
 $(document).ready(function () {
+    $('#formConfermaPassword').on('input',function () {
+        if ($('#formPassword').val() === $(this).val()) {
+            this.setCustomValidity('');
+        } else {
+            this.setCustomValidity('Le password non corrispondono');
+        }
+    });
+    $('#formConfermaEmail').on('input',function () {
+        if ($('#formEmail').val() === $(this).val()) {
+            this.setCustomValidity('');
+        } else {
+            this.setCustomValidity('Le email non corrispondono');
+        }
+    });
+    $('#formCodFisc').on('input',function () {
+        if ($(this).val().length === 16) {
+            this.setCustomValidity('');
+        } else {
+            this.setCustomValidity('Il codice fiscale errato');
+        }
+    });
     //manage registrazione
     $('.datepicker').pickadate({
         monthsFull: ['Gennaio', 'Febbraio', 'Marzo', 'Aprile', 'Maggio', 'Giugno', 'Luglio', 'Agosto', 'Settembre', 'Ottobre', 'Novembre', 'Dicembre'],
@@ -168,12 +187,6 @@ $(document).ready(function () {
             }
         });
     });
-    $("#registrazioneform").submit(function() {
-        eseguiregistrazione();
-        return false;
-        //console.log(sendObject);
-    });
-
 });
 
 function eseguiregistrazione(){
@@ -191,43 +204,13 @@ function eseguiregistrazione(){
     var datanascita = $('#date-picker-example').val();
     var provincianascita = $('#listaprovincenascita').val();
     var codicecomunenascita = $('#listacomunenascita').val();
-    var comunenascita = $("#listacomunenascita option[value='" + codicecomunenascita + "']").text();
+    var comunenascita = $("#listacomunenascita").find("option[value='" + codicecomunenascita + "']").text();
     var codiceprovinciaresidenza = $("#listaprovinceresidenza").val();
-    var provinciaresidenza = $("#listaprovinceresidenza option[value='" + codiceprovinciaresidenza + "']").text();
+    var provinciaresidenza = $("#listaprovinceresidenza").find("option[value='" + codiceprovinciaresidenza + "']").text();
     var codicecomuneresidenza = $('#listacomuneresidenza').val();
     var indirizzo = $('#formIndirizzo').val();
-    var comuneresidenza = $("#listacomuneresidenza option[value='" + codicecomuneresidenza + "']").text();
-    var codicestatocivile = $("#statocivile").val();
-    var statocivile = $("#statocivile option[value='" + codicestatocivile + "']").text();
-    //Validazione campi
-
-    /*if (password != password2) {
-        alert("La password confermata è diversa da quella scelta, controllare.");
-        document.password2.value = "";
-    }
-    if (email != email2) {
-        alert("L'email confermata è diversa da quella scelta, controllare.");
-        document.email2.value = "";
-    }
-    var selectsesso = $('#formSesso').val();
-    var optionsesso = $('option:selected', selectsesso);
-    if (!optionsesso[0].value) {
-        alert("Devi scegliere un sesso.");
-    }
-    var selectstatocivile = $('#statocivile').val();
-    var optionstatocivile = $('option:selected', selectstatocivile);
-    if (!optionstatocivile[0].value) {
-    }
-    var selectcomunenascita = $('#listacomunenascita').val();
-    var optioncomunenascita = $('option:selected', selectcomunenascita);
-    if (!optioncomunenascita[0].value) {
-    }
-    var selectcomuneresidenza = $('#listacomuneresidenza').val();
-    var optioncomuneresidenza = $('option:selected', selectcomuneresidenza);
-    if (!optioncomuneresidenza[0].value) {
-        alert("Devi selezionare una Provincia e un Comune di residenza.");
-        return false;
-    }*/
+    var comuneresidenza = $("#listacomuneresidenza").find("option[value='" + codicecomuneresidenza + "']").text();
+    var statocivile = $("#statocivile").find("option[value='" + codicestatocivile + "']").text();
 
     var sendObject = {
         username: username,
@@ -255,10 +238,16 @@ function eseguiregistrazione(){
         dataType: "json",
         contentType: 'application/json',
         success: function (data, textStatus, jqXHR) {
-            alert(data);
+            if(jqXHR.status === 201) {
+                $('#btn-step-3').removeAttr('disabled').trigger('click');
+                setTimeout(function () {
+                    window.location.href = '/';
+                }, 2000);
+            }
         },
         error: function (jqXHR, textStatus, errorThrown) {
-            alert(jqXHR.responseText);
+            $('#paragrafomodalError').text(jqXHR.responseText);
+            $('#centralModalError').modal('show');
         }
     });
 }
@@ -287,4 +276,10 @@ $('#btn-step-3').click(function () {
     if(stepper.hasClass('step-1'))
         stepper.removeClass('step-1');
     stepper.addClass('step-3');
+});
+
+$("#registrazioneform2").submit(function() {
+    eseguiregistrazione();
+    return false;
+    //console.log(sendObject);
 });
