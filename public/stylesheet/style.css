@@ -32,6 +32,15 @@ input[type=text] {
 .mdb-skin .dropdown-content li:not(.disabled) span, .mdb-skin .md-form .prefix.active, .mdb-skin input[type=email]:focus:not([readonly]) + label, .mdb-skin input[type=text]:focus:not([readonly]) + label, .mdb-skin input[type=password]:focus:not([readonly]) + label, .mdb-skin textarea.md-textarea:focus:not([readonly]) + label {
     color: #003964
 }
-#invioPrenotazione{
-    background: #003964 !important ;
+#invioPrenotazione {
+    background: #003964 !important;
+}
+#btn-step-1 {
+    pointer-events: none;
+}
+#btn-step-2 {
+    pointer-events: none;
+}
+#btn-step-3 {
+    pointer-events: none;
 }
