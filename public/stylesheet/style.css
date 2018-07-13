@@ -46,3 +46,4 @@ input[type=text] {
 #btn-step-3 {
     pointer-events: none;
 }
+table.dataTable thead {background-color:#003964; color: white}
