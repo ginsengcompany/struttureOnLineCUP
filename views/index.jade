@@ -23,11 +23,11 @@ block body
                                     |  Autenticazione:
                             form#loginForm
                                 .md-form
-                                    i.fa.fa-user.prefix.grey-text
+                                    i.fa.fa-user.prefix.dark-grey-text
                                     input#materialFormUsername.form-control(type='text', name='username', required='', style='color:#003964')
                                     label(for='materialFormUsername') Nome utente
                                 .md-form
-                                    i.fa.fa-lock.prefix.grey-text
+                                    i.fa.fa-lock.prefix.dark-grey-text
                                     input#materialFormPassword.form-control(type='password', name='password', required='', style='color:#003964')
                                     label(for='materialFormPassword') Password
                                 .text-center.mt-4
@@ -46,12 +46,9 @@ block body
                         div.text-center
                             font(size='5')
                                 p#paragrafomodalLogin
-    script(type='text/javascript', src='/javascript/jquery-3.3.1.min.js')
-    // Bootstrap tooltips
-    script(type='text/javascript', src='/javascript/popper.min.js')
-    // Bootstrap core JavaScript
-    script(type='text/javascript', src='/javascript/bootstrap.min.js')
-    // MDB core JavaScript
-    script(type='text/javascript', src='/javascript/mdb.min.js')
 
+    script(type='text/javascript', src='/javascript/jquery-3.3.1.min.js')
+    script(type='text/javascript', src='/javascript/popper.min.js')
+    script(type='text/javascript', src='/javascript/bootstrap.min.js')
+    script(type='text/javascript', src='/javascript/mdb.min.js')
     script(type='text/javascript', src='/javascript/indexController.js')
