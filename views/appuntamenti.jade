@@ -7,7 +7,9 @@ block style
     link(href='/stylesheet/bootstrap.min.css', rel='stylesheet')
     link(href='/stylesheet/mdb.min.css', rel='stylesheet')
     link(href='/stylesheet/style.css', rel='stylesheet')
-    link(href='https://cdnjs.cloudflare.com/ajax/libs/material-design-lite/1.1.0/material.min.css', rel='stylesheet')
+    link(href='https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css ', rel='stylesheet')
+    link(href='https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css', rel='stylsheet')
+
 
 block content
     .container-fluid
@@ -15,30 +17,17 @@ block content
             .col
                 select#selectContatto.mdb-select.colorful-select.dropdown-ins(searchable="Cerca...")
         .row
-            .col.table-responsive
-                table.table.table-striped
+            .col-sm-12
+                .progress#barra.primary-color-dark
+                    .indeterminate
+                label#labelNessunAppuntamento
+            .col#test.table-responsive
+                table#tableAppuntamenti.table.table-striped
                     thead.mdb-color.darken-3
                         tr.text-white
-                            th #
-                            th First Name
-                            th Last Name
-                            th Username
+                            th
+                            th Impegnativa
                     tbody
-                        tr
-                            th(scope='row') 1
-                            td Mark
-                            td Otto
-                            td @mdo
-                        tr
-                            th(scope='row') 2
-                            td Jacob
-                            td Thornton
-                            td @fat
-                        tr
-                            th(scope='row') 3
-                            td Larry
-                            td the Bird
-                            td @twitter
 
 
 
@@ -47,4 +36,7 @@ block javascript
     script(type='text/javascript', src='/javascript/popper.min.js')
     script(type='text/javascript', src='/javascript/bootstrap.min.js')
     script(type='text/javascript', src='/javascript/mdb.min.js')
+    script(type='text/javascript', src='https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js')
+    script(type='text/javascript', src='https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js')
+    script(src='https://cdn.jsdelivr.net/lodash/4.17.2/lodash.min.js',type='text/javascript')
     script(src='/javascript/appuntamentiController.js', type='text/javascript')
