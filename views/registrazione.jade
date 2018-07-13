@@ -12,18 +12,21 @@ block style
 block content
     body
         .container
+            div(style='height: 10em')
+                .row.my-2
+                    img#imglogo.img-fluid(style='margin:auto; display:block', src='img/logocirclefree.png', alt='Card image cap')
             br
             br
             .steps-form-2
-                .steps-row-2.setup-panel-2.d-flex.justify-content-between
+                .steps-row-2.setup-panel-2.step-1.d-flex.justify-content-between
                     .steps-step-2
-                        a.btn.btn-amber.btn-circle-2.waves-effect.ml-0(href='#step-1', type='button', data-toggle='tooltip', data-placement='top', title='Dati account')
+                        a#btn-step-1.btn.btn-amber.btn-circle-2.waves-effect.ml-0.btn-color-primary(href='#step-1', type='button', data-toggle='tooltip', data-placement='top', title='Dati account')
                             i.fa.fa-user(aria-hidden='true')
                     .steps-step-2
-                        a.btn.btn-blue-grey.btn-circle-2.waves-effect(href='#step-2', type='button', data-toggle='tooltip', data-placement='top', title='Dati personali')
+                        a#btn-step-2.btn.btn-blue-grey.btn-circle-2.waves-effect(href='#step-2', type='button', data-toggle='tooltip', data-placement='top', title='Dati personali')
                             i.fa.fa-pencil(aria-hidden='true')
                     .steps-step-2
-                        a.btn.btn-blue-grey.btn-circle-2.waves-effect(href='#step-3', type='button', data-toggle='tooltip', data-placement='top', title='Termini e condizioni')
+                        a#btn-step-3.btn.btn-blue-grey.btn-circle-2.waves-effect.mr-0(href='#step-3', type='button', data-toggle='tooltip', data-placement='top', title='Termini e condizioni')
                             i.fa.fa-sticky-note(aria-hidden='true')
             form#registrazioneform1
                 //step-1
