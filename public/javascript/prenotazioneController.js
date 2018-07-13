@@ -21,6 +21,10 @@ $(document).ready(function () {
         dataType: "json",
         success: function (data, textStatus, jqXHR) {
             $('.mdb-select').material_select('destroy');
+            data.sort(function(a,b) {
+                return (a.nomeCompletoConCodiceFiscale > b.nomeCompletoConCodiceFiscale) ? 1 : ((b.nomeCompletoConCodiceFiscale > a.nomeCompletoConCodiceFiscale) ? -1 : 0);
+            });
+            console.log(data);
             selectNome.append('<option value="" disabled="" selected="">' + "Seleziona" + '</option>');
             for (let i = 0; i < data.length; i++) {
                 selectNome.append('<option value="' + i + '">' + data[i].nomeCompletoConCodiceFiscale + '</option>');
@@ -40,10 +44,15 @@ $(document).ready(function () {
                 });
         },
         error: function (jqXHR, textStatus, errorThrown) {
-            console.log(textStatus);
+            $('#paragrafomodalPrenotazione').text(jqXHR.responseText);
+            $('#centralModalAlert').modal('show');
         }
     });
     $('#codiceImpegnativa1').on('input',function (){
+        $('input[type=text]').val (function () {
+            return this.value.toUpperCase();
+        });
+        console.log( $('#codiceImpegnativa1').val());
         if($('#codiceImpegnativa1').val().length > 5 && $('#codiceImpegnativa1').val().length === 15) {
             $('#labelcodiceImpegnativa1').text("Inserisci il codice SAR");
             $("#rowCodiceImpegnativa2").hide();
@@ -59,6 +68,9 @@ $(document).ready(function () {
         }
     });
     $('#codiceImpegnativa2').on('input',function (){
+        $('input[type=text]').val (function () {
+            return this.value.toUpperCase();
+        });
         if($('#codiceImpegnativa2').val() === '' || $('#codiceImpegnativa2').val().length < 10)
             $("#rowBottoneInvio").hide();
         else
@@ -102,10 +114,12 @@ function invioPrenotazione() {
         dataType: "json",
         contentType: 'application/json',
         success: function (data, textStatus, jqXHR) {
-            alert(data);
+            $('#paragrafomodalPrenotazione').text(jqXHR.responseText);
+            $('#centralModalAlert').modal('show');
         },
         error: function (jqXHR, textStatus, errorThrown) {
-            alert(jqXHR.responseText);
+            $('#paragrafomodalPrenotazione').text(jqXHR.responseText);
+            $('#centralModalAlert').modal('show');
         }
     });
 }

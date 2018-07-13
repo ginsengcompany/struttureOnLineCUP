@@ -29,3 +29,9 @@ input[type=text] {
     border-bottom: 1px solid #003964;
     box-shadow: 0 1px 0 0 #003964;
 }
+.mdb-skin .dropdown-content li:not(.disabled) span, .mdb-skin .md-form .prefix.active, .mdb-skin input[type=email]:focus:not([readonly]) + label, .mdb-skin input[type=text]:focus:not([readonly]) + label, .mdb-skin input[type=password]:focus:not([readonly]) + label, .mdb-skin textarea.md-textarea:focus:not([readonly]) + label {
+    color: #003964
+}
+#invioPrenotazione{
+    background: #003964 !important ;
+}
