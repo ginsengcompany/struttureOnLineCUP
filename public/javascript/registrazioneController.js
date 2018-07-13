@@ -2,76 +2,104 @@
 $(function () {
     $('[data-toggle="tooltip"]').tooltip()
 });
-var navListItems = $('div.setup-panel-2 div a'),
-    allWells = $('.setup-content-2'),
-    allNextBtn = $('.nextBtn-2'),
-    allPrevBtn = $('.prevBtn-2');
+let navListItems, allWells, allNextBtn, allPrevBtn;
+navListItems = $('div.setup-panel-2 div a');
+allWells = $('.setup-content-2');
+nextBtn = $('#btnForm1');
+allPrevBtn = $('.prevBtn-2');
 
 allWells.hide();
 
 navListItems.click(function (e) {
     e.preventDefault();
-    var $target = $($(this).attr('href')),
+    let $target = $($(this).attr('href')),
         $item = $(this);
     navListItems.removeClass('btn-amber').addClass('btn-blue-grey');
     $item.addClass('btn-amber');
     allWells.hide();
     $target.show();
     //$target.find('input:eq(0)').focus();
-
 });
 
 allPrevBtn.click(function(){
-    var curStep = $(this).closest(".setup-content-2"),
+    let curStep = $(this).closest(".setup-content-2"),
         curStepBtn = curStep.attr("id"),
         prevStepSteps = $('div.setup-panel-2 div a[href="#' + curStepBtn + '"]').parent().prev().children("a");
 
     prevStepSteps.removeAttr('disabled').trigger('click');
 });
 
-allNextBtn.click(function(){
-    var curStep = $(this).closest(".setup-content-2"),
+nextBtn.click(function(){
+    let curStep = $(this).closest(".setup-content-2"),
         curStepBtn = curStep.attr("id"),
         nextStepSteps = $('div.setup-panel-2 div a[href="#' + curStepBtn + '"]').parent().next().children("a"),
         curInputs = curStep.find("input[type='text'],input[type='url'],input[type='password'],input[type='email']"),
         isValid = true;
-    $(".form-group").removeClass("has-error");
-    for(var i=0; i< curInputs.length; i++){
-        if (!curInputs[i].validity.valid){
-            isValid = false;
-            $(curInputs[i]).closest(".form-group").addClass("has-error");
+    for(let i=0; i< curInputs.length; i++){
+        //Controllo Username
+        if(curInputs[i].id === 'formUsername') {
+            if(!curInputs[i].validity.valid || curInputs[i].value.trim() === ''){
+                isValid = false;
+                $("#usernameHelp").show();
+            }else
+                $("#usernameHelp").hide();
+        }
+        //Controllo Password
+        else if(curInputs[i].id === 'formPassword') {
+            if(!curInputs[i].validity.valid){
+                isValid = false;
+                $("#passwordHelpBlockMD").addClass('red-text');
+            }
+            else
+                $("#passwordHelpBlockMD").removeClass('red-text');
+        }
+        //Controllo Conferma Password
+        else if(curInputs[i].id === 'formConfermaPassword'){
+            if(!curInputs[i].validity.valid) {
+                isValid = false;
+                $("#confermaPasswordHelp").text("formato della password è errata");
+                $("#confermaPasswordHelp").show();
+            }
+            else if (curInputs[i].value !== $("#formPassword").val()) {
+                isValid = false;
+                $("#confermaPasswordHelp").text("Le password non corrispondono");
+                $("#confermaPasswordHelp").show();
+            }else
+                $("#confermaPasswordHelp").hide();
+        }
+        //Controllo Email
+        else if(curInputs[i].id === 'formEmail') {
+            if(!curInputs[i].validity.valid){
+                isValid = false;
+                $("#emailHelp").show();
+            }else
+                $("#emailHelp").hide();
+        }
+        //Controllo Conferma Email
+        else if(curInputs[i].id === 'formConfermaEmail'){
+            if(!curInputs[i].validity.valid){
+                isValid = false;
+                $("#confermaEmailHelp").text("formato dell'email è errata");
+                $("#confermaEmailHelp").show();
+            }
+            else if(curInputs[i].value !== $("#formEmail").val()){
+                isValid = false;
+                $("#confermaEmailHelp").text("Le email non corrispondono");
+                $("#confermaEmailHelp").show();
+            }
+            else
+                $("#confermaEmailHelp").hide();
         }
     }
-    if (isValid)
+    if (isValid){
         nextStepSteps.removeAttr('disabled').trigger('click');
-    return false;
+    }
 });
 
 $('div.setup-panel-2 div a.btn-amber').trigger('click');
 
 $(document).ready(function () {
-    $('#formConfermaPassword').on('input',function () {
-        if ($('#formPassword').val() === $(this).val()) {
-            this.setCustomValidity('');
-        } else {
-            this.setCustomValidity('Le password non corrispondono');
-        }
-    });
-    $('#formConfermaEmail').on('input',function () {
-        if ($('#formEmail').val() === $(this).val()) {
-            this.setCustomValidity('');
-        } else {
-            this.setCustomValidity('Le email non corrispondono');
-        }
-    });
-    $('#formCodFisc').on('input',function () {
-        if ($(this).val().length === 16) {
-            this.setCustomValidity('');
-        } else {
-            this.setCustomValidity('Il codice fiscale errato');
-        }
-    });
-    //manage registrazione
+    //gestione picker e mdb-select registrazione
     $('.datepicker').pickadate({
         monthsFull: ['Gennaio', 'Febbraio', 'Marzo', 'Aprile', 'Maggio', 'Giugno', 'Luglio', 'Agosto', 'Settembre', 'Ottobre', 'Novembre', 'Dicembre'],
         monthsShort: ['Gen', 'Feb', 'Mar', 'Apr', 'Mag', 'Giu', 'Lug', 'Ago', 'Set', 'Ott', 'Nov', 'Dic'],
@@ -79,7 +107,6 @@ $(document).ready(function () {
         weekdaysShort: ['Dom', 'Lun', 'Mar', 'Mer', 'Gio', 'Ven', 'Sab'],
         showMonthsShort: undefined,
         showWeekdaysFull: undefined,
-        today: 'Oggi',
         clear: 'Cancella',
         close: 'Chiudi',
         firstDay: 1,
@@ -88,18 +115,20 @@ $(document).ready(function () {
         labelMonthNext: 'Mese successivo',
         labelMonthPrev: 'Mese precedente',
         labelMonthSelect: 'Seleziona un mese',
-        labelYearSelect: 'Seleziona un anno'
+        labelYearSelect: 'Seleziona un anno',
+        max: new Date(),
+        min: new  Date(1900,0,1)
     });
     $('.mdb-select').material_select();
-    var selectProvinceNascita = $("#listaprovincenascita");
+    let selectProvinceNascita = $("#listaprovincenascita");
     $.ajax({
         type: "GET",
-        url: "http://192.168.125.24:3001/comuni/listaprovince",
+        url: "http://ecuptservice.ak12srl.it/comuni/listaprovince",
         dataType: "json",
         contentType: 'plain/text',
         success: function (data, textStatus, jqXHR) {
             $('select[name="listaprovince"]').material_select('destroy');
-            for (var i = 0; i < data.length; i++) {
+            for (let i = 0; i < data.length; i++) {
                 selectProvinceNascita.append('<option value="' + data[i].codIstat + '">' + data[i].provincia + '</option>');
             }
             $('select[name="listaprovince"]').material_select();
@@ -109,11 +138,11 @@ $(document).ready(function () {
         }
     });
     $('#listaprovincenascita').on('change', function () {
-        var selectComuneNascita = $("#listacomunenascita");
-        var send = {codIstat: this.value};
+        let selectComuneNascita = $("#listacomunenascita");
+        let send = {codIstat: this.value};
         $.ajax({
             type: "POST",
-            url: "http://192.168.125.24:3001/comuni/listacomuni",
+            url: "http://ecuptservice.ak12srl.it/comuni/listacomuni",
             data: JSON.stringify(send),
             dataType: "json",
             contentType: 'application/json',
@@ -121,7 +150,7 @@ $(document).ready(function () {
                 $('#listacomunenascita').material_select('destroy');
                 $('#listacomunenascita').find('option').remove();
                 selectComuneNascita.append('<option value="" disabled="" selected="">' + "Seleziona il comune" + '</option>');
-                for (var i = 0; i < data.length; i++) {
+                for (let i = 0; i < data.length; i++) {
                     selectComuneNascita.append('<option value="' + data[i].codice + '">' + data[i].nome + '</option>');
                 }
                 $('#listacomunenascita').material_select();
@@ -131,14 +160,14 @@ $(document).ready(function () {
             }
         });
     });
-    var selectStatoCivile = $("#statocivile");
+    let selectStatoCivile = $("#statocivile");
     $.ajax({
         type: "GET",
-        url: "http://192.168.125.24:3001/statocivile",
+        url: "http://ecuptservice.ak12srl.it/statocivile",
         dataType: "json",
         contentType: 'plain/text',
         success: function (data, textStatus, jqXHR) {
-            for (var i = 0; i < data.length; i++) {
+            for (let i = 0; i < data.length; i++) {
                 selectStatoCivile.append('<option value="' + data[i].id + '">' + data[i].descrizione + '</option>');
             }
             $('#statocivile').material_select();
@@ -147,15 +176,15 @@ $(document).ready(function () {
             console.log(textStatus);
         }
     });
-    var selectProvinceResidenza = $("#listaprovinceresidenza");
+    let selectProvinceResidenza = $("#listaprovinceresidenza");
     $.ajax({
         type: "GET",
-        url: "http://192.168.125.24:3001/comuni/listaprovince",
+        url: "http://ecuptservice.ak12srl.it/comuni/listaprovince",
         dataType: "json",
         contentType: 'plain/text',
         success: function (data, textStatus, jqXHR) {
             $('select[name="listaprovince"]').material_select('destroy');
-            for (var i = 0; i < data.length; i++) {
+            for (let i = 0; i < data.length; i++) {
                 selectProvinceResidenza.append('<option value="' + data[i].codIstat + '">' + data[i].provincia + '</option>');
             }
             $('select[name="listaprovince"]').material_select();
@@ -165,11 +194,11 @@ $(document).ready(function () {
         }
     });
     $('#listaprovinceresidenza').on('change', function () {
-        var selectComuneResidenza = $("#listacomuneresidenza");
-        var send = {codIstat: this.value};
+        let selectComuneResidenza = $("#listacomuneresidenza");
+        let send = {codIstat: this.value};
         $.ajax({
             type: "POST",
-            url: "http://192.168.125.24:3001/comuni/listacomuni",
+            url: "http://ecuptservice.ak12srl.it/comuni/listacomuni",
             data: JSON.stringify(send),
             dataType: "json",
             contentType: 'application/json',
@@ -177,7 +206,7 @@ $(document).ready(function () {
                 $('#listacomuneresidenza').material_select('destroy');
                 $('#listacomuneresidenza').find('option').remove();
                 selectComuneResidenza.append('<option value="" disabled="" selected="">' + "Seleziona il comune" + '</option>');
-                for (var i = 0; i < data.length; i++) {
+                for (let i = 0; i < data.length; i++) {
                     selectComuneResidenza.append('<option value="' + data[i].codice + '">' + data[i].nome + '</option>');
                 }
                 $('#listacomuneresidenza').material_select();
@@ -190,29 +219,29 @@ $(document).ready(function () {
 });
 
 function eseguiregistrazione(){
-    var username = $('#formUsername').val();
-    var password = $('#formPassword').val();
-    var password2 = $('#formConfermaPassword').val();
-    var email = $('#formEmail').val();
-    var email2 = $('#formConfermaEmail').val();
-    var nome = $('#formNome').val();
-    var cognome = $('#formCognome').val();
-    var sesso = $('#formSesso').val();
-    var codicefiscale = $('#formCodFisc').val();
-    var telefono = $('#formTelefono').val();
-    var codicestatocivile = $('#statocivile').val();
-    var datanascita = $('#date-picker-example').val();
-    var provincianascita = $('#listaprovincenascita').val();
-    var codicecomunenascita = $('#listacomunenascita').val();
-    var comunenascita = $("#listacomunenascita").find("option[value='" + codicecomunenascita + "']").text();
-    var codiceprovinciaresidenza = $("#listaprovinceresidenza").val();
-    var provinciaresidenza = $("#listaprovinceresidenza").find("option[value='" + codiceprovinciaresidenza + "']").text();
-    var codicecomuneresidenza = $('#listacomuneresidenza').val();
-    var indirizzo = $('#formIndirizzo').val();
-    var comuneresidenza = $("#listacomuneresidenza").find("option[value='" + codicecomuneresidenza + "']").text();
-    var statocivile = $("#statocivile").find("option[value='" + codicestatocivile + "']").text();
+    let username = $('#formUsername').val();
+    let password = $('#formPassword').val();
+    let password2 = $('#formConfermaPassword').val();
+    let email = $('#formEmail').val();
+    let email2 = $('#formConfermaEmail').val();
+    let nome = $('#formNome').val();
+    let cognome = $('#formCognome').val();
+    let sesso = $('#formSesso').val();
+    let codicefiscale = $('#formCodFisc').val();
+    let telefono = $('#formTelefono').val();
+    let codicestatocivile = $('#statocivile').val();
+    let datanascita = $('#date-picker-example').val();
+    let provincianascita = $('#listaprovincenascita').val();
+    let codicecomunenascita = $('#listacomunenascita').val();
+    let comunenascita = $("#listacomunenascita").find("option[value='" + codicecomunenascita + "']").text();
+    let codiceprovinciaresidenza = $("#listaprovinceresidenza").val();
+    let provinciaresidenza = $("#listaprovinceresidenza").find("option[value='" + codiceprovinciaresidenza + "']").text();
+    let codicecomuneresidenza = $('#listacomuneresidenza').val();
+    let indirizzo = $('#formIndirizzo').val();
+    let comuneresidenza = $("#listacomuneresidenza").find("option[value='" + codicecomuneresidenza + "']").text();
+    let statocivile = $("#statocivile").find("option[value='" + codicestatocivile + "']").text();
 
-    var sendObject = {
+    let sendObject = {
         username: username,
         password: password,
         email: email,
@@ -233,7 +262,7 @@ function eseguiregistrazione(){
     };
     $.ajax({
         type: "POST",
-        url: "http://192.168.125.24:3001/auth/registrazione",
+        url: "http://ecuptservice.ak12srl.it/auth/registrazione",
         data: JSON.stringify(sendObject),
         dataType: "json",
         contentType: 'application/json',
@@ -254,7 +283,7 @@ function eseguiregistrazione(){
 
 //manage stepper buttons
 $('#btn-step-1').click(function () {
-    var stepper = $('.steps-form-2 .steps-row-2');
+    let stepper = $('.steps-form-2 .steps-row-2');
     if(stepper.hasClass('step-2'))
         stepper.removeClass('step-2');
     if(stepper.hasClass('step-3'))
@@ -262,7 +291,7 @@ $('#btn-step-1').click(function () {
     stepper.addClass('step-1');
 });
 $('#btn-step-2').click(function () {
-    var stepper = $('.steps-form-2 .steps-row-2');
+    let stepper = $('.steps-form-2 .steps-row-2');
     if(stepper.hasClass('step-1'))
         stepper.removeClass('step-1');
     if(stepper.hasClass('step-3'))
@@ -270,7 +299,7 @@ $('#btn-step-2').click(function () {
     stepper.addClass('step-2');
 });
 $('#btn-step-3').click(function () {
-    var stepper = $('.steps-form-2 .steps-row-2');
+    let stepper = $('.steps-form-2 .steps-row-2');
     if(stepper.hasClass('step-2'))
         stepper.removeClass('step-2');
     if(stepper.hasClass('step-1'))

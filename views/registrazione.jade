@@ -38,6 +38,7 @@ block content
                             i.fa.fa-user.prefix.dark-grey-text
                             input#formUsername.form-control(type='text' required)
                             label(for='formUsername') Username
+                            small#usernameHelp.form-text.text-muted.red-text(style="display: none;") Campo obbligatorio
                         .md-form
                             i.fa.fa-lock.prefix.dark-grey-text
                             input#formPassword.form-control(type='password', required='', pattern="(?=^.{8,}$)((?=.*\\d)|(?=.*\\W+))(?![.\\n])(?=.*[A-Z])(?=.*[a-z]).*$")
@@ -45,18 +46,21 @@ block content
                             small#passwordHelpBlockMD.form-text.text-muted La tua password deve contenere 8-20 caratteri, contenere lettere (maiuscole e minuscole) e numeri e non deve contenere spazi, caratteri speciali o emoji.
                         .md-form
                             i.fa.fa-exclamation-triangle.prefix.dark-grey-text
-                            input#formConfermaPassword.form-control(type='password', name='conferma', required='',)
+                            input#formConfermaPassword.form-control(type='password', name='conferma', required='', pattern="(?=^.{8,}$)((?=.*\\d)|(?=.*\\W+))(?![.\\n])(?=.*[A-Z])(?=.*[a-z]).*$")
                             label(for='formConfermaPassword') Conferma Password
+                            small#confermaPasswordHelp.form-text.text-muted.red-text(style="display: none;")
                         .md-form
                             i.fa.fa-envelope.prefix.dark-grey-text
                             input#formEmail.form-control(type='email' required='')
                             label(for='formEmail') Inserisci email
+                            small#emailHelp.form-text.text-muted.red-text(style="display: none;") campo mancante o email non valida
                         .md-form
                             i.fa.fa-exclamation-triangle.prefix.dark-grey-text
                             input#formConfermaEmail.form-control(type='email', name='conferma', required='')
                             label(for='formConfermaEmail') Conferma email
+                            small#confermaEmailHelp.form-text.text-muted.red-text(style="display: none;")
                         .md-form
-                            button.btn.btn-color-primary.btn-rounded.nextBtn-2.float-right(type='submit') Avanti
+                            button#btnForm1.btn.btn-color-primary.btn-rounded.float-right(type='button') Avanti
             form#registrazioneform2
                 //step-2
                 div.row.setup-content-2#step-2
@@ -66,11 +70,11 @@ block content
                         .row
                             .col-6
                                 .md-form
-                                    input#formNome.form-control(type='text' required='')
+                                    input#formNome.form-control.text-uppercase(type='text' required='')
                                     label(for='formNome') Inserisci Nome
                             .col-6
                                 .md-form
-                                    input#formCognome.form-control(type='text' required='')
+                                    input#formCognome.form-control.text-uppercase(type='text' required='')
                                     label(for='formCognome') Inserisci Cognome
                         .row
                             .col-6
@@ -78,11 +82,9 @@ block content
                                     input#date-picker-example.form-control.datepicker(placeholder='Data di nascita', type='text' required='')
                                     label(for='date-picker-example') Data di nascita
                             .col-6
-                                .md-form#sesso
-                                    select#formSesso.mdb-select
-                                        option(value='', disabled='', selected='') Sesso
-                                        option.rounded-circle(value='M', data-icon='./img/uomo.png') Maschio
-                                        option.rounded-circle(value='F', data-icon='./img/donna.png') Femmina
+                                .md-form
+                                    input#formCodFisc.form-control.text-uppercase(type='text' required='')
+                                    label(for='formCodFisc') Codice Fiscale
                         .row
                             .col-6
                                 .md-form
@@ -94,9 +96,11 @@ block content
                                         option(value='', disabled='', selected='') Comune di nascita
                         .row
                             .col-6
-                                .md-form
-                                    input#formCodFisc.form-control(type='text' required='')
-                                    label(for='formCodFisc') Codice Fiscale
+                                .md-form#sesso
+                                    select#formSesso.mdb-select
+                                        option(value='', disabled='', selected='') Sesso
+                                        option.rounded-circle(value='M', data-icon='./img/uomo.png') Maschio
+                                        option.rounded-circle(value='F', data-icon='./img/donna.png') Femmina
                             .col-6
                                 .md-form
                                     select#statocivile.mdb-select(name='statocivile' required='')
@@ -104,21 +108,21 @@ block content
                         .row
                             .col-6
                                 .md-form
-                                    input#formTelefono.form-control(type='text' required='')
-                                    label(for='formTelefono') Numero mobile
-                            .col-6
-                                .md-form
                                     select#listaprovinceresidenza.mdb-select(searchable="Cerca...", name="listaprovince" required='')
                                         option(value='', disabled='', selected='') Provincia di residenza
-                        .row
                             .col-6
                                 .md-form
                                     select#listacomuneresidenza.mdb-select(searchable="Cerca...", required='', name="comuni")
                                         option(value='', disabled='', selected='') Comune di residenza
+                        .row
                             .col-6
                                 .md-form
-                                    input#formIndirizzo.form-control(type='text' required='')
+                                    input#formIndirizzo.form-control.text-uppercase(type='text' required='')
                                     label(for='formIndirizzo') Indirizzo di residenza
+                            .col-6
+                                .md-form
+                                    input#formTelefono.form-control(type='text' required='')
+                                    label(for='formTelefono') Numero mobile
                         .row
                             .col-12
                                 input#checkboxterms.form-check-input(type='checkbox')
