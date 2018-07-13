@@ -8156,7 +8156,7 @@ body.scrollable {
 }
 
 .md-form .prefix.active {
-    color: #4285f4
+    color: #6C94B2
 }
 
 .md-form.form-lg label {
@@ -14115,9 +14115,9 @@ button.toast-close-button {
 }
 
 .mdb-skin input[type=email]:focus:not([readonly]), .mdb-skin input[type=text]:focus:not([readonly]), .mdb-skin input[type=password]:focus:not([readonly]), .mdb-skin textarea.md-textarea:focus:not([readonly]) {
-    border-color: #33b5e5;
-    -webkit-box-shadow: 0 1px 0 0 #33b5e5;
-    box-shadow: 0 1px 0 0 #33b5e5
+    border-color: #003964;
+    -webkit-box-shadow: 0 1px 0 0 #003964;
+    box-shadow: 0 1px 0 0 #003964;
 }
 
 .mdb-skin input[type=checkbox]:checked + label:before {
