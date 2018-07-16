@@ -46,3 +46,18 @@ input[type=text] {
     pointer-events: none;
 }
 table.dataTable thead {background-color:#003964; color: white}
+
+footer.page-footer {
+    color: #fff;
+    position: relative;
+    background-color: #243a51 !important;
+    clear: both;
+    z-index: 10;
+    height: 3em;
+    margin-top: 100px;
+    width: 100%;
+}
+
+footer.page-footer .footer-copyright{
+    background-color: #243a51 !important;
+}
