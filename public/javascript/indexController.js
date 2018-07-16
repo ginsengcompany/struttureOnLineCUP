@@ -27,7 +27,7 @@ function eseguiLogin() {
         success: function (data, textStatus, jqXHR) {
             if(data.auth){
                 localStorage.setItem('tkn',data.token);
-                window.location.href = '/menu';
+                window.location.href = '/home';
             }
         },
         error: function(jqXHR, textStatus, errorThrown) {
