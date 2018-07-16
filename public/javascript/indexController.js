@@ -25,7 +25,7 @@ function eseguiLogin() {
         contentType : 'application/json',
         success: function (data, textStatus, jqXHR) {
             if(data.auth){
-                localStorage.setItem('tkn',data.token);
+                sessionStorage.setItem('tkn',data.token);
                 window.location.href = 'home';
             }
         },

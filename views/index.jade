@@ -9,11 +9,9 @@ block style
     link(href='/stylesheet/style.css', rel='stylesheet')
 block body
     body
-        script.
-            localStorage.setItem("azienda", '#{azienda}');
         div(style='height: 6em')
             .row.my-5
-                img#imglogo.img-fluid(style='margin:auto; display:block', src='../img/logocirclefree.png', alt='Card image cap')
+                img#imglogo.img-fluid(style='margin:auto; display:block', src='/img/logocirclefree.png', alt='Card image cap')
             .row.h-100#rowcard
                 .col-sm-3
                 .col-sm-6.my-auto

@@ -12,5 +12,5 @@ exports.getLogin = function (req, res, next) {
             message: "Page not found"
         });
     }
-    res.render('index',{azienda:aziendaParameter});
+    res.render('index');
 };
