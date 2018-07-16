@@ -9,9 +9,11 @@ block style
     link(href='/stylesheet/style.css', rel='stylesheet')
 block body
     body
+        script.
+            localStorage.setItem("azienda", '#{azienda}');
         div(style='height: 6em')
             .row.my-5
-                img#imglogo.img-fluid(style='margin:auto; display:block', src='img/logocirclefree.png', alt='Card image cap')
+                img#imglogo.img-fluid(style='margin:auto; display:block', src='../img/logocirclefree.png', alt='Card image cap')
             .row.h-100#rowcard
                 .col-sm-3
                 .col-sm-6.my-auto
@@ -33,7 +35,7 @@ block body
                                 .text-center.mt-4
                                     button.btn.btn-color-primary.waves-effect.waves-light(type='submit') Entra
                             .text-center.mt-4
-                                a.btn.btn-color-primary.waves-effect.waves-light(href='/registrazione') Registrati
+                                a#btnRegistrati.btn.btn-color-primary.waves-effect.waves-light(href="registrazione") Registrati
                 .col-sm-3
         div#centralModalInfo.modal.fade(tabindex='-1' role='dialog' aria-hidden='true')
             div.modal-dialog.modal-notify(role='document')

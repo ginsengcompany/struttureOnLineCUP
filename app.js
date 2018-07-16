@@ -1,19 +1,17 @@
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
+let express = require('express');
+let path = require('path');
+let cookieParser = require('cookie-parser');
 let bodyParser = require('body-parser');
-var logger = require('morgan');
+let logger = require('morgan');
 
-var routes = require('./routes/index');
-var users = require('./routes/users');
-var registrazione = require('./routes/registrazione');
-var rubrica = require('./routes/rubrica');
-var prenotazione = require('./routes/prenotazione');
-var appuntamenti = require('./routes/appuntamenti');
-var verificaContenutoImpegnativa = require('./routes/verificaContenutoImpegnativa');
-var home = require('./routes/home');
+let index = require('./routes/index');
+let rubrica = require('./routes/rubrica');
+let prenotazione = require('./routes/prenotazione');
+let appuntamenti = require('./routes/appuntamenti');
+let verificaContenutoImpegnativa = require('./routes/verificaContenutoImpegnativa');
+let home = require('./routes/home');
 
-var app = express();
+let app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -25,14 +23,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', routes);
-app.use('/users', users);
-app.use('/registrazione', registrazione);
-app.use('/prenotazione', prenotazione);
-app.use('/rubrica', rubrica);
-app.use('/appuntamenti', appuntamenti);
-app.use('/verificaContenutoImpegnativa',verificaContenutoImpegnativa);
-app.use('/home',home);
+app.use('/', index);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

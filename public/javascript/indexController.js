@@ -10,9 +10,8 @@ $(document).ready(function () {
         return false;
     });
 });
-
 function eseguiLogin() {
-    var parametriLogin ={
+    let parametriLogin ={
         username : String,
         password : String
     };
@@ -27,7 +26,7 @@ function eseguiLogin() {
         success: function (data, textStatus, jqXHR) {
             if(data.auth){
                 localStorage.setItem('tkn',data.token);
-                window.location.href = '/home';
+                window.location.href = 'home';
             }
         },
         error: function(jqXHR, textStatus, errorThrown) {

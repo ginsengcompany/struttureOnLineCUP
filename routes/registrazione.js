@@ -1,9 +1,8 @@
-var express = require('express');
-var router = express.Router();
-/* GET registrazione page. */
-router.get('/', function(req, res) {
-    res.render('registrazione');
-});
+let express = require('express');
+let router = express.Router();
+let registrazioneController = require('../controllers/registrazioneController');
 
+/* GET registrazione page. */
+router.get('/:azienda', registrazioneController.getRegistrazione);
 
 module.exports = router;
