@@ -6,28 +6,28 @@ function format ( d ) {
         x= x +
             '<tr style="background-color: #6C94B2">'+
             '<th style="font-weight: bold; color:white " >Prestazione:</th>'+
-                '<td  style="color: white">'+d[i].desprest+'</td>'+
+            '<td  style="color: white">'+d[i].desprest+'</td>'+
             '</tr>'+
             '<tr>'+
             '<th style="font-weight: bold;">Data appuntamento:</th>'+
-                '<td>'+d[i].dataappuntamento+'</td>'+
+            '<td>'+d[i].dataappuntamento+'</td>'+
             '</tr>'+
             '<tr>'+
             '<th style="font-weight: bold">Ora appuntamento:</th>'+
-                '<td>'+d[i].oraappuntamento+'</td>'+
+            '<td>'+d[i].oraappuntamento+'</td>'+
             '</tr>'+
             '<tr>'+
             '<th style="font-weight: bold">Ubicazione reparto:</th>'+
-                '<td>'+d[i].reparti[0].ubicazioneReparto+'</td>'+
+            '<td>'+d[i].reparti[0].ubicazioneReparto+'</td>'+
             '</tr>'+
             '<tr>'+
             '<th style="font-weight: bold">Reparto:</th>'+
-                '<td>'+d[i].reparti[0].descrizione+'</td>'+
+            '<td>'+d[i].reparti[0].descrizione+'</td>'+
             '</tr>';
     }
 
     // `d` is the original data object for the row
-   return '<table   cellpadding="15" cellspacing="10"  border="0.5" align="center"  style="padding-left:50px; width:75%;" >'+
+    return '<table   cellpadding="15" cellspacing="10"  border="0.5" align="center"  style="padding-left:50px; width:75%;" >'+
         x+
         '</table>';
 }
@@ -48,6 +48,9 @@ $(document).ready(function () {
         dataType: "json",
         success: function (data, textStatus, jqXHR) {
             $('.mdb-select').material_select('destroy');
+            data.sort(function(a,b) {
+                return (a.nomeCompletoConCodiceFiscale > b.nomeCompletoConCodiceFiscale) ? 1 : ((b.nomeCompletoConCodiceFiscale > a.nomeCompletoConCodiceFiscale) ? -1 : 0);
+            });
             selectNome.append('<option value="" disabled="" selected="">' + "Seleziona Assistito" + '</option>');
             for (let i = 0; i < data.length; i++) {
                 selectNome.append('<option value="' + i + '">' + data[i].nomeCompletoConCodiceFiscale + '</option>');
@@ -84,10 +87,10 @@ $(document).ready(function () {
                         else{
                             listaAppuntamenti = data;
                             console.log(listaAppuntamenti);
-                              $('#tableAppuntamenti').dataTable().fnDestroy();
-                              $('#tableAppuntamenti').empty();
+                            $('#tableAppuntamenti').dataTable().fnDestroy();
+                            $('#tableAppuntamenti').empty();
 
-                           var table = $("#tableAppuntamenti").DataTable({
+                            var table = $("#tableAppuntamenti").DataTable({
                                 language: {
                                     url: '../localisation/it-IT.json'
                                 },
@@ -97,12 +100,26 @@ $(document).ready(function () {
 
                                         className:      'details-control',
                                         orderable:      false,
+                                        width:          30,
+                                        data:           null,
+                                        defaultContent: ''
+                                    },
+                                    {
+
+                                        className:      'delete-control',
+                                        orderable:      false,
+                                        width:          30,
                                         data:           null,
                                         defaultContent: ''
                                     },
 
                                     { title:  "IMPEGNATIVA",
-                                        data : "codiceImpegnativa" }
+                                        data: null, render: function ( data, type, row ) {
+                                        console.log(data);
+                                            if(data.codiceImpegnativa=="")
+                                                data.codiceImpegnativa="Codice mancante";
+                                            // Combine the first and last names into a single table field
+                                            return data.codiceImpegnativa; }}
                                 ],
                                 rowGroup:{
                                     dataSrc: "codiceImpegnativa"
@@ -132,6 +149,23 @@ $(document).ready(function () {
 
 
                             } );
+                            $('#tableAppuntamenti tbody').on('click', 'td.delete-control', function () {
+                                var tr = $(this).closest('tr');
+                                var row = table.row( tr );
+                                $("#labelEliminaImpegnativa").append("");
+                                $("#labelEliminaImpegnativa").append("Sei sicruo di voler eliminare tutti gli appuntamenti inerenti all'impegnativa: <br>" + '<b>'+row.data().codiceImpegnativa)+'</b>';
+                                $("#centralModalDanger").modal();
+                                $("#centralModalDanger").on('hide.bs.modal', function(){
+                                    alert("Hello World!");
+                                });
+                                $("#centralModalDanger").on('hide.bs.modal', function(){
+                                    
+                                    alert("Hello World!");
+                                });
+
+                                if($("#centralModalDanger").dragDrop())
+                                     console.log($('#labelNessunAppuntamento'));
+                            } );
                         }
 
                     },
@@ -140,9 +174,6 @@ $(document).ready(function () {
                         $('#barra').hide();
                         $('#labelNessunAppuntamento').text("Nessun appuntamento per l'assistito selezionato");
                         $('#labelNessunAppuntamento').show();
-
-                        console.log(textStatus+"ciao");
-
 
                     }
                     /*let result = data.findIndex(function(object) {
