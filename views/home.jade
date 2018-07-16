@@ -9,7 +9,7 @@ block style
     link(href='/stylesheet/style.css', rel='stylesheet')
 
 block content
-    .row.my-5
+    .row
         img#imglogo.img-fluid(style='margin:auto; display:block; padding-buttom: 50px;', src='img/logocirclefree.png', alt='Card image cap')
     .container-fluid.m-3
         .row.justify-content-around
@@ -83,6 +83,10 @@ block content
                             | Some quick example text to build on the card title and make up the bulk of the card's content.
                         // Button
                         a.btn.btn-primary(href='#') Entra
+    .container-fluid
+        .row
+            .col-sm-12.col-md-12.col-lg-12
+                h1 shdhdj
 block javascript
     script(type='text/javascript', src='/javascript/jquery-3.3.1.min.js')
     script(type='text/javascript', src='/javascript/popper.min.js')
