@@ -132,15 +132,17 @@ block content
                                     small#indirizzoHelp.form-text.text-muted.red-text.font-italic(style="display: none;") Campo obbligatorio
                             .col-6
                                 .md-form
-                                    input#formTelefono.form-control(type='text' required='')
+                                    input#formTelefono.form-control(type='text' required='' pattern="^[0-9-+s()]*$")
                                     label(for='formTelefono') Numero mobile
                                     small#telefonoHelp.form-text.text-muted.red-text.font-italic(style="display: none;") Campo obbligatorio
+                        br
                         .row
                             .col-12
                                 input#checkboxterms.form-check-input(type='checkbox')
                                 label.dark-grey-text.form-check-label(for='checkboxterms') Prima di continuare accetta
                                     a.font-italic(href='#' data-toggle='modal' data-target='#modalTermini')  termini e condizioni
                                 small#terminiHelp.form-text.text-muted.red-text.font-italic(style="display: none;") Per continuare devi accettare i termini e condizioni
+                        br
                         button.btn.btn-color-primary.btn-rounded.prevBtn-2.float-left(type='button') Indietro
                         button#btnregistrazione.btn.btn-color-primary.btn-rounded.float-right(type='button') Registrati
                 div.row.setup-content-2#step-3
