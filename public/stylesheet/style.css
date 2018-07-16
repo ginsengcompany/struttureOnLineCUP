@@ -24,6 +24,9 @@ td.details-control {
 tr.shown td.details-control {
     background: url('../img/hide.png') no-repeat center center;
 }
+td.delete-control {
+    background: url('../img/deleteIcon.png') no-repeat center center;
+}
 input[type=text] {
     border-bottom: 1px solid #003964;
     box-shadow: 0 1px 0 0 #003964;
