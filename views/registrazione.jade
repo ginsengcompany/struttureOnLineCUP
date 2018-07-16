@@ -38,27 +38,27 @@ block content
                             i.fa.fa-user.prefix.dark-grey-text
                             input#formUsername.form-control(type='text' required)
                             label(for='formUsername') Username
-                            small#usernameHelp.form-text.text-muted.red-text(style="display: none;") Campo obbligatorio
+                            small#usernameHelp.form-text.text-muted.font-italic.red-text(style="display: none;") Campo obbligatorio
                         .md-form
                             i.fa.fa-lock.prefix.dark-grey-text
                             input#formPassword.form-control(type='password', required='', pattern="(?=^.{8,}$)((?=.*\\d)|(?=.*\\W+))(?![.\\n])(?=.*[A-Z])(?=.*[a-z]).*$")
                             label(for='formPassword') Inserisci Password
-                            small#passwordHelpBlockMD.form-text.text-muted La tua password deve contenere 8-20 caratteri, contenere lettere (maiuscole e minuscole) e numeri e non deve contenere spazi, caratteri speciali o emoji.
+                            small#passwordHelpBlockMD.form-text.text-muted.font-italic La tua password deve contenere 8-20 caratteri, contenere lettere (maiuscole e minuscole) e numeri e non deve contenere spazi, caratteri speciali o emoji.
                         .md-form
                             i.fa.fa-exclamation-triangle.prefix.dark-grey-text
                             input#formConfermaPassword.form-control(type='password', name='conferma', required='', pattern="(?=^.{8,}$)((?=.*\\d)|(?=.*\\W+))(?![.\\n])(?=.*[A-Z])(?=.*[a-z]).*$")
                             label(for='formConfermaPassword') Conferma Password
-                            small#confermaPasswordHelp.form-text.text-muted.red-text(style="display: none;")
+                            small#confermaPasswordHelp.form-text.red-text.font-italic(style="display: none;")
                         .md-form
                             i.fa.fa-envelope.prefix.dark-grey-text
                             input#formEmail.form-control(type='email' required='')
                             label(for='formEmail') Inserisci email
-                            small#emailHelp.form-text.text-muted.red-text(style="display: none;") campo mancante o email non valida
+                            small#emailHelp.form-text.text-muted.red-text.font-italic(style="display: none;") campo mancante o email non valida
                         .md-form
                             i.fa.fa-exclamation-triangle.prefix.dark-grey-text
                             input#formConfermaEmail.form-control(type='email', name='conferma', required='')
                             label(for='formConfermaEmail') Conferma email
-                            small#confermaEmailHelp.form-text.text-muted.red-text(style="display: none;")
+                            small#confermaEmailHelp.form-text.text-muted.red-text.font-italic(style="display: none;")
                         .md-form
                             button#btnForm1.btn.btn-color-primary.btn-rounded.float-right(type='button') Avanti
             form#registrazioneform2
@@ -72,28 +72,34 @@ block content
                                 .md-form
                                     input#formNome.form-control.text-uppercase(type='text' required='')
                                     label(for='formNome') Inserisci Nome
+                                    small#nomeHelp.form-text.text-muted.red-text.font-italic(style="display: none;") Campo obbligatorio
                             .col-6
                                 .md-form
                                     input#formCognome.form-control.text-uppercase(type='text' required='')
                                     label(for='formCognome') Inserisci Cognome
+                                    small#cognomeHelp.form-text.text-muted.red-text.font-italic(style="display: none;") Campo obbligatorio
                         .row
                             .col-6
                                 .md-form
                                     input#date-picker-example.form-control.datepicker(placeholder='Data di nascita', type='text' required='')
                                     label(for='date-picker-example') Data di nascita
+                                    small#data-nascitaHelp.form-text.text-muted.red-text.font-italic(style="display: none;") Campo obbligatorio
                             .col-6
                                 .md-form
                                     input#formCodFisc.form-control.text-uppercase(type='text' required='')
                                     label(for='formCodFisc') Codice Fiscale
+                                    small#codice-fiscaleHelp.form-text.text-muted.red-text.font-italic(style="display: none;") Campo obbligatorio
                         .row
                             .col-6
                                 .md-form
                                     select#listaprovincenascita.mdb-select(searchable="Cerca...", name="listaprovince" required='' initialized)
                                         option(value='', disabled='', selected='') Provincia di nascita
+                                    small#provincia-nascitaHelp.form-text.text-muted.red-text.font-italic(style="display: none;") Campo obbligatorio
                             .col-6
                                 .md-form
                                     select#listacomunenascita.mdb-select(searchable="Cerca...", required='', name="comuni")
                                         option(value='', disabled='', selected='') Comune di nascita
+                                    small#comunenascitaHelp.form-text.text-muted.red-text.font-italic(style="display: none;") Campo obbligatorio
                         .row
                             .col-6
                                 .md-form#sesso
@@ -101,40 +107,50 @@ block content
                                         option(value='', disabled='', selected='') Sesso
                                         option.rounded-circle(value='M', data-icon='./img/uomo.png') Maschio
                                         option.rounded-circle(value='F', data-icon='./img/donna.png') Femmina
+                                    small#sessoHelp.form-text.text-muted.red-text.font-italic(style="display: none;") Campo obbligatorio
                             .col-6
                                 .md-form
                                     select#statocivile.mdb-select(name='statocivile' required='')
                                         option(value='', disabled='', selected='') Stato civile
+                                    small#stato-civileHelp.form-text.text-muted.red-text.font-italic(style="display: none;") Campo obbligatorio
                         .row
                             .col-6
                                 .md-form
                                     select#listaprovinceresidenza.mdb-select(searchable="Cerca...", name="listaprovince" required='')
                                         option(value='', disabled='', selected='') Provincia di residenza
+                                    small#provincia-residenzaHelp.form-text.text-muted.red-text.font-italic(style="display: none;") Campo obbligatorio
                             .col-6
                                 .md-form
                                     select#listacomuneresidenza.mdb-select(searchable="Cerca...", required='', name="comuni")
                                         option(value='', disabled='', selected='') Comune di residenza
+                                    small#comune-residenzaHelp.form-text.text-muted.red-text.font-italic(style="display: none;") Campo obbligatorio
                         .row
                             .col-6
                                 .md-form
                                     input#formIndirizzo.form-control.text-uppercase(type='text' required='')
                                     label(for='formIndirizzo') Indirizzo di residenza
+                                    small#indirizzoHelp.form-text.text-muted.red-text.font-italic(style="display: none;") Campo obbligatorio
                             .col-6
                                 .md-form
-                                    input#formTelefono.form-control(type='text' required='')
+                                    input#formTelefono.form-control(type='text' required='' pattern="^[0-9-+s()]*$")
                                     label(for='formTelefono') Numero mobile
+                                    small#telefonoHelp.form-text.text-muted.red-text.font-italic(style="display: none;") Campo obbligatorio
+                        br
                         .row
                             .col-12
                                 input#checkboxterms.form-check-input(type='checkbox')
                                 label.dark-grey-text.form-check-label(for='checkboxterms') Prima di continuare accetta
-                                    a(href='#' data-toggle='modal' data-target='#modalTermini')  termini e condizioni
+                                    a.font-italic(href='#' data-toggle='modal' data-target='#modalTermini')  termini e condizioni
+                                small#terminiHelp.form-text.text-muted.red-text.font-italic(style="display: none;") Per continuare devi accettare i termini e condizioni
+                        br
                         button.btn.btn-color-primary.btn-rounded.prevBtn-2.float-left(type='button') Indietro
-                        button#btnregistrazione.submit.btn.btn-color-primary.btn-rounded.nextBtn-2.float-right(type='submit') Registrati
+                        button#btnregistrazione.btn.btn-color-primary.btn-rounded.float-right(type='button') Registrati
                 div.row.setup-content-2#step-3
                     .col-md-12
                         h3.font-weight-bold.pl-0.my-4(style='color:#495057;')
                             strong Fine
                         h2.text-center.font-weight-bold.my-4.green-text Registrazione Completata!
+                        h2.text-center.font-weight-bold.my-4.green-text Sarai reindirizzato alla pagina di accesso
     div#centralModalError.modal.fade(tabindex='-1' role='dialog' aria-hidden='true')
         div.modal-dialog.modal-notify(role='document')
             div.modal-content
