@@ -1,9 +1,11 @@
+$(".logo_login").hide();
 $('#rowcard').hide();
 $(document).ready(function () {
-    $('#imglogo').addClass('animated fadeInDown');
+    $('.logo-login').show();
+    $('.logo-login').addClass('animated fadeInDown');
     setTimeout(function () {
         $('#rowcard').show();
-        $('#rowcard').addClass('animated rubberBand')
+        $('#rowcard').addClass('animated rubberBand');
     }, 1000);
     $('#loginForm').submit(function () {
         eseguiLogin();

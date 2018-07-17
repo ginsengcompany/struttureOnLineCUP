@@ -2,7 +2,7 @@ let request = require('request');
 let aziende = require('../utils/aziende');
 
 exports.getLogin = function (req, res, next) {
-    aziendaParameter = req.params.azienda;
+    let aziendaParameter = req.params.azienda;
     let aziendaEsistente = false;
     if(!aziende.hasOwnProperty(aziendaParameter)){
         return res.render('error',{
@@ -12,5 +12,5 @@ exports.getLogin = function (req, res, next) {
             message: "Page not found"
         });
     }
-    res.render('index');
+    res.render('index',{parametroAzienda:aziendaParameter});
 };
