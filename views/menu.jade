@@ -7,8 +7,9 @@ block style
     link(href='/stylesheet/bootstrap.min.css', rel='stylesheet')
     link(href='/stylesheet/mdb.min.css', rel='stylesheet')
     link(href='/stylesheet/style.css', rel='stylesheet')
+    link(href='/stylesheet/layout.css', rel='stylesheet', type='text/css', media='all')
 block body
-    body.hidden-sn.mdb-skin
+    body#top.hidden-sn.mdb-skin
         header
             #slide-out.side-nav.sn-bg-4.mdb-sidenav
                 ul.custom-scrollbar.list-unstyled
@@ -69,79 +70,80 @@ block body
         main
 
 block footer
-    footer.page-footer.font-small.unique-color-dark
-        div(style='background-color: #fc4a4a; height: 5px;')
-            .container
+    .row.wrapper(style='height: 500px;')
+        footer#footer.page-footer.font-small.unique-color-dark.hoc.clear
+            div(style='background-color: #fc4a4a; height: 5px;')
+                .container
+                    // Grid row
+                    .row.py-4.d-flex.align-items-center
+                        // Grid column
+                        // Grid column
+                    // Grid row
+            // Footer Links
+            .container-fluid(style='background-color: #243a51')
                 // Grid row
-                .row.py-4.d-flex.align-items-center
+                .row.mt-3
+                    // Grid column
+                    .col-md-3.col-lg-4.col-xl-3.mx-auto.mb-4
+                        // Content
+                        h6.text-uppercase.font-weight-bold AK-12
+                        hr.deep-purple.accent-2.mb-4.mt-0.d-inline-block.mx-auto(style='width: 60px;')
+                        p
+                            | Here you can use rows and columns here to organize your footer content. Lorem ipsum dolor sit amet, consectetur
+                            | adipisicing elit.
                     // Grid column
                     // Grid column
+                    .col-md-2.col-lg-2.col-xl-2.mx-auto.mb-4
+                        // Links
+                        h6.text-uppercase.font-weight-bold Prodotti
+                        hr.deep-purple.accent-2.mb-4.mt-0.d-inline-block.mx-auto(style='width: 60px;')
+                        p
+                            a(href='#!') MDBootstrap
+                        p
+                            a(href='#!') MDWordPress
+                        p
+                            a(href='#!') BrandFlow
+                        p
+                            a(href='#!') Bootstrap Angular
+                    // Grid column
+                    // Grid column
+                    .col-md-3.col-lg-2.col-xl-2.mx-auto.mb-4
+                        // Links
+                        h6.text-uppercase.font-weight-bold Link
+                        hr.deep-purple.accent-2.mb-4.mt-0.d-inline-block.mx-auto(style='width: 60px;')
+                        p
+                            a(href='#!') Your Account
+                        p
+                            a(href='#!') Become an Affiliate
+                        p
+                            a(href='#!') Shipping Rates
+                        p
+                            a(href='#!') Help
+                    // Grid column
+                    // Grid column
+                    .col-md-4.col-lg-3.col-xl-3.mx-auto.mb-md-0.mb-4
+                        // Links
+                        h6.text-uppercase.font-weight-bold Contatti
+                        hr.deep-purple.accent-2.mb-4.mt-0.d-inline-block.mx-auto(style='width: 60px;')
+                        p
+                            i.fa.fa-home.mr-3
+                            |  Via Torino 14, 81020 San Nicola La Strada (CE)
+                        p
+                            i.fa.fa-envelope.mr-3
+                            |  info@ak12srl.it
+                        p
+                            i.fa.fa-phone.mr-3
+                            |  +(39) 0823 49 49 35
+                    // Grid column
                 // Grid row
-        // Footer Links
-        .container-fluid(style='background-color: #243a51')
-            // Grid row
-            .row.mt-3
-                // Grid column
-                .col-md-3.col-lg-4.col-xl-3.mx-auto.mb-4
-                    // Content
-                    h6.text-uppercase.font-weight-bold AK-12
-                    hr.deep-purple.accent-2.mb-4.mt-0.d-inline-block.mx-auto(style='width: 60px;')
-                    p
-                        | Here you can use rows and columns here to organize your footer content. Lorem ipsum dolor sit amet, consectetur
-                        | adipisicing elit.
-                // Grid column
-                // Grid column
-                .col-md-2.col-lg-2.col-xl-2.mx-auto.mb-4
-                    // Links
-                    h6.text-uppercase.font-weight-bold Prodotti
-                    hr.deep-purple.accent-2.mb-4.mt-0.d-inline-block.mx-auto(style='width: 60px;')
-                    p
-                        a(href='#!') MDBootstrap
-                    p
-                        a(href='#!') MDWordPress
-                    p
-                        a(href='#!') BrandFlow
-                    p
-                        a(href='#!') Bootstrap Angular
-                // Grid column
-                // Grid column
-                .col-md-3.col-lg-2.col-xl-2.mx-auto.mb-4
-                    // Links
-                    h6.text-uppercase.font-weight-bold Link
-                    hr.deep-purple.accent-2.mb-4.mt-0.d-inline-block.mx-auto(style='width: 60px;')
-                    p
-                        a(href='#!') Your Account
-                    p
-                        a(href='#!') Become an Affiliate
-                    p
-                        a(href='#!') Shipping Rates
-                    p
-                        a(href='#!') Help
-                // Grid column
-                // Grid column
-                .col-md-4.col-lg-3.col-xl-3.mx-auto.mb-md-0.mb-4
-                    // Links
-                    h6.text-uppercase.font-weight-bold Contatti
-                    hr.deep-purple.accent-2.mb-4.mt-0.d-inline-block.mx-auto(style='width: 60px;')
-                    p
-                        i.fa.fa-home.mr-3
-                        |  Via Torino 14, 81020 San Nicola La Strada (CE)
-                    p
-                        i.fa.fa-envelope.mr-3
-                        |  info@ak12srl.it
-                    p
-                        i.fa.fa-phone.mr-3
-                        |  +(39) 0823 49 49 35
-                // Grid column
-            // Grid row
-        // Footer Links
-        // Copyright
-        .footer-copyright.text-center.py-3
-            | © 2018 Copyright:
-            a(href='/')  AK-12 S.r.l
-        // Copyright
-    // Footer
+            // Footer Links
+            // Copyright
 
+            .footer-copyright.text-center.py-3.hoc.clear
+                | © 2018 Copyright:
+                a(href='/')  AK-12 S.r.l
+        // Copyright
+    
 block javascript
     script(type='text/javascript', src='/javascript/jquery-3.3.1.min.js')
     script(type='text/javascript', src='/javascript/popper.min.js')
