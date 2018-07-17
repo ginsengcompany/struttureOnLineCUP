@@ -17,7 +17,7 @@ $(document).ready(function () {
         headers: {
             "x-access-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVhZmVkNWM2Mjc1MTNiN2ZiYjI5Yjc2MCIsImlhdCI6MTUzMTI5NTc3M30.BQGMg3W-bhpziOSRotEOAnazPLSsWyIlFridkhBbo_s"
         },
-        url: "http://192.168.125.24:3001/auth/me",
+        url: "http://ecuptservice.ak12srl.it/auth/me",
         dataType: "json",
         success: function (data, textStatus, jqXHR) {
             $('.mdb-select').material_select('destroy');
@@ -105,7 +105,7 @@ function invioPrenotazione() {
     console.log(sendObject);
     $.ajax({
         type: "POST",
-        url: "http://192.168.125.24:3001/ricetta",
+        url: "http://ecuptservice.ak12srl.it/ricetta",
         headers: {
             "x-access-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVhZmVkNWM2Mjc1MTNiN2ZiYjI5Yjc2MCIsImlhdCI6MTUzMTI5NTc3M30.BQGMg3W-bhpziOSRotEOAnazPLSsWyIlFridkhBbo_s",
             "struttura": "150907"

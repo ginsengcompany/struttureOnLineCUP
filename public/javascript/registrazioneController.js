@@ -89,6 +89,7 @@ nextBtn.click(function(){
 });
 
 $('div.setup-panel-2 div a.btn-amber').trigger('click');
+//$('#btn-step-3').trigger('click');
 
 $(document).ready(function () {
     //gestione picker e mdb-select registrazione
@@ -249,7 +250,7 @@ btnRegistrati.click(function() {
                 $("#nomeHelp").fadeIn();
             }
             else
-                $("#homeHelp").fadeOut();
+                $("#nomeHelp").fadeOut();
         }
         else if(formParameters[i].id === "formCognome"){
             if(!formParameters[i].value || formParameters[i].value.trim() === ''){
@@ -324,7 +325,7 @@ btnRegistrati.click(function() {
                 $("#indirizzoHelp").fadeOut();
         }
         else if(formParameters[i].id === "formTelefono"){
-            if(!formParameters[i].value || formParameters[i].value.trim() === ''){
+            if(!formParameters[i].validity.valid || formParameters[i].value.trim() === ''){
                 isValid = false;
                 $("#telefonoHelp").fadeIn();
             }
@@ -332,7 +333,7 @@ btnRegistrati.click(function() {
                 $("#telefonoHelp").fadeOut();
         }
         else if(formParameters[i].id === "checkboxterms"){
-            if(!$("#checkboxterms").checked){
+            if($("#checkboxterms:checked").length === 0){
                 isValid = false;
                 $("#terminiHelp").fadeIn();
             }

@@ -29,6 +29,30 @@ block content
                             th Impegnativa
                     tbody
 
+            #centralModalDanger.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel', aria-hidden='true')
+              .modal-dialog.modal-notify.modal-danger(role='document')
+                // Content
+                .modal-content
+                  // Header
+                  .modal-header
+                    p.heading.lead ATTENZIONE
+                    button.close(type='button', data-dismiss='modal', aria-label='Close')
+                      span.white-text(aria-hidden='true') ×
+                  // Body
+                  .modal-body
+                    .text-center
+                      i.fa.fa-close.fa-4x.mb-3.animated.rotateIn
+                      p#labelEliminaImpegnativa
+                  // Footer
+                  .modal-footer.justify-content-center
+                    a.btn.btn-danger(type='button')
+                        |Si
+                    a.btn.btn-outline-danger.waves-effect(type='button', data-dismiss='modal')
+                        |No
+                // /.Content
+            // Central Modal Medium Danger
+
+
 
 
 block javascript
@@ -40,3 +64,4 @@ block javascript
     script(type='text/javascript', src='https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js')
     script(src='https://cdn.jsdelivr.net/lodash/4.17.2/lodash.min.js',type='text/javascript')
     script(src='/javascript/appuntamentiController.js', type='text/javascript')
+
