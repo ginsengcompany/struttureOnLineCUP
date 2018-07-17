@@ -21,7 +21,7 @@ function eseguiLogin() {
     parametriLogin.password = $('#materialFormPassword').val();
     $.ajax({
         type: "POST",
-        url: "http://ecuptservice.ak12srl.it/auth/login",
+        url: window.location.href,
         data: JSON.stringify(parametriLogin),
         dataType : "json",
         contentType : 'application/json',

@@ -3,13 +3,11 @@ let path = require('path');
 let cookieParser = require('cookie-parser');
 let bodyParser = require('body-parser');
 let logger = require('morgan');
+let session = require('express-session');
+let request = require('request');
+let aziende = require('./utils/aziende');
 
 let index = require('./routes/index');
-let rubrica = require('./routes/rubrica');
-let prenotazione = require('./routes/prenotazione');
-let appuntamenti = require('./routes/appuntamenti');
-let verificaContenutoImpegnativa = require('./routes/verificaContenutoImpegnativa');
-let home = require('./routes/home');
 
 let app = express();
 
@@ -23,6 +21,25 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(session({
+    secret: "534153484568198!!!!",
+    saveUninitialized: false,
+    resave: false
+}));
+
+function checkauth(req, res, next) {
+    if(req.url.includes('home') || req.url.includes('prenotazione') || req.url.includes('rubrica') || req.url.includes('appuntamenti') || req.url.includes('logout')){
+        if (!req.session || !req.session.auth){
+            res.redirect('login');
+        }
+        else
+            next();
+    }
+    else
+        next();
+}
+
+app.use(checkauth);
 app.use('/', index);
 
 // catch 404 and forward to error handler

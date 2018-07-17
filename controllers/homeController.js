@@ -11,6 +11,7 @@ exports.getHome = function (req, res, next) {
             message: "Azienda ospedaliera non trovata"
         });
     }
+    /*
     let options = {
         method: 'GET',
         uri: 'http://ecuptservice.ak12srl.it/infostruttura',
@@ -29,5 +30,6 @@ exports.getHome = function (req, res, next) {
             });
         res.render('home',{datiAzienda:body,parametroAzienda:aziendaParameter});
     });
-
+    */
+    res.render('home',{parametroAzienda:aziendaParameter});
 };
