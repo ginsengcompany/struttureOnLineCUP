@@ -18,6 +18,16 @@ block body
                             a(href='#')
                                 img.img-fluid.flex-center(src='/img/iconmenu.png')
                     li
+                        ul
+                            li
+                                ul
+                                    li
+                                        a.textnavbar(href='prenotazione') Prenota
+                                    li
+                                        a.textnavbar(href='appuntamenti') Lista appuntamenti
+                                    li
+                                        a.textnavbar(href='rubrica') Lista contatti
+                    //li
                         ul.collapsible.collapsible-accordion
                             li
                                 a.collapsible-header.waves-effect.arrow-r
@@ -55,16 +65,16 @@ block body
             nav.navbar.fixed-top.navbar-toggleable-md.navbar-expand-lg.scrolling-navbar.double-nav
                 .float-left
                     a.button-collapse(href='#', data-activates='slide-out')
-                        i.fa.fa-bars
+                        i.fa.fa-bars.textnavbar
                 .breadcrumb-dn.mr-auto
                     p Ecupt
                 ul.nav.navbar-nav.nav-flex-icons.ml-auto
-                    li.nav-item
+                    //li.nav-item
                         a.nav-link
                             i.fa.fa-user
                             span.clearfix.d-none.d-sm-inline-block Account
                     li.nav-item
-                        a.nav-link(href='/')
+                        a.textnavbar.nav-link(href='login')
                             i.fa.fa-times
                             span.clearfix.d-none.d-sm-inline-block Logout
         main

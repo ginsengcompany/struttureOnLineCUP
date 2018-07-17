@@ -61,6 +61,15 @@ footer.page-footer {
     top: 25px;
 }
 
+.textnavbar{
+    color: white !important;
+    transition: 0.3s;
+}
+.textnavbar:hover{
+    color: #6C94B2 !important;
+    transition: 0.3s;
+}
+
 footer.page-footer .footer-copyright{
     background-color: #243a51 !important;
 }
