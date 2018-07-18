@@ -1,29 +1,15 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
+let express = require('express');
+let path = require('path');
+let cookieParser = require('cookie-parser');
 let bodyParser = require('body-parser');
-var logger = require('morgan');
+let logger = require('morgan');
+let session = require('express-session');
+let request = require('request');
+let aziende = require('./utils/aziende');
 
-var routes = require('./routes/index');
-var users = require('./routes/users');
-var registrazione = require('./routes/registrazione');
-var rubrica = require('./routes/rubrica');
-var prenotazione = require('./routes/prenotazione');
-var appuntamenti = require('./routes/appuntamenti');
-var verificaContenutoImpegnativa = require('./routes/verificaContenutoImpegnativa');
-var home = require('./routes/home');
-var cors = require('cors');
+let index = require('./routes/index');
 
-var app = express();
-
-app.use(function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    next();
-});
-
-
+let app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -35,22 +21,40 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', routes);
-app.use('/users', users);
-app.use('/registrazione', registrazione);
-app.use('/prenotazione', prenotazione);
-app.use('/rubrica', rubrica);
-app.use('/appuntamenti', appuntamenti);
-app.use('/verificaContenutoImpegnativa',verificaContenutoImpegnativa);
-app.use('/home',home);
-app.use(cors());
+app.use(session({
+    secret: "534153484568198!!!!",
+    saveUninitialized: false,
+    resave: false
+}));
+
+function checkauth(req, res, next) {
+    if(req.url.includes('home') || req.url.includes('prenotazione') || req.url.includes('rubrica') || req.url.includes('appuntamenti') || req.url.includes('logout')){
+        if (!req.session || !req.session.auth){
+            res.redirect('login');
+        }
+        else
+            next();
+    }
+    else
+        next();
+}
+
+app.use(checkauth);
+app.use('/', index);
+
+// catch 404 and forward to error handler
+app.use(function(req, res, next) {
+    let err = new Error('Page not found');
+    err.status = 404;
+    next(err);
+});
 
 // error handler
 app.use(function(err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
-
+  res.locals.title = "e-cupt";
   // render the error page
   res.status(err.status || 500);
   res.render('error');

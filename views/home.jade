@@ -10,13 +10,14 @@ block style
 
 block content
     .row
-        img#imglogo.img-fluid(style='margin:auto; display:block; padding-buttom: 50px;', src='img/logocirclefree.png', alt='Card image cap')
+        img#imglogo.img-fluid(style='margin:auto; display:block;', src='/img/logocirclefree.png', alt='Card image cap')
+        img#imglogAzienda.img-fluid(style='margin:auto; display:block;' src='/img/#{parametroAzienda}.png')
     .container-fluid.m-3
         .row.justify-content-around
             .col-sm-2.col-md-2.col-lg-2(style='text-align: center;')
                 .card
                     // Card image
-                    img.card-img-top(src='img/prenota.png')
+                    img.card-img-top(src='/img/prenota.png')
                     // Card content
                     .card-body
                         // Title
@@ -26,11 +27,11 @@ block content
                         p.card-text
                             | Some quick example text to build on the card title and make up the bulk of the card's content.
                         // Button
-                        a.btn.btn-primary(href='/prenotazione' style='background-color: #253a50;') Entra
+                        a.btn.btn-primary(href='prenotazione' style='background-color: #253a50;') Entra
             .col-sm-2.col-md-2.col-lg-2(style='text-align: center;')
                 .card
                     // Card image
-                    img.card-img-top(src='img/appuntamenti.png')
+                    img.card-img-top(src='/img/appuntamenti.png')
                     // Card content
                     .card-body
                         // Title
@@ -40,11 +41,11 @@ block content
                         p.card-text
                             | Some quick example text to build on the card title and make up the bulk of the card's content.
                         // Button
-                        a.btn.btn-primary(href='/appuntamenti') Entra
+                        a.btn.btn-primary(href='appuntamenti') Entra
             .col-sm-2.col-md-2.col-lg-2(style='text-align: center;')
                 .card
                     // Card image
-                    img.card-img-top(src='img/contatti.png')
+                    img.card-img-top(src='/img/contatti.png')
                     // Card content
                     .card-body
                         // Title
@@ -54,11 +55,11 @@ block content
                         p.card-text
                             | Some quick example text to build on the card title and make up the bulk of the card's content.
                         // Button
-                        a.btn.btn-primary(href='/rubrica') Entra
+                        a.btn.btn-primary(href='rubrica') Entra
             .col-sm-2.col-md-2.col-lg-2(style='text-align: center;')
                 .card
                     // Card image
-                    img.card-img-top(src='img/pagamenti.png')
+                    img.card-img-top(src='/img/pagamenti.png')
                     // Card content
                     .card-body
                         // Title
@@ -72,7 +73,7 @@ block content
             .col-sm-2.col-md-2.col-lg-2(style='text-align: center;')
                 .card
                     // Card image
-                    img.card-img-top(src='img/referti.png')
+                    img.card-img-top(src='/img/referti.png')
                     // Card content
                     .card-body
                         // Title
@@ -83,10 +84,7 @@ block content
                             | Some quick example text to build on the card title and make up the bulk of the card's content.
                         // Button
                         a.btn.btn-primary(href='#') Entra
-    .container-fluid
-        .row
-            .col-sm-12.col-md-12.col-lg-12
-                h1 shdhdj
+
 block javascript
     script(type='text/javascript', src='/javascript/jquery-3.3.1.min.js')
     script(type='text/javascript', src='/javascript/popper.min.js')

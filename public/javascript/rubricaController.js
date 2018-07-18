@@ -37,7 +37,7 @@ $(document).ready(function() {
             url: '../localisation/it-IT.json'
         },
         ajax :{
-            url: "http://192.168.125.24:3001/auth/me",
+            url: "http://ecuptservice.ak12srl.it/auth/me",
             type: 'GET',
             dataType: 'json',
             dataSrc:'',
