@@ -63,13 +63,14 @@ $(document).ready(function () {
 
                 $('#labelNessunAppuntamento').hide();
                 $('#barra').show();
+                $('#test').hide();
 
 
 
                 $.ajax({
                     type: "POST",
                     data: JSON.stringify(data[nomeSelezionato]),
-                    url: "http://192.168.125.24/aocasert",
+                    url: window.location.href + "/ListaAppuntamenti",
                     dataType: "json",
 
                     contentType: 'application/json',
