@@ -127,3 +127,17 @@ footer.page-footer .footer-copyright{
     }
 
 }
+
+@media only screen and (max-width: 400px) {
+    .card .card-body h3 {
+        font-size: 1.7rem ;
+        margin-bottom: 0;
+        padding: .4rem;
+    }
+}
+
+@media only screen and (max-width: 400px) {
+    .card {
+        width: 320px !important;
+    }
+}
