@@ -25,6 +25,7 @@ router.get('/:azienda/rubrica', rubricaController.getRubrica);
 /* APPUNTAMENTI */
 router.get('/:azienda/appuntamenti', appuntamentiController.getAppuntamenti);
 router.get('/:azienda/appuntamenti/contatti', appuntamentiController.getContatti);
+router.post('/:azienda/appuntamenti/ListaAppuntamenti', appuntamentiController.getListaAppuntamentiAssistito);
 
 /* VERIFICA CONTENUTO IMPEGNATIVA */
 router.get('/:azienda/verificaContenutoImpegnativa', verificaContenutoImpegnativaController.getContenutoImpegnativa);
