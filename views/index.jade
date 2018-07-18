@@ -13,9 +13,8 @@ block body
             .row.my-5
                 img#imglogo.logo-login.img-fluid(style='margin:auto; display:block', src='/img/logocirclefree.png', alt='Card image cap')
                 img.logo-login.img-fluid(style='margin:auto; display:block', src='/img/#{parametroAzienda}.png', alt='Card image cap')
-            .row.h-100
-                .col-sm-3
-                .col-sm-6.my-auto
+            .row.justify-content-center(style='margin-bottom: 50px;')
+                .col-sm-12.col-md-6.col-lg-6
                     .card.mx-auto.w-50#rowcard
                         .card-body
                             .form-header.morpheus-den-gradient.rounded
@@ -35,7 +34,6 @@ block body
                                     button.btn.btn-color-primary.waves-effect.waves-light(type='submit') Entra
                             .text-center.mt-4
                                 a#btnRegistrati.btn.btn-color-primary.waves-effect.waves-light(href="registrazione") Registrati
-                .col-sm-3
         div#centralModalInfo.modal.fade(tabindex='-1' role='dialog' aria-hidden='true')
             div.modal-dialog.modal-notify(role='document')
                 div.modal-content
