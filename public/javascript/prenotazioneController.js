@@ -2,6 +2,7 @@ $( "#rowCodiceImpegnativa1" ).hide();
 $( "#rowCodiceImpegnativa2" ).hide();
 $( "#rowAutoFill" ).hide();
 $( "#rowBottoneInvio" ).hide();
+$('#barra').hide();
 $(document).ready(function () {
     $('#nomeAutofill').val('');
     $('#cognomeAutofill').val('');
@@ -14,10 +15,7 @@ $(document).ready(function () {
     let selectNome = $("#selectNominativo");
     $.ajax({
         type: "GET",
-        headers: {
-            "x-access-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVhZmVkNWM2Mjc1MTNiN2ZiYjI5Yjc2MCIsImlhdCI6MTUzMTI5NTc3M30.BQGMg3W-bhpziOSRotEOAnazPLSsWyIlFridkhBbo_s"
-        },
-        url: "http://ecuptservice.ak12srl.it/auth/me",
+        url: window.location.href + "/contatti",
         dataType: "json",
         success: function (data, textStatus, jqXHR) {
             $('.mdb-select').material_select('destroy');
@@ -48,7 +46,6 @@ $(document).ready(function () {
         $('input[type=text]').val (function () {
             return this.value.toUpperCase();
         });
-        console.log( $('#codiceImpegnativa1').val());
         if($('#codiceImpegnativa1').val().length > 5 && $('#codiceImpegnativa1').val().length === 15) {
             $('#labelcodiceImpegnativa1').text("Inserisci il codice SAR");
             $("#rowCodiceImpegnativa2").hide();
@@ -64,6 +61,9 @@ $(document).ready(function () {
         }
     });
     $('#codiceImpegnativa2').on('input',function (){
+        $('#codiceImpegnativa2').attr({
+            "max" : 15
+        });
         $('input[type=text]').val (function () {
             return this.value.toUpperCase();
         });
@@ -83,24 +83,23 @@ function invioPrenotazione() {
             cognome: $("#cognomeAutofill").val()
         }
     };
-    console.log(sendObject);
+    $('#barra').show();
+    $("#invioPrenotazione" ).prop( "disabled", true );
     $.ajax({
         type: "POST",
-        url: "http://ecuptservice.ak12srl.it/ricetta",
-        headers: {
-            "x-access-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVhZmVkNWM2Mjc1MTNiN2ZiYjI5Yjc2MCIsImlhdCI6MTUzMTI5NTc3M30.BQGMg3W-bhpziOSRotEOAnazPLSsWyIlFridkhBbo_s",
-            "struttura": "150907"
-        },
+        url: window.location.href + "/datiImpegnativa",
         data: JSON.stringify(sendObject),
         dataType: "json",
         contentType: 'application/json',
         success: function (data, textStatus, jqXHR) {
-            $('#paragrafomodalPrenotazione').text(jqXHR.responseText);
-            $('#centralModalAlert').modal('show');
+            sessionStorage.setItem("datiPrenotazione", data);
+            window.location.href = "verificaContenutoImpegnativa";
         },
         error: function (jqXHR, textStatus, errorThrown) {
             $('#paragrafomodalPrenotazione').text(jqXHR.responseText);
             $('#centralModalAlert').modal('show');
+            $("#invioPrenotazione" ).prop( "disabled", false );
+            $('#barra').hide();
         }
     });
 }
