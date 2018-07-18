@@ -24,7 +24,6 @@ $(document).ready(function () {
             data.sort(function(a,b) {
                 return (a.nomeCompletoConCodiceFiscale > b.nomeCompletoConCodiceFiscale) ? 1 : ((b.nomeCompletoConCodiceFiscale > a.nomeCompletoConCodiceFiscale) ? -1 : 0);
             });
-            console.log(data);
             selectNome.append('<option value="" disabled="" selected="">' + "Seleziona" + '</option>');
             for (let i = 0; i < data.length; i++) {
                 selectNome.append('<option value="' + i + '">' + data[i].nomeCompletoConCodiceFiscale + '</option>');
@@ -35,9 +34,6 @@ $(document).ready(function () {
                 let nomeSelezionato = $( "#selectNominativo option:selected" ).val();
                 $( "#rowCodiceImpegnativa1" ).show();
                 $( "#rowAutoFill" ).show();
-                /*let result = data.findIndex(function(object) {
-                    return object.nomeCompletoConCodiceFiscale === nomeSelezionato;
-                });*/
                     $("#nomeAutofill").val(data[nomeSelezionato].nome);
                     $("#cognomeAutofill").val(data[nomeSelezionato].cognome);
                     $("#codiceFiscaleAutofill").val(data[nomeSelezionato].codice_fiscale);
@@ -76,21 +72,6 @@ $(document).ready(function () {
         else
             $("#rowBottoneInvio").show();
     });
-    /*let selectNominativiPlaceholder = ["Giancarlo Magalli", "Fabrizi Frizzi", "Carlo Conti", "Flavio Insinna"];
-    $('.mdb-select').material_select('destroy');
-    for (let i = 0; i < selectNominativiPlaceholder.length; i++) {
-        selectNome.append('<option value="' + selectNominativiPlaceholder[i] + '">' + selectNominativiPlaceholder[i] + '</option>');
-    }*/
-    /*$('#selectNominativo').on('change', function () {
-        let nomeSelezionato = $( "#selectNominativo option:selected" ).text();
-        let result = data.findIndex(function(object) {
-            return object.nomeCompletoConCodiceFiscale === nomeSelezionato ;
-        });
-        console.log(result);
-        $("#nomeAutofill").val(nomeSelezionato);
-        $("#cognomeAutofill").val(nomeSelezionato);
-        $("#codiceFiscaleAutofill").val(nomeSelezionato);
-    });*/
 });
 
 function invioPrenotazione() {
