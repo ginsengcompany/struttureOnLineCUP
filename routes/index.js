@@ -18,6 +18,8 @@ router.get('/:azienda/registrazione', registrazioneController.getRegistrazione);
 
 /* PRENOTAZIONE */
 router.get('/:azienda/prenotazione', prenotazioneController.getPrenotazione);
+router.get('/:azienda/prenotazione/contatti', prenotazioneController.getContatti);
+router.post('/:azienda/prenotazione/datiImpegnativa', prenotazioneController.invioDatiImpegnativa);
 
 /* RUBRICA */
 router.get('/:azienda/rubrica', rubricaController.getRubrica);
