@@ -23,6 +23,7 @@ router.post('/:azienda/prenotazione/datiImpegnativa', prenotazioneController.inv
 
 /* RUBRICA */
 router.get('/:azienda/rubrica', rubricaController.getRubrica);
+router.get('/:azienda/rubrica/contatti', rubricaController.getContatti);
 
 /* APPUNTAMENTI */
 router.get('/:azienda/appuntamenti', appuntamentiController.getAppuntamenti);
