@@ -14,7 +14,9 @@ exports.postLogin = function (req, res, next) {
     request(options,function (err, response, body) {
         if(err)
             return res.status(500).send("Il servizio è momentaneamente non disponibile");
-        req.session.auth = true;
+        req.session.auth = body.auth;
+        if(body.auth)
+            req.session.tkn = body.token;
         res.status(200).send(body);
     });
 };
