@@ -92,7 +92,7 @@ function invioPrenotazione() {
         dataType: "json",
         contentType: 'application/json',
         success: function (data, textStatus, jqXHR) {
-            sessionStorage.setItem("datiPrenotazione", data);
+            sessionStorage.setItem("datiPrenotazione", JSON.stringify(data));
             window.location.href = "verificaContenutoImpegnativa";
         },
         error: function (jqXHR, textStatus, errorThrown) {

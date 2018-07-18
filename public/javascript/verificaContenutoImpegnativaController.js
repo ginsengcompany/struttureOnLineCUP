@@ -6,6 +6,22 @@ $(window).on("load", function () {
 });
 
 $(document).ready(function () {
+    let datiPrenotazione = sessionStorage.getItem('datiPrenotazione');
+    datiPrenotazione = JSON.parse(datiPrenotazione);
+        $.ajax({
+            type: "POST",
+            data: JSON.stringify(datiPrenotazione.prestazioni),
+            url: window.location.href + "/prestazioniErogabili",
+            dataType: "json",
+            contentType: 'application/json',
+            success: function (data, textStatus, jqXHR){
+                console.log(data);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+
+            }
+        });
+    /*
     table = $('#example').DataTable({
         ajax: "/getDescrizioneImpegnativa",
         ajaxSettings: {
@@ -34,9 +50,9 @@ $(document).ready(function () {
         }],
         order: [1, 'asc']
     });
-
     $('#example tbody').on('click', 'tr', function () {
         var data = table.row(this).data();
         alert('Hai cliccato ' + data[0] + '\'s riga');
     });
+    */
 });

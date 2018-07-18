@@ -32,6 +32,7 @@ router.post('/:azienda/appuntamenti/ListaAppuntamenti', appuntamentiController.g
 
 /* VERIFICA CONTENUTO IMPEGNATIVA */
 router.get('/:azienda/verificaContenutoImpegnativa', verificaContenutoImpegnativaController.getContenutoImpegnativa);
+router.post('/:azienda/verificaContenutoImpegnativa/prestazioniErogabili', verificaContenutoImpegnativaController.getPrestazioniErogabili);
 
 /* HOME */
 router.get('/:azienda/home', homeController.getHome);
