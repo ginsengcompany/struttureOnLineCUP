@@ -8,29 +8,28 @@ let prenotazioneController = require('../controllers/prenotazioneController');
 let rubricaController = require('../controllers/rubricaController');
 let verificaContenutoImpegnativaController = require('../controllers/verificaContenutoImpegnativaController');
 
-/* GET LOGIN */
+/* LOGIN E LOGOUT */
 router.get('/:azienda/login',indexController.getLogin);
+router.post('/:azienda/login', indexController.postLogin);
+router.get('/:azienda/logout', indexController.logout);
 
-/* GET REGISTRAZIONE */
+/* REGISTRAZIONE */
 router.get('/:azienda/registrazione', registrazioneController.getRegistrazione);
 
-/* GET PRENOTAZIONE */
+/* PRENOTAZIONE */
 router.get('/:azienda/prenotazione', prenotazioneController.getPrenotazione);
 
-/* GET RUBRICA */
+/* RUBRICA */
 router.get('/:azienda/rubrica', rubricaController.getRubrica);
 
-/* GET APPUNTAMENTI */
+/* APPUNTAMENTI */
 router.get('/:azienda/appuntamenti', appuntamentiController.getAppuntamenti);
+router.get('/:azienda/appuntamenti/contatti', appuntamentiController.getContatti);
 
-/* GET VERIFICA CONTENUTO IMPEGNATIVA */
+/* VERIFICA CONTENUTO IMPEGNATIVA */
 router.get('/:azienda/verificaContenutoImpegnativa', verificaContenutoImpegnativaController.getContenutoImpegnativa);
 
-/* GET HOME */
+/* HOME */
 router.get('/:azienda/home', homeController.getHome);
-
-router.post('/:azienda/login', indexController.postLogin);
-
-router.get('/:azienda/logout', indexController.logout);
 
 module.exports = router;

@@ -1,35 +1,19 @@
-let aziende = require('../utils/aziende');
-let request = require('request');
+let strutture = require('../models/strutture');
+
 exports.getHome = function (req, res, next) {
-    let aziendaParameter = req.params.azienda;
-    let aziendaEsistente = false;
-    if(!aziende.hasOwnProperty(aziendaParameter)){
-        return res.render('error',{
-            error:{
-                status: 404
-            },
-            message: "Azienda ospedaliera non trovata"
-        });
-    }
-    /*
-    let options = {
-        method: 'GET',
-        uri: 'http://ecuptservice.ak12srl.it/infostruttura',
-        headers:{
-            struttura: aziende[aziendaParameter]
-        },
-        json : true
-    };
-    request(options,function (err, response, body) {
-        if (err)
-            return res.render('error',{
-                error:{
-                    status: 500
-                },
-                message: "Servizio momentaneamente non disponibile"
-            });
-        res.render('home',{datiAzienda:body,parametroAzienda:aziendaParameter});
+    if (strutture.db._readyState !== 1) return handleError({status: 500, message: "Il servizio è momentaneamente non disponibile"},res);
+    strutture.findOne({denominazioneUrl : req.params.azienda}, function (err, str) {
+        if (err) return handleError({status: 503, message: "Il servizio è momentaneamente non disponibile"},res);
+        if (!str) return handleError({status: 404, message: "Azienda Ospedaliera non trovata"},res);
+        res.render('home',{datiAzienda:str,parametroAzienda:req.params.azienda});
     });
-    */
-    res.render('home',{parametroAzienda:aziendaParameter});
 };
+
+function handleError(stato,res) {
+    res.status(stato.status).render('error',{
+        error:{
+            status: stato.status
+        },
+        message: stato.message
+    });
+}

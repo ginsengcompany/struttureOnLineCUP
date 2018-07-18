@@ -4,8 +4,7 @@ let cookieParser = require('cookie-parser');
 let bodyParser = require('body-parser');
 let logger = require('morgan');
 let session = require('express-session');
-let request = require('request');
-let aziende = require('./utils/aziende');
+let db = require('./utils/db');
 
 let index = require('./routes/index');
 
