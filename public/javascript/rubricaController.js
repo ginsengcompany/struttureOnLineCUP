@@ -45,6 +45,7 @@ $(document).ready(function() {
                 "x-access-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVhZmVkNWM2Mjc1MTNiN2ZiYjI5Yjc2MCIsImlhdCI6MTUzMTI5NTc3M30.BQGMg3W-bhpziOSRotEOAnazPLSsWyIlFridkhBbo_s"
             }
         },
+
         columns : [
             {
                 className:      'details-control',
@@ -57,6 +58,7 @@ $(document).ready(function() {
         ],
         order: [[1, 'asc']]
     } );
+
     // Add event listener for opening and closing details
     $('#example tbody').on('click', 'td.details-control', function () {
         var tr = $(this).closest('tr');

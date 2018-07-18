@@ -9,16 +9,12 @@ block style
     link(href='/stylesheet/style.css', rel='stylesheet')
     link(href='https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css ', rel='stylesheet')
     link(href='https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css', rel='stylsheet')
+    link(href='https://cdn.datatables.net/buttons/1.5.2/css/buttons.dataTables.min.css',rel='stylsheet')
 block content
     .container-fluid
         .col
             p.h4.text-center.mt-5 Rubrica
         // Search form
-        .row
-            .col
-                select#selectContatto.mdb-select.colorful-select.dropdown-ins(searchable="Cerca...")
-                    option(value='', disabled='', selected='') Seleziona l'assistito
-                    option(value='David') David Beckham
         .row
             .col.table-responsive
 

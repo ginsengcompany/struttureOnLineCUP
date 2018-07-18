@@ -95,6 +95,10 @@ $(document).ready(function () {
                                     url: '../localisation/it-IT.json'
                                 },
                                 data:listaAppuntamenti,
+                                dom: 'Bfrtip',
+                                buttons: [
+                                    'prova'
+                                ],
                                 columns : [
                                     {
 
