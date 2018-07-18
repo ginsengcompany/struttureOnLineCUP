@@ -31,6 +31,7 @@ function format ( d ) {
 }
 
 $(document).ready(function() {
+    $(".button-collapse").sideNav();
     var table = $('#example').DataTable( {
 
         language: {
