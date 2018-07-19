@@ -189,3 +189,16 @@ footer.page-footer .footer-copyright{
     top:1px;
 }
 
+.jarallax {
+    height: 100%;
+}
+
+@media (max-width: 740px) {
+    .jarallax {
+        height: 100vh;
+    }
+}
+h5 {
+    letter-spacing: 3px;
+}
+

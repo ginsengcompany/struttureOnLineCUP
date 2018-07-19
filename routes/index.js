@@ -7,6 +7,7 @@ let homeController = require('../controllers/homeController');
 let prenotazioneController = require('../controllers/prenotazioneController');
 let rubricaController = require('../controllers/rubricaController');
 let verificaContenutoImpegnativaController = require('../controllers/verificaContenutoImpegnativaController');
+let introController = require('../controllers/introController');
 
 /* LOGIN E LOGOUT */
 router.get('/:azienda/login',indexController.getLogin);
@@ -37,5 +38,8 @@ router.post('/:azienda/verificaContenutoImpegnativa/prelevaReparti', verificaCon
 
 /* HOME */
 router.get('/:azienda/home', homeController.getHome);
+
+/* INTRO */
+router.get('/', introController.getIntro);
 
 module.exports = router;
