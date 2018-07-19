@@ -80,5 +80,8 @@ $(document).ready(function () {
             $('#centralModalAlert').modal('show');
         }
     });
-    //luca
+    $('#nome').val(assistito.nome);
+    $('#nome').focus(assistito.nome);
+    $('#cognome').val(assistito.cognome);
+    $('#codFisc').val(assistito.codice_fiscale);
 });
