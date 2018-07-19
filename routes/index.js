@@ -22,6 +22,11 @@ router.get('/:azienda/prenotazione', prenotazioneController.getPrenotazione);
 router.get('/:azienda/prenotazione/contatti', prenotazioneController.getContatti);
 router.post('/:azienda/prenotazione/datiImpegnativa', prenotazioneController.invioDatiImpegnativa);
 
+/* VERIFICA CONTENUTO IMPEGNATIVA */
+//router.get('/:azienda/verificaContenutoImpegnativa', verificaContenutoImpegnativaController.getContenutoImpegnativa);
+router.post('/:azienda/prenotazione/prestazioniErogabili', verificaContenutoImpegnativaController.getPrestazioniErogabili);
+router.post('/:azienda/prenotazione/prelevaReparti', verificaContenutoImpegnativaController.getReparti);
+
 /* RUBRICA */
 router.get('/:azienda/rubrica', rubricaController.getRubrica);
 router.get('/:azienda/rubrica/contatti', rubricaController.getContatti);
@@ -30,11 +35,6 @@ router.get('/:azienda/rubrica/contatti', rubricaController.getContatti);
 router.get('/:azienda/appuntamenti', appuntamentiController.getAppuntamenti);
 router.get('/:azienda/appuntamenti/contatti', appuntamentiController.getContatti);
 router.post('/:azienda/appuntamenti/ListaAppuntamenti', appuntamentiController.getListaAppuntamentiAssistito);
-
-/* VERIFICA CONTENUTO IMPEGNATIVA */
-router.get('/:azienda/verificaContenutoImpegnativa', verificaContenutoImpegnativaController.getContenutoImpegnativa);
-router.post('/:azienda/verificaContenutoImpegnativa/prestazioniErogabili', verificaContenutoImpegnativaController.getPrestazioniErogabili);
-router.post('/:azienda/verificaContenutoImpegnativa/prelevaReparti', verificaContenutoImpegnativaController.getReparti);
 
 /* HOME */
 router.get('/:azienda/home', homeController.getHome);

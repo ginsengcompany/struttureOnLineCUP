@@ -35,7 +35,6 @@ $(document).ready(function () {
                 let caricato = 0;
                 for (let i=0;i<data.prestazioni_erogabili.length;i++)
                 {
-
                     $.ajax({
                         type: "POST",
                         data: JSON.stringify(data.prestazioni_erogabili[i]),
