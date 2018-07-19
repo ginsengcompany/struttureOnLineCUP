@@ -7,15 +7,15 @@ block style
     link(href='/stylesheet/bootstrap.min.css', rel='stylesheet')
     link(href='/stylesheet/mdb.min.css', rel='stylesheet')
     link(href='/stylesheet/style.css', rel='stylesheet')
-    link(href='https://cdnjs.cloudflare.com/ajax/libs/material-design-lite/1.1.0/material.min.css', rel='stylesheet')
-    link(href='//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css', rel='stylesheet')
+    link(href='https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css ', rel='stylesheet')
+    link(href='https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css', rel='stylsheet')
 
 block content
-    .container
-        .row
-            .col
+    .container-fluid
+        .row.justify-content-center
+            .col-sm-12.col-md-8.col-lg-8
                 // Card
-                .card.card-cascade.m-5
+                .card.card-cascade
                     // Card image
                     .view.view-cascade.gradient-card-header.blue-gradient
                         // Title
@@ -37,14 +37,14 @@ block content
                         p.card-text
                             | Di seguito puoi scegliere il reparto utilizzando il menù a tendina contenuto in tabella.
                         hr
-        .row.m-3
+        .row
             .col.table-responsive
-                table#example.display.nowrap(cellspacing='0', width='100%')
-                    thead
-                        tr
-                            th
+                table#example.table.table-striped(cellspacing='0', width='100%')
+                    thead.mdb-color.darken-3
+                        tr.text-white
                             th Prestazione
-                    tbody
+                            th reparto
+                    tbody#bodyDataTable
     div#centralModalAlert.modal.fade(tabindex='-1' role='dialog' aria-hidden='true')
         div.modal-dialog.modal-notify(role='document')
             div.modal-content
@@ -56,11 +56,11 @@ block content
                     div.text-center
                         font(size='5')
                             p#paragrafomodalPrenotazione
-
 block javascript
     script(type='text/javascript', src='/javascript/jquery-3.3.1.min.js')
     script(type='text/javascript', src='/javascript/popper.min.js')
     script(type='text/javascript', src='/javascript/bootstrap.min.js')
     script(type='text/javascript', src='/javascript/mdb.min.js')
-    script(type='text/javascript', src='//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js')
+    script(type='text/javascript', src='https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js')
+    script(type='text/javascript', src='https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js')
     script(src='/javascript/verificaContenutoImpegnativaController.js', type='text/javascript')

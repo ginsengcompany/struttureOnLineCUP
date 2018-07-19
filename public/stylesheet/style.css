@@ -128,6 +128,7 @@ footer.page-footer .footer-copyright{
 
 }
 
+
 @media only screen and (max-width: 1200px) {
     .card .card-body h3 {
         font-size: 1.7rem ;
@@ -143,9 +144,49 @@ footer.page-footer .footer-copyright{
 }
 
 @media only screen and (min-width: 1000px) {
-    .card {
+    .cardHome {
         width: 200px;
     }
+}
+.myButton {
+    -moz-box-shadow: 6px 13px 50px -7px #276873;
+    -webkit-box-shadow: 6px 13px 50px -7px #276873;
+    box-shadow: 6px 13px 50px -7px #276873;
+    background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #599bb3), color-stop(1, #408c99));
+    background:-moz-linear-gradient(top, #599bb3 5%, #408c99 100%);
+    background:-webkit-linear-gradient(top, #599bb3 5%, #408c99 100%);
+    background:-o-linear-gradient(top, #599bb3 5%, #408c99 100%);
+    background:-ms-linear-gradient(top, #599bb3 5%, #408c99 100%);
+    background:linear-gradient(to bottom, #599bb3 5%, #408c99 100%);
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#599bb3', endColorstr='#408c99',GradientType=0);
+    background-color:#599bb3;
+    -moz-border-radius:20px;
+    -webkit-border-radius:20px;
+    border-radius:20px;
+    border:1px solid #29668f;
+    display:inline-block;
+    cursor:pointer;
+    color:#ffffff;
+    font-family:Arial;
+    font-size:18px;
+    font-weight:bold;
+    padding:15px 11px;
+    text-decoration:none;
+    text-shadow:1px 4px 50px #3d768a;
+}
+.myButton:hover {
+    background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #408c99), color-stop(1, #599bb3));
+    background:-moz-linear-gradient(top, #408c99 5%, #599bb3 100%);
+    background:-webkit-linear-gradient(top, #408c99 5%, #599bb3 100%);
+    background:-o-linear-gradient(top, #408c99 5%, #599bb3 100%);
+    background:-ms-linear-gradient(top, #408c99 5%, #599bb3 100%);
+    background:linear-gradient(to bottom, #408c99 5%, #599bb3 100%);
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#408c99', endColorstr='#599bb3',GradientType=0);
+    background-color:#408c99;
+}
+.myButton:active {
+    position:relative;
+    top:1px;
 }
 
 .jarallax {

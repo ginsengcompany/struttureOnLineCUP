@@ -46,9 +46,12 @@ $(document).ready(function () {
         $('input[type=text]').val (function () {
             return this.value.toUpperCase();
         });
+        $('#codiceImpegnativa2').val("");
         if($('#codiceImpegnativa1').val().length > 5 && $('#codiceImpegnativa1').val().length === 15) {
             $('#labelcodiceImpegnativa1').text("Inserisci il codice SAR");
             $("#rowCodiceImpegnativa2").hide();
+
+
             $( "#rowBottoneInvio" ).show();
         }
         else if($('#codiceImpegnativa1').val().length === 5) {
@@ -93,6 +96,7 @@ function invioPrenotazione() {
         contentType: 'application/json',
         success: function (data, textStatus, jqXHR) {
             sessionStorage.setItem("datiPrenotazione", JSON.stringify(data));
+            sessionStorage.setItem("assistito", JSON.stringify(sendObject.assistito));
             window.location.href = "verificaContenutoImpegnativa";
         },
         error: function (jqXHR, textStatus, errorThrown) {
