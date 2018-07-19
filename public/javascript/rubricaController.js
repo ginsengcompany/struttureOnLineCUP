@@ -31,6 +31,7 @@ function format ( d ) {
 }
 
 $(document).ready(function() {
+    $(".button-collapse").sideNav();
     var table = $('#example').DataTable( {
 
         language: {
@@ -38,13 +39,10 @@ $(document).ready(function() {
         },
 
         ajax :{
-            url: "http://ecuptservice.ak12srl.it/auth/me",
+            url: window.location.href + "/contatti",
             type: 'GET',
             dataType: 'json',
-            dataSrc:'',
-            headers: {
-                "x-access-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVhZmVkNWM2Mjc1MTNiN2ZiYjI5Yjc2MCIsImlhdCI6MTUzMTI5NTc3M30.BQGMg3W-bhpziOSRotEOAnazPLSsWyIlFridkhBbo_s"
-            }
+            dataSrc:''
         },
 
         columns : [

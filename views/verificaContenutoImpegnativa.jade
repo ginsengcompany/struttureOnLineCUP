@@ -12,9 +12,8 @@ block style
 
 block content
     .container
-        .row.m-3
+        .row
             .col
-            .col-8
                 // Card
                 .card.card-cascade.m-5
                     // Card image
@@ -38,10 +37,6 @@ block content
                         p.card-text
                             | Di seguito puoi scegliere il reparto utilizzando il menù a tendina contenuto in tabella.
                         hr
-
-                // Card
-
-            .col
         .row.m-3
             .col.table-responsive
                 table#example.display.nowrap(cellspacing='0', width='100%')
@@ -49,16 +44,18 @@ block content
                         tr
                             th
                             th Prestazione
-                            th Reparto
                     tbody
-                        td 1
-                        td prova
-                        td prova 2
-                    tfoot
-                        tr
-                            th
-                            th Prestazione
-                            th Reparto
+    div#centralModalAlert.modal.fade(tabindex='-1' role='dialog' aria-hidden='true')
+        div.modal-dialog.modal-notify(role='document')
+            div.modal-content
+                div.modal-header.text-center.btn-color-primary
+                    h4.modal-title.w-100.font-weight-bold(style='color:white;') Errore
+                    button.close(type='button' data-dismiss='modal' aria-label='Close')
+                        span.white-text(aria-hidden='true') &times;
+                div.modal-body
+                    div.text-center
+                        font(size='5')
+                            p#paragrafomodalPrenotazione
 
 block javascript
     script(type='text/javascript', src='/javascript/jquery-3.3.1.min.js')

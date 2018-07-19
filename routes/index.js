@@ -18,9 +18,12 @@ router.get('/:azienda/registrazione', registrazioneController.getRegistrazione);
 
 /* PRENOTAZIONE */
 router.get('/:azienda/prenotazione', prenotazioneController.getPrenotazione);
+router.get('/:azienda/prenotazione/contatti', prenotazioneController.getContatti);
+router.post('/:azienda/prenotazione/datiImpegnativa', prenotazioneController.invioDatiImpegnativa);
 
 /* RUBRICA */
 router.get('/:azienda/rubrica', rubricaController.getRubrica);
+router.get('/:azienda/rubrica/contatti', rubricaController.getContatti);
 
 /* APPUNTAMENTI */
 router.get('/:azienda/appuntamenti', appuntamentiController.getAppuntamenti);
@@ -29,6 +32,7 @@ router.post('/:azienda/appuntamenti/ListaAppuntamenti', appuntamentiController.g
 
 /* VERIFICA CONTENUTO IMPEGNATIVA */
 router.get('/:azienda/verificaContenutoImpegnativa', verificaContenutoImpegnativaController.getContenutoImpegnativa);
+router.post('/:azienda/verificaContenutoImpegnativa/prestazioniErogabili', verificaContenutoImpegnativaController.getPrestazioniErogabili);
 
 /* HOME */
 router.get('/:azienda/home', homeController.getHome);
