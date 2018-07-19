@@ -8,6 +8,7 @@ let prenotazioneController = require('../controllers/prenotazioneController');
 let rubricaController = require('../controllers/rubricaController');
 let verificaContenutoImpegnativaController = require('../controllers/verificaContenutoImpegnativaController');
 let nuovoContatto = require('../controllers/nuovoContattoController');
+let introController = require('../controllers/introController');
 
 /* LOGIN E LOGOUT */
 router.get('/:azienda/login',indexController.getLogin);
@@ -38,8 +39,12 @@ router.post('/:azienda/appuntamenti/ListaAppuntamenti', appuntamentiController.g
 /* VERIFICA CONTENUTO IMPEGNATIVA */
 router.get('/:azienda/verificaContenutoImpegnativa', verificaContenutoImpegnativaController.getContenutoImpegnativa);
 router.post('/:azienda/verificaContenutoImpegnativa/prestazioniErogabili', verificaContenutoImpegnativaController.getPrestazioniErogabili);
+router.post('/:azienda/verificaContenutoImpegnativa/prelevaReparti', verificaContenutoImpegnativaController.getReparti);
 
 /* HOME */
 router.get('/:azienda/home', homeController.getHome);
+
+/* INTRO */
+router.get('/', introController.getIntro);
 
 module.exports = router;

@@ -7,44 +7,52 @@ block style
     link(href='/stylesheet/bootstrap.min.css', rel='stylesheet')
     link(href='/stylesheet/mdb.min.css', rel='stylesheet')
     link(href='/stylesheet/style.css', rel='stylesheet')
-    link(href='https://cdnjs.cloudflare.com/ajax/libs/material-design-lite/1.1.0/material.min.css', rel='stylesheet')
-    link(href='//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css', rel='stylesheet')
+    link(href='https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css ', rel='stylesheet')
+    link(href='https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css', rel='stylsheet')
 
 block content
-    .container
-        .row
-            .col
+    .container-fluid
+        .row.justify-content-center
+            .col-sm-12.col-md-5.col-lg-5
                 // Card
-                .card.card-cascade.m-5
+                .card.card-cascade
                     // Card image
-                    .view.view-cascade.gradient-card-header.blue-gradient
+                    .view.view-cascade.gradient-card-header.morpheus-den-gradient
                         // Title
                         h2.card-header-title.mb-3 Dettagli Impegnativa
                         // Subtitle
                         p.card-header-subtitle.mb-0 Verifica contenuto Impegnativa
                     // Card content
-                    .card-body.card-body-cascade.text-center
-                        // Text
-                        h5.pink-text
-                            i.fa.fa-user
-                            p#nome
-                        h5.pink-text
-                            i.fa.fa-user
-                            p#cognome
-                        h5.pink-text
-                            i.fa.fa-barcode
-                            p#codiceImpegnativa
-                        p.card-text
-                            | Di seguito puoi scegliere il reparto utilizzando il menù a tendina contenuto in tabella.
-                        hr
-        .row.m-3
+                    .card-body.card-body-cascade
+                        .container-fluid
+                            .row.justify-content-center
+                                .col-sm-12.col-md-6.col-lg-6
+                                    // Text
+                                    .md-form
+                                        i.fa.fa-user.prefix(style='color: #243a51')
+                                        label.disabled(for='nome') Nome
+                                        input#nome.form-control(type='text', disabled='')
+                                    .md-form
+                                        i.fa.fa-user.prefix(style='color: #243a51')
+                                        label.disabled(for='cognome') Cognome
+                                        input#cognome.form-control(type='text', disabled='')
+                                    .md-form
+                                        i.fa.fa-id-card.prefix(style='color: #243a51')
+                                        label.disabled(for='codFisc') Codice Fiscale
+                                        input#codFisc.form-control(type='text', disabled='')
+                            .row.justify-content-center(style='text-align: center;')
+                                .col-sm-12.col-md-12.col-lg-12
+                                    p.card-text.justify-content-center
+                                    | Di seguito puoi scegliere il reparto utilizzando il menù a tendina contenuto in tabella.
+                                    hr
+        .row
             .col.table-responsive
-                table#example.display.nowrap(cellspacing='0', width='100%')
-                    thead
-                        tr
-                            th
+                table#example.table.table-striped(cellspacing='0', width='100%')
+                    thead.mdb-color.darken-3
+                        tr.text-white
                             th Prestazione
-                    tbody
+                            th reparto
+                    tbody#bodyDataTable
     div#centralModalAlert.modal.fade(tabindex='-1' role='dialog' aria-hidden='true')
         div.modal-dialog.modal-notify(role='document')
             div.modal-content
@@ -56,11 +64,11 @@ block content
                     div.text-center
                         font(size='5')
                             p#paragrafomodalPrenotazione
-
 block javascript
     script(type='text/javascript', src='/javascript/jquery-3.3.1.min.js')
     script(type='text/javascript', src='/javascript/popper.min.js')
     script(type='text/javascript', src='/javascript/bootstrap.min.js')
     script(type='text/javascript', src='/javascript/mdb.min.js')
-    script(type='text/javascript', src='//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js')
+    script(type='text/javascript', src='https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js')
+    script(type='text/javascript', src='https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js')
     script(src='/javascript/verificaContenutoImpegnativaController.js', type='text/javascript')
