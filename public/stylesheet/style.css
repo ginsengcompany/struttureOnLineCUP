@@ -144,7 +144,7 @@ footer.page-footer .footer-copyright{
 }
 
 @media only screen and (min-width: 1000px) {
-    .card {
+    .cardHome {
         width: 200px;
     }
 }
