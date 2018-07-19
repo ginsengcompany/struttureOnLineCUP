@@ -37,6 +37,7 @@ $(document).ready(function() {
         language: {
             url: '../localisation/it-IT.json'
         },
+
         ajax :{
             url: window.location.href + "/contatti",
             type: 'GET',
@@ -72,4 +73,6 @@ $(document).ready(function() {
             tr.addClass('shown');
         }
     } );
-} );
+
+});
+
