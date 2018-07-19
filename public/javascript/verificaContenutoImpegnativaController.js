@@ -1,3 +1,4 @@
+let datiPrenotazione, assistito;
 $(window).on("load", function () {
     // dalla get jQuery precedente (dovrebbe passarli anche la get codice impegnativa che va inserita)
     $('#nome').text("TO DO");
@@ -6,8 +7,10 @@ $(window).on("load", function () {
 });
 
 $(document).ready(function () {
-    let datiPrenotazione = sessionStorage.getItem('datiPrenotazione');
+    datiPrenotazione = sessionStorage.getItem('datiPrenotazione');
     datiPrenotazione = JSON.parse(datiPrenotazione);
+    assistito = sessionStorage.getItem('assistito');
+    assistito = JSON.parse(assistito);
     $.ajax({
         type: "POST",
         data: JSON.stringify(datiPrenotazione.prestazioni),
@@ -75,11 +78,5 @@ $(document).ready(function () {
             $('#centralModalAlert').modal('show');
         }
     });
-    /*
-
-    $('#example tbody').on('click', 'tr', function () {
-        var data = table.row(this).data();
-        alert('Hai cliccato ' + data[0] + '\'s riga');
-    });
-    */
+    //luca
 });

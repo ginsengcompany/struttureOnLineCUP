@@ -96,6 +96,7 @@ function invioPrenotazione() {
         contentType: 'application/json',
         success: function (data, textStatus, jqXHR) {
             sessionStorage.setItem("datiPrenotazione", JSON.stringify(data));
+            sessionStorage.setItem("assistito", JSON.stringify(sendObject.assistito));
             window.location.href = "verificaContenutoImpegnativa";
         },
         error: function (jqXHR, textStatus, errorThrown) {
