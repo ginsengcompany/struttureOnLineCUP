@@ -31,21 +31,23 @@ $(document).ready(function () {
                     alert(messaggio);
                 }
                 let prestazioni = [];
+                let rowTable = "";
+                let caricato = 0;
                 for (let i=0;i<data.prestazioni_erogabili.length;i++)
                 {
+
                     $.ajax({
                         type: "POST",
                         data: JSON.stringify(data.prestazioni_erogabili[i]),
                         url: window.location.href + "/prelevaReparti",
                         dataType: "json",
                         contentType: 'application/json',
-                        success: function (data2, textStatus2, jqXHR) {
-                            let rowTable = "";
+                        success: function (data2, textStatus2, jqXHR2) {
                             prestazioni.push({
                                 prestazione: data.prestazioni_erogabili[i],
                                 reparti: data2
                             });
-                            rowTable = "<tr>" + "<td>"+ data.prestazioni_erogabili[i].desprest + "</td><td>" +
+                            rowTable += "<tr>" + "<td>"+ data.prestazioni_erogabili[i].desprest + "</td><td>" +
                                 "<select id='selectPrestazione" + i +
                                 "' class='mdb-select'><option value='0' selected>" + data2[0].descrizione +
                                 "</option>";
@@ -54,9 +56,9 @@ $(document).ready(function () {
                                     "'>" + data2[k].descrizione +"</option>";
                             }
                             rowTable += "</select></td></tr>";
-                            $("#bodyDataTable").append(rowTable);
-                            if (i === data.prestazioni_erogabili.length - 1){
-
+                            caricato++;
+                            if (caricato === data.prestazioni_erogabili.length){
+                                $("#bodyDataTable").append(rowTable);
                                 let table = $('#example').DataTable({
                                     language: {
                                         url: '../localisation/it-IT.json'
