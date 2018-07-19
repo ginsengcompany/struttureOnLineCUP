@@ -46,9 +46,12 @@ $(document).ready(function () {
         $('input[type=text]').val (function () {
             return this.value.toUpperCase();
         });
+        $('#codiceImpegnativa2').val("");
         if($('#codiceImpegnativa1').val().length > 5 && $('#codiceImpegnativa1').val().length === 15) {
             $('#labelcodiceImpegnativa1').text("Inserisci il codice SAR");
             $("#rowCodiceImpegnativa2").hide();
+
+
             $( "#rowBottoneInvio" ).show();
         }
         else if($('#codiceImpegnativa1').val().length === 5) {
