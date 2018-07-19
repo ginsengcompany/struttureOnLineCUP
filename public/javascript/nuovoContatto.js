@@ -334,7 +334,6 @@ btnRegistrati.click(function() {
             istatComuneResidenza: codicecomuneresidenza,
             statocivile: statocivile
         };
-console.log(assistito)
         $.ajax({
             type: "POST",
             url: window.location.href,
