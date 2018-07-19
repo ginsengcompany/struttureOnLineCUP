@@ -11,10 +11,11 @@ block style
     link(href='https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css', rel='stylsheet')
 
 block content
-    .container
-        .row.justify-content-center(style='margin-bottom: 50px;')
-            .col
-                .card.card-cascade.mx-auto.w-50
+    .container-fluid
+        .row.justify-content-center
+            .col-sm-12.col-md-8.col-lg-8
+                // Card
+                .card.card-cascade
                     // Card image
                     .view.view-cascade.gradient-card-header.blue-gradient
                         // Title
