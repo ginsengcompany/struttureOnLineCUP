@@ -7,6 +7,7 @@ let homeController = require('../controllers/homeController');
 let prenotazioneController = require('../controllers/prenotazioneController');
 let rubricaController = require('../controllers/rubricaController');
 let verificaContenutoImpegnativaController = require('../controllers/verificaContenutoImpegnativaController');
+let nuovoContatto = require('../controllers/nuovoContattoController');
 let introController = require('../controllers/introController');
 
 /* LOGIN E LOGOUT */
@@ -30,6 +31,10 @@ router.post('/:azienda/prenotazione/prelevaReparti', verificaContenutoImpegnativ
 /* RUBRICA */
 router.get('/:azienda/rubrica', rubricaController.getRubrica);
 router.get('/:azienda/rubrica/contatti', rubricaController.getContatti);
+
+/* NuovoContatto */
+router.get('/:azienda/nuovoContatto', nuovoContatto.getNuovoContatto);
+router.post('/:azienda/nuovoContatto', nuovoContatto.addContact);
 
 /* APPUNTAMENTI */
 router.get('/:azienda/appuntamenti', appuntamentiController.getAppuntamenti);
