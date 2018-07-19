@@ -36,6 +36,7 @@ $(document).ready(function() {
         language: {
             url: '../localisation/it-IT.json'
         },
+
         ajax :{
             url: "http://ecuptservice.ak12srl.it/auth/me",
             type: 'GET',
@@ -74,4 +75,6 @@ $(document).ready(function() {
             tr.addClass('shown');
         }
     } );
-} );
+
+});
+
