@@ -1,12 +1,14 @@
 block title
     title Intro Ecupt
+    block meta
+        meta(http-equiv='Content-Type', content='text/html; charset=utf-8')
 block style
     link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css')
     link(href='/stylesheet/bootstrap.min.css', rel='stylesheet')
     link(href='/stylesheet/mdb.min.css', rel='stylesheet')
     link(href='/stylesheet/style.css', rel='stylesheet')
-block body
-    body
+block header
+    header
         .view.jarallax(data-jarallax='{"speed": 0.2}', style="background-image: url('/img/introbg.png'); background-repeat: no-repeat; background-size: cover; background-position: center center;")
             .container
                 // Grid row
@@ -15,7 +17,26 @@ block body
                     .col-md-12.white-text.text-center
                         .display-3.mb-0.pt-md-5.pt-5.wow.fadeInDown(data-wow-delay='0.3s')
                             img#imgIntro(src='/img/logocirclefree.png', style='margin:auto; display:block')
+                .jumbotron.text-center.transparent.z-depth-5.animated.slideInUp
+                    .row.py-5
+                        .col-md-12.text-center
+                            p
+                                | Il servizio di prenotazione on line rappresenta una soluzione efficace in materia di eHealth management, agevolando l'accesso degli utenti alla struttura sanitaria mediante la creazione di un punto di accesso raggiungibile da qualsiasi computer connesso ad internet. Permette, inoltre, la fruizione di informazioni precise e tempestive sui servizi sanitari messi a disposizione dalla struttura garantendo la massima trasparenza. Un sistema semplice e completo per effettuare la prenotazione delle visite specialistiche e delle prestazioni di diagnostica strumentale, basato sulla libera scelta dell'utente.
+                            p
+                                | Il servizio consente di:
+                                ul
+                                    li
+                                            | - consultare in tempo reale le disponibilita' delle prestazioni sanitarie offerte dalla struttura;
+                                    li
+                                            | - prenotare, disdire e consultare le proprie prenotazioni.
+                            p
+                                | Il servizio di prenotazione on line consente di prenotare soltanto una parte dei servizi offerti dalla struttura sanitaria. Le visite e gli esami strumentali complessi richiedono il colloquio con l'operatore esperto al fine di ottenere una corretta prenotazione in base ai sistemi di accesso.
+                            p
+                                | Il servizio di prenotazione on line consente di prenotare soltanto una parte dei servizi offerti dalla struttura sanitaria. Le visite e gli esami strumentali complessi richiedono il colloquio con l'operatore esperto al fine di ottenere una corretta prenotazione in base ai sistemi di accesso.
 
+                            p
+
+                                | Le prestazioni non ancora disponibili sul sito possono dunque essere prenotate al call center dalle ore 8.00 alle ore 17.00 con orario continuato (dal lunedì al venerdì); dalle ore 8.00 alle 12.00 (sabato), escluso i festivi.
     script(type='text/javascript', src='/javascript/jquery-3.3.1.min.js')
     script(type='text/javascript', src='/javascript/popper.min.js')
     script(type='text/javascript', src='/javascript/bootstrap.min.js')
