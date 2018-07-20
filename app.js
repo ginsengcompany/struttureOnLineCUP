@@ -27,7 +27,7 @@ app.use(session({
 }));
 
 function checkauth(req, res, next) {
-    if(req.url.includes('home') || req.url.includes('prenotazione') || req.url.includes('rubrica') || req.url.includes('appuntamenti') || req.url.includes('logout')){
+    if(req.url.includes('home') || req.url.includes('prenotazione') || req.url.includes('rubrica') || req.url.includes('appuntamenti') || req.url.includes('logout') || req.url.includes('nuovoContatto')){
         if (!req.session || !req.session.auth){
             res.redirect('login');
         }
