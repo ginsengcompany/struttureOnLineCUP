@@ -35,7 +35,6 @@ $(document).ready(function () {
                 let caricato = 0;
                 for (let i=0;i<data.prestazioni_erogabili.length;i++)
                 {
-
                     $.ajax({
                         type: "POST",
                         data: JSON.stringify(data.prestazioni_erogabili[i]),
@@ -80,5 +79,8 @@ $(document).ready(function () {
             $('#centralModalAlert').modal('show');
         }
     });
-    //luca
+    $('#nome').val(assistito.nome);
+    $('#nome').focus(assistito.nome);
+    $('#cognome').val(assistito.cognome);
+    $('#codFisc').val(assistito.codice_fiscale);
 });

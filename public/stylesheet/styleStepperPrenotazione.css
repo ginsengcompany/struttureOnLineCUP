@@ -7,6 +7,9 @@
 #btn-step-3 {
     pointer-events: none;
 }
+#btn-step-4 {
+    pointer-events: none;
+}
 .steps-form-2 {
     display: table;
     width: 100%;
@@ -26,10 +29,18 @@
     bottom: 0;
     position: absolute;
     content: " ";
-    width: 50%;
+    width: 32.5%;
     height: 2px;
     background-color: #7283a7; }
 .steps-form-2 .steps-row-2.step-3:before {
+    top: 14px;
+    bottom: 0;
+    position: absolute;
+    content: " ";
+    width: 65%;
+    height: 2px;
+    background-color: #7283a7; }
+.steps-form-2 .steps-row-2.step-4:before {
     top: 14px;
     bottom: 0;
     position: absolute;

@@ -1,5 +1,4 @@
 extends menu
-
 block title
     title Nuovo Contatto
 block style
@@ -7,23 +6,135 @@ block style
     link(href='/stylesheet/bootstrap.min.css', rel='stylesheet')
     link(href='/stylesheet/mdb.min.css', rel='stylesheet')
     link(href='/stylesheet/style.css', rel='stylesheet')
-    link(href='https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css ', rel='stylesheet')
-    link(href='https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css', rel='stylsheet')
-
-
+    link(href='/stylesheet/stylemodalregistrazione.css', rel='stylesheet')
 block content
-    .container-fluid
+    body
+        .container
+            div(style='height: 10em')
+                .row.my-2
+                    img#imglogo.img-fluid(style='margin:auto; display:block', src='/img/logocirclefree.png', alt='Card image cap')
+            br
+            .steps-form-2
+                .steps-row-2.setup-panel-2.step-1.d-flex.justify-content-between
+                    .steps-step-2
+                        a#btn-step-1.btn.btn-amber.btn-circle-2.waves-effect.ml-0.btn-color-primary(href='#step-1', type='button', data-toggle='tooltip', data-placement='top', title='Dati Anagrafici')
+                            i.fa.fa-user(aria-hidden='true')
+                    .steps-step-2
+                        a#btn-step-2.btn.btn-blue-grey.btn-circle-2.waves-effect(href='#step-2', type='button', data-toggle='tooltip', data-placement='top', title='Dati personali')
+                            i.fa.fa-pencil(aria-hidden='true')
+                    .steps-step-2
+                        a#btn-step-3.btn.btn-blue-grey.btn-circle-2.waves-effect.mr-0(href='#step-3', type='button', data-toggle='tooltip', data-placement='top', title='Registrazione completata')
+                            i.fa.fa-check(aria-hidden='true')
+            form#registrazioneform1
+                //step-1
+                div.row.setup-content-2#step-1
+                    .col-sm-12
+                        strong
+                            h3.font-weight-bold.pl-0.my-4(style='color:#495057;') Dati Anagrafici
+                        .row
+                            .col-12
+                                .md-form
+                                    i.fa.fa-user.prefix.dark-grey-text
+                                    input#formNome.form-control.text-uppercase(type='text' required='')
+                                    label(for='formNome') Inserisci Nome
+                                    small#nomeHelp.form-text.text-muted.red-text.font-italic(style="display: none;") Campo obbligatorio
+                        .row
+                            .col-12
+                                .md-form
+                                    i.fa.fa-user.prefix.dark-grey-text
+                                    input#formCognome.form-control.text-uppercase(type='text' required='')
+                                    label(for='formCognome') Inserisci Cognome
+                                    small#cognomeHelp.form-text.text-muted.red-text.font-italic(style="display: none;") Campo obbligatorio
+                        .row
+                            .col-12
+                                .md-form
+                                    i.fa.fa-barcode.prefix.dark-grey-text
+                                    input#formCodFisc.form-control.text-uppercase(type='text' required='')
+                                    label(for='formCodFisc') Codice Fiscale
+                                    small#codice-fiscaleHelp.form-text.text-muted.red-text.font-italic(style="display: none;") Campo obbligatorio
+                        .row
+                            .col-12
+                                .md-form
+                                    i.fa.fa-calendar.prefix.dark-grey-text
+                                    input#date-picker-example.form-control.datepicker(placeholder='Data di nascita', type='text' required='')
+                                    label(for='date-picker-example') Data di nascita
+                                    small#data-nascitaHelp.form-text.text-muted.red-text.font-italic(style="display: none;") Campo obbligatorio
+                            .col-6
+                                .md-form
+                                    select#listaprovincenascita.mdb-select(searchable="Cerca...", name="listaprovince" required='' initialized)
+                                        option(value='', disabled='', selected='') Provincia di nascita
+                                    small#provincia-nascitaHelp.form-text.text-muted.red-text.font-italic(style="display: none;") Campo obbligatorio
+                            .col-6
+                                .md-form
+                                    select#listacomunenascita.mdb-select(searchable="Cerca...", required='', name="comuni")
+                                        option(value='', disabled='', selected='') Comune di nascita
+                                    small#comunenascitaHelp.form-text.text-muted.red-text.font-italic(style="display: none;") Campo obbligatorio
+                        .row
+                            .col-6
+                                .md-form#sesso
+                                    select#formSesso.mdb-select
+                                        option(value='', disabled='', selected='') Sesso
+                                        option.rounded-circle(value='M', data-icon='/img/uomo.png') Maschio
+                                        option.rounded-circle(value='F', data-icon='/img/donna.png') Femmina
+                                    small#sessoHelp.form-text.text-muted.red-text.font-italic(style="display: none;") Campo obbligatorio
+                            .col-6
+                                .md-form
+                                    select#statocivile.mdb-select(name='statocivile' required='')
+                                        option(value='', disabled='', selected='') Stato civile
+                                    small#stato-civileHelp.form-text.text-muted.red-text.font-italic(style="display: none;") Campo obbligatorio
 
-
-
-
+                        .md-form
+                            button#btnForm1.btn.btn-color-primary.btn-rounded.float-right(type='button') Avanti
+            form#registrazioneform2
+                //step-2
+                div.row.setup-content-2#step-2
+                    .col-sm-12
+                        strong
+                            h3.font-weight-bold.pl-0.my-4(style='color:#495057;') Dati personali
+                        .rov
+                            .col-12
+                                .md-form
+                                    i.fa.fa-envelope.prefix.dark-grey-text
+                                    input#formEmail.form-control(type='email' required='')
+                                    label(for='formEmail') Inserisci email
+                                    small#emailHelp.form-text.text-muted.red-text.font-italic(style="display: none;") campo mancante o email non valida
+                        .rov
+                            .col-12
+                                .md-form
+                                    i.fa.fa-phone.prefix.dark-grey-text
+                                    input#formTelefono.form-control(type='text' required='' pattern="^[0-9-+s()]*$")
+                                    label(for='formTelefono') Numero mobile
+                                    small#telefonoHelp.form-text.text-muted.red-text.font-italic(style="display: none;") Campo obbligatorio
+                        .row
+                            .col-6
+                                .md-form
+                                    select#listaprovinceresidenza.mdb-select(searchable="Cerca...", name="listaprovince" required='')
+                                        option(value='', disabled='', selected='') Provincia di residenza
+                                    small#provincia-residenzaHelp.form-text.text-muted.red-text.font-italic(style="display: none;") Campo obbligatorio
+                            .col-6
+                                .md-form
+                                    select#listacomuneresidenza.mdb-select(searchable="Cerca...", required='', name="comuni")
+                                        option(value='', disabled='', selected='') Comune di residenza
+                                    small#comune-residenzaHelp.form-text.text-muted.red-text.font-italic(style="display: none;") Campo obbligatorio
+                        .row
+                            .col-12
+                                .md-form
+                                    i.fa.fa-location-arrow.prefix.dark-grey-text
+                                    input#formIndirizzo.form-control.text-uppercase(type='text' required='')
+                                    label(for='formIndirizzo') Indirizzo di residenza
+                                    small#indirizzoHelp.form-text.text-muted.red-text.font-italic(style="display: none;") Campo obbligatorio
+                        br
+                        button.btn.btn-color-primary.btn-rounded.prevBtn-2.float-left(type='button') Indietro
+                        button#btnregistrazione.btn.btn-color-primary.btn-rounded.float-right(type='button') Registrati
+                div.row.setup-content-2#step-3
+                    .col-md-12
+                        h3.font-weight-bold.pl-0.my-4(style='color:#495057;')
+                            strong Fine
+                        h2.text-center.font-weight-bold.my-4.green-text Contatto Aggiunto!
+                        h2.text-center.font-weight-bold.my-4.green-text Sarai reindirizzato alla lista contatti
 block javascript
     script(type='text/javascript', src='/javascript/jquery-3.3.1.min.js')
     script(type='text/javascript', src='/javascript/popper.min.js')
     script(type='text/javascript', src='/javascript/bootstrap.min.js')
     script(type='text/javascript', src='/javascript/mdb.min.js')
-    script(type='text/javascript', src='https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js')
-    script(type='text/javascript', src='https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js')
-    script(src='https://cdn.jsdelivr.net/lodash/4.17.2/lodash.min.js',type='text/javascript')
-    script(src='/javascript/appuntamentiController.js', type='text/javascript')
-
+    script(type='text/javascript', src='/javascript/nuovoContatto.js')
