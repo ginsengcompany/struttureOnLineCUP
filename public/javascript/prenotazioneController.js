@@ -10,6 +10,7 @@ let navListItems, allWells, nextPrenotazione, nextVerificaContenuto, allPrevBtn,
 navListItems = $('div.setup-panel-2 div a');
 allWells = $('.setup-content-2');
 nextPrenotazione = $('#invioPrenotazione');
+nextVerificaContenuto = $("#continuaPrenotazione");
 allWells.hide();
 navListItems.click(function (e) {
     e.preventDefault();
@@ -96,6 +97,12 @@ navListItems.click(function (e) {
         $('#cognome').val(assistito.cognome);
         $('#codFisc').val(assistito.codice_fiscale);
     }
+});
+nextVerificaContenuto.click(function () {
+    let curStep = $(this).closest(".setup-content-2"),
+        curStepBtn = curStep.attr("id"),
+        nextStepSteps = $('div.setup-panel-2 div a[href="#' + curStepBtn + '"]').parent().next().children("a");
+    nextStepSteps.removeAttr('disabled').trigger('click');
 });
 nextPrenotazione.click(function () {
     let curStep = $(this).closest(".setup-content-2"),
@@ -247,3 +254,4 @@ $('#btn-step-4').click(function () {
         stepper.removeClass('step-3');
     stepper.addClass('step-4');
 });
+

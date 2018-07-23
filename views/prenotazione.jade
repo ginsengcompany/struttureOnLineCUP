@@ -125,6 +125,20 @@ block content
                 .container.col-md-8
                     .text-center.mt-4
                         button#continuaPrenotazione.btn.btn-light-blue.btn-lg.btn-block.btn-rounded(type='button') Continua
+        .container-fluid.setup-content-2#step-3
+            .row.justify-content-center
+                    .col.table-responsive
+                        table#example2.table.table-striped(cellspacing='0', width='100%')
+                            thead#tabellaDatePrenotazioni.mdb-color.darken-3
+                                tr.text-white
+                                    th Prestazione
+                                    th Reparto
+                                    th Unità Operativa
+                                    th Data dell'appuntamento
+                                    th Orario dell'appuntamento
+                                    th Nome del medico che effettuerà la visita
+                                    th Ubicazione del reparto
+                            tbody#bodyDataTable2
     div#centralModalInfo.modal.fade(tabindex='-1' role='dialog' aria-hidden='true')
         div.modal-dialog.modal-notify(role='document')
             div.modal-content
