@@ -9,6 +9,7 @@ let rubricaController = require('../controllers/rubricaController');
 let verificaContenutoImpegnativaController = require('../controllers/verificaContenutoImpegnativaController');
 let nuovoContatto = require('../controllers/nuovoContattoController');
 let introController = require('../controllers/introController');
+let propostaRichiestaController = require('../controllers/propostaRichiestaController');
 
 /* LOGIN E LOGOUT */
 router.get('/:azienda/login',indexController.getLogin);
@@ -27,6 +28,9 @@ router.post('/:azienda/prenotazione/datiImpegnativa', prenotazioneController.inv
 //router.get('/:azienda/verificaContenutoImpegnativa', verificaContenutoImpegnativaController.getContenutoImpegnativa);
 router.post('/:azienda/prenotazione/prestazioniErogabili', verificaContenutoImpegnativaController.getPrestazioniErogabili);
 router.post('/:azienda/prenotazione/prelevaReparti', verificaContenutoImpegnativaController.getReparti);
+
+/* Proposta Richiesta */
+router.post('/:azienda/prenotazione/primaDisponibilita', propostaRichiestaController.primaDisponibilita);
 
 /* RUBRICA */
 router.get('/:azienda/rubrica', rubricaController.getRubrica);
