@@ -40,6 +40,10 @@ input[type=text] {
     background: #003964 !important;
 }
 
+#continuaPrenotazione {
+    background-color: #003964 !important;
+}
+
 table.dataTable thead {background-color:#003964; color: white}
 
 footer.page-footer {
@@ -194,3 +198,6 @@ h5 {
     letter-spacing: 3px;
 }
 
+#tabellaPrenotazioni {
+    background-color: #003964 !important;
+}

@@ -94,17 +94,17 @@ block content
                         .card-body.card-body-cascade
                             .container-fluid
                                 .row.justify-content-center(style='padding-bottom: 20px')
-                                    .col-md-8
+                                    .col-md-10
                                             i.fa.fa-user.prefix(style='color: #243a51; padding-right:5px;')
                                             label.disabled(for='nome') Nome
                                             input#nome.form-control(type='text', disabled='')
                                 .row.justify-content-center(style='padding-bottom: 20px')
-                                    .col-md-8
+                                    .col-md-10
                                             i.fa.fa-user.prefix(style='color: #243a51; padding-right:5px;')
                                             label.disabled(for='cognome') Cognome
                                             input#cognome.form-control(type='text', disabled='')
                                 .row.justify-content-center
-                                    .col-md-8
+                                    .col-md-10
                                             i.fa.fa-id-card.prefix(style='color: #243a51; padding-right:5px;')
                                             label.disabled(for='codFisc') Codice Fiscale
                                             input#codFisc.form-control(type='text', disabled='')
@@ -116,11 +116,15 @@ block content
             .row
                 .col.table-responsive
                     table#example.table.table-striped(cellspacing='0', width='100%')
-                        thead.mdb-color.darken-3
+                        thead#tabellaPrenotazioni.mdb-color.darken-3
                             tr.text-white
                                 th Prestazione
                                 th reparto
                         tbody#bodyDataTable
+            .row#rowBottoneContinua
+                .container.col-md-8
+                    .text-center.mt-4
+                        button#continuaPrenotazione.btn.btn-light-blue.btn-lg.btn-block.btn-rounded(type='button') Continua
     div#centralModalInfo.modal.fade(tabindex='-1' role='dialog' aria-hidden='true')
         div.modal-dialog.modal-notify(role='document')
             div.modal-content
