@@ -40,6 +40,10 @@ input[type=text] {
     background: #003964 !important;
 }
 
+#continuaPrenotazione {
+    background-color: #003964 !important;
+}
+
 table.dataTable thead {background-color:#003964; color: white}
 
 .textnavbar{
@@ -136,4 +140,8 @@ body {
 main {
     flex:1 0 auto;
     padding-bottom: 10px;
+}
+
+#tabellaPrenotazioni {
+    background-color: #003964 !important;
 }
