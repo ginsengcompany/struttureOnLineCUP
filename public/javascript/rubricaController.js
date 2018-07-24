@@ -52,7 +52,6 @@ function Modifica ( d ) {
     else
         sesso.text("Uomo");
 
-    document.getElementById("listacomuneresidenza").selected= d.comune_residenza;
     document.getElementById("Indirizzo").value= d.indirizzores;
     document.getElementById("Telefono").value= d.telefono;
     document.getElementById("eMail").value= d.email;

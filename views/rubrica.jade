@@ -55,11 +55,14 @@ block content
                                 th(colspan=6 style="text-align: center;") RESIDENZA
                         tbody
                             tr(aria-rowspan=5)
-                                td(colspan=3)
+                                .ccontent#labelIndirizzo
+                                    td(colspan=6)
+                                .ccontent#modificaIndirizzo
+                                    td(colspan=3)
                                             select#listaprovinceresidenza.mdb-select(searchable="Cerca...", name="listaprovince" required='')
                                                 option(value='', disabled='', selected='') Provincia di residenza
                                             small#provincia-residenzaHelp.form-text.text-muted.red-text.font-italic(style="display: none;") Campo obbligatorio
-                                td(colspan=3)
+                                    td(colspan=3)
                                             select#listacomuneresidenza.mdb-select(searchable="Cerca...", required='', name="comuni")
                                                 option(value='', disabled='', selected='') Comune di residenza
                                             small#comune-residenzaHelp.form-text.text-muted.red-text.font-italic(style="display: none;") Campo obbligatorio
