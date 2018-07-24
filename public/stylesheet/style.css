@@ -6,6 +6,7 @@
 }
 
 .btn-color-primary:hover{
+    background-color: #6C94B2;
     color: white;
 }
 
@@ -153,4 +154,8 @@ main {
 
 #tabellaDatePrenotazioni {
     background-color: #003964 !important;
+}
+
+.color-primary{
+    color: #003964 !important;
 }

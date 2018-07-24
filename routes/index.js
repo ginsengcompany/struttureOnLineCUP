@@ -37,7 +37,7 @@ router.get('/:azienda/rubrica', rubricaController.getRubrica);
 router.get('/:azienda/rubrica/contatti', rubricaController.getContatti);
 router.post('/:azienda/rubrica/eliminaContatto', rubricaController.deleteContact);
 
-/* NuovoContatto */
+/* NUOVO CONTATTO */
 router.get('/:azienda/nuovoContatto', nuovoContatto.getNuovoContatto);
 router.post('/:azienda/nuovoContatto', nuovoContatto.addContact);
 
@@ -45,6 +45,7 @@ router.post('/:azienda/nuovoContatto', nuovoContatto.addContact);
 router.get('/:azienda/appuntamenti', appuntamentiController.getAppuntamenti);
 router.get('/:azienda/appuntamenti/contatti', appuntamentiController.getContatti);
 router.post('/:azienda/appuntamenti/ListaAppuntamenti', appuntamentiController.getListaAppuntamentiAssistito);
+router.post('/:azienda/appuntamenti/annullaimpegnativa', appuntamentiController.annullaImpegnativa);
 
 /* HOME */
 router.get('/:azienda/home', homeController.getHome);

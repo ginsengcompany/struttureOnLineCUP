@@ -72,15 +72,10 @@ $(document).ready(function () {
                     data: JSON.stringify(data[nomeSelezionato]),
                     url: window.location.href + "/ListaAppuntamenti",
                     dataType: "json",
-
                     contentType: 'application/json',
                     success: function (data, textStatus, jqXHR) {
-                        if(data.empty)
-                            console.log(textStatus);
-
-                        else{
+                        if(!data.empty) {
                             listaAppuntamenti = data;
-                            console.log(listaAppuntamenti);
                             $('#tableAppuntamenti').dataTable().fnDestroy();
                             $('#tableAppuntamenti').empty();
 
@@ -110,7 +105,6 @@ $(document).ready(function () {
 
                                     { title:  "IMPEGNATIVA",
                                         data: null, render: function ( data, type, row ) {
-                                        console.log(data);
                                             if(data.codiceImpegnativa=="")
                                                 data.codiceImpegnativa="Codice mancante";
                                             // Combine the first and last names into a single table field
@@ -133,27 +127,38 @@ $(document).ready(function () {
                                     tr.removeClass('shown');
                                 }
                                 else {
-                                    // Open this row
-                                    console.log(row.data());
                                     let app = row.data().appuntamenti;
-                                    console.log(app);
                                     row.child( format(app)).show();
-
                                     tr.addClass('shown');
                                 }
-
-
                             } );
                             $('#tableAppuntamenti tbody').on('click', 'td.delete-control', function () {
                                 var tr = $(this).closest('tr');
                                 var row = table.row( tr );
                                 $("#labelEliminaImpegnativa").text("");
-                                $("#labelEliminaImpegnativa").append("Sei sicruo di voler eliminare tutti gli appuntamenti inerenti all'impegnativa: <br>" + '<b>'+row.data().codiceImpegnativa)+'</b>';
+                                $("#labelEliminaImpegnativa").append("Sei sicuro di voler eliminare tutti gli appuntamenti inerenti all'impegnativa: <br>" + '<b>'+row.data().codiceImpegnativa)+'</b>';
                                 $("#centralModalDanger").modal();
-
+                                    $("#btnAnnullaImpegnativa").click(function () {
+                                        $("#barra").show();
+                                        $.ajax({
+                                            type: "POST",
+                                            data: JSON.stringify(row.data()),
+                                            url: window.location.href + "/annullaimpegnativa",
+                                            dataType: "text",
+                                            contentType: 'application/json',
+                                            success: function (data, textStatus, jqXHR){
+                                                $("#barra").hide();
+                                                $("#labelCentralModal").text(data);
+                                                $("#centralModal").modal();
+                                            },
+                                            error: function (jqXHR, textStatus, errorThrown) {
+                                                $("#labelCentralModal").text(jqXHR.responseText);
+                                                $("#centralModal").modal();
+                                            }
+                                        })
+                                    });
                                 });
                         }
-
                     },
                     error: function (jqXHR, textStatus, errorThrown) {
                         $('#test').hide();
@@ -171,7 +176,11 @@ $(document).ready(function () {
 
         },
         error: function (jqXHR, textStatus, errorThrown) {
-            console.log(textStatus);
+
         }
     });
+});
+
+$('#centralModal').on('hidden.bs.modal', function () {
+    location.reload();
 });

@@ -30,31 +30,34 @@ block content
                                 th Impegnativa
                         tbody
                 #centralModalDanger.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel', aria-hidden='true')
-                    .modal-dialog.modal-notify.modal-danger(role='document')
-                        // Content
+                    .modal-dialog.modal-notify(role='document')
                         .modal-content
-                            // Header
-                            .modal-header
+                            .modal-header.text-center(style="background-color: #003964;")
                                 p.heading.lead ATTENZIONE
                                 button.close(type='button', data-dismiss='modal', aria-label='Close')
                                     span.white-text(aria-hidden='true') ×
-                            // Body
                             .modal-body
                                 .text-center
-                                    i.fa.fa-close.fa-4x.mb-3.animated.rotateIn
+                                    i.fa.fa-close.fa-4x.mb-3.color-primary.animated.rotateIn
                                     p#labelEliminaImpegnativa
-                            // Footer
                             .modal-footer.justify-content-center
-                                a.btn.btn-danger(type='button')
+                                a#btnAnnullaImpegnativa.btn.btn-color-primary.waves-effect.close(type='button', data-dismiss='modal', data-target="#centralModalDanger", style="color: white !important;")
                                     | Si
-                                a.btn.btn-outline-danger.waves-effect(type='button', data-dismiss='modal')
+                                a.btn.btn-color-primary.waves-effect.close(type='button', data-dismiss='modal', style="color: white !important;")
                                     | No
-                        // /.Content
-                // Central Modal Medium Danger
-
-
-
-
+                #centralModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel', aria-hidden='true')
+                    .modal-dialog.modal-notify(role='document')
+                        .modal-content
+                            .modal-header.text-center(style="background-color: #003964;")
+                                p.heading.lead Info
+                                button.close(type='button', data-dismiss='modal', aria-label='Close')
+                                    span.white-text(aria-hidden='true') ×
+                            .modal-body
+                                .text-center
+                                    p#labelCentralModal
+                            .modal-footer.justify-content-center
+                                a#btnCentralModal.btn.btn-color-primary.waves-effect.close(type='button', data-dismiss='modal', style="color: white !important;")
+                                    | Ok
 block javascript
     script(type='text/javascript', src='/javascript/jquery-3.3.1.min.js')
     script(type='text/javascript', src='/javascript/popper.min.js')
