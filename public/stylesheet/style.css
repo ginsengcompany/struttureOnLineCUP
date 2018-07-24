@@ -115,19 +115,6 @@ table.dataTable thead {background-color:#003964; color: white}
     top:1px;
 }
 
-.jarallax {
-    height: 100%;
-}
-
-@media (max-width: 740px) {
-    .jarallax {
-        height: 100vh;
-    }
-}
-h5 {
-    letter-spacing: 3px;
-}
-
 body {
     margin:0;
     padding:0;
