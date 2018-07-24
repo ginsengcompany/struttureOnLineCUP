@@ -12,113 +12,134 @@ block style
     link(href='https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css', rel='stylsheet')
 
 block content
-    .container
-        .steps-form-2
-            .steps-row-2.setup-panel-2.step-1.d-flex.justify-content-between
-                .steps-step-2
-                    a#btn-step-1.btn.btn-amber.btn-circle-2.waves-effect.ml-0.btn-color-primary(href='#step-1', type='button', data-toggle='tooltip', data-placement='top', title='Invio dati impegnativa')
-                        i.fa.fa-id-card(aria-hidden='true')
-                .steps-step-2
-                    a#btn-step-2.btn.btn-blue-grey.btn-circle-2.waves-effect(href='#step-2', type='button', data-toggle='tooltip', data-placement='top', title='Verifica dati impegnativa')
-                        i.fa.fa-file-text(aria-hidden='true')
-                .steps-step-2
-                    a#btn-step-3.btn.btn-blue-grey.btn-circle-2.waves-effect(href='#step-3', type='button', data-toggle='tooltip', data-placement='top', title='Lista proposte')
-                        i.fa.fa-calendar(aria-hidden='true')
-                .steps-step-2
-                    a#btn-step-4.btn.btn-blue-grey.btn-circle-2.waves-effect.mr-0(href='#step-4', type='button', data-toggle='tooltip', data-placement='top', title='Prenotazione completata')
-                        i.fa.fa-check(aria-hidden='true')
-        br
-        .container.setup-content-2#step-1
-            .row
-                .col-sm-12
-                    .progress#barra.primary-color-dark
-                        .indeterminate
-            .row
-                .col-md-8
-                    blockquote.blockquote.bq-primary
-                        p.h4.bq-title Prenotazione
-                            a.btn-floating.btn-sm.btn-color-primary(data-toggle="modal" data-target='#centralModalInfo')
+    main
+        .container
+            .steps-form-2
+                .steps-row-2.setup-panel-2.step-1.d-flex.justify-content-between
+                    .steps-step-2
+                        a#btn-step-1.btn.btn-amber.btn-circle-2.waves-effect.ml-0.btn-color-primary(href='#step-1', type='button', data-toggle='tooltip', data-placement='top', title='Invio dati impegnativa')
+                            i.fa.fa-id-card(aria-hidden='true')
+                    .steps-step-2
+                        a#btn-step-2.btn.btn-blue-grey.btn-circle-2.waves-effect(href='#step-2', type='button', data-toggle='tooltip', data-placement='top', title='Verifica dati impegnativa')
+                            i.fa.fa-file-text(aria-hidden='true')
+                    .steps-step-2
+                        a#btn-step-3.btn.btn-blue-grey.btn-circle-2.waves-effect(href='#step-3', type='button', data-toggle='tooltip', data-placement='top', title='Lista proposte')
+                            i.fa.fa-calendar(aria-hidden='true')
+                    .steps-step-2
+                        a#btn-step-4.btn.btn-blue-grey.btn-circle-2.waves-effect.mr-0(href='#step-4', type='button', data-toggle='tooltip', data-placement='top', title='Prenotazione completata')
+                            i.fa.fa-check(aria-hidden='true')
+            br
+            .container.setup-content-2#step-1
+                .row
+                    .col-sm-12
+                        .progress#barra.primary-color-dark
+                            .indeterminate
+                .row
+                    .col-md-8
+                        blockquote.blockquote.bq-primary
+                            p.h4.bq-title Prenotazione
+                                a.btn-floating.btn-sm.btn-color-primary(data-toggle="modal" data-target='#centralModalInfo')
+                                    i.fa.fa-info
+                            p
+                                | Invio richiesta prenotazione
+                .row
+                    .container.col-md-6
+                        select#selectNominativo.mdb-select(searchable="Cerca...")
+                        label Selezionare il nominativo per continuare
+                .row#rowAutoFill
+                    .container.col-md-4
+                        label.disabled(for='nomeAutofill') Nome
+                        input#nomeAutofill.form-control(type='text', disabled='')
+                    .col-md-4
+                        label.disabled(for='cognomeAutofill') Cognome
+                        input#cognomeAutofill.form-control(type='text', disabled='')
+                    .col-md-4
+                        label.disabled(for='codiceFiscaleAutofill') Codice Fiscale
+                        input#codiceFiscaleAutofill.form-control(type='text', disabled='')
+                .row#rowCodiceImpegnativa1
+                    .col-md-3
+                    .container.col-md-6
+                        .text-center.mt-4
+                            label#labelcodiceImpegnativa1(for='codiceImpegnativa1') Inserisci il codice Impegnativa
+                            input#codiceImpegnativa1.form-control(type='text', maxlength="15")
+                    .container.col-md-3
+                        .mt-5
+                            a.btn-floating.btn-sm.btn-color-primary(data-toggle="modal" data-target='#centralModalCod1')
                                 i.fa.fa-info
-                        p
-                            | Invio richiesta prenotazione
-            .row
-                .container.col-md-6
-                    select#selectNominativo.mdb-select(searchable="Cerca...")
-                    label Selezionare il nominativo per continuare
-            .row#rowAutoFill
-                .container.col-md-4
-                    label.disabled(for='nomeAutofill') Nome
-                    input#nomeAutofill.form-control(type='text', disabled='')
-                .col-md-4
-                    label.disabled(for='cognomeAutofill') Cognome
-                    input#cognomeAutofill.form-control(type='text', disabled='')
-                .col-md-4
-                    label.disabled(for='codiceFiscaleAutofill') Codice Fiscale
-                    input#codiceFiscaleAutofill.form-control(type='text', disabled='')
-            .row#rowCodiceImpegnativa1
-                .col-md-3
-                .container.col-md-6
-                    .text-center.mt-4
-                        label#labelcodiceImpegnativa1(for='codiceImpegnativa1') Inserisci il codice Impegnativa
-                        input#codiceImpegnativa1.form-control(type='text', maxlength="15")
-                .container.col-md-3
-                    .mt-5
-                        a.btn-floating.btn-sm.btn-color-primary(data-toggle="modal" data-target='#centralModalCod1')
-                            i.fa.fa-info
-            .row#rowCodiceImpegnativa2
-                .col-md-3
-                .container.col-md-6
-                    .text-center.mt-4
-                        label(for='codiceImpegnativa2') Inserisci il secondo codice Impegnativa
-                        input#codiceImpegnativa2.form-control(type='text', maxlength="10")
-                .container.col-md-3
-                    .mt-5
-                        a.btn-floating.btn-sm.btn-color-primary(data-toggle="modal" data-target='#centralModalCod2')
-                            i.fa.fa-info
-            .row#rowBottoneInvio
-                .container.col-md-8
-                    .text-center.mt-4
-                        button#invioPrenotazione.btn.btn-light-blue.btn-lg.btn-block.btn-rounded(type='button') Invio
-        .container-fluid.setup-content-2#step-2
-            .row.justify-content-center
-                .col-sm-12.col-md-5.col-lg-5
-                    // Card
-                    .card.card-cascade
-                        // Card image
-                        .view.view-cascade.gradient-card-header.morpheus-den-gradient
-                            // Title
-                            h2.card-header-title.mb-3 Dettagli Impegnativa
-                            // Subtitle
-                            p.card-header-subtitle.mb-0 Verifica contenuto Impegnativa
-                        // Card content
-                        .card-body.card-body-cascade
-                            .container-fluid
-                                .row.justify-content-center
-                                        .md-form
-                                            i.fa.fa-user.prefix(style='color: #243a51')
+                .row#rowCodiceImpegnativa2
+                    .col-md-3
+                    .container.col-md-6
+                        .text-center.mt-4
+                            label(for='codiceImpegnativa2') Inserisci il secondo codice Impegnativa
+                            input#codiceImpegnativa2.form-control(type='text', maxlength="10")
+                    .container.col-md-3
+                        .mt-5
+                            a.btn-floating.btn-sm.btn-color-primary(data-toggle="modal" data-target='#centralModalCod2')
+                                i.fa.fa-info
+                .row#rowBottoneInvio
+                    .container.col-md-8
+                        .text-center.mt-4
+                            button#invioPrenotazione.btn.btn-light-blue.btn-lg.btn-block.btn-rounded(type='button') Invio
+            .container-fluid.setup-content-2#step-2
+                .row.justify-content-center
+                    .col-sm-12.col-md-12.col-lg-5
+                        // Card
+                        .card.card-cascade
+                            // Card image
+                            .view.view-cascade.gradient-card-header.morpheus-den-gradient
+                                // Title
+                                h2.card-header-title.mb-3 Dettagli Impegnativa
+                                // Subtitle
+                                p.card-header-subtitle.mb-0 Verifica contenuto Impegnativa
+                            // Card content
+                            .card-body.card-body-cascade
+                                .container-fluid
+                                    .row.justify-content-center(style='padding-bottom: 20px')
+                                        .col-md-8
+                                            i.fa.fa-user.prefix(style='color: #243a51; padding-right:5px;')
+                                            label.disabled(for='nome') Nome
                                             input#nome.form-control(type='text', disabled='')
-                                            label.active(for='nome') Nome
-                                        .md-form
-                                            i.fa.fa-user.prefix(style='color: #243a51')
+                                    .row.justify-content-center(style='padding-bottom: 20px')
+                                        .col-md-8
+                                            i.fa.fa-user.prefix(style='color: #243a51; padding-right:5px;')
+                                            label.disabled(for='cognome') Cognome
                                             input#cognome.form-control(type='text', disabled='')
-                                            label.active(for='cognome') Cognome
-                                        .md-form
-                                            i.fa.fa-id-card.prefix(style='color: #243a51')
+                                    .row.justify-content-center
+                                        .col-md-8
+                                            i.fa.fa-id-card.prefix(style='color: #243a51; padding-right:5px;')
+                                            label.disabled(for='codFisc') Codice Fiscale
                                             input#codFisc.form-control(type='text', disabled='')
-                                            label.active(for='codFisc') Codice Fiscale
-                                .row.justify-content-center(style='text-align: center;')
-                                    .col-sm-12.col-md-12.col-lg-12
-                                        p.card-text.justify-content-center
-                                        | Di seguito puoi scegliere il reparto utilizzando il menù a tendina contenuto in tabella.
-                                        hr
-            .row
-                .col.table-responsive
-                    table#example.table.table-striped(cellspacing='0', width='100%')
-                        thead.mdb-color.darken-3
-                            tr.text-white
-                                th Prestazione
-                                th reparto
-                        tbody#bodyDataTable
+                                    .row.justify-content-center(style='text-align: center;')
+                                        .col-sm-12.col-md-12.col-lg-12
+                                            p.card-text.justify-content-center
+                                            | Di seguito puoi scegliere il reparto utilizzando il menù a tendina contenuto in tabella.
+                                            hr
+                .row
+                    .col.table-responsive
+                        table#example.table.table-striped(cellspacing='0', width='100%')
+                            thead.mdb-color.darken-3
+                                tr.text-white
+                                    th Prestazione
+                                    th reparto
+                            tbody#bodyDataTable
+                .row#rowBottoneContinua
+                    .container.col-md-8
+                        .text-center.mt-4
+                            button#continuaPrenotazione.btn.btn-light-blue.btn-lg.btn-block.btn-rounded(type='button') Continua
+            .container-fluid.setup-content-2#step-3
+                .row.justify-content-center
+                    .col.table-responsive
+                        table#example2.table.table-striped(cellspacing='0', width='100%')
+                            thead#tabellaDatePrenotazioni.mdb-color.darken-3
+                                tr.text-white
+                                    th Prestazione
+                                    th Reparto
+                                    th Unità Operativa
+                                    th Data dell'appuntamento
+                                    th Orario dell'appuntamento
+                                    th Nome del medico che effettuerà la visita
+                                    th Ubicazione del reparto
+                            tbody#bodyDataTable2
     div#centralModalInfo.modal.fade(tabindex='-1' role='dialog' aria-hidden='true')
         div.modal-dialog.modal-notify(role='document')
             div.modal-content
