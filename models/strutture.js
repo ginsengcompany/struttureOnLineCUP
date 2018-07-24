@@ -6,6 +6,8 @@ let struttureSchema = new mongoose.Schema({
     logo_struttura: String,
     regione: String,
     codRegione: String,
+    indirizzo: String,
+    piva: String,
     contatto: {
         numero_callCenter: String,
         email: String

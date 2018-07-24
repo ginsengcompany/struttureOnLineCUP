@@ -147,20 +147,11 @@ $(document).ready(function () {
                             $('#tableAppuntamenti tbody').on('click', 'td.delete-control', function () {
                                 var tr = $(this).closest('tr');
                                 var row = table.row( tr );
-                                $("#labelEliminaImpegnativa").append("");
+                                $("#labelEliminaImpegnativa").text("");
                                 $("#labelEliminaImpegnativa").append("Sei sicruo di voler eliminare tutti gli appuntamenti inerenti all'impegnativa: <br>" + '<b>'+row.data().codiceImpegnativa)+'</b>';
                                 $("#centralModalDanger").modal();
-                                $("#centralModalDanger").on('hide.bs.modal', function(){
-                                    alert("Hello World!");
-                                });
-                                $("#centralModalDanger").on('hide.bs.modal', function(){
-                                    
-                                    alert("Hello World!");
-                                });
 
-                                if($("#centralModalDanger").dragDrop())
-                                     console.log($('#labelNessunAppuntamento'));
-                            } );
+                                });
                         }
 
                     },
