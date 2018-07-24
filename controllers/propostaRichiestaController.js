@@ -6,6 +6,13 @@ exports.primaDisponibilita = function (req, res) {
     strutture.findOne({denominazioneUrl : req.params.azienda}, function (err, str) {
         if (err) return handleError({status: 503, message: "Il servizio è momentaneamente non disponibile"},res);
         if (!str) return handleError({status: 404, message: "Azienda Ospedaliera non trovata"},res);
+        let sendObject = [];
+        for(let i = 0; i < req.body.length; i++){
+            sendObject.push({
+                codprest: req.body[i].prestazione.codprest,
+                reparti: req.body[i].reparti
+            });
+        }
         let options = {
             method: 'POST',
             uri: 'http://ecuptservice.ak12srl.it/ricercaprimadisponibilita',
@@ -13,7 +20,7 @@ exports.primaDisponibilita = function (req, res) {
                 "x-access-token" : req.session.tkn,
                 struttura:str.codice_struttura
             },
-            body: req.body,
+            body: sendObject,
             json : true
         };
         request(options,function (err, response, body) {
