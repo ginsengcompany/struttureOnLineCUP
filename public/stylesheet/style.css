@@ -142,3 +142,18 @@ main {
 #tabellaDatePrenotazioni {
     background-color: #003964 !important;
 }
+
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+    color: white !important;
+    border: 1px solid #003964 !important;
+    background-color: white !important;
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #003964), color-stop(100%, #003964))!important;
+    background: -webkit-linear-gradient(top, #003964 0%, #003964 100%)!important;
+    background: -moz-linear-gradient(top, #003964 0%, #003964 100%)!important;
+    background: -ms-linear-gradient(top, #003964 0%, #003964 100%)!important;
+    background: -o-linear-gradient(top, #003964 0%, #003964 100%)!important;
+    background: linear-gradient(to bottom, #003964 0%, #003964 100%)!important;
+}
+
+
+
