@@ -16,20 +16,110 @@ block content
 
         .col
             p.h4.text-center.mt-5 Rubrica
-        // Search form
-        .row
-            .col.table-responsive
+        .ccontent#tableprincipale
+            .row
+                .col.table-responsive
+                    table#example.display(style='width:100%')
+                        thead
+                            tr
+                                th
+                                th NOME
+                                th COGNOME
+                                th
+                                th
+            .row(align='center')
+                .col-sm-12
+                    a.btn.btn-default.btn-rounded.mb-4(href='nuovoContatto') Aggiungi contatto
+        .ccontent#test
+            .rov
+                .col.table-responsive
+                    table#tableModifica.display(cellpadding='10', cellspacing='5', border='0', align='center', style='width:100%;')
+                        thead
+                            tr
+                                th CODICE FISCALE
+                                th NOME
+                                th COGNOME
+                                th DATA DI NASCITA
+                                th LUOGO DI NASCITA
+                                th SESSO
+                        tbody
+                            tr
+                                td#codiceFiscale
+                                td#Nome
+                                td#Cognome
+                                td#DataNascita
+                                td#LuogoNascita
+                                td#Sesso
+                        thead
+                            tr
+                                th(colspan=6 style="text-align: center;") RESIDENZA
+                        tbody
+                            tr(aria-rowspan=5)
+                                td(colspan=3)
+                                            select#listaprovinceresidenza.mdb-select(searchable="Cerca...", name="listaprovince" required='')
+                                                option(value='', disabled='', selected='') Provincia di residenza
+                                            small#provincia-residenzaHelp.form-text.text-muted.red-text.font-italic(style="display: none;") Campo obbligatorio
+                                td(colspan=3)
+                                            select#listacomuneresidenza.mdb-select(searchable="Cerca...", required='', name="comuni")
+                                                option(value='', disabled='', selected='') Comune di residenza
+                                            small#comune-residenzaHelp.form-text.text-muted.red-text.font-italic(style="display: none;") Campo obbligatorio
+                            tr
+                                td(colspan=6, style='text-align:Center')
+                                        label(style='font-weight: bold; text-align:Center') Indirizzo di Residenza:
+                                        input#Indirizzo.form-control(type='text')
+                        thead
+                            tr
+                                th(colspan=6 style="text-align: center;") RECAPITI
+                        tbody
+                            tr(aria-rowspan=5)
+                                td(colspan=3)
+                                    label(style='font-weight: bold;') Telefono:
+                                    input#Telefono.form-control(type='text', maxlength="15")
+                                td(colspan=3)
+                                    label(style='font-weight: bold;') e-Mail:
+                                    input#eMail.form-control(type='text')
+            .row(align='center')
+                .col-sm-12
+                    a.btn.btn-default.btn-rounded.mb-4(href='nuovoContatto') Conferma
+                    a.btn.btn-default.btn-rounded.mb-4(href='rubrica') Annulla
 
-                table#example.display(style='width:100%')
 
-                    thead
-                        tr
-                            th
-                            th NOME
-                            th COGNOME
-         .row(align='center')
-             .col-sm-12
-                 a.btn.btn-default.btn-rounded.mb-4(href='') Aggiungi contatto
+
+
+        #centralModalDanger.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel', aria-hidden='true')
+            .modal-dialog.modal-notify.modal-danger(role='document')
+                // Content
+                .modal-content
+                    // Header
+                    .modal-header
+                        p.heading.lead ATTENZIONE
+                        button.close(type='button', data-dismiss='modal', aria-label='Close')
+                            span.white-text(aria-hidden='true') ×
+                    // Body
+                    .modal-body
+                        .text-center
+                            i.fa.fa-close.fa-4x.mb-3.animated.rotateIn
+                            p#labelEliminaImpegnativa
+                    // Footer
+                    .modal-footer.justify-content-center
+                        a#btnconfermaEliminazione.btn.btn-danger(type='button')
+                            | Si
+                        a.btn.btn-outline-danger.waves-effect(type='button', data-dismiss='modal')
+                            | No
+                // /.Content
+        // Central Modal Medium Danger
+        div#centralModalAlert.modal.fade(tabindex='-1' role='dialog' aria-hidden='true')
+            div.modal-dialog.modal-notify(role='document')
+                div.modal-content
+                    div.modal-header.text-center.btn-color-primary
+                        h4.modal-title.w-100.font-weight-bold(style='color:white;') ATTENZIONE
+                        button.close(type='button' data-dismiss='modal' aria-label='Close')
+                            span.white-text(aria-hidden='true') &times;
+                    div.modal-body
+                        div.text-center
+                            font(size='5')
+                                p#paragrafomodalPrenotazione
+
 
 
 

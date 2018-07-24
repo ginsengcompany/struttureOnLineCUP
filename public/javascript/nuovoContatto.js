@@ -107,6 +107,8 @@ $('div.setup-panel-2 div a.btn-amber').trigger('click');
 //$('#btn-step-3').trigger('click');
 
 $(document).ready(function () {
+
+    $(".button-collapse").sideNav();
     //gestione picker e mdb-select registrazione
     $('.datepicker').pickadate({
         monthsFull: ['Gennaio', 'Febbraio', 'Marzo', 'Aprile', 'Maggio', 'Giugno', 'Luglio', 'Agosto', 'Settembre', 'Ottobre', 'Novembre', 'Dicembre'],
@@ -344,8 +346,7 @@ btnRegistrati.click(function() {
                 if(jqXHR.status === 201) {
                     $('#btn-step-3').removeAttr('disabled').trigger('click');
                     setTimeout(function () {
-                        //DA CONTROLLARE !!!!!
-                        window.location.href = '/:azienda/rubrica';
+                        window.location.href = 'rubrica';
                     }, 2000);
                 }
             },

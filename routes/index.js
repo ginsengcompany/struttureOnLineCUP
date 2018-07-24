@@ -31,6 +31,7 @@ router.post('/:azienda/prenotazione/prelevaReparti', verificaContenutoImpegnativ
 /* RUBRICA */
 router.get('/:azienda/rubrica', rubricaController.getRubrica);
 router.get('/:azienda/rubrica/contatti', rubricaController.getContatti);
+router.post('/:azienda/rubrica/eliminaContatto', rubricaController.deleteContact);
 
 /* NuovoContatto */
 router.get('/:azienda/nuovoContatto', nuovoContatto.getNuovoContatto);
