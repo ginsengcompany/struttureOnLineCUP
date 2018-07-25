@@ -11,58 +11,20 @@ block style
 block body
     body#top.hidden-sn.mdb-skin
         header
-            #slide-out.side-nav.sn-bg-4.mdb-sidenav
-                ul.custom-scrollbar.list-unstyled
+            #slide-out.side-nav.mdb-sidenav
+                ul.custom-scrollbar
                     li
                         .logo-wrapper.waves-light(style='height:100px;')
                             a(href="home")
                                 img.img-fluid.flex-center(src='/img/iconmenu.png')
                     li
-                        ul
-                            li
-                                ul
-                                    li
-                                        a.textnavbar(href='home') Home
-                                    li
-                                        a.textnavbar(href='prenotazione') Prenota
-                                    li
-                                        a.textnavbar(href='appuntamenti') Lista appuntamenti
-                                    li
-                                        a.textnavbar(href='rubrica') Lista contatti
-                    //li
-                        ul.collapsible.collapsible-accordion
-                            li
-                                a.collapsible-header.waves-effect.arrow-r
-                                    i.fa.fa-desktop
-                                    |  Client
-                                    i.fa.fa-angle-down.rotate-icon
-                                .collapsible-body
-                                    ul
-                                        li
-                                            a.waves-effect(href='#{addClientUrl}') Associa Utente a Client
-                                        li
-                                            a.waves-effect(href='#{listClientUrl}') Lista Client
-                            li
-                                a.collapsible-header.waves-effect.arrow-r
-                                    i.fa.fa-user-o
-                                    |  Utenti
-                                    i.fa.fa-angle-down.rotate-icon
-                                .collapsible-body
-                                    ul
-                                        li
-                                            a.waves-effect(href='#{addUserUrl}') Aggiungi Utente
-                                        li
-                                            a.waves-effect(href='#{listUserUrl}') Lista Utenti
-                            li
-                                a.collapsible-header.waves-effect.arrow-r
-                                    i.fa.fa-lock
-                                    |  Gestione Token
-                                    i.fa.fa-angle-down.rotate-icon
-                                .collapsible-body
-                                    ul
-                                        li
-                                            a.waves-effect(href='#') Elimina Token Scaduti
-                                        li
+                        a.textnavbar(href='home') Home
+                    li
+                        a.textnavbar(href='prenotazione') Prenota
+                    li
+                        a.textnavbar(href='appuntamenti') Lista appuntamenti
+                    li
+                        a.textnavbar(href='rubrica') Lista contatti
                 .sidenav-bg.mask-strong
             nav.navbar.fixed-top.navbar-toggleable-md.navbar-expand-lg.scrolling-navbar.double-nav
                 .float-left
@@ -94,13 +56,13 @@ block footer
             // Grid row
             .row.mt-3
                 // Grid column
-                .col-md-3.col-lg-4.col-xl-3.mx-auto.mb-4
+                .col-4
                     h6.text-uppercase.font-weight-bold #{datiAzienda.nome_struttura}
                     hr.deep-purple.accent-2.mb-4.mt-0.d-inline-block.mx-auto(style='width: 60px;')
                     p #{datiAzienda.indirizzo}
                         if datiAzienda.piva !== ''
                             | - P.IVA: #{datiAzienda.piva}
-                .col-md-2.col-lg-2.col-xl-2.mx-auto.mb-4
+                .col
                     // Links
                     h6.text-uppercase.font-weight-bold AK-12
                     hr.deep-purple.accent-2.mb-4.mt-0.d-inline-block.mx-auto(style='width: 60px;')
@@ -113,7 +75,7 @@ block footer
                     p
                         i.fa.fa-phone.mr-3
                         |  +(39) 0823 49 49 35
-                .col-md-3.col-lg-2.col-xl-2.mx-auto.mb-4
+                .col
                     // Links
                     h6.text-uppercase.font-weight-bold GESAN
                     hr.deep-purple.accent-2.mb-4.mt-0.d-inline-block.mx-auto(style='width: 60px;')
@@ -126,7 +88,7 @@ block footer
                     p
                         i.fa.fa-phone.mr-3
                         |  0823.1765736 - 0823.494935
-                .col-md-4.col-lg-3.col-xl-3.mx-auto.mb-md-0.mb-4
+                .col
                     h6.text-uppercase.font-weight-bold Link
                     hr.deep-purple.accent-2.mb-4.mt-0.d-inline-block.mx-auto(style='width: 60px;')
                     p
@@ -146,4 +108,4 @@ block javascript
     script(type='text/javascript', src='/javascript/popper.min.js')
     script(type='text/javascript', src='/javascript/bootstrap.min.js')
     script(type='text/javascript', src='/javascript/mdb.min.js')
-    script(type='text/javascript', src='/javascript/menuController.js')
+    script(type='text/javascript', src='/javascript/menu.js')

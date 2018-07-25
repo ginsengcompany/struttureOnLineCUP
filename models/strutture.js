@@ -45,7 +45,8 @@ let struttureSchema = new mongoose.Schema({
         spostamentoPrenotazione : String,
         piuReparti : String,
         appuntamentiFuturiEPassati: String,
-        comunebycodicecatastale : String
+        comunebycodicecatastale : String,
+        annullaImpegnativaWeb : String
     }
 });
 mongoose.model('strutture', struttureSchema);

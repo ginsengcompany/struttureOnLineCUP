@@ -6,6 +6,7 @@ $( "#rowCodiceImpegnativa2" ).hide();
 $( "#rowAutoFill" ).hide();
 $( "#rowBottoneInvio" ).hide();
 $('#barra').hide();
+$('#example2').hide();
 let navListItems, allWells, nextPrenotazione, nextVerificaContenuto, allPrevBtn, btnConfermaPrenotazione;
 navListItems = $('div.setup-panel-2 div a');
 allWells = $('.setup-content-2');
@@ -47,6 +48,7 @@ navListItems.click(function (e) {
                     let prestazioni = [];
                     let rowTable = "";
                     let caricato = 0;
+                    sessionStorage.setItem("prestazioniErogabili", JSON.stringify(data.prestazioni_erogabili));
                     for (let i=0;i<data.prestazioni_erogabili.length;i++)
                     {
                         $.ajax({
@@ -60,6 +62,7 @@ navListItems.click(function (e) {
                                     prestazione: data.prestazioni_erogabili[i],
                                     reparti: data2
                                 });
+                                sessionStorage.setItem("prestReparti", JSON.stringify(prestazioni));
                                 rowTable += "<tr>" + "<td>"+ data.prestazioni_erogabili[i].desprest + "</td><td>" +
                                     "<select id='selectPrestazione" + i +
                                     "' class='mdb-select'><option value='0' selected>" + data2[0].descrizione +
@@ -97,11 +100,76 @@ navListItems.click(function (e) {
         $('#cognome').val(assistito.cognome);
         $('#codFisc').val(assistito.codice_fiscale);
     }
+    else if($target[0].id === "step-3") {
+        let prest = JSON.parse(sessionStorage.getItem("prestReparti"));
+        for (let i = 0; i < prest.length; i++) {
+            let index = $("#selectPrestazione" + i + " option:selected").val();
+            prest[i].reparti[index].repartoScelto = true;
+        }
+        $('#barra').show();
+        $.ajax({
+            type: "POST",
+            data: JSON.stringify(prest),
+            url: window.location.href + "/primaDisponibilita",
+            dataType: "json",
+            contentType: 'application/json',
+            success: function (data, textStatus, jqXHR) {
+                $('#barra').hide();
+                $('#example2').show();
+                var table2 = $('#example2').DataTable({
+                    responsive: true,
+                    language: {
+                        url: '../localisation/it-IT.json'
+                    },
+                    data: data.appuntamenti,
+                    columns: [
+                        {
+                            data: "desprest",
+                        },
+                        {
+                            data: "reparti[0].descrizione",
+                        },
+                        {
+                            data: "reparti[0].desunitaop",
+                        },
+                        {
+                            data: "dataAppuntamento",
+                        },
+                        {
+                            data: "oraAppuntamento",
+                        },
+                        {
+                            data: "reparti[0].nomeMedico",
+                        },
+                        {
+                            data: "reparti[0].ubicazioneReparto",
+                        },
+                    ],
+                    columnDefs: [
+                        {
+                            targets: '_all',
+                            defaultContent: 'Non Disponibile',
+                            "render": function(data){
+                                if(data === "")
+                                    return 'Non Disponibile';
+                                else {return data}
+                            }
+                        }
+                    ]
+                });
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                $('#barra').hide();
+            }
+        })
+    }
 });
+
 nextVerificaContenuto.click(function () {
     let curStep = $(this).closest(".setup-content-2"),
         curStepBtn = curStep.attr("id"),
         nextStepSteps = $('div.setup-panel-2 div a[href="#' + curStepBtn + '"]').parent().next().children("a");
+
     nextStepSteps.removeAttr('disabled').trigger('click');
 });
 nextPrenotazione.click(function () {
@@ -141,6 +209,7 @@ nextPrenotazione.click(function () {
 $('div.setup-panel-2 div a.btn-amber').trigger('click');
 
 $(document).ready(function () {
+
     $('#nomeAutofill').val('');
     $('#cognomeAutofill').val('');
     $('#codiceFiscaleAutofill').val('');

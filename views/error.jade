@@ -1,6 +1,32 @@
-extends layout
-
+block title
+  title Error
+  block meta
+    meta(http-equiv='Content-Type', content='text/html; charset=utf-8')
+block style
+  link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css')
+  link(href='/stylesheet/bootstrap.min.css', rel='stylesheet')
+  link(href='/stylesheet/mdb.min.css', rel='stylesheet')
+  link(href='/stylesheet/styleIntro.css', rel='stylesheet')
 block body
-  h1= message
-  h2= error.status
-  pre #{error.stack}
+  body
+    .view.jarallax(data-jarallax='{"speed": 0.2}', style="background-image: url('/img/introbg.png'); background-repeat: no-repeat; background-size: cover; background-position: center center;")
+      .container
+        .row
+          .col-md-12.white-text
+            .display-3.mb-0.pt-md-5.pt-5.wow.fadeInDown(data-wow-delay='0.3s')
+              img#imgIntro(src='/img/logocirclefree.png', style='margin:auto; display:block')
+        .jumbotron.transparent.z-depth-5.animated.slideInUp
+          .row.justify-content-center
+            i.fa.fa-warning.fa-5x.mb-3.red-text
+          .row.justify-content-center
+            h1.color-primary= message
+          .row.justify-content-center
+            h2.color-primary= error.status
+            //TODO commentare .row e pre quando il progetto viene messo in produzione
+          .row
+            pre.color-primary #{error.stack}
+  script(type='text/javascript', src='/javascript/jquery-3.3.1.min.js')
+  script(type='text/javascript', src='/javascript/popper.min.js')
+  script(type='text/javascript', src='/javascript/bootstrap.min.js')
+  script(type='text/javascript', src='/javascript/mdb.min.js')
+  script(type='text/javascript', src='/javascript/intro.js')

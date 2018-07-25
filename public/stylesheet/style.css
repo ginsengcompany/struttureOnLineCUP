@@ -6,6 +6,7 @@
 }
 
 .btn-color-primary:hover{
+    background-color: #6C94B2;
     color: white;
 }
 
@@ -120,19 +121,6 @@ table.dataTable thead {background-color:#003964; color: white}
     top:1px;
 }
 
-.jarallax {
-    height: 100%;
-}
-
-@media (max-width: 740px) {
-    .jarallax {
-        height: 100vh;
-    }
-}
-h5 {
-    letter-spacing: 3px;
-}
-
 body {
     margin:0;
     padding:0;
@@ -140,6 +128,7 @@ body {
     flex-direction:column;
     justify-content:space-between;
     min-height:100vh;
+    overflow-x: hidden !important;
 }
 
 main {
@@ -153,4 +142,29 @@ main {
 
 #tabellaDatePrenotazioni {
     background-color: #003964 !important;
+}
+
+.color-primary{
+    color: #003964 !important;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+    color: white !important;
+    border: 1px solid #003964 !important;
+    background-color: white !important;
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #003964), color-stop(100%, #003964))!important;
+    background: -webkit-linear-gradient(top, #003964 0%, #003964 100%)!important;
+    background: -moz-linear-gradient(top, #003964 0%, #003964 100%)!important;
+    background: -ms-linear-gradient(top, #003964 0%, #003964 100%)!important;
+    background: -o-linear-gradient(top, #003964 0%, #003964 100%)!important;
+    background: linear-gradient(to bottom, #003964 0%, #003964 100%)!important;
+}
+
+.dropdown-content li.active.selected, .dropdown-content li.active, .dropdown-content li.active.selected span, .dropdown-content li.active span{
+    background-color: #003964 !important;
+    color: white;
+}
+
+.dropdown-content li.selected, .dropdown-content li:hover{
+    background-color: lightgray !important;
 }
