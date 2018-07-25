@@ -28,7 +28,7 @@ exports.getLogin = function (req, res, next) {
         if (!str) return handleError({status: 404, message: "Azienda Ospedaliera non trovata"},res);
         if(req.session.auth)
             delete req.session.auth;
-        res.render('index',{datiAzienda:str,parametroAzienda:req.params.azienda});
+        res.render('index',{datiAzienda:str,parametroAzienda:req.params.azienda, pagetitle: "Login"});
     });
 };
 

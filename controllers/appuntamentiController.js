@@ -6,7 +6,7 @@ exports.getAppuntamenti = function (req, res, next) {
     strutture.findOne({denominazioneUrl : req.params.azienda}, function (err, str) {
         if (err) return handleError({status: 503, message: "Il servizio è momentaneamente non disponibile"},res);
         if (!str) return handleError({status: 404, message: "Azienda Ospedaliera non trovata"},res);
-        res.render('appuntamenti',{datiAzienda:str,parametroAzienda:req.params.azienda});
+        res.render('appuntamenti',{datiAzienda:str,parametroAzienda:req.params.azienda, pagetitle: "Lista appuntamenti"});
     });
 };
 
