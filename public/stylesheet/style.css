@@ -159,3 +159,12 @@ main {
     background: -o-linear-gradient(top, #003964 0%, #003964 100%)!important;
     background: linear-gradient(to bottom, #003964 0%, #003964 100%)!important;
 }
+
+.dropdown-content li.active.selected, .dropdown-content li.active, .dropdown-content li.active.selected span, .dropdown-content li.active span{
+    background-color: #003964 !important;
+    color: white;
+}
+
+.dropdown-content li.selected, .dropdown-content li:hover{
+    background-color: lightgray !important;
+}
