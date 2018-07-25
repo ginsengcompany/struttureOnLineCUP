@@ -99,63 +99,62 @@ navListItems.click(function (e) {
         $('#cognome').val(assistito.cognome);
         $('#codFisc').val(assistito.codice_fiscale);
     }
-    else if($target[0].id === "step-3"){
+    else if($target[0].id === "step-3") {
         let prest = JSON.parse(sessionStorage.getItem("prestReparti"));
-        for(let i = 0; i < prest.length; i++){
-             let index = $("#selectPrestazione" + i + " option:selected").val();
-             prest[i].reparti[index].repartoScelto = true;
+        for (let i = 0; i < prest.length; i++) {
+            let index = $("#selectPrestazione" + i + " option:selected").val();
+            prest[i].reparti[index].repartoScelto = true;
         }
-        /*var table2 = $('#example2').DataTable({
-            language: {
-                url: '../localisation/it-IT.json'
-            },
-            ajax :{
-                url: window.location.href + "/primaDisponibilita",
-                type: 'POST',
-                contentType: 'application/json',
-                dataType: 'json',
-                data: prest,
-                "dataSrc": function (json) {
-                    var data = JSON.parse(json);
-                    alert(json);
-                },
-            },
-        });*/
         $.ajax({
             type: "POST",
             data: JSON.stringify(prest),
             url: window.location.href + "/primaDisponibilita",
             dataType: "json",
             contentType: 'application/json',
-            success: function (data, textStatus, jqXHR){
-                let prest = JSON.parse(sessionStorage.getItem("prestReparti"));
-                console.log(data);
-                for(let i = 0; i < data.appuntamenti.length; i++) {
-                    let prestazione = data.appuntamenti[i].desprest;
-                    let dataAppuntamento = data.appuntamenti[i].dataAppuntamento;
-                    let oraAppuntamento = data.appuntamenti[i].oraAppuntamento;
-                    let reparto = data.appuntamenti[i].reparti[0].descrizione;
-                    let unitaOperativa = data.appuntamenti[i].reparti[0].desunitaop;
-                    let nomeMedico = data.appuntamenti[i].reparti[0].nomeMedico;
-                    let ubicazioneReparto = data.appuntamenti[i].reparti[0].ubicazioneReparto;
-                    console.log(prestazione, dataAppuntamento, oraAppuntamento, reparto, unitaOperativa, nomeMedico, ubicazioneReparto);
-                    listaApp.push({
-                        prestazione: data.appuntamenti[i].desprest,
-                        dataAppuntamento: data.appuntamenti[i].dataAppuntamento,
-                        oraAppuntamento: data.appuntamenti[i].oraappuntamento,
-                        reparto: data.appuntamenti[i].reparti[0].descrizione,
-                        unitaOperativa: data.appuntamenti[i].reparti[0].desunitaop,
-                        nomeMedico: data.appuntamenti[i].reparti[0].nomeMedico,
-                        ubicazioneReparto: data.appuntamenti[i].reparti[0].ubicazioneReparto
-                    });
-                }
+            success: function (data, textStatus, jqXHR) {
+                var table2 = $('#example2').DataTable({
+                    language: {
+                        url: '../localisation/it-IT.json'
+                    },
+                    data: data.appuntamenti,
+                    columns: [
+                        {
+                            data: "desprest",
+                            defaultContent: "-"
+                        },
+                        {
+                            data: "reparti[0].descrizione",
+                            defaultContent: "-"
+                        },
+                        {
+                            data: "reparti[0].desunitaop",
+                            defaultContent: "-"
+                        },
+                        {
+                            data: "dataAppuntamento",
+                            defaultContent: "-"
+                        },
+                        {
+                            data: "oraAppuntamento",
+                            defaultContent: "-"
+                        },
+                        {
+                            data: "reparti[0].nomeMedico",
+                            defaultContent: "-"
+                        },
+                        {
+                            data: "reparti[0].ubicazioneReparto",
+                            defaultContent: "-"
+                        },
+                    ]
+                });
             },
             error: function (jqXHR, textStatus, errorThrown) {
             }
-        });
-
+        })
     }
 });
+
 nextVerificaContenuto.click(function () {
     let curStep = $(this).closest(".setup-content-2"),
         curStepBtn = curStep.attr("id"),
