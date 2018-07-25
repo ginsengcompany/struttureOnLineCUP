@@ -94,13 +94,13 @@ block footer
             // Grid row
             .row.mt-3
                 // Grid column
-                .col-md-3.col-lg-4.col-xl-3.mx-auto.mb-4
+                .col-4
                     h6.text-uppercase.font-weight-bold #{datiAzienda.nome_struttura}
                     hr.deep-purple.accent-2.mb-4.mt-0.d-inline-block.mx-auto(style='width: 60px;')
                     p #{datiAzienda.indirizzo}
                         if datiAzienda.piva !== ''
                             | - P.IVA: #{datiAzienda.piva}
-                .col-md-2.col-lg-2.col-xl-2.mx-auto.mb-4
+                .col
                     // Links
                     h6.text-uppercase.font-weight-bold AK-12
                     hr.deep-purple.accent-2.mb-4.mt-0.d-inline-block.mx-auto(style='width: 60px;')
@@ -113,7 +113,7 @@ block footer
                     p
                         i.fa.fa-phone.mr-3
                         |  +(39) 0823 49 49 35
-                .col-md-3.col-lg-2.col-xl-2.mx-auto.mb-4
+                .col
                     // Links
                     h6.text-uppercase.font-weight-bold GESAN
                     hr.deep-purple.accent-2.mb-4.mt-0.d-inline-block.mx-auto(style='width: 60px;')
@@ -126,7 +126,7 @@ block footer
                     p
                         i.fa.fa-phone.mr-3
                         |  0823.1765736 - 0823.494935
-                .col-md-4.col-lg-3.col-xl-3.mx-auto.mb-md-0.mb-4
+                .col
                     h6.text-uppercase.font-weight-bold Link
                     hr.deep-purple.accent-2.mb-4.mt-0.d-inline-block.mx-auto(style='width: 60px;')
                     p
