@@ -6,6 +6,7 @@ $( "#rowCodiceImpegnativa2" ).hide();
 $( "#rowAutoFill" ).hide();
 $( "#rowBottoneInvio" ).hide();
 $('#barra').hide();
+$('#example2').hide();
 let navListItems, allWells, nextPrenotazione, nextVerificaContenuto, allPrevBtn, btnConfermaPrenotazione;
 navListItems = $('div.setup-panel-2 div a');
 allWells = $('.setup-content-2');
@@ -105,6 +106,7 @@ navListItems.click(function (e) {
             let index = $("#selectPrestazione" + i + " option:selected").val();
             prest[i].reparti[index].repartoScelto = true;
         }
+        $('#barra').show();
         $.ajax({
             type: "POST",
             data: JSON.stringify(prest),
@@ -112,7 +114,10 @@ navListItems.click(function (e) {
             dataType: "json",
             contentType: 'application/json',
             success: function (data, textStatus, jqXHR) {
+                $('#barra').hide();
+                $('#example2').show();
                 var table2 = $('#example2').DataTable({
+                    responsive: true,
                     language: {
                         url: '../localisation/it-IT.json'
                     },
@@ -120,36 +125,41 @@ navListItems.click(function (e) {
                     columns: [
                         {
                             data: "desprest",
-                            defaultContent: "-"
                         },
                         {
                             data: "reparti[0].descrizione",
-                            defaultContent: "-"
                         },
                         {
                             data: "reparti[0].desunitaop",
-                            defaultContent: "-"
                         },
                         {
                             data: "dataAppuntamento",
-                            defaultContent: "-"
                         },
                         {
                             data: "oraAppuntamento",
-                            defaultContent: "-"
                         },
                         {
                             data: "reparti[0].nomeMedico",
-                            defaultContent: "-"
                         },
                         {
                             data: "reparti[0].ubicazioneReparto",
-                            defaultContent: "-"
                         },
+                    ],
+                    columnDefs: [
+                        {
+                            targets: '_all',
+                            defaultContent: 'Non Disponibile',
+                            "render": function(data){
+                                if(data === "")
+                                    return 'Non Disponibile';
+                                else {return data}
+                            }
+                        }
                     ]
                 });
             },
             error: function (jqXHR, textStatus, errorThrown) {
+                $('#barra').hide();
             }
         })
     }

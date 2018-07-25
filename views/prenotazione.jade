@@ -9,7 +9,8 @@ block style
     link(href='/stylesheet/style.css', rel='stylesheet')
     link(href='/stylesheet/styleStepperPrenotazione.css', rel='stylesheet')
     link(href='/stylesheet/jquery.dataTables.min.css ', rel='stylesheet')
-    link(href='https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css', rel='stylsheet')
+    link(href='https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css', rel='stylesheet')
+    link(href='https://cdn.datatables.net/buttons/1.5.2/css/buttons.dataTables.min.css', rel='stylesheet')
 
 block content
     main
@@ -29,11 +30,11 @@ block content
                         a#btn-step-4.btn.btn-blue-grey.btn-circle-2.waves-effect.mr-0(href='#step-4', type='button', data-toggle='tooltip', data-placement='top', title='Prenotazione completata')
                             i.fa.fa-check(aria-hidden='true')
             br
+            .row
+                .col-sm-12
+                    .progress#barra.primary-color-dark
+                        .indeterminate
             .container.setup-content-2#step-1
-                .row
-                    .col-sm-12
-                        .progress#barra.primary-color-dark
-                            .indeterminate
                 .row
                     .col-md-8
                         blockquote.blockquote.bq-primary
@@ -195,4 +196,5 @@ block javascript
         script(type='text/javascript', src='/javascript/mdb.min.js')
         script(type='text/javascript', src='https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js')
         script(type='text/javascript', src='https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js')
+        script(type='text/javascript', src='https://cdn.datatables.net/buttons/1.5.2/js/dataTables.buttons.min.js')
         script(type='text/javascript', src='/javascript/prenotazioneController.js')
