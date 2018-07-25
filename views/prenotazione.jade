@@ -117,7 +117,7 @@ block content
                 .row
                     .col.table-responsive
                         table#example.table.table-striped(cellspacing='0', width='100%')
-                            thead.mdb-color.darken-3
+                            thead.mdb-color.darken-3(style='background-color: #003964 !important')
                                 tr.text-white
                                     th Prestazione
                                     th reparto
@@ -132,13 +132,13 @@ block content
                         table#example2.table.table-striped(cellspacing='0', width='100%')
                             thead#tabellaDatePrenotazioni.mdb-color.darken-3
                                 tr.text-white
-                                    th Prestazione
-                                    th Reparto
-                                    th Unità Operativa
-                                    th Data dell'appuntamento
-                                    th Orario dell'appuntamento
-                                    th Nome del medico che effettuerà la visita
-                                    th Ubicazione del reparto
+                                    th(style='vertical-align: text-top') Prestazione
+                                    th(style='vertical-align: text-top') Reparto
+                                    th(style='vertical-align: text-top') Unità Operativa
+                                    th(style='vertical-align: text-top') Data dell'appuntamento
+                                    th(style='vertical-align: text-top') Orario dell'appuntamento
+                                    th(style='vertical-align: text-top') Nome del medico che effettuerà la visita
+                                    th(style='vertical-align: text-top') Ubicazione del reparto
                             tbody#bodyDataTable2
     div#centralModalInfo.modal.fade(tabindex='-1' role='dialog' aria-hidden='true')
         div.modal-dialog.modal-notify(role='document')
