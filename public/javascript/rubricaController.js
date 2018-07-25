@@ -27,20 +27,17 @@ function format ( d ) {
         '</tr>'+
         '</table>';
 }
+
+//funzione compila tab modifica contatto e invio dati
 function Modifica ( d ) {
     console.log(d);
+    //dati non modificabili
     let codFiscale = $('#codiceFiscale');
     let nome = $('#Nome');
     let cognome = $('#Cognome');
     let dataNascita = $('#DataNascita');
     let luogoNascita = $('#LuogoNascita');
     let sesso = $('#Sesso');
-    let listaprovinceresidenza = $('#listaprovinceresidenza');
-    let listacomuneresidenza = $('#listacomuneresidenza');
-    let indirizzo = $('#Indirizzo');
-    let Telefono = $('#Telefono');
-    let eMail = $('#eMail');
-
 
     codFiscale.text(d.codice_fiscale);
     nome.text(d.nome);
@@ -51,28 +48,26 @@ function Modifica ( d ) {
         sesso.text("Donna");
     else
         sesso.text("Uomo");
-
-    document.getElementById("Indirizzo").value= d.indirizzores;
-    document.getElementById("Telefono").value= d.telefono;
-    document.getElementById("eMail").value= d.email;
-    eMail.on('input',function () {
-        $('input[type=text]').val(function () {
-            return this.value.toUpperCase();
-        });
-        if(eMail.value != d.email){
-            alert("prova");
+    //dati modificabili
+    let selectStatoCivile = $("#statocivile");
+    $.ajax({
+        type: "GET",
+        url: "http://ecuptservice.ak12srl.it/statocivile",
+        dataType: "json",
+        contentType: 'plain/text',
+        success: function (data, textStatus, jqXHR) {
+            for (let i = 0; i < data.length; i++) {
+                if( data[i].id == d.codStatoCivile)
+                    selectStatoCivile.append('<option value="' + data[i].id + '" selected>' + data[i].descrizione + '</option>');
+                else
+                    selectStatoCivile.append('<option value="' + data[i].id + '">' + data[i].descrizione + '</option>');
+            }
+            $('#statocivile').material_select();
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            console.log(textStatus);
         }
     });
-
-}
-/* Formatting function for row details - modify as you need */
-
-
-$(document).ready(function() {
-    $('#test').hide();
-    $(".button-collapse").sideNav();
-    $('.mdb-select').material_select();
-
     let selectProvinceResidenza = $("#listaprovinceresidenza");
     $("#listaprovinceresidenza").select({ dropdownParent: "#modal-container" });
     $.ajax({
@@ -91,6 +86,12 @@ $(document).ready(function() {
             console.log(textStatus);
         }
     });
+
+    $('#listacomuneresidenza').material_select('destroy');
+    $('#listacomuneresidenza').find('option').remove();
+    $('#listacomuneresidenza').append('<option value="'+d.istatComuneResidenza+'" selected>' + d.comune_residenza + '</option>');
+    $('#listacomuneresidenza').material_select();
+
     $('#listaprovinceresidenza').on('change', function () {
         let selectComuneResidenza = $("#listacomuneresidenza");
         let send = {codIstat: this.value};
@@ -108,12 +109,161 @@ $(document).ready(function() {
                     selectComuneResidenza.append('<option value="' + data[i].codice + '">' + data[i].nome + '</option>');
                 }
                 $('#listacomuneresidenza').material_select();
+                $('#ConfermaModifica').prop("disabled",false);
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.log(textStatus);
             }
         });
     });
+
+    let bntConferma = $('#ConfermaModifica');// button conferma modifica
+    $('#ConfermaModifica').prop("disabled",true);
+    document.getElementById("formIndirizzo").value= d.indirizzores;
+    $('#formIndirizzo').on('input',function () {
+        if( $('#formIndirizzo').value != d.indirizzores){
+            $('#ConfermaModifica').prop("disabled",false);
+        }
+    });
+
+    document.getElementById("formTelefono").value= d.telefono;
+    $('#formTelefono').on('input',function () {
+        if($('#formTelefono').value != d.telefono){
+            $('#ConfermaModifica').prop("disabled",false);
+        }
+    });
+
+    document.getElementById("formEmail").value= d.email;
+    $('#formEmail').on('input',function () {
+        if($('#formEmail').value != d.email){
+            $('#ConfermaModifica').prop("disabled",false);
+        }
+    });
+    $('#listacomuneresidenza').on('change', function () {
+
+        if($('#listacomuneresidenza').val() != d.istatComuneResidenza){
+            $('#ConfermaModifica').prop("disabled",false);
+        }
+    });
+    $('#statocivile').on('change', function () {
+
+        if($('#statocivile').val() != d.codStatoCivile){
+            $('#ConfermaModifica').prop("disabled",false);
+        }
+    });
+
+    bntConferma.click(function () {
+
+        let isValid = true;
+        if(!$('#formTelefono').val() || !document.getElementById("formTelefono").validity.valid || document.getElementById("formTelefono").value.trim()=== '') {
+            isValid = false;
+            $("#telefonoHelp").fadeIn();
+        }else
+            $("#telefonoHelp").fadeOut();
+        if(!$('#formEmail').val() || !document.getElementById("formEmail").validity.valid || document.getElementById("formEmail").value.trim() === '') {
+            isValid = false;
+            $("#emailHelp").fadeIn();
+        }else
+            $("#emailHelp").fadeOut();
+        if(!$('#listacomuneresidenza').val()){
+            isValid = false;
+            $("#comune-residenzaHelp").fadeIn();
+        }else
+            $("#comune-residenzaHelp").fadeOut();
+        if(!$('#listaprovinceresidenza').val() && $('#listacomuneresidenza').val() != d.istatComuneResidenza ){
+            isValid = false;
+            $("#provincia-residenzaHelp").fadeIn();
+        }else
+            $("#provincia-residenzaHelp").fadeOut();
+        if(!$('#statocivile').val()){
+            isValid = false;
+            $("#stato-civileHelp").fadeIn();
+        }else
+            $("#pstato-civileHelp").fadeOut();
+        if(!$('#formIndirizzo').val() || !document.getElementById("formIndirizzo").validity.valid || document.getElementById("formIndirizzo").value.trim()=== '') {
+            isValid = false;
+            $("#indirizzoHelp").fadeIn();
+        }else
+            $("#indirizzoHelp").fadeOut();
+
+        if (isValid) {
+
+            let codicestatocivile = $('#statocivile').val().toUpperCase();
+            let statocivile = $("#statocivile").find("option[value='" + codicestatocivile + "']").text().toUpperCase();
+            //dati personali
+            let email = $('#formEmail').val();
+            let telefono = $('#formTelefono').val().toUpperCase();
+            let provinciaresidenza;
+            let comuneresidenza;
+            let codicecomuneresidenza;
+            if($('#listacomuneresidenza').val() == d.istatComuneResidenza){
+                 provinciaresidenza = d.provincia;
+                 codicecomuneresidenza = d.istatComuneResidenza;
+                 comuneresidenza = d.comune_residenza;
+            }
+            else{
+                  codiceprovinciaresidenza = $("#listaprovinceresidenza").val().toUpperCase();
+                  provinciaresidenza = $("#listaprovinceresidenza").find("option[value='" + codiceprovinciaresidenza + "']").text().toUpperCase();
+                 let codicecomuneresidenza = $('#listacomuneresidenza').val().toUpperCase();
+                  comuneresidenza = $("#listacomuneresidenza").find("option[value='" + codicecomuneresidenza + "']").text().toUpperCase();
+            }
+            let indirizzo = $('#formIndirizzo').val().toUpperCase();
+
+            let assistito = {
+                email: email,
+                nome: d.nome,
+                cognome: d.cognome,
+                sesso: d.sesso,
+                codice_fiscale: d.codice_fiscale,
+                telefono: telefono,
+                codStatoCivile: codicestatocivile,
+                data_nascita: d.data_nascita,
+                luogo_nascita: d.luogo_nascita,
+                istatComuneNascita: d.istatComuneNascita,
+                provincia: provinciaresidenza,
+                comune_residenza: comuneresidenza,
+                indirizzores: indirizzo,
+                istatComuneResidenza: codicecomuneresidenza,
+                statocivile: statocivile
+            };
+
+            $.ajax({
+                type: "POST",
+                url: window.location.href +  "/modificaContatto",
+                data: JSON.stringify(assistito),
+                dataType: "json",
+                contentType: 'application/json',
+                success: function (data, textStatus, jqXHR) {
+                    if(jqXHR.status === 200) {
+                        $('#paragrafomodalPrenotazione').text(jqXHR.responseText);
+                        $('#centralModalAlert').modal('show');
+                        setTimeout(function () {
+                            window.location.href = 'rubrica';
+                        }, 2000);
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    $('#paragrafomodalPrenotazione').text(jqXHR.responseText);
+                    $('#centralModalAlert').modal('show');
+                    setTimeout(function () {
+                        window.location.href = 'rubrica';
+                    }, 2000);
+                }
+            });
+        }
+    });
+
+}
+/* Formatting function for row details - modify as you need */
+
+
+$(document).ready(function() {
+    $('#test').hide();
+    $(".button-collapse").sideNav();
+    $('.mdb-select').material_select();
+
+
+
 
     var table = $('#example').DataTable( {
 

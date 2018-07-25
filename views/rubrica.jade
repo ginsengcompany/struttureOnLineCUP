@@ -11,80 +11,92 @@ block style
     link(href='https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css', rel='stylsheet')
     link(href='https://cdn.datatables.net/buttons/1.5.2/css/buttons.dataTables.min.css',rel='stylsheet')
 block content
+    main
+        .container-fluid
 
-    .container-fluid
-
-        .col
-            p.h4.text-center.mt-5 Rubrica
-        .ccontent#tableprincipale
-            .row
-                .col.table-responsive
-                    table#example.display(style='width:100%')
-                        thead
-                            tr
-                                th
-                                th NOME
-                                th COGNOME
-                                th
-                                th
-            .row(align='center')
-                .col-sm-12
-                    a.btn.btn-default.btn-rounded.mb-4(href='nuovoContatto') Aggiungi contatto
-        .ccontent#test
-            .rov
-                .col.table-responsive
-                    table#tableModifica.display(cellpadding='10', cellspacing='5', border='0', align='center', style='width:100%;')
-                        thead
-                            tr
-                                th CODICE FISCALE
-                                th NOME
-                                th COGNOME
-                                th DATA DI NASCITA
-                                th LUOGO DI NASCITA
-                                th SESSO
-                        tbody
-                            tr
-                                td#codiceFiscale
-                                td#Nome
-                                td#Cognome
-                                td#DataNascita
-                                td#LuogoNascita
-                                td#Sesso
-                        thead
-                            tr
-                                th(colspan=6 style="text-align: center;") RESIDENZA
-                        tbody
-                            tr(aria-rowspan=5)
-                                .ccontent#labelIndirizzo
-                                    td(colspan=6)
-                                .ccontent#modificaIndirizzo
+            .col
+                p.h4.text-center.mt-5 Rubrica
+            .ccontent#tableprincipale
+                .row
+                    .col.table-responsive
+                        table#example.display(style='width:100%')
+                            thead
+                                tr
+                                    th
+                                    th NOME
+                                    th COGNOME
+                                    th
+                                    th
+                .row(align='center')
+                    .col-sm-12
+                        a.btn.btn-default.btn-rounded.mb-4(href='nuovoContatto') Aggiungi contatto
+            .ccontent#test
+                .rov
+                    .col.table-responsive
+                        table#tableModifica.display(cellpadding='10', cellspacing='5', border='0', align='center', style='width:100%;')
+                            thead
+                                tr
+                                    th CODICE FISCALE
+                                    th NOME
+                                    th COGNOME
+                                    th DATA DI NASCITA
+                                    th LUOGO DI NASCITA
+                                    th SESSO
+                            tbody
+                                tr
+                                    td#codiceFiscale
+                                    td#Nome
+                                    td#Cognome
+                                    td#DataNascita
+                                    td#LuogoNascita
+                                    td#Sesso
+                            thead
+                                tr
+                                    th(colspan=6 style="text-align: center;") STATO CIVILE
+                            tbody
+                                tr
+                                    th(colspan=6, style='text-align:Center')
+                                        select#statocivile.mdb-select(name='statocivile' required='')
+                                            option(value='', disabled='') Stato civile
+                                        small#stato-civileHelp.form-text.text-muted.red-text.font-italic(style="display: none;") Campo obbligatorio
+                            thead
+                                tr
+                                    th(colspan=6 style="text-align: center;") RESIDENZA
+                            tbody
+                                tr(aria-rowspan=5)
                                     td(colspan=3)
-                                            select#listaprovinceresidenza.mdb-select(searchable="Cerca...", name="listaprovince" required='')
-                                                option(value='', disabled='', selected='') Provincia di residenza
-                                            small#provincia-residenzaHelp.form-text.text-muted.red-text.font-italic(style="display: none;") Campo obbligatorio
+                                        select#listaprovinceresidenza.mdb-select(searchable="Cerca...", name="listaprovince" required='')
+                                            option(value='', disabled='', selected='') Provincia di residenza
+                                        small#provincia-residenzaHelp.form-text.text-muted.red-text.font-italic(style="display: none;") Campo obbligatorio
                                     td(colspan=3)
-                                            select#listacomuneresidenza.mdb-select(searchable="Cerca...", required='', name="comuni")
-                                                option(value='', disabled='', selected='') Comune di residenza
-                                            small#comune-residenzaHelp.form-text.text-muted.red-text.font-italic(style="display: none;") Campo obbligatorio
-                            tr
-                                td(colspan=6, style='text-align:Center')
-                                        label(style='font-weight: bold; text-align:Center') Indirizzo di Residenza:
-                                        input#Indirizzo.form-control(type='text')
-                        thead
-                            tr
-                                th(colspan=6 style="text-align: center;") RECAPITI
-                        tbody
-                            tr(aria-rowspan=5)
-                                td(colspan=3)
-                                    label(style='font-weight: bold;') Telefono:
-                                    input#Telefono.form-control(type='text', maxlength="15")
-                                td(colspan=3)
-                                    label(style='font-weight: bold;') e-Mail:
-                                    input#eMail.form-control(type='text')
-            .row(align='center')
-                .col-sm-12
-                    a.btn.btn-default.btn-rounded.mb-4(href='nuovoContatto') Conferma
-                    a.btn.btn-default.btn-rounded.mb-4(href='rubrica') Annulla
+                                        select#listacomuneresidenza.mdb-select(searchable="Cerca...", required='', name="comuni")
+                                            option(value='', disabled='', selected='') Comune di residenza
+                                        small#comune-residenzaHelp.form-text.text-muted.red-text.font-italic(style="display: none;") Campo obbligatorio
+                            thead
+                                tr
+                                    th(colspan=6 style="text-align: center;") INDIRIZZO DI RESIDENZA
+                            tbody
+                                tr
+                                    td(colspan=6, style='text-align:Center')
+                                        input#formIndirizzo.form-control(type='text')
+                                        small#indirizzoHelp.form-text.text-muted.red-text.font-italic(style="display: none;") campo mancante o indirizzo non valido
+                            thead
+                                tr
+                                    th(colspan=6 style="text-align: center;") RECAPITI
+                            tbody
+                                tr(aria-rowspan=5)
+                                    td(colspan=3)
+                                        label(style='font-weight: bold;') Telefono:
+                                        input#formTelefono.form-control(type='text', pattern="^[0-9-+s()]*$")
+                                        small#telefonoHelp.form-text.text-muted.red-text.font-italic(style="display: none;") campo mancante o numero non valida
+                                    td(colspan=3)
+                                        label(style='font-weight: bold;') e-Mail:
+                                        input#formEmail.form-control(type='email')
+                                        small#emailHelp.form-text.text-muted.red-text.font-italic(style="display: none;") campo mancante o email non valida
+                .row(align='center')
+                    .col-sm-12
+                        button#ConfermaModifica.btn.btn-default.btn-rounded.mb-4(href='rubrica') Conferma
+                        button.btn.btn-default.btn-rounded.mb-4(href='rubrica') Annulla
 
 
 
