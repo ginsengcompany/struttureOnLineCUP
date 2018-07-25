@@ -109,7 +109,6 @@ function Modifica ( d ) {
                     selectComuneResidenza.append('<option value="' + data[i].codice + '">' + data[i].nome + '</option>');
                 }
                 $('#listacomuneresidenza').material_select();
-                $('#ConfermaModifica').prop("disabled",false);
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.log(textStatus);
@@ -142,12 +141,6 @@ function Modifica ( d ) {
     $('#listacomuneresidenza').on('change', function () {
 
         if($('#listacomuneresidenza').val() != d.istatComuneResidenza){
-            $('#ConfermaModifica').prop("disabled",false);
-        }
-    });
-    $('#statocivile').on('change', function () {
-
-        if($('#statocivile').val() != d.codStatoCivile){
             $('#ConfermaModifica').prop("disabled",false);
         }
     });
@@ -226,30 +219,7 @@ function Modifica ( d ) {
                 istatComuneResidenza: codicecomuneresidenza,
                 statocivile: statocivile
             };
-
-            $.ajax({
-                type: "POST",
-                url: window.location.href +  "/modificaContatto",
-                data: JSON.stringify(assistito),
-                dataType: "json",
-                contentType: 'application/json',
-                success: function (data, textStatus, jqXHR) {
-                    if(jqXHR.status === 200) {
-                        $('#paragrafomodalPrenotazione').text(jqXHR.responseText);
-                        $('#centralModalAlert').modal('show');
-                        setTimeout(function () {
-                            window.location.href = 'rubrica';
-                        }, 2000);
-                    }
-                },
-                error: function (jqXHR, textStatus, errorThrown) {
-                    $('#paragrafomodalPrenotazione').text(jqXHR.responseText);
-                    $('#centralModalAlert').modal('show');
-                    setTimeout(function () {
-                        window.location.href = 'rubrica';
-                    }, 2000);
-                }
-            });
+            console.log(assistito);
         }
     });
 
@@ -262,115 +232,152 @@ $(document).ready(function() {
     $(".button-collapse").sideNav();
     $('.mdb-select').material_select();
 
+    $.ajax({
+        type: "GET",
+        url: window.location.href + "/contatti",
+        dataType: "json",
+        contentType: 'plain/text',
+        success: function (data, textStatus, jqXHR) {
+            let contatti = data;
+            var table = $('#example').DataTable( {
 
-
-
-    var table = $('#example').DataTable( {
-
-        language: {
-            url: '../localisation/it-IT.json'
-        },
-
-        ajax :{
-            url: window.location.href + "/contatti",
-            type: 'GET',
-            dataType: 'json',
-            dataSrc:''
-        },
-
-        columns : [
-            {
-                className:      'details-control',
-                orderable:      false,
-                data:           null,
-                defaultContent: ''
-            },
-            { data : "nome" },
-            { data : "cognome" },
-            {
-
-                className:      'edit-control',
-                orderable:      false,
-                width:          30,
-                data:           null,
-                defaultContent: ''
-            },
-            {
-
-                className:      'delete-control',
-                orderable:      false,
-                width:          30,
-                data:           null,
-                defaultContent: ''
-            }
-        ],
-        order: [[1, 'asc']]
-    } );
-
-    // Add event listener for opening and closing details
-    $('#example tbody').on('click', 'td.details-control', function () {
-        var tr = $(this).closest('tr');
-        var row = table.row( tr );
-        if ( row.child.isShown() ) {
-            // This row is already open - close it
-            row.child.hide();
-            tr.removeClass('shown');
-        }
-        else {
-            // Open this row
-            row.child( format(row.data()) ).show();
-            tr.addClass('shown');
-        }
-    } );
-    $('#example tbody').on('click', 'td.delete-control', function () {
-        var tr = $(this).closest('tr');
-        var row = table.row( tr );
-        $("#labelEliminaImpegnativa").text("");
-        $("#labelEliminaImpegnativa").append("Sei sicuro di voler eliminare il contatto: <br>" + '<b>'+row.data().nome + ' ' +row.data().cognome);
-        $("#centralModalDanger").modal();
-        $("#btnconfermaEliminazione").click(function (e) {
-            $.ajax({
-                type: "POST",
-                url: window.location.href + "/eliminaContatto",
-                data: JSON.stringify(row.data()),
-                contentType: 'application/json',
-                success: function (data, textStatus, jqXHR) {
-                    $("#centralModalDanger").hidden;
-                    if(jqXHR.status === 200) {
-
-                        $('#paragrafomodalPrenotazione').text(jqXHR.responseText);
-                        $('#centralModalAlert').modal('show');
-                        setTimeout(function () {
-                            window.location.href = 'rubrica';
-                        }, 2000);
-                    }
+                language: {
+                    url: '../localisation/it-IT.json'
                 },
-                error: function (jqXHR, textStatus, errorThrown) {
-                    $('#paragrafomodalPrenotazione').title("ERRORE");
-                    $('#paragrafomodalPrenotazione').text(jqXHR.responseText);
-                    $('#centralModalAlert').modal('show');
-                    setTimeout(function () {
-                        window.location.href = 'rubrica';
-                    }, 2000);
+                data: contatti,
+                columns : [
+                    {
+                        className:      'details-control',
+                        orderable:      false,
+                        data:           null,
+                        defaultContent: ''
+                    },
+                    { data : "nome" },
+                    { data : "cognome" },
+                    {
+
+                        className:      'edit-control',
+                        orderable:      false,
+                        width:          30,
+                        data:           null,
+                        defaultContent: ''
+                    },
+                    {
+
+                        className:      'delete-control',
+                        orderable:      false,
+                        width:          30,
+                        data:           null,
+                        defaultContent: ''
+                    }
+                ],
+                order: [[1, 'asc']]
+            } );
+            // Add event listener for opening and closing details
+            $('#example tbody').on('click', 'td.details-control', function () {
+                var tr = $(this).closest('tr');
+                var row = table.row( tr );
+                if ( row.child.isShown() ) {
+                    // This row is already open - close it
+                    row.child.hide();
+                    tr.removeClass('shown');
                 }
-            });
-        });
-    } );
-    $('#example tbody').on('click', 'td.edit-control', function () {
-        var tr = $(this).closest('tr');
-        var row = table.row( tr );
-        let d = row.data();
-        Modifica(d);
-        $('#tableprincipale').hide();
-        $('#test').show();
+                else {
+                    // Open this row
+                    row.child( format(row.data()) ).show();
+                    console.log(row.data());
+                    tr.addClass('shown');
+                }
+            } );
+            $('#example tbody').on('click', 'td.delete-control', function () {
+                var tr = $(this).closest('tr');
+                var row = table.row( tr );
+                $("#labelEliminaImpegnativa").text("");
 
-        $('#tableModifica').DataTable({
+                if(row.data().codice_fiscale === contatti[0].codice_fiscale){
+                    $("#labelEliminaImpegnativa").append("Sei sicuro di voler eliminare il tuo account? <br> in questo modo perderai tutti i dati e i contatti collegato ad esso <br>" + '<b>'+row.data().nome + ' ' +row.data().cognome);
+                    $("#centralModalDanger").modal();
 
-            searching: false,
-            paging: false,
-            info:false
-        });
+                    $("#btnconfermaEliminazione").click(function (e) {
+                        window.location.href = 'login';
+                        $.ajax({
+                            type: "GET",
+                            url: window.location.href + "/eliminaAccount",
+                            success: function (data, textStatus, jqXHR) {
+                                $("#centralModalDanger").hidden;
+                                if(jqXHR.status === 200) {
 
-    } );
+                                    $('#paragrafomodalPrenotazione').text(jqXHR.responseText);
+                                    $('#centralModalAlert').modal('show');
+                                    setTimeout(function () {
+                                        window.location.href = 'login';
+                                    }, 2000);
+                                }
+                            },
+                            error: function (jqXHR, textStatus, errorThrown) {
+                                $('#paragrafomodalPrenotazione').title("ERRORE");
+                                $('#paragrafomodalPrenotazione').text(jqXHR.responseText);
+                                $('#centralModalAlert').modal('show');
+                                setTimeout(function () {
+                                    window.location.href = 'rubrica';
+                                }, 2000);
+                            }
+                        });
+                    });
+                }
+                else{
+                    $("#labelEliminaImpegnativa").append("Sei sicuro di voler eliminare il contatto: <br>" + '<b>'+row.data().nome + ' ' +row.data().cognome);
+                    $("#centralModalDanger").modal();
+                    $("#btnconfermaEliminazione").click(function (e) {
+                        $.ajax({
+                            type: "POST",
+                            url: window.location.href + "/eliminaContatto",
+                            data: JSON.stringify(row.data()),
+                            contentType: 'application/json',
+                            success: function (data, textStatus, jqXHR) {
+                                $("#centralModalDanger").hidden;
+                                if(jqXHR.status === 200) {
+
+                                    $('#paragrafomodalPrenotazione').text(jqXHR.responseText);
+                                    $('#centralModalAlert').modal('show');
+                                    setTimeout(function () {
+                                        window.location.href = 'rubrica';
+                                    }, 2000);
+                                }
+                            },
+                            error: function (jqXHR, textStatus, errorThrown) {
+                                $('#paragrafomodalPrenotazione').title("ERRORE");
+                                $('#paragrafomodalPrenotazione').text(jqXHR.responseText);
+                                $('#centralModalAlert').modal('show');
+                                setTimeout(function () {
+                                    window.location.href = 'rubrica';
+                                }, 2000);
+                            }
+                        });
+                    });
+                }
+
+            } );
+            $('#example tbody').on('click', 'td.edit-control', function () {
+                var tr = $(this).closest('tr');
+                var row = table.row( tr );
+                let d = row.data();
+                Modifica(d);
+                $('#tableprincipale').hide();
+                $('#test').show();
+
+                $('#tableModifica').DataTable({
+
+                    searching: false,
+                    paging: false,
+                    info:false
+                });
+
+            } );
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            console.log(textStatus);
+        }
+    });
 
 });
