@@ -1,40 +1,57 @@
-//Set Stepper
+//inizializza lo stepper
 $(function () {
     $('[data-toggle="tooltip"]').tooltip()
 });
+// navListItems : contiene gli elementi DOM relativi ai simboli dello stepper
+// allWells : contiene le form del DOM
+// nextBtn : si riferisce al button avanti nel primo step
+// btnRegistrati : si riferisce al button registrati
+//allPrevBtn : Gestisce tutt i button indietro nelle form
 let navListItems, allWells, nextBtn, allPrevBtn, btnRegistrati;
 navListItems = $('div.setup-panel-2 div a');
 allWells = $('.setup-content-2');
 nextBtn = $('#btnForm1');
 btnRegistrati = $("#btnregistrazione");
 allPrevBtn = $('.prevBtn-2');
-
+// rende non visibili tutte le form della pagina
 allWells.hide();
-
+//callback relativa al click dei button dello stepper, questi non sono cliccabili dall'utente
+//ma vengono gestiti attraverso il click triggerato dal click dei button all'interno delle form
 navListItems.click(function (e) {
     e.preventDefault();
-    let $target = $($(this).attr('href')),
-        $item = $(this);
+    let $target = $($(this).attr('href')), //l'attributo href si riferisce a quale step punta il button dello stepper cliccato
+        $item = $(this); //item si riferisce al button dello stepper cliccato
     navListItems.removeClass('btn-amber').addClass('btn-blue-grey');
     $item.addClass('btn-amber');
-    allWells.hide();
-    $target.show();
+    allWells.hide(); //nasconde tutte le form
+    $target.show(); //rende visibile la form a cui punta
     //$target.find('input:eq(0)').focus();
 });
-
+//effettua il click sul primo button dello stepper per visualizzare la prima form
+$('div.setup-panel-2 div a.btn-amber').trigger('click');
+//gestisce il click sui pulsanti all'interno della form visibile
 allPrevBtn.click(function(){
     let curStep = $(this).closest(".setup-content-2"),
         curStepBtn = curStep.attr("id"),
         prevStepSteps = $('div.setup-panel-2 div a[href="#' + curStepBtn + '"]').parent().prev().children("a");
     prevStepSteps.removeAttr('disabled').trigger('click');
 });
-
+//funzione di callback per la gestione del click del button avanti del primo step
 nextBtn.click(function(){
+    /*
+    inserisce nelle variabili tutti gli elementi della form per poter eseguire controlli e funzionalità
+    curStep : contiene la form visualizzata
+    curStepBtn : preleva l'id del button dello step corrente
+    nextStepSteps : si riferisce al button dello step successivo
+    curInputs : contiene tutti gli elementi della form che l'utente deve compilare
+    isValid : variabile booleana utilizzata nei controlli dei campi per conoscere se l'utente ha inserito tutti i campi e se questi sono validi
+     */
     let curStep = $(this).closest(".setup-content-2"),
         curStepBtn = curStep.attr("id"),
         nextStepSteps = $('div.setup-panel-2 div a[href="#' + curStepBtn + '"]').parent().next().children("a"),
         curInputs = curStep.find("input[type='text'],input[type='url'],input[type='password'],input[type='email']"),
         isValid = true;
+    //ciclo for che opera su tutti gli elementi della form corrente
     for(let i=0; i< curInputs.length; i++){
         //Controllo Username
         if(curInputs[i].id === 'formUsername') {
@@ -83,13 +100,11 @@ nextBtn.click(function(){
                 $("#confermaEmailHelp").fadeOut();
         }
     }
+    //Se l'utente ha rispettato i requisiti di validazione
     if (isValid){
         nextStepSteps.removeAttr('disabled').trigger('click');
     }
 });
-
-$('div.setup-panel-2 div a.btn-amber').trigger('click');
-//$('#btn-step-3').trigger('click');
 
 $(document).ready(function () {
     //gestione picker e mdb-select registrazione
@@ -115,6 +130,7 @@ $(document).ready(function () {
     });
     $('.mdb-select').material_select();
     let selectProvinceNascita = $("#listaprovincenascita");
+    //chiamata REST per il prelievo delle province
     $.ajax({
         type: "GET",
         url: "http://ecuptservice.ak12srl.it/comuni/listaprovince",
@@ -131,6 +147,10 @@ $(document).ready(function () {
             console.log(textStatus);
         }
     });
+    /*
+    callback che agisce quando viene selezionata una provincia di nascita, la sua funzione è quella di effettuare
+    una chiamata REST per poter popolare la select per i comuni di nascita
+     */
     $('#listaprovincenascita').on('change', function () {
         let selectComuneNascita = $("#listacomunenascita");
         let send = {codIstat: this.value};
@@ -154,6 +174,7 @@ $(document).ready(function () {
             }
         });
     });
+    //preleva le option da inserire nella select stato civile
     let selectStatoCivile = $("#statocivile");
     $.ajax({
         type: "GET",
@@ -171,6 +192,7 @@ $(document).ready(function () {
         }
     });
     let selectProvinceResidenza = $("#listaprovinceresidenza");
+    //chiamata REST per il prelievo delle province
     $.ajax({
         type: "GET",
         url: "http://ecuptservice.ak12srl.it/comuni/listaprovince",
@@ -187,6 +209,10 @@ $(document).ready(function () {
             console.log(textStatus);
         }
     });
+    /*
+    callback che agisce quando viene selezionata una provincia di residenza, la sua funzione è quella di effettuare
+    una chiamata REST per poter popolare la select per i comuni di residenza
+     */
     $('#listaprovinceresidenza').on('change', function () {
         let selectComuneResidenza = $("#listacomuneresidenza");
         let send = {codIstat: this.value};
@@ -212,7 +238,9 @@ $(document).ready(function () {
     });
 });
 
-//manage stepper buttons
+//le seguenti callback vengono utilizzate per gestire il click sui button dello stepper
+//queste funzioni per lo più servono per gestire la grafica dello stepper come l'animazione
+//della linea dello stesso stepper
 $('#btn-step-1').click(function () {
     let stepper = $('.steps-form-2 .steps-row-2');
     if(stepper.hasClass('step-2'))
@@ -238,12 +266,22 @@ $('#btn-step-3').click(function () {
     stepper.addClass('step-3');
 });
 
+/*
+la seguente callback viene invocata quando si effettua il click sul button registrati
+ */
 btnRegistrati.click(function() {
-    //Controllo campi form 2
+    /*
+    inserisce nelle variabili tutti gli elementi della form per poter eseguire controlli e funzionalità
+    curForm : contiene la form visualizzata
+    formParameters : contiene tutti gli elementi della form che l'utente deve compilare
+    isValid : variabile booleana utilizzata nei controlli dei campi per conoscere se l'utente ha inserito tutti i campi e se questi sono validi
+     */
     let curForm = $(this).closest(".setup-content-2");
     let formParameters = curForm.find("input[type='text'],input[type='url'],input[type='password'],input[type='email'],input[type='checkbox'],select");
     let isValid = true;
+    //ciclo for che opera su tutti gli elementi della form corrente
     for(let i=0;i<formParameters.length;i++){
+        //Controllo nome
         if(formParameters[i].id === "formNome"){
             if(!formParameters[i].value || formParameters[i].value.trim() === ''){
                 isValid = false;
@@ -252,6 +290,7 @@ btnRegistrati.click(function() {
             else
                 $("#nomeHelp").fadeOut();
         }
+        //Controllo cognome
         else if(formParameters[i].id === "formCognome"){
             if(!formParameters[i].value || formParameters[i].value.trim() === ''){
                 isValid = false;
@@ -260,6 +299,7 @@ btnRegistrati.click(function() {
             else
                 $("#cognomeHelp").fadeOut();
         }
+        //Controllo data di nascita
         else if(formParameters[i].id === "date-picker-example"){
             if(!formParameters[i].value || formParameters[i].value.trim() === ''){
                 isValid = false;
@@ -268,6 +308,7 @@ btnRegistrati.click(function() {
             else
                 $("#data-nascitaHelp").fadeOut();
         }
+        //Controllo codice fiscale
         else if(formParameters[i].id === "formCodFisc"){
             if(!formParameters[i].value || formParameters[i].value.trim() === '' || formParameters[i].value.length !== 16){
                 isValid = false;
@@ -276,6 +317,7 @@ btnRegistrati.click(function() {
             else
                 $("#codice-fiscaleHelp").fadeOut();
         }
+        //Controllo provincia e comune di nascita
         else if(formParameters[i].id === "listacomunenascita"){
             if(!formParameters[i].value){
                 isValid = false;
@@ -288,6 +330,7 @@ btnRegistrati.click(function() {
                 $("#provincia-nascitaHelp").fadeOut();
             }
         }
+        //Controllo sesso
         else if(formParameters[i].id === "formSesso"){
             if(!formParameters[i].value){
                 isValid = false;
@@ -296,6 +339,7 @@ btnRegistrati.click(function() {
             else
                 $("#sessoHelp").fadeOut();
         }
+        //Controllo stato civile
         else if(formParameters[i].id === "statocivile"){
             if(!formParameters[i].value){
                 isValid = false;
@@ -304,6 +348,7 @@ btnRegistrati.click(function() {
             else
                 $("#stato-civileHelp").fadeOut();
         }
+        //Controllo provincia e comune di residenza
         else if(formParameters[i].id === "listacomuneresidenza"){
             if(!formParameters[i].value){
                 isValid = false;
@@ -316,6 +361,7 @@ btnRegistrati.click(function() {
                 $("#provincia-residenzaHelp").fadeOut();
             }
         }
+        //Controllo indirizzo
         else if(formParameters[i].id === "formIndirizzo"){
             if(!formParameters[i].value || formParameters[i].value.trim() === ''){
                 isValid = false;
@@ -324,6 +370,7 @@ btnRegistrati.click(function() {
             else
                 $("#indirizzoHelp").fadeOut();
         }
+        //Controllo numero di telefono
         else if(formParameters[i].id === "formTelefono"){
             if(!formParameters[i].validity.valid || formParameters[i].value.trim() === ''){
                 isValid = false;
@@ -332,6 +379,7 @@ btnRegistrati.click(function() {
             else
                 $("#telefonoHelp").fadeOut();
         }
+        //Controllo termini e condizioni
         else if(formParameters[i].id === "checkboxterms"){
             if($("#checkboxterms:checked").length === 0){
                 isValid = false;
@@ -363,7 +411,7 @@ btnRegistrati.click(function() {
         let indirizzo = $('#formIndirizzo').val();
         let comuneresidenza = $("#listacomuneresidenza").find("option[value='" + codicecomuneresidenza + "']").text();
         let statocivile = $("#statocivile").find("option[value='" + codicestatocivile + "']").text();
-
+        //crea l'oggetto da inviare alla REST per la registrazione
         let sendObject = {
             username: username,
             password: password,
@@ -383,7 +431,7 @@ btnRegistrati.click(function() {
             istatComuneResidenza: codicecomuneresidenza,
             statocivile: statocivile
         };
-
+        //POST registrazione
         $.ajax({
             type: "POST",
             url: "http://ecuptservice.ak12srl.it/auth/registrazione",
