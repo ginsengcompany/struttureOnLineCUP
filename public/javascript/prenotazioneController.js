@@ -7,7 +7,8 @@ $( "#rowAutoFill" ).hide();
 $( "#rowBottoneInvio" ).hide();
 $('#barra').hide();
 $('#example2').hide();
-let navListItems, allWells, nextPrenotazione, nextVerificaContenuto, allPrevBtn, btnConfermaPrenotazione;
+$('#data').hide();
+let navListItems, allWells, nextPrenotazione, nextVerificaContenuto, allPrevBtn, btnConfermaPrenotazione, datiDisponibilita, table2;
 navListItems = $('div.setup-panel-2 div a');
 allWells = $('.setup-content-2');
 nextPrenotazione = $('#invioPrenotazione');
@@ -107,6 +108,9 @@ navListItems.click(function (e) {
             prest[i].reparti[index].repartoScelto = true;
         }
         $('#barra').show();
+        $('#btnProssimaDisp').hide();
+        $('#btnRicercaData').hide();
+        $('#btnConfermaPreno').hide();
         $.ajax({
             type: "POST",
             data: JSON.stringify(prest),
@@ -114,9 +118,13 @@ navListItems.click(function (e) {
             dataType: "json",
             contentType: 'application/json',
             success: function (data, textStatus, jqXHR) {
+                datiDisponibilita = data;
                 $('#barra').hide();
                 $('#example2').show();
-                var table2 = $('#example2').DataTable({
+                $('#btnProssimaDisp').show();
+                $('#btnRicercaData').show();
+                $('#btnConfermaPreno').show();
+                table2 = $('#example2').DataTable({
                     responsive: true,
                     language: {
                         url: '../localisation/it-IT.json'
@@ -161,8 +169,206 @@ navListItems.click(function (e) {
             error: function (jqXHR, textStatus, errorThrown) {
                 $('#barra').hide();
             }
-        })
+        });
     }
+});
+$('#btnProssimaDisp').click(function() {
+    $('#barra').show();
+    $('#example2').parents('div.dataTables_wrapper').first().hide();
+    $('#example2').hide();
+    $('#btnProssimaDisp').hide();
+    $('#btnRicercaData').hide();
+    $('#btnConfermaPreno').hide();
+    $.ajax({
+        type: "POST",
+        data: JSON.stringify(datiDisponibilita),
+        url: window.location.href + "/prossimaDisponibilita",
+        dataType: "json",
+        contentType: 'application/json',
+        success: function (data, textStatus, jqXHR) {
+            $('#barra').hide();
+            $('#example2').parents('div.dataTables_wrapper').first().show();
+            $('#example2').show();
+            $('#btnProssimaDisp').show();
+            $('#btnRicercaData').show();
+            $('#btnConfermaPreno').show();
+            datiDisponibilita = data;
+            table2.destroy();
+            table2 = $('#example2').DataTable({
+                responsive: true,
+                language: {
+                    url: '../localisation/it-IT.json'
+                },
+                data: datiDisponibilita.appuntamenti,
+                columns: [
+                    {
+                        data: "desprest",
+                    },
+                    {
+                        data: "reparti[0].descrizione",
+                    },
+                    {
+                        data: "reparti[0].desunitaop",
+                    },
+                    {
+                        data: "dataAppuntamento",
+                    },
+                    {
+                        data: "oraAppuntamento",
+                    },
+                    {
+                        data: "reparti[0].nomeMedico",
+                    },
+                    {
+                        data: "reparti[0].ubicazioneReparto",
+                    },
+                ],
+                columnDefs: [
+                    {
+                        targets: '_all',
+                        defaultContent: 'Non Disponibile',
+                        "render": function(data){
+                            if(data === "")
+                                return 'Non Disponibile';
+                            else {return data}
+                        }
+                    }
+                ]
+            });
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            $('#barra').hide();
+        }
+    });
+    console.log($("#codiceFiscaleAutofill").val());
+});
+
+$('#btnRicercaData').click( function(event) {
+    let input= $('.datepicker').pickadate({
+        monthsFull: ['Gennaio', 'Febbraio', 'Marzo', 'Aprile', 'Maggio', 'Giugno', 'Luglio', 'Agosto', 'Settembre', 'Ottobre', 'Novembre', 'Dicembre'],
+        monthsShort: ['Gen', 'Feb', 'Mar', 'Apr', 'Mag', 'Giu', 'Lug', 'Ago', 'Set', 'Ott', 'Nov', 'Dic'],
+        weekdaysFull: ['Domenica', 'Lunedì', 'Martedì', 'Mercoledì', 'Giovedì', 'Venerdì', 'Sabato'],
+        weekdaysShort: ['Dom', 'Lun', 'Mar', 'Mer', 'Gio', 'Ven', 'Sab'],
+        showMonthsShort: undefined,
+        showWeekdaysFull: undefined,
+        clear: 'Cancella',
+        close: 'Chiudi',
+        firstDay: 1,
+        selectYears: 150,
+        format: 'dd/mm/yyyy',
+        formatSubmit: 'dd/mm/yyyy',
+        labelMonthNext: 'Mese successivo',
+        labelMonthPrev: 'Mese precedente',
+        labelMonthSelect: 'Seleziona un mese',
+        labelYearSelect: 'Seleziona un anno',
+        min: new Date()
+    });
+    let picker = input.pickadate('picker');
+    event.stopPropagation();
+    event.preventDefault();
+    picker.open();
+    $('#data').show();
+    $('.datepicker').on('change', function() {
+        let dataValue = $(this).val();
+        if (dataValue !== ''){
+            $('#btnProssimaDisp').hide();
+            $('#btnRicercaData').hide();
+            $('#btnConfermaPreno').hide();
+            $('#example2').hide();
+            $('#example2').parents('div.dataTables_wrapper').first().hide();
+            $('#barra').show();
+            $.ajax({
+                type: "POST",
+                data: JSON.stringify(datiDisponibilita),
+                headers: { 'dataricerca': dataValue },
+                url: window.location.href + "/ricercaData",
+                dataType: "json",
+                contentType: 'application/json',
+                success: function (data, textStatus, jqXHR) {
+                    $('#barra').hide();
+                    $('#example2').parents('div.dataTables_wrapper').first().show();
+                    $('#example2').show();
+                    $('#btnProssimaDisp').show();
+                    $('#btnRicercaData').show();
+                    $('#btnConfermaPreno').show();
+                    datiDisponibilita = data;
+                    table2.destroy();
+                    table2 = $('#example2').DataTable({
+                        responsive: true,
+                        language: {
+                            url: '../localisation/it-IT.json'
+                        },
+                        data: datiDisponibilita.appuntamenti,
+                        columns: [
+                            {
+                                data: "desprest",
+                            },
+                            {
+                                data: "reparti[0].descrizione",
+                            },
+                            {
+                                data: "reparti[0].desunitaop",
+                            },
+                            {
+                                data: "dataAppuntamento",
+                            },
+                            {
+                                data: "oraAppuntamento",
+                            },
+                            {
+                                data: "reparti[0].nomeMedico",
+                            },
+                            {
+                                data: "reparti[0].ubicazioneReparto",
+                            },
+                        ],
+                        columnDefs: [
+                            {
+                                targets: '_all',
+                                defaultContent: 'Non Disponibile',
+                                "render": function(data){
+                                    if(data === "")
+                                        return 'Non Disponibile';
+                                    else {return data}
+                                }
+                            }
+                        ]
+                    });
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    $('#barra').hide();
+                }
+            });
+        }
+    });
+});
+
+$('#btnConfermaPreno').click(function () {
+
+    let datiAsstito = JSON.parse(sessionStorage.getItem("assistito"));
+    let datiImpegnativa = JSON.parse(sessionStorage.getItem("datiPrenotazione"));
+
+    let datiConferma = {
+        assistito: datiAsstito,
+        appuntamenti: datiDisponibilita.appuntamenti,
+        dataEmissioneRicetta: datiImpegnativa.dataEmissioneRicetta,
+        codiceImpegnativa: datiImpegnativa.nre,
+        classePriorita: datiImpegnativa.classePriorita,
+        termid: datiDisponibilita.termid
+    };
+    $.ajax({
+        type: "POST",
+        data: JSON.stringify(datiConferma),
+        url: window.location.href + "/confermaPrenotazione",
+        dataType: "json",
+        contentType: 'application/json',
+        success: function (data, textStatus, jqXHR) {
+            console.log(data);
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            console.log(jqXHR.responseText)
+        }
+    });
 });
 
 nextVerificaContenuto.click(function () {

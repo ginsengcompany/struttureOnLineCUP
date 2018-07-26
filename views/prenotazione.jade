@@ -80,7 +80,7 @@ block content
                 .row#rowBottoneInvio
                     .container.col-md-8
                         .text-center.mt-4
-                            button#invioPrenotazione.btn.btn-light-blue.btn-lg.btn-block.btn-rounded(type='button') Invio
+                            button#invioPrenotazione.btn.btn-color-primary.btn-lg.btn-block.btn-rounded(type='button') Invio
             .container-fluid.setup-content-2#step-2
                 .row.justify-content-center
                     .col-sm-12.col-md-12.col-lg-5
@@ -126,7 +126,7 @@ block content
                 .row#rowBottoneContinua
                     .container.col-md-8
                         .text-center.mt-4
-                            button#continuaPrenotazione.btn.btn-light-blue.btn-lg.btn-block.btn-rounded(type='button') Continua
+                            button#continuaPrenotazione.btn.btn-color-primary.btn-lg.btn-block.btn-rounded(type='button') Continua
             .container-fluid.setup-content-2#step-3
                 .row.justify-content-center
                     .col.table-responsive
@@ -141,6 +141,16 @@ block content
                                     th(style='vertical-align: text-top') Nome del medico che effettuerà la visita
                                     th(style='vertical-align: text-top') Ubicazione del reparto
                             tbody#bodyDataTable2
+                .row
+                    .col-md-6.text-center.mt-4
+                        button#btnProssimaDisp.btn.btn-color-primary.btn-lg.btn-block.btn-rounded(type='button') Prossima Disponibilita
+                    .col-md-6.text-center.mt-4
+                        button#btnRicercaData.btn.btn-color-primary.btn-lg.btn-block.btn-rounded(type='button')  Ricerca data disponibile
+                .row
+                    .col-md-3
+                    .col.text-center.mt-4
+                            button#btnConfermaPreno.btn.btn-color-primary.btn-lg.btn-block.btn-rounded(type='button') Conferma Prenotazione
+                    .col-md-3
     div#centralModalInfo.modal.fade(tabindex='-1' role='dialog' aria-hidden='true')
         div.modal-dialog.modal-notify(role='document')
             div.modal-content
@@ -189,6 +199,7 @@ block content
                     div.text-center
                         font(size='5')
                             p#paragrafomodalPrenotazione
+    div#data.datepicker
 block javascript
         script(type='text/javascript', src='/javascript/jquery-3.3.1.min.js')
         script(type='text/javascript', src='/javascript/popper.min.js')

@@ -31,6 +31,9 @@ router.post('/:azienda/prenotazione/prelevaReparti', verificaContenutoImpegnativ
 
 /* Proposta Richiesta */
 router.post('/:azienda/prenotazione/primaDisponibilita', propostaRichiestaController.primaDisponibilita);
+router.post('/:azienda/prenotazione/prossimaDisponibilita', propostaRichiestaController.invioProssimaDisponibilita);
+router.post('/:azienda/prenotazione/ricercaData', propostaRichiestaController.invioRicercaData);
+router.post('/:azienda/prenotazione/confermaPrenotazione',propostaRichiestaController.confermaPrenotazione);
 
 /* RUBRICA */
 router.get('/:azienda/rubrica', rubricaController.getRubrica);

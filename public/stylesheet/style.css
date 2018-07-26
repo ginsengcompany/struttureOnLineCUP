@@ -42,13 +42,6 @@ input[type=text] {
 .mdb-skin .dropdown-content li:not(.disabled) span, .mdb-skin .md-form .prefix.active, .mdb-skin input[type=email]:focus:not([readonly]) + label, .mdb-skin input[type=text]:focus:not([readonly]) + label, .mdb-skin input[type=password]:focus:not([readonly]) + label, .mdb-skin textarea.md-textarea:focus:not([readonly]) + label {
     color: #003964
 }
-#invioPrenotazione {
-    background: #003964 !important;
-}
-
-#continuaPrenotazione {
-    background-color: #003964 !important;
-}
 
 table.dataTable thead {background-color:#003964; color: white}
 
