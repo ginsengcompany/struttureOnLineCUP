@@ -1,3 +1,4 @@
+$("#tableAppuntamenti").hide();
 /* Formatting function for row details - modify as you need */
 function format ( d ) {
 
@@ -158,6 +159,7 @@ $(document).ready(function () {
                                         })
                                     });
                                 });
+                            $("#tableAppuntamenti").show();
                         }
                     },
                     error: function (jqXHR, textStatus, errorThrown) {

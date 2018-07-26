@@ -39,6 +39,8 @@ router.post('/:azienda/prenotazione/confermaPrenotazione',propostaRichiestaContr
 router.get('/:azienda/rubrica', rubricaController.getRubrica);
 router.get('/:azienda/rubrica/contatti', rubricaController.getContatti);
 router.post('/:azienda/rubrica/eliminaContatto', rubricaController.deleteContact);
+router.get('/:azienda/rubrica/eliminaAccount', rubricaController.deleteAccount);
+router.post('/:azienda/rubrica/modificaContatto', rubricaController.reviewContact);
 
 /* NUOVO CONTATTO */
 router.get('/:azienda/nuovoContatto', nuovoContatto.getNuovoContatto);
