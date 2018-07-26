@@ -344,12 +344,18 @@ $('#btnRicercaData').click( function(event) {
 });
 
 $('#btnConfermaPreno').click(function () {
+    $('#btnProssimaDisp').hide();
+    $('#btnRicercaData').hide();
+    $('#btnConfermaPreno').hide();
+    $('#example2').hide();
+    $('#example2').parents('div.dataTables_wrapper').first().hide();
+    $('#barra').show();
 
-    let datiAsstito = JSON.parse(sessionStorage.getItem("assistito"));
+    let datiAssistito = JSON.parse(sessionStorage.getItem("assistito"));
     let datiImpegnativa = JSON.parse(sessionStorage.getItem("datiPrenotazione"));
 
     let datiConferma = {
-        assistito: datiAsstito,
+        assistito: datiAssistito,
         appuntamenti: datiDisponibilita.appuntamenti,
         dataEmissioneRicetta: datiImpegnativa.dataEmissioneRicetta,
         codiceImpegnativa: datiImpegnativa.nre,
@@ -363,10 +369,30 @@ $('#btnConfermaPreno').click(function () {
         dataType: "json",
         contentType: 'application/json',
         success: function (data, textStatus, jqXHR) {
+            $('#btnProssimaDisp').hide();
+            $('#btnRicercaData').hide();
+            $('#btnConfermaPreno').hide();
+            $('#example2').hide();
+            $('#example2').parents('div.dataTables_wrapper').first().hide();
+            $('#barra').hide();
             console.log(data);
+            $('#btn-step-4').removeAttr('disabled').trigger('click');
+            setTimeout(function () {
+                window.location.href = 'home';
+            }, 2000);
         },
         error: function (jqXHR, textStatus, errorThrown) {
-            console.log(jqXHR.responseText)
+            $('#btnProssimaDisp').hide();
+            $('#btnRicercaData').hide();
+            $('#btnConfermaPreno').hide();
+            $('#example2').hide();
+            $('#example2').parents('div.dataTables_wrapper').first().hide();
+            $('#barra').hide();
+            console.log(jqXHR.responseText);
+            $('#btn-step-4').removeAttr('disabled').trigger('click');
+            setTimeout(function () {
+                window.location.href = 'home';
+            }, 2000);
         }
     });
 });
