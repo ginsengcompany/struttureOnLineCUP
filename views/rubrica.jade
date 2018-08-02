@@ -96,7 +96,7 @@ block content
                 .row(align='center')
                     .col-sm-12
                         button#ConfermaModifica.btn.btn-default.btn-rounded.mb-4(href='rubrica') Conferma
-                        button.btn.btn-default.btn-rounded.mb-4(href='rubrica') Annulla
+                        a#annullaMoidifica.btn.btn-default.btn-rounded.mb-4(type ='button', href='rubrica') Annulla
 
 
 
@@ -148,4 +148,5 @@ block javascript
     script(type='text/javascript', src='https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js')
     script(type='text/javascript', src='/javascript/rubrica.js')
     script(type='text/javascript', src='https://cdn.datatables.net/buttons/1.5.2/js/buttons.html5.min.js')
+    script(type='text/javascript', src='/javascript/menu.js')
 

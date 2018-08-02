@@ -17,7 +17,7 @@ exports.getContatti = function (req,res,next) {
         if (!str) return handleError({status: 404, message: "Azienda Ospedaliera non trovata"},res);
         let options = {
             method: 'GET',
-            uri: 'http://ecuptservice.ak12srl.it/auth/me',
+            uri: 'http://localhost:3001/auth/me',
             headers:{
                 "x-access-token" : req.session.tkn
             },
@@ -38,7 +38,7 @@ exports.getListaAppuntamentiAssistito = function (req, res) {
         if (!str) return handleError({status: 404, message: "Azienda Ospedaliera non trovata"},res);
         let options = {
             method: 'POST',
-            uri: 'http://ecuptservice.ak12srl.it/auth/listaappuntamenti',
+            uri: 'http://localhost:3001/auth/listaappuntamenti',
             headers:{
                 "x-access-token" : req.session.tkn,
                 struttura:str.codice_struttura
@@ -61,7 +61,7 @@ exports.annullaImpegnativa = function (req, res) {
         if (!str) return handleError({status: 404, message: "Azienda Ospedaliera non trovata"},res);
         let options = {
             method: 'POST',
-            uri: 'http://ecuptservice.ak12srl.it/auth/annullaImpegnativaWeb',
+            uri: 'http://localhost:3001/auth/annullaImpegnativaWeb',
             headers:{
                 "x-access-token" : req.session.tkn,
                 struttura:str.codice_struttura

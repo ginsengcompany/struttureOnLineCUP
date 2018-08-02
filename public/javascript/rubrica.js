@@ -10,16 +10,16 @@ function format ( d ) {
         '<td>'+d.data_nascita+'</td>'+
         '<th style="font-weight: bold">Luogo di Nascita:</th>'+
         '<td>'+d.luogo_nascita+'</td>'+
-        '</tr>'+
-        '<tr>'+
         '<th style="font-weight: bold">Sesso:</th>'+
         '<td>'+d.sesso+'</td>'+
+        '</tr>'+
+        '<tr>'+
+        '<th style="font-weight: bold">Provincia Residenza:</th>'+
+        '<td>'+d.provincia+'</td>'+
         '<th style="font-weight: bold">Comune Residenza:</th>'+
         '<td>'+d.comune_residenza+'</td>'+
         '<th style="font-weight: bold">Indirizzo Residenza:</th>'+
         '<td>'+d.indirizzores+'</td>'+
-        '</tr>'+
-        '<tr>'+
         '<th style="font-weight: bold">Telefono:</th>'+
         '<td>'+d.telefono+'</td>'+
         '<th style="font-weight: bold">Email:</th>'+
@@ -52,7 +52,7 @@ function Modifica ( d ) {
     let selectStatoCivile = $("#statocivile");
     $.ajax({
         type: "GET",
-        url: "http://ecuptservice.ak12srl.it/statocivile",
+        url: "http://localhost:3001/statocivile",
         dataType: "json",
         contentType: 'plain/text',
         success: function (data, textStatus, jqXHR) {
@@ -69,10 +69,11 @@ function Modifica ( d ) {
         }
     });
     let selectProvinceResidenza = $("#listaprovinceresidenza");
+    $('#listaprovinceresidenza').append('<option value="'+d.provincia+'" selected>' + d.provincia + '</option>');
     $("#listaprovinceresidenza").select({ dropdownParent: "#modal-container" });
     $.ajax({
         type: "GET",
-        url: "http://ecuptservice.ak12srl.it/comuni/listaprovince",
+        url: "http://localhost:3001/comuni/listaprovince",
         dataType: "json",
         contentType: 'plain/text',
         success: function (data, textStatus, jqXHR) {
@@ -97,7 +98,7 @@ function Modifica ( d ) {
         let send = {codIstat: this.value};
         $.ajax({
             type: "POST",
-            url: "http://ecuptservice.ak12srl.it/comuni/listacomuni",
+            url: "http://localhost:3001/comuni/listacomuni",
             data: JSON.stringify(send),
             dataType: "json",
             contentType: 'application/json',
@@ -116,7 +117,7 @@ function Modifica ( d ) {
         });
     });
 
-    let bntConferma = $('#ConfermaModifica');// button conferma modifica
+    let btnConferma = $('#ConfermaModifica');// button conferma modifica
     $('#ConfermaModifica').prop("disabled",true);
     document.getElementById("formIndirizzo").value= d.indirizzores;
     $('#formIndirizzo').on('input',function () {
@@ -145,7 +146,7 @@ function Modifica ( d ) {
         }
     });
 
-    bntConferma.click(function () {
+    btnConferma.click(function () {
 
         let isValid = true;
         if(!$('#formTelefono').val() || !document.getElementById("formTelefono").validity.valid || document.getElementById("formTelefono").value.trim()=== '') {
@@ -216,10 +217,33 @@ function Modifica ( d ) {
                 provincia: provinciaresidenza,
                 comune_residenza: comuneresidenza,
                 indirizzores: indirizzo,
-                istatComuneResidenza: codicecomuneresidenza,
+                istatComuneResidenza: d.codicecomuneresidenza,
                 statocivile: statocivile
             };
             console.log(assistito);
+            $.ajax({
+                type: "POST",
+                url: window.location.href +  "/modificaContatto",
+                data: JSON.stringify(assistito),
+                dataType: "json",
+                contentType: 'application/json',
+                success: function (data, textStatus, jqXHR) {
+                    if(jqXHR.status === 200) {
+                        $('#paragrafomodalPrenotazione').text(jqXHR.responseText);
+                        $('#centralModalAlert').modal('show');
+                        setTimeout(function () {
+                            window.location.href = 'rubrica';
+                        }, 2000);
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    $('#paragrafomodalPrenotazione').text(jqXHR.responseText);
+                    $('#centralModalAlert').modal('show');
+                    setTimeout(function () {
+                        window.location.href = 'rubrica';
+                    }, 2000);
+                }
+            });
         }
     });
 
@@ -239,6 +263,7 @@ $(document).ready(function() {
         contentType: 'plain/text',
         success: function (data, textStatus, jqXHR) {
             let contatti = data;
+            console.log(contatti);
             var table = $('#example').DataTable( {
 
                 language: {

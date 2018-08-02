@@ -17,7 +17,7 @@ exports.getContatti = function (req, res, next) {
         if (!str) return handleError({status: 404, message: "Azienda Ospedaliera non trovata"},res);
         let options = {
             method: 'GET',
-            uri: 'http://ecuptservice.ak12srl.it/auth/me',
+            uri: 'http://localhost:3001/auth/me',
             headers:{
                 "x-access-token" : req.session.tkn
             },
@@ -38,7 +38,7 @@ exports.invioDatiImpegnativa = function (req, res) {
         if (!str) return handleError({status: 404, message: "Azienda Ospedaliera non trovata"},res);
         let options = {
             method: 'POST',
-            uri: 'http://ecuptservice.ak12srl.it/ricetta',
+            uri: 'http://localhost:3001/ricetta',
             headers:{
                 "x-access-token" : req.session.tkn,
                 struttura:str.codice_struttura
@@ -49,7 +49,7 @@ exports.invioDatiImpegnativa = function (req, res) {
         request(options,function (err, response, body) {
             if(err)
                 return res.status(500).send("Il servizio è momentaneamente non disponibile");
-            res.status(response.statusCode).send(body);
+            res.sendStatus(response.statusCode).send(body);
         });
     });
 };

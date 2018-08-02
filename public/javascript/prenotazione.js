@@ -8,7 +8,8 @@ $( "#rowBottoneInvio" ).hide();
 $('#barra').hide();
 $('#example2').hide();
 $('#data').hide();
-let navListItems, allWells, nextPrenotazione, nextVerificaContenuto, allPrevBtn, btnConfermaPrenotazione, datiDisponibilita, table2;
+$('#centralModalNotifiche').modal('hide');
+let navListItems, allWells, nextPrenotazione, nextVerificaContenuto, allPrevBtn, btnConfermaPrenotazione, datiDisponibilita, table2, emailSelezionato; ;
 navListItems = $('div.setup-panel-2 div a');
 allWells = $('.setup-content-2');
 nextPrenotazione = $('#invioPrenotazione');
@@ -397,6 +398,14 @@ $('#btnConfermaPreno').click(function () {
     });
 });
 
+$('#btnTerminaPrenotazione').click(function() {
+
+});
+
+$('#centralModalNotifiche').on('show.bs.modal', function () {
+    $('#inputEmailConferma').val(emailSelezionato).trigger("change");
+});
+
 nextVerificaContenuto.click(function () {
     let curStep = $(this).closest(".setup-content-2"),
         curStepBtn = curStep.attr("id"),
@@ -441,7 +450,6 @@ nextPrenotazione.click(function () {
 $('div.setup-panel-2 div a.btn-amber').trigger('click');
 
 $(document).ready(function () {
-
     $('#nomeAutofill').val('');
     $('#cognomeAutofill').val('');
     $('#codiceFiscaleAutofill').val('');
@@ -467,7 +475,9 @@ $(document).ready(function () {
             $('#selectNominativo').on('change', function () {
                 $( "#rowAutoFill" ).show();
                 let nomeSelezionato = $( "#selectNominativo option:selected" ).val();
+                emailSelezionato = data[nomeSelezionato].email;
                 $( "#rowCodiceImpegnativa1" ).show();
+                //$('#centralModalNotifiche').modal('show');
                 $( "#rowAutoFill" ).show();
                     $("#nomeAutofill").val(data[nomeSelezionato].nome);
                     $("#cognomeAutofill").val(data[nomeSelezionato].cognome);

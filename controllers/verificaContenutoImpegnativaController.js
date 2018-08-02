@@ -17,7 +17,7 @@ exports.getPrestazioniErogabili = function (req, res) {
         if (!str) return handleError({status: 404, message: "Azienda Ospedaliera non trovata"},res);
         let options = {
             method: 'POST',
-            uri: 'http://ecuptservice.ak12srl.it/controlloPrestazioni',
+            uri: 'http://localhost:3001/controlloPrestazioni',
             body: req.body,
             headers:{
                 "x-access-token" : req.session.tkn,
@@ -47,7 +47,7 @@ exports.getReparti = function (req, res) {
         if (!str) return handleError({status: 404, message: "Azienda Ospedaliera non trovata"},res);
         let options = {
             method: 'POST',
-            uri: 'http://ecuptservice.ak12srl.it/ricercareparti',
+            uri: 'http://localhost:3001/ricercareparti',
             body: req.body,
             headers:{
                 "x-access-token" : req.session.tkn,

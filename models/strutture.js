@@ -12,6 +12,8 @@ let struttureSchema = new mongoose.Schema({
         numero_callCenter: String,
         email: String
     },
+    pagamenti: Boolean,
+    referti: Boolean,
     variabili_logicaDati: {
         onMoreReparti: Number,
         onChangeAppuntamento: Number,

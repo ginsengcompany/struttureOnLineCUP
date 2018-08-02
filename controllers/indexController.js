@@ -4,7 +4,7 @@ let strutture = require('../models/strutture');
 exports.postLogin = function (req, res, next) {
     let options = {
         method: 'POST',
-        uri: 'http://ecuptservice.ak12srl.it/auth/login',
+        uri: 'http://localhost:3001/auth/login',
         body: {
             username: req.body.username,
             password: req.body.password

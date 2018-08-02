@@ -17,7 +17,7 @@ exports.addContact = function (req, res) {
         if (!str) return handleError({status: 404, message: "Azienda Ospedaliera non trovata"},res);
         let options = {
             method: 'POST',
-            uri: 'http://ecuptservice.ak12srl.it/auth/aggiungiContatto',
+            uri: 'http://localhost:3001/auth/aggiungiContatto',
             headers:{
                 "x-access-token" : req.session.tkn
             },

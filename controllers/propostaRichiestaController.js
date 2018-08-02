@@ -15,7 +15,7 @@ exports.primaDisponibilita = function (req, res) {
         }
         let options = {
             method: 'POST',
-            uri: 'http://ecuptservice.ak12srl.it/ricercaprimadisponibilita',
+            uri: 'http://localhost:3001/ricercaprimadisponibilita',
             headers:{
                 "x-access-token" : req.session.tkn,
                 struttura:str.codice_struttura
@@ -38,7 +38,7 @@ exports.invioProssimaDisponibilita = function (req, res) {
         if (!str) return handleError({status: 404, message: "Azienda Ospedaliera non trovata"},res);
         let options = {
             method: 'POST',
-            uri: 'http://ecuptservice.ak12srl.it/ricercaprimadisponibilita/ricercaorario',
+            uri: 'http://localhost:3001/ricercaprimadisponibilita/ricercaorario',
             headers:{
                 "x-access-token" : req.session.tkn,
                 struttura:str.codice_struttura
@@ -61,7 +61,7 @@ exports.invioRicercaData = function (req, res) {
         if (!str) return handleError({status: 404, message: "Azienda Ospedaliera non trovata"},res);
         let options = {
             method: 'POST',
-            uri: 'http://ecuptservice.ak12srl.it/ricercaprimadisponibilita/ricercadata',
+            uri: 'http://localhost:3001/ricercaprimadisponibilita/ricercadata',
             headers:{
                 "x-access-token" : req.session.tkn,
                 struttura:str.codice_struttura,
@@ -85,7 +85,7 @@ exports.confermaPrenotazione = function (req, res) {
         if (!str) return handleError({status: 404, message: "Azienda Ospedaliera non trovata"},res);
         let options = {
             method: 'POST',
-            uri: 'http://ecuptservice.ak12srl.it/auth/confermaappuntamento',
+            uri: 'http://localhost:3001/auth/confermaappuntamento',
             headers:{
                 "x-access-token" : req.session.tkn,
                 struttura:str.codice_struttura,

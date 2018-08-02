@@ -17,7 +17,7 @@ exports.getContatti = function (req,res,next) {
         if (!str) return handleError({status: 404, message: "Azienda Ospedaliera non trovata"},res);
         let options = {
             method: 'GET',
-            uri: 'http://ecuptservice.ak12srl.it/auth/me',
+            uri: 'http://localhost:3001/auth/me',
             headers:{
                 "x-access-token" : req.session.tkn
             },
@@ -37,7 +37,7 @@ exports.deleteAccount = function (req,res,next) {
         if (!str) return handleError({status: 404, message: "Azienda Ospedaliera non trovata"},res);
         let options = {
             method: 'GET',
-            uri: 'http://ecuptservice.ak12srl.it/auth/eliminaaccount',
+            uri: 'http://localhost:3001/auth/eliminaaccount',
             headers:{
                 "x-access-token" : req.session.tkn
             },
@@ -58,7 +58,7 @@ exports.deleteContact = function (req, res) {
         if (!str) return handleError({status: 404, message: "Azienda Ospedaliera non trovata"},res);
         let options = {
             method: 'POST',
-            uri: 'http://ecuptservice.ak12srl.it/auth/eliminaContatto',
+            uri: 'http://localhost:3001/auth/eliminaContatto',
             headers:{
                 "x-access-token" : req.session.tkn
             },
@@ -80,7 +80,7 @@ exports.reviewContact = function (req, res) {
         if (!str) return handleError({status: 404, message: "Azienda Ospedaliera non trovata"},res);
         let options = {
             method: 'POST',
-            uri: 'http://ecuptservice.ak12srl.it/auth/modAssistito',
+            uri: 'http://localhost:3001/auth/modAssistito',
             headers:{
                 "x-access-token" : req.session.tkn
             },
