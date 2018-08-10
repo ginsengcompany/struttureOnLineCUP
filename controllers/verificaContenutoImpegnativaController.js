@@ -1,4 +1,5 @@
 let strutture = require('../models/strutture');
+let uri = require('../bin/url');
 let request = require('request');
 
 exports.getContenutoImpegnativa = function (req, res, next) {
@@ -17,7 +18,7 @@ exports.getPrestazioniErogabili = function (req, res) {
         if (!str) return handleError({status: 404, message: "Azienda Ospedaliera non trovata"},res);
         let options = {
             method: 'POST',
-            uri: 'http://localhost:3001/controlloPrestazioni',
+            uri: uri.controlloPrestazioniURL,
             body: req.body,
             headers:{
                 "x-access-token" : req.session.tkn,
@@ -25,16 +26,15 @@ exports.getPrestazioniErogabili = function (req, res) {
             },
             json : true
         };
-        request(options,function (err, response, body) {
+        request(options, function (err, response, body) {
+            console.log(body);
             if(err)
                 return res.status(500).send("Il servizio è momentaneamente non disponibile");
             let prest_erogabili = [], prest_non_erogabili = [];
-            for(let i=0;i<body.length;i++){
-                if (!body[i].erogabile)
-                    prest_non_erogabili.push(body[i]);
+                if (!body.erogabile)
+                    prest_non_erogabili.push(body);
                 else
-                    prest_erogabili.push(body[i]);
-            }
+                    prest_erogabili.push(body);
             return res.status(response.statusCode).send({prestazioni_erogabili:prest_erogabili,prestazioni_non_erogabili: prest_non_erogabili});
         });
     });
@@ -47,7 +47,7 @@ exports.getReparti = function (req, res) {
         if (!str) return handleError({status: 404, message: "Azienda Ospedaliera non trovata"},res);
         let options = {
             method: 'POST',
-            uri: 'http://localhost:3001/ricercareparti',
+            uri: uri.ricercaRepartiURL,
             body: req.body,
             headers:{
                 "x-access-token" : req.session.tkn,

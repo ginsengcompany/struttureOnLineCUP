@@ -10,6 +10,7 @@ let verificaContenutoImpegnativaController = require('../controllers/verificaCon
 let nuovoContatto = require('../controllers/nuovoContattoController');
 let introController = require('../controllers/introController');
 let propostaRichiestaController = require('../controllers/propostaRichiestaController');
+let refertiController = require('../controllers/refertiController');
 
 /* LOGIN E LOGOUT */
 router.get('/:azienda/login',indexController.getLogin);
@@ -51,6 +52,12 @@ router.get('/:azienda/appuntamenti', appuntamentiController.getAppuntamenti);
 router.get('/:azienda/appuntamenti/contatti', appuntamentiController.getContatti);
 router.post('/:azienda/appuntamenti/ListaAppuntamenti', appuntamentiController.getListaAppuntamentiAssistito);
 router.post('/:azienda/appuntamenti/annullaimpegnativa', appuntamentiController.annullaImpegnativa);
+
+/* REFERTI */
+router.get('/:azienda/referti', refertiController.getReferti);
+router.get('/:azienda/referti/contatti', refertiController.getContatti);
+router.post('/:azienda/referti/listareferti', refertiController.getListaRefertiAssistito);
+router.post('/:azienda/referti/scaricareferti', refertiController.scaricaReferto);
 
 /* HOME */
 router.get('/:azienda/home', homeController.getHome);

@@ -133,7 +133,7 @@ $(document).ready(function () {
     //chiamata REST per il prelievo delle province
     $.ajax({
         type: "GET",
-        url: "http://localhost:3001/comuni/listaprovince",
+        url: "http://ecuptservice.ak12srl.it/comuni/listaprovince",
         dataType: "json",
         contentType: 'plain/text',
         success: function (data, textStatus, jqXHR) {
@@ -156,7 +156,7 @@ $(document).ready(function () {
         let send = {codIstat: this.value};
         $.ajax({
             type: "POST",
-            url: "http://localhost:3001/comuni/listacomuni",
+            url: "http://ecuptservice.ak12srl.it/comuni/listacomuni",
             data: JSON.stringify(send),
             dataType: "json",
             contentType: 'application/json',
@@ -178,7 +178,7 @@ $(document).ready(function () {
     let selectStatoCivile = $("#statocivile");
     $.ajax({
         type: "GET",
-        url: "http://localhost:3001/statocivile",
+        url: "http://ecuptservice.ak12srl.it/statocivile",
         dataType: "json",
         contentType: 'plain/text',
         success: function (data, textStatus, jqXHR) {
@@ -195,7 +195,7 @@ $(document).ready(function () {
     //chiamata REST per il prelievo delle province
     $.ajax({
         type: "GET",
-        url: "http://localhost:3001/comuni/listaprovince",
+        url: "http://ecuptservice.ak12srl.it/comuni/listaprovince",
         dataType: "json",
         contentType: 'plain/text',
         success: function (data, textStatus, jqXHR) {
@@ -218,7 +218,7 @@ $(document).ready(function () {
         let send = {codIstat: this.value};
         $.ajax({
             type: "POST",
-            url: "http://localhost:3001/comuni/listacomuni",
+            url: "http://ecuptservice.ak12srl.it/comuni/listacomuni",
             data: JSON.stringify(send),
             dataType: "json",
             contentType: 'application/json',
@@ -434,7 +434,7 @@ btnRegistrati.click(function() {
         //POST registrazione
         $.ajax({
             type: "POST",
-            url: "http://localhost:3001/auth/registrazione",
+            url: "http://ecuptservice.ak12srl.it/auth/registrazione",
             data: JSON.stringify(sendObject),
             dataType: "json",
             contentType: 'application/json',

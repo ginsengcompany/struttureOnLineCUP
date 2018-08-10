@@ -1,5 +1,6 @@
 let strutture = require('../models/strutture');
 let request = require('request');
+let uri = require('../bin/url');
 
 exports.getPrenotazione = function (req, res, next) {
     if (strutture.db._readyState !== 1) return handleError({status: 500, message: "Il servizio è momentaneamente non disponibile"},res);
@@ -17,7 +18,7 @@ exports.getContatti = function (req, res, next) {
         if (!str) return handleError({status: 404, message: "Azienda Ospedaliera non trovata"},res);
         let options = {
             method: 'GET',
-            uri: 'http://localhost:3001/auth/me',
+            uri: uri.authMeURL,
             headers:{
                 "x-access-token" : req.session.tkn
             },
@@ -38,7 +39,7 @@ exports.invioDatiImpegnativa = function (req, res) {
         if (!str) return handleError({status: 404, message: "Azienda Ospedaliera non trovata"},res);
         let options = {
             method: 'POST',
-            uri: 'http://localhost:3001/ricetta',
+            uri: uri.ricettaURL,
             headers:{
                 "x-access-token" : req.session.tkn,
                 struttura:str.codice_struttura
@@ -49,7 +50,7 @@ exports.invioDatiImpegnativa = function (req, res) {
         request(options,function (err, response, body) {
             if(err)
                 return res.status(500).send("Il servizio è momentaneamente non disponibile");
-            res.sendStatus(response.statusCode).send(body);
+            res.status(response.statusCode).send(body);
         });
     });
 };

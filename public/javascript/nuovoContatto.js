@@ -134,7 +134,7 @@ $(document).ready(function () {
     let selectProvinceNascita = $("#listaprovincenascita");
     $.ajax({
         type: "GET",
-        url: "http://localhost:3001/comuni/listaprovince",
+        url: "http://ecuptservice.ak12srl.it/comuni/listaprovince",
         dataType: "json",
         contentType: 'plain/text',
         success: function (data, textStatus, jqXHR) {
@@ -153,7 +153,7 @@ $(document).ready(function () {
         let send = {codIstat: this.value};
         $.ajax({
             type: "POST",
-            url: "http://localhost:3001/comuni/listacomuni",
+            url: "http://ecuptservice.ak12srl.it/comuni/listacomuni",
             data: JSON.stringify(send),
             dataType: "json",
             contentType: 'application/json',
@@ -174,7 +174,7 @@ $(document).ready(function () {
     let selectStatoCivile = $("#statocivile");
     $.ajax({
         type: "GET",
-        url: "http://localhost:3001/statocivile",
+        url: "http://ecuptservice.ak12srl.it/statocivile",
         dataType: "json",
         contentType: 'plain/text',
         success: function (data, textStatus, jqXHR) {
@@ -190,7 +190,7 @@ $(document).ready(function () {
     let selectProvinceResidenza = $("#listaprovinceresidenza");
     $.ajax({
         type: "GET",
-        url: "http://localhost:3001/comuni/listaprovince",
+        url: "http://ecuptservice.ak12srl.it/comuni/listaprovince",
         dataType: "json",
         contentType: 'plain/text',
         success: function (data, textStatus, jqXHR) {
@@ -209,7 +209,7 @@ $(document).ready(function () {
         let send = {codIstat: this.value};
         $.ajax({
             type: "POST",
-            url: "http://localhost:3001/comuni/listacomuni",
+            url: "http://ecuptservice.ak12srl.it/comuni/listacomuni",
             data: JSON.stringify(send),
             dataType: "json",
             contentType: 'application/json',
