@@ -50,7 +50,18 @@ exports.invioProssimaDisponibilita = function (req, res) {
         request(options,function (err, response, body) {
             if(err)
                 return res.status(500).send("Il servizio è momentaneamente non disponibile");
-            res.status(response.statusCode).send(body);
+            let propostaModificata = false;
+            for(let i=0;i < req.body.appuntamenti.length && !propostaModificata; i++){
+                for (let j=0; j < body.appuntamenti.length; j++){
+                    if(body.appuntamenti[j].codprest === req.body.appuntamenti[i].codprest){
+                        if((body.appuntamenti[j].dataAppuntamento + "" + body.appuntamenti[j].oraAppuntamento) !== (req.body.appuntamenti[i].dataAppuntamento + "" + req.body.appuntamenti[i].oraAppuntamento)){
+                            propostaModificata = true;
+                            break;
+                        }
+                    }
+                }
+            }
+            res.status(propostaModificata ? response.statusCode : 449).send(body);
         });
     });
 };

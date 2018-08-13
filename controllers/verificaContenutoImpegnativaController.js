@@ -27,7 +27,6 @@ exports.getPrestazioniErogabili = function (req, res) {
             json : true
         };
         request(options, function (err, response, body) {
-            console.log(body);
             if(err)
                 return res.status(500).send("Il servizio è momentaneamente non disponibile");
             let prest_erogabili = [], prest_non_erogabili = [];

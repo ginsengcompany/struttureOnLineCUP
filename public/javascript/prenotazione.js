@@ -182,178 +182,182 @@ navListItems.click(function (e) {
         }
     }
 );
-$('#btnProssimaDisp').click(function () {
+$('#btnProssimaDisp').click( async function () {
     $('#barra').show();
     $('#example2').parents('div.dataTables_wrapper').first().hide();
     $('#example2').hide();
     $('#btnProssimaDisp').hide();
     $('#btnRicercaData').hide();
     $('#btnConfermaPreno').hide();
-    $.ajax({
-        type: "POST",
-        data: JSON.stringify(datiDisponibilita),
-        url: window.location.href + "/prossimaDisponibilita",
-        dataType: "json",
-        contentType: 'application/json',
-        success: function (data, textStatus, jqXHR) {
-            $('#barra').hide();
-            $('#example2').parents('div.dataTables_wrapper').first().show();
-            $('#example2').show();
-            $('#btnProssimaDisp').show();
-            $('#btnRicercaData').show();
-            $('#btnConfermaPreno').show();
-            datiDisponibilita = data;
-            table2.destroy();
-            table2 = $('#example2').DataTable({
-                responsive: true,
-                language: {
-                    url: '../localisation/it-IT.json'
-                },
-                data: datiDisponibilita.appuntamenti,
-                columns: [
-                    {
-                        data: "desprest",
-                    },
-                    {
-                        data: "reparti[0].descrizione",
-                    },
-                    {
-                        data: "reparti[0].desunitaop",
-                    },
-                    {
-                        data: "dataAppuntamento",
-                    },
-                    {
-                        data: "oraAppuntamento",
-                    },
-                    {
-                        data: "reparti[0].nomeMedico",
-                    },
-                    {
-                        data: "reparti[0].ubicazioneReparto",
-                    },
-                ],
-                columnDefs: [
-                    {
-                        targets: '_all',
-                        defaultContent: 'Non Disponibile',
-                        "render": function (data) {
-                            if (data === "")
-                                return 'Non Disponibile';
-                            else {
-                                return data
-                            }
-                        }
-                    }
-                ]
-            });
-        },
-        error: function (jqXHR, textStatus, errorThrown) {
-            $('#barra').hide();
-        }
-    });
+    let stato,i=0;
+    do {
+        stato = await retryDispOrario();
+        i++;
+    } while(i<5 && !stato);
+    if (!stato){
+        $('#barra').hide();
+        $('#example2').parents('div.dataTables_wrapper').first().show();
+        $('#example2').show();
+        $('#btnProssimaDisp').show();
+        $('#btnRicercaData').show();
+        $('#btnConfermaPreno').show();
+    }
 });
 
-$('#btnRicercaData').click(function (event) {
-    let input = $('.datepicker').pickadate({
-        monthsFull: ['Gennaio', 'Febbraio', 'Marzo', 'Aprile', 'Maggio', 'Giugno', 'Luglio', 'Agosto', 'Settembre', 'Ottobre', 'Novembre', 'Dicembre'],
-        monthsShort: ['Gen', 'Feb', 'Mar', 'Apr', 'Mag', 'Giu', 'Lug', 'Ago', 'Set', 'Ott', 'Nov', 'Dic'],
-        weekdaysFull: ['Domenica', 'Lunedì', 'Martedì', 'Mercoledì', 'Giovedì', 'Venerdì', 'Sabato'],
-        weekdaysShort: ['Dom', 'Lun', 'Mar', 'Mer', 'Gio', 'Ven', 'Sab'],
-        showMonthsShort: undefined,
-        showWeekdaysFull: undefined,
-        clear: 'Cancella',
-        close: 'Chiudi',
-        firstDay: 1,
-        selectYears: 150,
-        format: 'dd/mm/yyyy',
-        formatSubmit: 'dd/mm/yyyy',
-        labelMonthNext: 'Mese successivo',
-        labelMonthPrev: 'Mese precedente',
-        labelMonthSelect: 'Seleziona un mese',
-        labelYearSelect: 'Seleziona un anno',
-        min: new Date()
-    });
-    let picker = input.pickadate('picker');
-    event.stopPropagation();
-    event.preventDefault();
-    picker.open();
-    $('#data').show();
-    $('.datepicker').on('change', function () {
-        let dataValue = $(this).val();
-        if (dataValue !== '') {
-            $('#btnProssimaDisp').hide();
-            $('#btnRicercaData').hide();
-            $('#btnConfermaPreno').hide();
-            $('#example2').hide();
-            $('#example2').parents('div.dataTables_wrapper').first().hide();
-            $('#barra').show();
-            $.ajax({
-                type: "POST",
-                data: JSON.stringify(datiDisponibilita),
-                headers: {'dataricerca': dataValue},
-                url: window.location.href + "/ricercaData",
-                dataType: "json",
-                contentType: 'application/json',
-                success: function (data, textStatus, jqXHR) {
-                    $('#barra').hide();
-                    $('#example2').parents('div.dataTables_wrapper').first().show();
-                    $('#example2').show();
-                    $('#btnProssimaDisp').show();
-                    $('#btnRicercaData').show();
-                    $('#btnConfermaPreno').show();
-                    datiDisponibilita = data;
-                    table2.destroy();
-                    table2 = $('#example2').DataTable({
-                        responsive: true,
-                        language: {
-                            url: '../localisation/it-IT.json'
+function retryDispOrario() {
+    return new Promise( f => {
+        $.ajax({
+            type: "POST",
+            data: JSON.stringify(datiDisponibilita),
+            url: window.location.href + "/prossimaDisponibilita",
+            dataType: "json",
+            contentType: 'application/json',
+            success: function (data, textStatus, jqXHR) {
+                $('#barra').hide();
+                $('#example2').parents('div.dataTables_wrapper').first().show();
+                $('#example2').show();
+                $('#btnProssimaDisp').show();
+                $('#btnRicercaData').show();
+                $('#btnConfermaPreno').show();
+                datiDisponibilita = data;
+                table2.destroy();
+                table2 = $('#example2').DataTable({
+                    responsive: true,
+                    language: {
+                        url: '../localisation/it-IT.json'
+                    },
+                    data: datiDisponibilita.appuntamenti,
+                    columns: [
+                        {
+                            data: "desprest",
                         },
-                        data: datiDisponibilita.appuntamenti,
-                        columns: [
-                            {
-                                data: "desprest",
-                            },
-                            {
-                                data: "reparti[0].descrizione",
-                            },
-                            {
-                                data: "reparti[0].desunitaop",
-                            },
-                            {
-                                data: "dataAppuntamento",
-                            },
-                            {
-                                data: "oraAppuntamento",
-                            },
-                            {
-                                data: "reparti[0].nomeMedico",
-                            },
-                            {
-                                data: "reparti[0].ubicazioneReparto",
-                            },
-                        ],
-                        columnDefs: [
-                            {
-                                targets: '_all',
-                                defaultContent: 'Non Disponibile',
-                                "render": function (data) {
-                                    if (data === "")
-                                        return 'Non Disponibile';
-                                    else {
-                                        return data
-                                    }
+                        {
+                            data: "reparti[0].descrizione",
+                        },
+                        {
+                            data: "reparti[0].desunitaop",
+                        },
+                        {
+                            data: "dataAppuntamento",
+                        },
+                        {
+                            data: "oraAppuntamento",
+                        },
+                        {
+                            data: "reparti[0].nomeMedico",
+                        },
+                        {
+                            data: "reparti[0].ubicazioneReparto",
+                        },
+                    ],
+                    columnDefs: [
+                        {
+                            targets: '_all',
+                            defaultContent: 'Non Disponibile',
+                            "render": function (data) {
+                                if (data === "")
+                                    return 'Non Disponibile';
+                                else {
+                                    return data
                                 }
                             }
-                        ]
-                    });
-                },
-                error: function (jqXHR, textStatus, errorThrown) {
-                    $('#barra').hide();
-                }
-            });
-        }
+                        }
+                    ]
+                });
+                f(true);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                if(jqXHR.status === 449)
+                    f(false);
+                $('#barra').hide();
+                f(false);
+            }
+        });
     });
+}
+
+$('#btnRicercaData').click(function (event) {
+    //let picker = input.pickadate('picker');
+    event.stopPropagation();
+    event.preventDefault();
+    //picker.open();
+    $('#data').trigger('click');
+});
+
+$("#data").on('change', function () {
+    let dataValue = $(this).val();
+    if (dataValue !== '') {
+        $('#btnProssimaDisp').hide();
+        $('#btnRicercaData').hide();
+        $('#btnConfermaPreno').hide();
+        $('#example2').hide();
+        $('#example2').parents('div.dataTables_wrapper').first().hide();
+        $('#barra').show();
+        $.ajax({
+            type: "POST",
+            data: JSON.stringify(datiDisponibilita),
+            headers: {'dataricerca': dataValue},
+            url: window.location.href + "/ricercaData",
+            dataType: "json",
+            contentType: 'application/json',
+            success: function (data, textStatus, jqXHR) {
+                $('#barra').hide();
+                $('#example2').parents('div.dataTables_wrapper').first().show();
+                $('#example2').show();
+                $('#btnProssimaDisp').show();
+                $('#btnRicercaData').show();
+                $('#btnConfermaPreno').show();
+                datiDisponibilita = data;
+                table2.destroy();
+                table2 = $('#example2').DataTable({
+                    responsive: true,
+                    language: {
+                        url: '../localisation/it-IT.json'
+                    },
+                    data: datiDisponibilita.appuntamenti,
+                    columns: [
+                        {
+                            data: "desprest",
+                        },
+                        {
+                            data: "reparti[0].descrizione",
+                        },
+                        {
+                            data: "reparti[0].desunitaop",
+                        },
+                        {
+                            data: "dataAppuntamento",
+                        },
+                        {
+                            data: "oraAppuntamento",
+                        },
+                        {
+                            data: "reparti[0].nomeMedico",
+                        },
+                        {
+                            data: "reparti[0].ubicazioneReparto",
+                        },
+                    ],
+                    columnDefs: [
+                        {
+                            targets: '_all',
+                            defaultContent: 'Non Disponibile',
+                            "render": function (data) {
+                                if (data === "")
+                                    return 'Non Disponibile';
+                                else {
+                                    return data
+                                }
+                            }
+                        }
+                    ]
+                });
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                $('#barra').hide();
+            }
+        });
+    }
 });
 
 $('#btnConfermaPreno').click(function () {
@@ -590,6 +594,27 @@ $(document).ready(function () {
             $("#rowBottoneInvio").hide();
         else
             $("#rowBottoneInvio").show();
+    });
+    $('#data').pickadate({
+        monthsFull: ['Gennaio', 'Febbraio', 'Marzo', 'Aprile', 'Maggio', 'Giugno', 'Luglio', 'Agosto', 'Settembre', 'Ottobre', 'Novembre', 'Dicembre'],
+        monthsShort: ['Gen', 'Feb', 'Mar', 'Apr', 'Mag', 'Giu', 'Lug', 'Ago', 'Set', 'Ott', 'Nov', 'Dic'],
+        weekdaysFull: ['Domenica', 'Lunedì', 'Martedì', 'Mercoledì', 'Giovedì', 'Venerdì', 'Sabato'],
+        weekdaysShort: ['Dom', 'Lun', 'Mar', 'Mer', 'Gio', 'Ven', 'Sab'],
+        showMonthsShort: undefined,
+        showWeekdaysFull: undefined,
+        clear: 'Cancella',
+        close: 'Chiudi',
+        closeOnSelect: true,
+        closeOnClear: false,
+        firstDay: 1,
+        selectYears: 150,
+        format: 'dd/mm/yyyy',
+        formatSubmit: 'dd/mm/yyyy',
+        labelMonthNext: 'Mese successivo',
+        labelMonthPrev: 'Mese precedente',
+        labelMonthSelect: 'Seleziona un mese',
+        labelYearSelect: 'Seleziona un anno',
+        min: new Date()
     });
 });
 
