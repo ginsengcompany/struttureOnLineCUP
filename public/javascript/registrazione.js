@@ -107,6 +107,8 @@ nextBtn.click(function(){
 });
 
 $(document).ready(function () {
+    let path = window.location.href;
+    console.log()
     //gestione picker e mdb-select registrazione
     $('.datepicker').pickadate({
         monthsFull: ['Gennaio', 'Febbraio', 'Marzo', 'Aprile', 'Maggio', 'Giugno', 'Luglio', 'Agosto', 'Settembre', 'Ottobre', 'Novembre', 'Dicembre'],

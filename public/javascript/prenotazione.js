@@ -375,27 +375,85 @@ $('#btnConfermaPreno').click(function () {
             $('#example2').hide();
             $('#example2').parents('div.dataTables_wrapper').first().hide();
             $('#barra').hide();
-            console.log(data);
+            $('#paragraphUltimoStep').addClass("green-text");
+            $('#paragraphUltimoStep').text("Prenotazione Completata!");
             $('#btn-step-4').removeAttr('disabled').trigger('click');
             setTimeout(function () {
                 window.location.href = 'home';
             }, 2000);
         },
         error: function (jqXHR, textStatus, errorThrown) {
-            $('#btnProssimaDisp').hide();
-            $('#btnRicercaData').hide();
-            $('#btnConfermaPreno').hide();
-            $('#example2').hide();
-            $('#example2').parents('div.dataTables_wrapper').first().hide();
-            $('#barra').hide();
-            console.log(jqXHR.responseText);
-            $('#btn-step-4').removeAttr('disabled').trigger('click');
-            setTimeout(function () {
-                window.location.href = 'home';
-            }, 2000);
+            if (jqXHR.status === 502)
+            {
+                let i=0, stato;
+                do {
+                    stato = retryConfermaPrenotazione();
+                    i++;
+                } while(i<3 && stato !== 409);
+                if (stato === 409){ //prenotazione completata
+                    $('#btnProssimaDisp').hide();
+                    $('#btnRicercaData').hide();
+                    $('#btnConfermaPreno').hide();
+                    $('#example2').hide();
+                    $('#example2').parents('div.dataTables_wrapper').first().hide();
+                    $('#barra').hide();
+                    $('#paragraphUltimoStep').addClass("green-text");
+                    $('#paragraphUltimoStep').text("Prenotazione Completata!");
+                    $('#btn-step-4').removeAttr('disabled').trigger('click');
+                    setTimeout(function () {
+                        window.location.href = 'home';
+                    }, 2000);
+                }
+                else {
+                    $('#btnProssimaDisp').hide();
+                    $('#btnRicercaData').hide();
+                    $('#btnConfermaPreno').hide();
+                    $('#example2').hide();
+                    $('#example2').parents('div.dataTables_wrapper').first().hide();
+                    $('#barra').hide();
+                    $('#paragraphUltimoStep').text("Prenotazione non riuscita!");
+                    $('#paragraphUltimoStep').addClass("red-text");
+                    $('#btn-step-4').removeAttr('disabled').trigger('click');
+                    setTimeout(function () {
+                        window.location.href = 'home';
+                    }, 2000);
+                }
+            }
+            else {
+                $('#btnProssimaDisp').hide();
+                $('#btnRicercaData').hide();
+                $('#btnConfermaPreno').hide();
+                $('#example2').hide();
+                $('#example2').parents('div.dataTables_wrapper').first().hide();
+                $('#barra').hide();
+                $('#paragraphUltimoStep').text(jqXHR.responseText);
+                $('#paragraphUltimoStep').addClass("red-text");
+                $('#btn-step-4').removeAttr('disabled').trigger('click');
+                setTimeout(function () {
+                    window.location.href = 'home';
+                }, 2000);
+            }
+
         }
     });
 });
+
+function retryConfermaPrenotazione() {
+        $.ajax({
+            type: "POST",
+            data: JSON.stringify(datiConferma),
+            url: window.location.href + "/datiImpegnativa",
+            dataType: "json",
+            contentType: 'application/json',
+            async: false,
+            success: function (data, textStatus, jqXHR) {
+                return jqXHR.status;
+            },
+            error: function (jqXHR, textStatus, errorThrown){
+                return jqXHR.status;
+            }
+        });
+}
 
 nextVerificaContenuto.click(function () {
     let curStep = $(this).closest(".setup-content-2"),
