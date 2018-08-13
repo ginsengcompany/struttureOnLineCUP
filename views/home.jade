@@ -59,32 +59,46 @@ block content
                             a.btn.btn-primary(href='rubrica') Entra
                 .col-sm-12.col-md-6.col-lg-2(style='text-align: center; padding-top:20px;')
                     .card.cardHome
-                        // Card image
-                        img.card-img-top(src='/img/pagamenti.png')
+                        if datiAzienda.pagamenti === true
+                            img.card-img-top(src='/img/pagamenti.png')
+                        else
+                            img.card-img-top(src='/img/pagamenti.png', style ='opacity: 0.3;')
                         // Card content
                         .card-body
                             // Title
                             h4.card-title
                                 a(style='color: #f2411c') Pagamenti
-                            // Text
-                            p.card-text
-                                | Paga!
-                            // Button
-                            a.btn.btn-primary(href='') Entra
+                            if datiAzienda.pagamenti === true
+                                p.card-text
+                                    | Paga!
+                                // Button
+                                a.btn.btn-primary(href='') Entra
+                            else
+                                i.fa.fa-exclamation-triangle
+                                p.card-text
+                                    | A breve potrai anche pagare
+                                button.btn.btn-primary(href='', disabled='') Entra
                 .col-sm-12.col-md-6.col-lg-2(style='text-align: center; padding-top:20px;')
                     .card.cardHome
-                        // Card image
-                        img.card-img-top(src='/img/referti.png')
+                        if datiAzienda.referti === true
+                            img.card-img-top(src='/img/referti.png')
+                        else
+                            img.card-img-top(src='/img/referti.png', style ='opacity: 0.3;')
                         // Card content
                         .card-body
                             // Title
                             h4.card-title
                                 a(style='color: #f2411c') Referti
-                            // Text
-                            p.card-text
-                                | Visualizza i tuoi referti!
-                            // Button
-                            a.btn.btn-primary(href='') Entra
+                            if datiAzienda.referti === true
+                                p.card-text
+                                    | Visualizza i tuoi referti!
+                                // Button
+                                a.btn.btn-primary(href='referti') Entra
+                            else
+                                i.fa.fa-exclamation-triangle
+                                p.card-text
+                                    | A breve potrai anche visualizzare i referti
+                                button.btn.btn-primary(href='', disabled='') Entra
 
 block javascript
     script(type='text/javascript', src='/javascript/jquery-3.3.1.min.js')

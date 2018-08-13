@@ -43,7 +43,7 @@ input[type=text] {
     color: #003964
 }
 
-table.dataTable thead {background-color:#003964; color: white}
+table.dataTable thead {background-color:#00518F; color: white}
 
 .textnavbar{
     color: white !important;
@@ -52,6 +52,10 @@ table.dataTable thead {background-color:#003964; color: white}
 .textnavbar:hover{
     color: #6C94B2 !important;
     transition: 0.3s;
+}
+table.dataTable td {
+    font-size: 1rem;
+    font-weight: 400;
 }
 
 @media only screen and (max-width: 1200px) {

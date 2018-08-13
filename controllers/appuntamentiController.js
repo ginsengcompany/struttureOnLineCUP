@@ -1,5 +1,6 @@
 let strutture = require('../models/strutture');
 let request = require('request');
+let uri = require('../bin/url');
 
 exports.getAppuntamenti = function (req, res, next) {
     if (strutture.db._readyState !== 1) return handleError({status: 500, message: "Il servizio è momentaneamente non disponibile"},res);
@@ -17,7 +18,7 @@ exports.getContatti = function (req,res,next) {
         if (!str) return handleError({status: 404, message: "Azienda Ospedaliera non trovata"},res);
         let options = {
             method: 'GET',
-            uri: 'http://ecuptservice.ak12srl.it/auth/me',
+            uri: uri.authMeURL,
             headers:{
                 "x-access-token" : req.session.tkn
             },
@@ -36,12 +37,13 @@ exports.getListaAppuntamentiAssistito = function (req, res) {
     strutture.findOne({denominazioneUrl : req.params.azienda}, function (err, str) {
         if (err) return handleError({status: 503, message: "Il servizio è momentaneamente non disponibile"},res);
         if (!str) return handleError({status: 404, message: "Azienda Ospedaliera non trovata"},res);
+
         let options = {
             method: 'POST',
-            uri: 'http://ecuptservice.ak12srl.it/auth/listaappuntamenti',
+            uri: uri.listaAppuntamentiURL,
             headers:{
                 "x-access-token" : req.session.tkn,
-                struttura:str.codice_struttura
+                struttura : str.codice_struttura
             },
             body: req.body,
             json : true
@@ -61,7 +63,7 @@ exports.annullaImpegnativa = function (req, res) {
         if (!str) return handleError({status: 404, message: "Azienda Ospedaliera non trovata"},res);
         let options = {
             method: 'POST',
-            uri: 'http://ecuptservice.ak12srl.it/auth/annullaImpegnativaWeb',
+            uri: uri.annullaImpegnativaWebURL,
             headers:{
                 "x-access-token" : req.session.tkn,
                 struttura:str.codice_struttura

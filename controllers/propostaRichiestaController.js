@@ -1,5 +1,6 @@
 let strutture = require('../models/strutture');
 let request = require('request');
+let uri = require('../bin/url');
 
 exports.primaDisponibilita = function (req, res) {
     if (strutture.db._readyState !== 1) return handleError({status: 500, message: "Il servizio è momentaneamente non disponibile"},res);
@@ -15,7 +16,7 @@ exports.primaDisponibilita = function (req, res) {
         }
         let options = {
             method: 'POST',
-            uri: 'http://ecuptservice.ak12srl.it/ricercaprimadisponibilita',
+            uri: uri.primaDisponibilitaURL,
             headers:{
                 "x-access-token" : req.session.tkn,
                 struttura:str.codice_struttura
@@ -38,7 +39,7 @@ exports.invioProssimaDisponibilita = function (req, res) {
         if (!str) return handleError({status: 404, message: "Azienda Ospedaliera non trovata"},res);
         let options = {
             method: 'POST',
-            uri: 'http://ecuptservice.ak12srl.it/ricercaprimadisponibilita/ricercaorario',
+            uri: uri.ricercaOrarioURL,
             headers:{
                 "x-access-token" : req.session.tkn,
                 struttura:str.codice_struttura
@@ -61,7 +62,7 @@ exports.invioRicercaData = function (req, res) {
         if (!str) return handleError({status: 404, message: "Azienda Ospedaliera non trovata"},res);
         let options = {
             method: 'POST',
-            uri: 'http://ecuptservice.ak12srl.it/ricercaprimadisponibilita/ricercadata',
+            uri: uri.ricercaDataURL,
             headers:{
                 "x-access-token" : req.session.tkn,
                 struttura:str.codice_struttura,
@@ -85,7 +86,7 @@ exports.confermaPrenotazione = function (req, res) {
         if (!str) return handleError({status: 404, message: "Azienda Ospedaliera non trovata"},res);
         let options = {
             method: 'POST',
-            uri: 'http://ecuptservice.ak12srl.it/auth/confermaappuntamento',
+            uri: uri.confermaAppuntamentoURL,
             headers:{
                 "x-access-token" : req.session.tkn,
                 struttura:str.codice_struttura,
