@@ -19,6 +19,9 @@ router.get('/:azienda/logout', indexController.logout);
 
 /* REGISTRAZIONE */
 router.get('/:azienda/registrazione', registrazioneController.getRegistrazione);
+router.post('/:azienda/registrazione/codicefiscaleinverso', registrazioneController.convertiCodFisc);
+router.post('/:azienda/registrazione/getByCodCat', registrazioneController.getLuogoNascitaByCodCat);
+router.post('/:azienda/registrazione/getCodCatZ', registrazioneController.getLuogoNascitaEstero);
 
 /* PRENOTAZIONE */
 router.get('/:azienda/prenotazione', prenotazioneController.getPrenotazione);

@@ -28,6 +28,9 @@ url.listaAppuntamentiURL =      host + "/auth/listaappuntamenti";
 url.statoCivileURL =            host + "/statocivile";
 url.listaRefertiURL =           host + "/referti/prelevarefertiutente";
 url.scaricaRefertoURL =         host + "/referti/scaricareferto";
+url.convertiCodFisc =           host + "/codicefiscaleinverso";
+url.luogonascitaConCodCat =     host + "/comuni/getByCodCatastale";
+url.luogonascitaEstero =        host + "/nazioni";
 
 // Exports the variables and above so that other modules can use them
 module.exports = url;

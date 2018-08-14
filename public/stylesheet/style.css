@@ -165,3 +165,7 @@ main {
 .dropdown-content li.selected, .dropdown-content li:hover{
     background-color: lightgray !important;
 }
+
+.hideinit {
+    display: none;
+}

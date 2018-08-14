@@ -1,3 +1,9 @@
+let datiLuogoNascita = {
+    provincia: "",
+    codprovincia: "",
+    comune: "",
+    codcomune: ""
+};
 //inizializza lo stepper
 $(function () {
     $('[data-toggle="tooltip"]').tooltip()
@@ -108,74 +114,8 @@ nextBtn.click(function(){
 
 $(document).ready(function () {
     let path = window.location.href;
-    console.log()
-    //gestione picker e mdb-select registrazione
-    $('.datepicker').pickadate({
-        monthsFull: ['Gennaio', 'Febbraio', 'Marzo', 'Aprile', 'Maggio', 'Giugno', 'Luglio', 'Agosto', 'Settembre', 'Ottobre', 'Novembre', 'Dicembre'],
-        monthsShort: ['Gen', 'Feb', 'Mar', 'Apr', 'Mag', 'Giu', 'Lug', 'Ago', 'Set', 'Ott', 'Nov', 'Dic'],
-        weekdaysFull: ['Domenica', 'Lunedì', 'Martedì', 'Mercoledì', 'Giovedì', 'Venerdì', 'Sabato'],
-        weekdaysShort: ['Dom', 'Lun', 'Mar', 'Mer', 'Gio', 'Ven', 'Sab'],
-        showMonthsShort: undefined,
-        showWeekdaysFull: undefined,
-        clear: 'Cancella',
-        close: 'Chiudi',
-        firstDay: 1,
-        selectYears: 150,
-        format: 'dd/mm/yyyy',
-        formatSubmit: 'dd/mm/yyyy',
-        labelMonthNext: 'Mese successivo',
-        labelMonthPrev: 'Mese precedente',
-        labelMonthSelect: 'Seleziona un mese',
-        labelYearSelect: 'Seleziona un anno',
-        max: new Date(),
-        min: new  Date(1900,0,1)
-    });
+    //mdb-select registrazione
     $('.mdb-select').material_select();
-    let selectProvinceNascita = $("#listaprovincenascita");
-    //chiamata REST per il prelievo delle province
-    $.ajax({
-        type: "GET",
-        url: "http://ecuptservice.ak12srl.it/comuni/listaprovince",
-        dataType: "json",
-        contentType: 'plain/text',
-        success: function (data, textStatus, jqXHR) {
-            $('select[name="listaprovince"]').material_select('destroy');
-            for (let i = 0; i < data.length; i++) {
-                selectProvinceNascita.append('<option value="' + data[i].codIstat + '">' + data[i].provincia + '</option>');
-            }
-            $('select[name="listaprovince"]').material_select();
-        },
-        error: function (jqXHR, textStatus, errorThrown) {
-            console.log(textStatus);
-        }
-    });
-    /*
-    callback che agisce quando viene selezionata una provincia di nascita, la sua funzione è quella di effettuare
-    una chiamata REST per poter popolare la select per i comuni di nascita
-     */
-    $('#listaprovincenascita').on('change', function () {
-        let selectComuneNascita = $("#listacomunenascita");
-        let send = {codIstat: this.value};
-        $.ajax({
-            type: "POST",
-            url: "http://ecuptservice.ak12srl.it/comuni/listacomuni",
-            data: JSON.stringify(send),
-            dataType: "json",
-            contentType: 'application/json',
-            success: function (data, textStatus, jqXHR) {
-                $('#listacomunenascita').material_select('destroy');
-                $('#listacomunenascita').find('option').remove();
-                selectComuneNascita.append('<option value="" disabled="" selected="">' + "Seleziona il comune" + '</option>');
-                for (let i = 0; i < data.length; i++) {
-                    selectComuneNascita.append('<option value="' + data[i].codice + '">' + data[i].nome + '</option>');
-                }
-                $('#listacomunenascita').material_select();
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-                console.log(textStatus);
-            }
-        });
-    });
     //preleva le option da inserire nella select stato civile
     let selectStatoCivile = $("#statocivile");
     $.ajax({
@@ -237,6 +177,93 @@ $(document).ready(function () {
                 console.log(textStatus);
             }
         });
+    });
+    $("#formCodFisc").on('input', function () {
+        if($("#formCodFisc").val().length === 16){
+            $.ajax({
+                type: "POST",
+                url: window.location.href + "/codicefiscaleinverso",
+                data: JSON.stringify({
+                    cod : $("#formCodFisc").val().toUpperCase()
+                }),
+                dataType: "json",
+                contentType: 'application/json',
+                success: function (data, textStatus, jqXHR) {
+                    if(data.codcatastale[0] === "Z"){ //estero
+                        $.ajax({
+                            type: "POST",
+                            url: window.location.href + "/getCodCatZ",
+                            data: JSON.stringify({
+                                cod : data.codcatastale
+                            }),
+                            dataType: "json",
+                            contentType: 'application/json',
+                            success : function (data2, textStatus, jqXHR) {
+                                datiLuogoNascita.comune = data2.descrizione;
+                                datiLuogoNascita.codcomune = data2.codcatastale;
+                                $("#date-picker-example").val(data.datanascita);
+                                $("#listaprovincenascita").val("");
+                                $("#listacomunenascita").val(data2.descrizione);
+                                $("#formSesso").val(data.sesso);
+                                $(".campicompilati").addClass("active");
+                                $(".hideinit").show();
+                                $(".provnascita").hide();
+                            },
+                            error: function (jqXHR, textStatus, errorThrown) {
+                                $(".hideinit").hide();
+                                datiLuogoNascita = {
+                                    provincia: "",
+                                    codprovincia: "",
+                                    comune: "",
+                                    codcomune: ""
+                                };
+                            }
+                        })
+                    }
+                    else { //italiano
+                        $.ajax({
+                            type: "POST",
+                            url: window.location.href + "/getByCodCat",
+                            data: JSON.stringify({
+                                cod : data.codcatastale
+                            }),
+                            dataType: "json",
+                            contentType: 'application/json',
+                            success : function (data2, textStatus, jqXHR) {
+                                datiLuogoNascita.provincia = data2.provincia;
+                                datiLuogoNascita.codprovincia = data2.codice;
+                                datiLuogoNascita.comune = data2.nome;
+                                datiLuogoNascita.codcomune = data2.codIstat;
+                                $("#date-picker-example").val(data.datanascita);
+                                $("#listaprovincenascita").val(data2.provincia);
+                                $("#listacomunenascita").val(data2.nome);
+                                $("#formSesso").val(data.sesso);
+                                $(".campicompilati").addClass("active");
+                                $(".hideinit").show();
+                            },
+                            error: function (jqXHR, textStatus, errorThrown) {
+                                $(".hideinit").hide();
+                                datiLuogoNascita = {
+                                    provincia: "",
+                                    codprovincia: "",
+                                    comune: "",
+                                    codcomune: ""
+                                };
+                            }
+                        });
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    $(".hideinit").hide();
+                    datiLuogoNascita = {
+                        provincia: "",
+                        codprovincia: "",
+                        comune: "",
+                        codcomune: ""
+                    };
+                }
+            });
+        }
     });
 });
 
@@ -321,10 +348,10 @@ btnRegistrati.click(function() {
         }
         //Controllo provincia e comune di nascita
         else if(formParameters[i].id === "listacomunenascita"){
-            if(!formParameters[i].value){
+            if(!datiLuogoNascita.codcomune){
                 isValid = false;
                 $("#comunenascitaHelp").fadeIn();
-                if(!$('#listaprovincenascita').val())
+                if(!datiLuogoNascita.codprovincia && $('#formCodFisc').val().toUpperCase()[11] !== "Z")
                     $("#provincia-nascitaHelp").fadeIn();
             }
             else{
@@ -397,20 +424,20 @@ btnRegistrati.click(function() {
         let password2 = $('#formConfermaPassword').val();
         let email = $('#formEmail').val();
         let email2 = $('#formConfermaEmail').val();
-        let nome = $('#formNome').val();
-        let cognome = $('#formCognome').val();
-        let sesso = $('#formSesso').val();
-        let codicefiscale = $('#formCodFisc').val();
+        let nome = $('#formNome').val().toUpperCase();
+        let cognome = $('#formCognome').val().toUpperCase();
+        let sesso = $('#formSesso').val().toUpperCase();
+        let codicefiscale = $('#formCodFisc').val().toUpperCase();
         let telefono = $('#formTelefono').val();
         let codicestatocivile = $('#statocivile').val();
         let datanascita = $('#date-picker-example').val();
-        let provincianascita = $('#listaprovincenascita').val();
-        let codicecomunenascita = $('#listacomunenascita').val();
-        let comunenascita = $("#listacomunenascita").find("option[value='" + codicecomunenascita + "']").text();
+        let provincianascita = datiLuogoNascita.provincia;
+        let codicecomunenascita = datiLuogoNascita.codcomune;
+        let comunenascita = datiLuogoNascita.comune;
         let codiceprovinciaresidenza = $("#listaprovinceresidenza").val();
         let provinciaresidenza = $("#listaprovinceresidenza").find("option[value='" + codiceprovinciaresidenza + "']").text();
         let codicecomuneresidenza = $('#listacomuneresidenza').val();
-        let indirizzo = $('#formIndirizzo').val();
+        let indirizzo = $('#formIndirizzo').val().toUpperCase();
         let comuneresidenza = $("#listacomuneresidenza").find("option[value='" + codicecomuneresidenza + "']").text();
         let statocivile = $("#statocivile").find("option[value='" + codicestatocivile + "']").text();
         //crea l'oggetto da inviare alla REST per la registrazione
@@ -444,7 +471,7 @@ btnRegistrati.click(function() {
                 if(jqXHR.status === 201) {
                     $('#btn-step-3').removeAttr('disabled').trigger('click');
                     setTimeout(function () {
-                        window.location.href = '/';
+                        window.location.href = 'login';
                     }, 2000);
                 }
             },
