@@ -618,6 +618,34 @@ $(document).ready(function () {
     });
 });
 
+$(".annulla-presaincarico").click(function () {
+    $("#barra").show();
+    $.ajax({
+        type: "GET",
+        url: window.location.href + "/annullaprenotazionesospesa",
+        success: function (data, textStatus, jqXHR) {
+            $("#barra").hide();
+            $("#paragrafomodalPrenotazione").text(data);
+            $('#centralModalAlert').modal('show');
+            window.location.href = "home";
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            $("#barra").hide();
+            if (jqXHR.status !== 404 && jqXHR.status !== 502){
+                $("#paragrafomodalPrenotazione").text("La richiesta è stata presa in carico. L'impegnativa verrà resa disponibile il prima possibile");
+                $('#centralModalAlert').modal('show');
+            }
+            else{
+                $("#paragrafomodalPrenotazione").text("L'impegnativa è ora disponibile");
+                $('#centralModalAlert').modal('show');
+            }
+            setTimeout(function () {
+                window.location.href = "home";
+            },2000);
+        }
+    });
+});
+
 //manage stepper buttons
 $('#btn-step-1').click(function () {
     let stepper = $('.steps-form-2 .steps-row-2');

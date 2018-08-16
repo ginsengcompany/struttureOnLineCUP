@@ -27,6 +27,7 @@ router.post('/:azienda/registrazione/getCodCatZ', registrazioneController.getLuo
 router.get('/:azienda/prenotazione', prenotazioneController.getPrenotazione);
 router.get('/:azienda/prenotazione/contatti', prenotazioneController.getContatti);
 router.post('/:azienda/prenotazione/datiImpegnativa', prenotazioneController.invioDatiImpegnativa);
+router.get('/:azienda/prenotazione/annullaprenotazionesospesa', prenotazioneController.annullaprenotazionesospesa);
 
 /* VERIFICA CONTENUTO IMPEGNATIVA */
 //router.get('/:azienda/verificaContenutoImpegnativa', verificaContenutoImpegnativaController.getContenutoImpegnativa);
