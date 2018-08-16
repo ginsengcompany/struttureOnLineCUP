@@ -49,6 +49,9 @@ router.post('/:azienda/rubrica/modificaContatto', rubricaController.reviewContac
 /* NUOVO CONTATTO */
 router.get('/:azienda/nuovoContatto', nuovoContatto.getNuovoContatto);
 router.post('/:azienda/nuovoContatto', nuovoContatto.addContact);
+router.post('/:azienda/nuovoContatto/codicefiscaleinverso', nuovoContatto.convertiCodFisc);
+router.post('/:azienda/nuovoContatto/getByCodCat', nuovoContatto.getLuogoNascitaByCodCat);
+router.post('/:azienda/nuovoContatto/getCodCatZ', nuovoContatto.getLuogoNascitaEstero);
 
 /* APPUNTAMENTI */
 router.get('/:azienda/appuntamenti', appuntamentiController.getAppuntamenti);

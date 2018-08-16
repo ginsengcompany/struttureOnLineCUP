@@ -49,36 +49,34 @@ block content
                             .col-12
                                 .md-form
                                     i.fa.fa-id-card.prefix.dark-grey-text
-                                    input#formCodFisc.form-control.text-uppercase(type='text' required='')
+                                    input#formCodFisc.form-control.text-uppercase(type='text' required='' maxlength="16")
                                     label(for='formCodFisc') Codice Fiscale
                                     small#codice-fiscaleHelp.form-text.text-muted.red-text.font-italic(style="display: none;") Campo obbligatorio
                         .row
-                            .col-12
+                            .col-12.hideinit
                                 .md-form
                                     i.fa.fa-calendar.prefix.dark-grey-text
-                                    input#date-picker-example.form-control.datepicker(placeholder='Data di nascita', type='text' required='')
+                                    input#date-picker-example.form-control.datepicker(placeholder='Data di nascita', type='text' required='' disabled)
                                     label(for='date-picker-example') Data di nascita
                                     small#data-nascitaHelp.form-text.text-muted.red-text.font-italic(style="display: none;") Campo obbligatorio
-                            .col-6
+                            .col-6.hideinit
                                 .md-form
-                                    select#listaprovincenascita.mdb-select(searchable="Cerca...", name="listaprovince" required='' initialized)
-                                        option(value='', disabled='', selected='') Provincia di nascita
+                                    input#listaprovincenascita.form-control(type="text" required='' disabled)
+                                    label.campicompilati(for='listaprovincenascita') Provincia di nascita
                                     small#provincia-nascitaHelp.form-text.text-muted.red-text.font-italic(style="display: none;") Campo obbligatorio
-                            .col-6
+                            .col-6.hideinit
                                 .md-form
-                                    select#listacomunenascita.mdb-select(searchable="Cerca...", required='', name="comuni")
-                                        option(value='', disabled='', selected='') Comune di nascita
+                                    input#listacomunenascita.form-control(type="text" required='' disabled)
+                                    label.campicompilati(for='listacomunenascita') Luogo di nascita
                                     small#comunenascitaHelp.form-text.text-muted.red-text.font-italic(style="display: none;") Campo obbligatorio
                         .row
-                            .col-6
+                            .col-6.hideinit
                                 .md-form#sesso
-                                    select#formSesso.mdb-select
-                                        option(value='', disabled='', selected='') Sesso
-                                        option.rounded-circle(value='M', data-icon='/img/uomo.png') Maschio
-                                        option.rounded-circle(value='F', data-icon='/img/donna.png') Femmina
+                                    input#formSesso.form-control(type="text" required='' disabled)
+                                    label.campicompilati(for='formSesso') Sesso
                                     small#sessoHelp.form-text.text-muted.red-text.font-italic(style="display: none;") Campo obbligatorio
                             .col-6
-                                .md-form
+                                .md-form.hideinit
                                     select#statocivile.mdb-select(name='statocivile' required='')
                                         option(value='', disabled='', selected='') Stato civile
                                     small#stato-civileHelp.form-text.text-muted.red-text.font-italic(style="display: none;") Campo obbligatorio

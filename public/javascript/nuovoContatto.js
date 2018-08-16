@@ -3,6 +3,12 @@ $(function () {
     $('[data-toggle="tooltip"]').tooltip()
 });
 let navListItems, allWells, nextBtn, allPrevBtn, btnRegistrati;
+let datiLuogoNascita = {
+    provincia: "",
+    codprovincia: "",
+    comune: "",
+    codcomune: ""
+};
 navListItems = $('div.setup-panel-2 div a');
 allWells = $('.setup-content-2');
 nextBtn = $('#btnForm1');
@@ -69,10 +75,10 @@ nextBtn.click(function(){
                     $("#codice-fiscaleHelp").fadeOut();
             }
             else if(formParameters[i].id === "listacomunenascita"){
-                if(!formParameters[i].value){
+                if(!datiLuogoNascita.codcomune){
                     isValid = false;
                     $("#comunenascitaHelp").fadeIn();
-                    if(!$('#listaprovincenascita').val())
+                    if(!datiLuogoNascita.codprovincia && $('#formCodFisc').val().toUpperCase()[11] !== "Z")
                         $("#provincia-nascitaHelp").fadeIn();
                 }
                 else{
@@ -107,70 +113,8 @@ $('div.setup-panel-2 div a.btn-amber').trigger('click');
 //$('#btn-step-3').trigger('click');
 
 $(document).ready(function () {
-
     $(".button-collapse").sideNav();
-    //gestione picker e mdb-select registrazione
-    $('.datepicker').pickadate({
-        monthsFull: ['Gennaio', 'Febbraio', 'Marzo', 'Aprile', 'Maggio', 'Giugno', 'Luglio', 'Agosto', 'Settembre', 'Ottobre', 'Novembre', 'Dicembre'],
-        monthsShort: ['Gen', 'Feb', 'Mar', 'Apr', 'Mag', 'Giu', 'Lug', 'Ago', 'Set', 'Ott', 'Nov', 'Dic'],
-        weekdaysFull: ['Domenica', 'Lunedì', 'Martedì', 'Mercoledì', 'Giovedì', 'Venerdì', 'Sabato'],
-        weekdaysShort: ['Dom', 'Lun', 'Mar', 'Mer', 'Gio', 'Ven', 'Sab'],
-        showMonthsShort: undefined,
-        showWeekdaysFull: undefined,
-        clear: 'Cancella',
-        close: 'Chiudi',
-        firstDay: 1,
-        selectYears: 150,
-        format: 'dd/mm/yyyy',
-        formatSubmit: 'dd/mm/yyyy',
-        labelMonthNext: 'Mese successivo',
-        labelMonthPrev: 'Mese precedente',
-        labelMonthSelect: 'Seleziona un mese',
-        labelYearSelect: 'Seleziona un anno',
-        max: new Date(),
-        min: new  Date(1900,0,1)
-    });
     $('.mdb-select').material_select();
-    let selectProvinceNascita = $("#listaprovincenascita");
-    $.ajax({
-        type: "GET",
-        url: "http://ecuptservice.ak12srl.it/comuni/listaprovince",
-        dataType: "json",
-        contentType: 'plain/text',
-        success: function (data, textStatus, jqXHR) {
-            $('select[name="listaprovince"]').material_select('destroy');
-            for (let i = 0; i < data.length; i++) {
-                selectProvinceNascita.append('<option value="' + data[i].codIstat + '">' + data[i].provincia + '</option>');
-            }
-            $('select[name="listaprovince"]').material_select();
-        },
-        error: function (jqXHR, textStatus, errorThrown) {
-            console.log(textStatus);
-        }
-    });
-    $('#listaprovincenascita').on('change', function () {
-        let selectComuneNascita = $("#listacomunenascita");
-        let send = {codIstat: this.value};
-        $.ajax({
-            type: "POST",
-            url: "http://ecuptservice.ak12srl.it/comuni/listacomuni",
-            data: JSON.stringify(send),
-            dataType: "json",
-            contentType: 'application/json',
-            success: function (data, textStatus, jqXHR) {
-                $('#listacomunenascita').material_select('destroy');
-                $('#listacomunenascita').find('option').remove();
-                selectComuneNascita.append('<option value="" disabled="" selected="">' + "Seleziona il comune" + '</option>');
-                for (let i = 0; i < data.length; i++) {
-                    selectComuneNascita.append('<option value="' + data[i].codice + '">' + data[i].nome + '</option>');
-                }
-                $('#listacomunenascita').material_select();
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-                console.log(textStatus);
-            }
-        });
-    });
     let selectStatoCivile = $("#statocivile");
     $.ajax({
         type: "GET",
@@ -226,6 +170,95 @@ $(document).ready(function () {
                 console.log(textStatus);
             }
         });
+    });
+    $("#formCodFisc").on('input', function () {
+        if($("#formCodFisc").val().length === 16){
+            $.ajax({
+                type: "POST",
+                url: window.location.href + "/codicefiscaleinverso",
+                data: JSON.stringify({
+                    cod : $("#formCodFisc").val().toUpperCase()
+                }),
+                dataType: "json",
+                contentType: 'application/json',
+                success: function (data, textStatus, jqXHR) {
+                    if(data.codcatastale[0] === "Z"){ //estero
+                        $.ajax({
+                            type: "POST",
+                            url: window.location.href + "/getCodCatZ",
+                            data: JSON.stringify({
+                                cod : data.codcatastale
+                            }),
+                            dataType: "json",
+                            contentType: 'application/json',
+                            success : function (data2, textStatus, jqXHR) {
+                                datiLuogoNascita.comune = data2.descrizione.toUpperCase();
+                                datiLuogoNascita.codcomune = data2.codcatastale;
+                                $("#date-picker-example").val(data.datanascita);
+                                $("#listaprovincenascita").val("");
+                                $("#listacomunenascita").val(data2.descrizione);
+                                $("#formSesso").val(data.sesso);
+                                $(".campicompilati").addClass("active");
+                                $(".hideinit").show();
+                                $(".provnascita").hide();
+                            },
+                            error: function (jqXHR, textStatus, errorThrown) {
+                                $(".hideinit").hide();
+                                datiLuogoNascita = {
+                                    provincia: "",
+                                    codprovincia: "",
+                                    comune: "",
+                                    codcomune: ""
+                                };
+                            }
+                        })
+                    }
+                    else { //italiano
+                        $.ajax({
+                            type: "POST",
+                            url: window.location.href + "/getByCodCat",
+                            data: JSON.stringify({
+                                cod : data.codcatastale
+                            }),
+                            dataType: "json",
+                            contentType: 'application/json',
+                            success : function (data2, textStatus, jqXHR) {
+                                datiLuogoNascita.provincia = data2.provincia.toUpperCase();
+                                datiLuogoNascita.codprovincia = data2.codice;
+                                datiLuogoNascita.comune = data2.nome.toUpperCase();
+                                datiLuogoNascita.codcomune = data2.codIstat;
+                                $("#date-picker-example").val(data.datanascita);
+                                $("#listaprovincenascita").val(data2.provincia);
+                                $("#listacomunenascita").val(data2.nome);
+                                $("#formSesso").val(data.sesso);
+                                $(".campicompilati").addClass("active");
+                                $(".hideinit").show();
+                            },
+                            error: function (jqXHR, textStatus, errorThrown) {
+                                $(".hideinit").hide();
+                                datiLuogoNascita = {
+                                    provincia: "",
+                                    codprovincia: "",
+                                    comune: "",
+                                    codcomune: ""
+                                };
+                            }
+                        });
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    $(".hideinit").hide();
+                    datiLuogoNascita = {
+                        provincia: "",
+                        codprovincia: "",
+                        comune: "",
+                        codcomune: ""
+                    };
+                }
+            });
+        }
+        else
+            $(".hideinit").hide();
     });
 });
 
@@ -303,10 +336,10 @@ btnRegistrati.click(function() {
         let nome = $('#formNome').val().toUpperCase();
         let cognome = $('#formCognome').val().toUpperCase();
         let codicefiscale = $('#formCodFisc').val().toUpperCase();
-        let datanascita = $('#date-picker-example').val().toUpperCase();
-        let provincianascita = $('#listaprovincenascita').val().toUpperCase();
-        let codicecomunenascita = $('#listacomunenascita').val().toUpperCase();
-        let comunenascita = $("#listacomunenascita").find("option[value='" + codicecomunenascita + "']").text().toUpperCase();
+        let datanascita = $('#date-picker-example').val();
+        let provincianascita = datiLuogoNascita.provincia;
+        let codicecomunenascita = datiLuogoNascita.codcomune;
+        let comunenascita = datiLuogoNascita.comune;
         let sesso = $('#formSesso').val().toUpperCase();
         let codicestatocivile = $('#statocivile').val().toUpperCase();
         let statocivile = $("#statocivile").find("option[value='" + codicestatocivile + "']").text().toUpperCase();

@@ -113,7 +113,6 @@ nextBtn.click(function(){
 });
 
 $(document).ready(function () {
-    let path = window.location.href;
     //mdb-select registrazione
     $('.mdb-select').material_select();
     //preleva le option da inserire nella select stato civile
@@ -199,7 +198,7 @@ $(document).ready(function () {
                             dataType: "json",
                             contentType: 'application/json',
                             success : function (data2, textStatus, jqXHR) {
-                                datiLuogoNascita.comune = data2.descrizione;
+                                datiLuogoNascita.comune = data2.descrizione.toUpperCase();
                                 datiLuogoNascita.codcomune = data2.codcatastale;
                                 $("#date-picker-example").val(data.datanascita);
                                 $("#listaprovincenascita").val("");
@@ -230,9 +229,9 @@ $(document).ready(function () {
                             dataType: "json",
                             contentType: 'application/json',
                             success : function (data2, textStatus, jqXHR) {
-                                datiLuogoNascita.provincia = data2.provincia;
+                                datiLuogoNascita.provincia = data2.provincia.toUpperCase();
                                 datiLuogoNascita.codprovincia = data2.codice;
-                                datiLuogoNascita.comune = data2.nome;
+                                datiLuogoNascita.comune = data2.nome.toUpperCase();
                                 datiLuogoNascita.codcomune = data2.codIstat;
                                 $("#date-picker-example").val(data.datanascita);
                                 $("#listaprovincenascita").val(data2.provincia);
@@ -264,6 +263,8 @@ $(document).ready(function () {
                 }
             });
         }
+        else
+            $(".hideinit").hide();
     });
 });
 
