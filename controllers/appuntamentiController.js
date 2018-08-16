@@ -74,6 +74,8 @@ exports.annullaImpegnativa = function (req, res) {
         request(options,function (err, response, body) {
             if(err)
                 return res.status(500).send("Il servizio è momentaneamente non disponibile");
+            if(response.statusCode === 502 || response.statusCode === 200)
+                return res.status(200).send("L'impegnativa è ora disponibile");
             res.status(response.statusCode).send(body);
         });
     });
