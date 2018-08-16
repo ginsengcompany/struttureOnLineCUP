@@ -619,6 +619,7 @@ $(document).ready(function () {
 });
 
 $(".annulla-presaincarico").click(function () {
+    $('.enableButtons').prop('disabled', true);
     $("#barra").show();
     $.ajax({
         type: "GET",
@@ -640,6 +641,7 @@ $(".annulla-presaincarico").click(function () {
                 $('#centralModalAlert').modal('show');
             }
             setTimeout(function () {
+                $('.enableButtons').prop('disabled', false);
                 window.location.href = "home";
             },2000);
         }
