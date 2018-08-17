@@ -117,6 +117,7 @@ navListItems.click(function (e) {
             $('#btnProssimaDisp').hide();
             $('#btnRicercaData').hide();
             $('#btnConfermaPreno').hide();
+            $("#btnAnnullaStep3").hide();
             console.log(prest);
             $.ajax({
                 type: "POST",
@@ -131,6 +132,7 @@ navListItems.click(function (e) {
                     $('#btnProssimaDisp').show();
                     $('#btnRicercaData').show();
                     $('#btnConfermaPreno').show();
+                    $("#btnAnnullaStep3").show();
                     table2 = $('#example2').DataTable({
                         responsive: true,
                         language: {
@@ -189,6 +191,7 @@ $('#btnProssimaDisp').click( async function () {
     $('#btnProssimaDisp').hide();
     $('#btnRicercaData').hide();
     $('#btnConfermaPreno').hide();
+    $("#btnAnnullaStep3").hide();
     let stato,i=0;
     do {
         stato = await retryDispOrario();
@@ -201,6 +204,7 @@ $('#btnProssimaDisp').click( async function () {
         $('#btnProssimaDisp').show();
         $('#btnRicercaData').show();
         $('#btnConfermaPreno').show();
+        $("#btnAnnullaStep3").show();
     }
 });
 
@@ -219,6 +223,7 @@ function retryDispOrario() {
                 $('#btnProssimaDisp').show();
                 $('#btnRicercaData').show();
                 $('#btnConfermaPreno').show();
+                $("#btnAnnullaStep3").show();
                 datiDisponibilita = data;
                 table2.destroy();
                 table2 = $('#example2').DataTable({
@@ -290,6 +295,7 @@ $("#data").on('change', function () {
         $('#btnProssimaDisp').hide();
         $('#btnRicercaData').hide();
         $('#btnConfermaPreno').hide();
+        $("#btnAnnullaStep3").hide();
         $('#example2').hide();
         $('#example2').parents('div.dataTables_wrapper').first().hide();
         $('#barra').show();
@@ -307,6 +313,7 @@ $("#data").on('change', function () {
                 $('#btnProssimaDisp').show();
                 $('#btnRicercaData').show();
                 $('#btnConfermaPreno').show();
+                $("#btnAnnullaStep3").show();
                 datiDisponibilita = data;
                 table2.destroy();
                 table2 = $('#example2').DataTable({
@@ -364,6 +371,7 @@ $('#btnConfermaPreno').click(function () {
     $('#btnProssimaDisp').hide();
     $('#btnRicercaData').hide();
     $('#btnConfermaPreno').hide();
+    $("#btnAnnullaStep3").hide();
     $('#example2').hide();
     $('#example2').parents('div.dataTables_wrapper').first().hide();
     $('#barra').show();
@@ -389,6 +397,7 @@ $('#btnConfermaPreno').click(function () {
             $('#btnProssimaDisp').hide();
             $('#btnRicercaData').hide();
             $('#btnConfermaPreno').hide();
+            $("#btnAnnullaStep3").hide();
             $('#example2').hide();
             $('#example2').parents('div.dataTables_wrapper').first().hide();
             $('#barra').hide();
@@ -411,6 +420,7 @@ $('#btnConfermaPreno').click(function () {
                     $('#btnProssimaDisp').hide();
                     $('#btnRicercaData').hide();
                     $('#btnConfermaPreno').hide();
+                    $("#btnAnnullaStep3").hide();
                     $('#example2').hide();
                     $('#example2').parents('div.dataTables_wrapper').first().hide();
                     $('#barra').hide();
@@ -425,6 +435,7 @@ $('#btnConfermaPreno').click(function () {
                     $('#btnProssimaDisp').hide();
                     $('#btnRicercaData').hide();
                     $('#btnConfermaPreno').hide();
+                    $("#btnAnnullaStep3").hide();
                     $('#example2').hide();
                     $('#example2').parents('div.dataTables_wrapper').first().hide();
                     $('#barra').hide();
@@ -440,6 +451,7 @@ $('#btnConfermaPreno').click(function () {
                 $('#btnProssimaDisp').hide();
                 $('#btnRicercaData').hide();
                 $('#btnConfermaPreno').hide();
+                $("#btnAnnullaStep3").hide();
                 $('#example2').hide();
                 $('#example2').parents('div.dataTables_wrapper').first().hide();
                 $('#barra').hide();
