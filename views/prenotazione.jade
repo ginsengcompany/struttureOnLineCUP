@@ -84,7 +84,7 @@ block content
                             button#invioPrenotazione.btn.btn-color-primary.btn-lg.btn-block.btn-rounded(type='button') Invio
             .container-fluid.setup-content-2#step-2
                 .row.justify-content-center
-                    .col-sm-12.col-md-12.col-lg-5
+                    .col-md-8
                         // Card
                         .card.card-cascade
                             // Card image
@@ -97,27 +97,26 @@ block content
                             .card-body.card-body-cascade
                                 .container-fluid
                                     .row.justify-content-center(style='padding-bottom: 20px')
-                                        .col-md-10.col-lg-10
+                                        .col-md-6
                                             i.fa.fa-user.prefix(style='color: #243a51; padding-right:5px;')
                                             label.disabled(for='nome') Nome
-                                            input#nome.form-control(type='text', disabled='')
-                                    .row.justify-content-center(style='padding-bottom: 20px')
-                                        .col-md-10.col-lg-10
+                                            input#nome.form-control(type='text', disabled='' style="text-align:center;")
+                                        .col-md-6
                                             i.fa.fa-user.prefix(style='color: #243a51; padding-right:5px;')
                                             label.disabled(for='cognome') Cognome
-                                            input#cognome.form-control(type='text', disabled='')
+                                            input#cognome.form-control(type='text', disabled='' style="text-align:center;")
                                     .row.justify-content-center
-                                        .col-md-10.col-lg-10
+                                        .col-md-12
                                             i.fa.fa-id-card.prefix(style='color: #243a51; padding-right:5px;')
                                             label.disabled(for='codFisc') Codice Fiscale
-                                            input#codFisc.form-control(type='text', disabled='')
+                                            input#codFisc.form-control(type='text', disabled='' style="text-align:center;")
                                     .row.justify-content-center(style='text-align: center;')
-                                        .col-sm-12.col-md-12.col-lg-12
+                                        .col-md-12
                                             p.card-text.justify-content-center
                                             | Di seguito puoi scegliere il reparto utilizzando il menù a tendina contenuto in tabella.
                                             hr
                 .row
-                    .col.table-responsive
+                    .col.table-responsive(style="padding-top: 10px;")
                         table#example.table.table-striped(cellspacing='0', width='100%')
                             thead.mdb-color.darken-3(style='background-color: #003964 !important')
                                 tr.text-white

@@ -118,7 +118,6 @@ navListItems.click(function (e) {
             $('#btnRicercaData').hide();
             $('#btnConfermaPreno').hide();
             $("#btnAnnullaStep3").hide();
-            console.log(prest);
             $.ajax({
                 type: "POST",
                 data: JSON.stringify(prest),
@@ -485,6 +484,20 @@ function retryConfermaPrenotazione() {
 
 $('#btnTerminaPrenotazione').click(function () {
 
+});
+
+$("#codiceImpegnativa1").on("keypress", function (e) {
+    if(e.keyCode === 13 && ($("#codiceImpegnativa1").val().length === 15) || ($("#codiceImpegnativa1").val().length + $("#codiceImpegnativa2").val().length === 15)) { //tasto ENTER
+        e.preventDefault();
+        $("#invioPrenotazione").trigger('click');
+    }
+});
+
+$("#codiceImpegnativa2").on("keypress", function (e) {
+    if(e.keyCode === 13 && ($("#codiceImpegnativa1").val().length === 15) || ($("#codiceImpegnativa1").val().length + $("#codiceImpegnativa2").val().length === 15)) { //tasto ENTER
+        e.preventDefault();
+        $("#invioPrenotazione").trigger('click');
+    }
 });
 
 $('#centralModalNotifiche').on('show.bs.modal', function () {
