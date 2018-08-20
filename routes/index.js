@@ -65,6 +65,7 @@ router.get('/:azienda/referti', refertiController.getReferti);
 router.get('/:azienda/referti/contatti', refertiController.getContatti);
 router.post('/:azienda/referti/listareferti', refertiController.getListaRefertiAssistito);
 router.post('/:azienda/referti/scaricareferti', refertiController.scaricaReferto);
+router.post('/:azienda/referti/inviaemail', refertiController.inviaemail);
 
 /* HOME */
 router.get('/:azienda/home', homeController.getHome);

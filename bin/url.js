@@ -32,6 +32,7 @@ url.convertiCodFisc =           host + "/codicefiscaleinverso";
 url.luogonascitaConCodCat =     host + "/comuni/getByCodCatastale";
 url.luogonascitaEstero =        host + "/nazioni";
 url.annullaprenotazionesospesa = host + "/auth/annullaprenotazionesospesaWeb";
+url.inviarefertoemail =         host + "/referti/inviarefertoemail";
 
 // Exports the variables and above so that other modules can use them
 module.exports = url;

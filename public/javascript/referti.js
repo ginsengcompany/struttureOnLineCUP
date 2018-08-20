@@ -1,6 +1,13 @@
 $('#tableReferti').hide();
 $('#barra').hide();
 let tabellaReferti;
+let datiInvioEmail = {
+    id: "",
+    email: "",
+    nome: "",
+    cognome: ""
+};
+let contatti;
 $(document).ready(function () {
     $('.mdb-select').material_select();
     let selectNome = $("#selectContatto");
@@ -18,13 +25,12 @@ $(document).ready(function () {
                 selectNome.append('<option value="' + i + '">' + data[i].nomeCompletoConCodiceFiscale + '</option>');
             }
             $('.mdb-select').material_select();
+            contatti = data;
             $('#selectContatto').on('change', function () {
                 let nomeSelezionato = $("#selectContatto option:selected").val();
-                console.log(nomeSelezionato);
                 $('#labelNessunReferto').hide();
                 $('#barra').show();
                 $('#colTableReferti').hide();
-
                 $.ajax({
                     type: "POST",
                     headers: {'cf': data[nomeSelezionato].codice_fiscale},
@@ -32,7 +38,6 @@ $(document).ready(function () {
                     dataType: "json",
                     contentType: 'application/json',
                     success: function (data, textStatus, jqXHR) {
-                        console.log(data);
                         $('#barra').hide();
                         $('#colTableReferti').show();
                         $('#tableReferti').show();
@@ -59,7 +64,7 @@ $(document).ready(function () {
                                 {
                                     data: null,
                                     render: function (data, type, row) {
-                                        return '<button type="button" class="btn btn-color-primary btn-sm btn-rounded">Apri</button><button type="button" class="btn btn-color-primary btn-sm btn-rounded">Invia Email</button>'
+                                        return '<button type="button" class="btn btn-color-primary btn-sm btn-rounded scaricaPDF">Apri</button><button type="button" data-toggle="modal" data-target="#centralModalAlert" class="btn btn-color-primary btn-sm btn-rounded emailPDF">Invia Email</button>'
                                     },
                                     targets: [4],
                                 }
@@ -78,7 +83,8 @@ $(document).ready(function () {
                                 },
                             ],
                         });
-                        $('#tableReferti tbody').on('click', 'button', function () {
+                        $('#tableReferti tbody').on('click', '.scaricaPDF', function () {
+                            $("#barra").show();
                             let data = tabellaReferti.row($(this).parents('tr')).data();
                             let idFile = data.id;
                             $.ajax({
@@ -87,12 +93,28 @@ $(document).ready(function () {
                                 url: window.location.href + "/scaricareferti",
                                 success: function (data, textStatus, jqXHR) {
                                     let link = data + idFile;
+                                    $("#barra").hide();
                                     window.location = link;
                                 },
                                 error: function (jqXHR, textStatus, errorThrown) {
-
+                                    $("#barra").hide();
                                 }
                             });
+                        });
+                        $('#tableReferti tbody').on('click', '.emailPDF', function () {
+                            datiInvioEmail = {
+                                id: "",
+                                email: "",
+                                nome: "",
+                                cognome: ""
+                            };
+                            $("#barra").show();
+                            let data = tabellaReferti.row($(this).parents('tr')).data();
+                            let idFile = data.id;
+                            let nomeSelezionato = $("#selectContatto option:selected").val();
+                            datiInvioEmail.id = idFile;
+                            datiInvioEmail.nome = contatti[nomeSelezionato].nome;
+                            datiInvioEmail.cognome = contatti[nomeSelezionato].cognome;
                         });
                     },
                     error: function (jqXHR, textStatus, errorThrown) {
@@ -107,6 +129,40 @@ $(document).ready(function () {
         },
         error: function (jqXHR, textStatus, errorThrown) {
 
+        }
+    });
+});
+$('#btninvioemail').on('click', function () {
+    $("#barra").show();
+    datiInvioEmail.email = $("#formEmail").val();
+    $.ajax({
+        type: "POST",
+        dataType: "text",
+        contentType: 'application/json',
+        url: window.location.href + "/inviaemail",
+        data: JSON.stringify(datiInvioEmail),
+        success: function (data, textStatus, jqXHR) {
+            $("#barra").hide();
+            datiInvioEmail = {
+                id: "",
+                email: "",
+                nome: "",
+                cognome: ""
+            };
+            $('#pInfo').text("Email inviata correttamente");
+            $('#centralInfo').modal('show');
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            $("#barra").hide();
+            console.log(jqXHR.status);
+            datiInvioEmail = {
+                id: "",
+                email: "",
+                nome: "",
+                cognome: ""
+            };
+            $('#pInfo').text("Errore durante l'invio dell'email");
+            $('#centralInfo').modal('show');
         }
     });
 });

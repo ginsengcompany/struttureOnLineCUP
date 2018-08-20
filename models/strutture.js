@@ -17,7 +17,11 @@ let struttureSchema = new mongoose.Schema({
     variabili_logicaDati: {
         onMoreReparti: Number,
         onChangeAppuntamento: Number,
-        prenotazioniInBlocco: Number
+        prenotazioniInBlocco: Number,
+        asl : Boolean,
+        host : String,
+        referti : String,
+        repositoryReferti : String
     },
     url: {
         TerminiServizio : String,
