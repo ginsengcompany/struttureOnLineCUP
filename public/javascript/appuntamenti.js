@@ -40,7 +40,6 @@ $('#barra').hide();
 
 let listaAppuntamenti;
 $(document).ready(function () {
-    $(".button-collapse").sideNav();
     $('.mdb-select').material_select();
 
     let selectNome = $("#selectContatto");

@@ -252,7 +252,6 @@ function Modifica ( d ) {
 
 $(document).ready(function() {
     $('#test').hide();
-    $(".button-collapse").sideNav();
     $('.mdb-select').material_select();
 
     $.ajax({

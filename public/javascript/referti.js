@@ -2,7 +2,6 @@ $('#tableReferti').hide();
 $('#barra').hide();
 let tabellaReferti;
 $(document).ready(function () {
-    $(".button-collapse").sideNav();
     $('.mdb-select').material_select();
     let selectNome = $("#selectContatto");
     $.ajax({

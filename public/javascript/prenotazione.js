@@ -553,7 +553,6 @@ $(document).ready(function () {
     $('#codiceFiscaleAutofill').val('');
     $('#codiceImpegnativa1').val('');
     $('#codiceImpegnativa2').val('');
-    $(".button-collapse").sideNav();
     $('.mdb-select').material_select();
     let selectNome = $("#selectNominativo");
     $.ajax({

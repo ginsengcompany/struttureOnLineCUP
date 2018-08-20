@@ -113,7 +113,6 @@ $('div.setup-panel-2 div a.btn-amber').trigger('click');
 //$('#btn-step-3').trigger('click');
 
 $(document).ready(function () {
-    $(".button-collapse").sideNav();
     $('.mdb-select').material_select();
     let selectStatoCivile = $("#statocivile");
     $.ajax({
