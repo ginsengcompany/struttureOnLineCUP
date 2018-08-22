@@ -393,6 +393,7 @@ $('#btnConfermaPreno').click(function () {
         dataType: "json",
         contentType: 'application/json',
         success: function (data, textStatus, jqXHR) {
+            let response = JSON.parse(data);
             $('#btnProssimaDisp').hide();
             $('#btnRicercaData').hide();
             $('#btnConfermaPreno').hide();
@@ -401,7 +402,7 @@ $('#btnConfermaPreno').click(function () {
             $('#example2').parents('div.dataTables_wrapper').first().hide();
             $('#barra').hide();
             $('#paragraphUltimoStep').addClass("green-text");
-            $('#paragraphUltimoStep').text("Prenotazione Completata!");
+            $('#paragraphUltimoStep').text(response.messaggio);
             $('#btn-step-4').removeAttr('disabled').trigger('click');
             setTimeout(function () {
                 window.location.href = 'home';

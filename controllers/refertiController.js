@@ -94,7 +94,7 @@ exports.inviaemail = function (req, res) {
             },
             body: {
                 datiEmail: {
-                    url : str.repositoryReferti + req.body.id,
+                    url : str.variabili_logicaDati.repositoryReferti + req.body.id,
                     email : req.body.email,
                     nome : req.body.nome,
                     cognome : req.body.cognome
