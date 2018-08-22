@@ -1,11 +1,10 @@
 let request = require('request');
 let strutture = require('../models/strutture');
-let uri = require('../bin/url');
 
 exports.postLogin = function (req, res, next) {
     let options = {
         method: 'POST',
-        uri: uri.loginURL,
+        uri: 'http://localhost:3001/auth/login',
         body: {
             username: req.body.username,
             password: req.body.password

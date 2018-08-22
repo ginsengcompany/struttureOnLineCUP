@@ -1,5 +1,4 @@
 let strutture = require('../models/strutture');
-let uri = require('../bin/url');
 let request = require('request');
 
 exports.getContenutoImpegnativa = function (req, res, next) {
@@ -18,7 +17,7 @@ exports.getPrestazioniErogabili = function (req, res) {
         if (!str) return handleError({status: 404, message: "Azienda Ospedaliera non trovata"},res);
         let options = {
             method: 'POST',
-            uri: uri.controlloPrestazioniURL,
+            uri: 'http://localhost:3001/controlloPrestazioni',
             body: req.body,
             headers:{
                 "x-access-token" : req.session.tkn,
@@ -26,7 +25,7 @@ exports.getPrestazioniErogabili = function (req, res) {
             },
             json : true
         };
-        request(options, function (err, response, body) {
+        request(options,function (err, response, body) {
             if(err)
                 return res.status(500).send("Il servizio è momentaneamente non disponibile");
             let prest_erogabili = [], prest_non_erogabili = [];
@@ -46,7 +45,7 @@ exports.getReparti = function (req, res) {
         if (!str) return handleError({status: 404, message: "Azienda Ospedaliera non trovata"},res);
         let options = {
             method: 'POST',
-            uri: uri.ricercaRepartiURL,
+            uri: 'http://localhost:3001/ricercareparti',
             body: req.body,
             headers:{
                 "x-access-token" : req.session.tkn,

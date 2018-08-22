@@ -1,7 +1,6 @@
 $("#tableAppuntamenti").hide();
 let descImpegnativa, dataAppuntamento, dataAccettazione, datiAnnullamento;
 
-
 /* Formatting function for row details - modify as you need */
 function format(d) {
 

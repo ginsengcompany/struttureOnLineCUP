@@ -1,6 +1,5 @@
 let strutture = require('../models/strutture');
 let request = require('request');
-let uri = require('../bin/url');
 
 exports.getRubrica = function (req, res, next) {
     if (strutture.db._readyState !== 1) return handleError({status: 500, message: "Il servizio è momentaneamente non disponibile"},res);
@@ -18,7 +17,7 @@ exports.getContatti = function (req,res,next) {
         if (!str) return handleError({status: 404, message: "Azienda Ospedaliera non trovata"},res);
         let options = {
             method: 'GET',
-            uri: uri.authMeURL,
+            uri: 'http://localhost:3001/auth/me',
             headers:{
                 "x-access-token" : req.session.tkn
             },
@@ -38,7 +37,7 @@ exports.deleteAccount = function (req,res,next) {
         if (!str) return handleError({status: 404, message: "Azienda Ospedaliera non trovata"},res);
         let options = {
             method: 'GET',
-            uri: uri.eliminaAccountURL,
+            uri: 'http://localhost:3001/auth/eliminaaccount',
             headers:{
                 "x-access-token" : req.session.tkn
             },
@@ -59,7 +58,7 @@ exports.deleteContact = function (req, res) {
         if (!str) return handleError({status: 404, message: "Azienda Ospedaliera non trovata"},res);
         let options = {
             method: 'POST',
-            uri: uri.eliminaContattoURL,
+            uri: 'http://localhost:3001/auth/eliminaContatto',
             headers:{
                 "x-access-token" : req.session.tkn
             },
@@ -81,7 +80,7 @@ exports.reviewContact = function (req, res) {
         if (!str) return handleError({status: 404, message: "Azienda Ospedaliera non trovata"},res);
         let options = {
             method: 'POST',
-            uri: uri.modAssistitoURL,
+            uri: 'http://localhost:3001/auth/modAssistito',
             headers:{
                 "x-access-token" : req.session.tkn
             },

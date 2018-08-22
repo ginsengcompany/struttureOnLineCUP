@@ -19,7 +19,7 @@ exports.getContatti = function (req,res,next) {
         if (!str) return handleError({status: 404, message: "Azienda Ospedaliera non trovata"},res);
         let options = {
             method: 'GET',
-            uri: uri.authMeURL,
+            uri: "http://localhost:3001/auth/me",
             headers:{
                 "x-access-token" : req.session.tkn
             },
@@ -41,7 +41,7 @@ exports.getListaRefertiAssistito = function (req, res) {
 
         let options = {
             method: 'POST',
-            uri: uri.listaRefertiURL,
+            uri: "http://localhost:3001/referti/prelevarefertiutente",
             headers:{
                 "x-access-token" : req.session.tkn,
                 struttura : str.codice_struttura,
@@ -64,7 +64,7 @@ exports.scaricaReferto = function (req, res) {
         if (!str) return handleError({status: 404, message: "Azienda Ospedaliera non trovata"},res);
         let options = {
             method: 'POST',
-            uri: uri.scaricaRefertoURL,
+            uri: "http://localhost:3001/referti/scaricareferto",
             headers:{
                 "x-access-token" : req.session.tkn,
                 struttura : str.codice_struttura,
@@ -87,14 +87,14 @@ exports.inviaemail = function (req, res) {
         if (!str) return handleError({status: 404, message: "Azienda Ospedaliera non trovata"},res);
         let options = {
             method: 'POST',
-            uri: uri.inviarefertoemail,
+            uri: "http://localhost:3001/referti/inviarefertoemail",
             headers:{
                 "x-access-token" : req.session.tkn,
                 struttura : str.codice_struttura,
             },
             body: {
                 datiEmail: {
-                    url : str.repositoryReferti + req.body.id,
+                    url : str.variabili_logicaDati.repositoryReferti + req.body.id,
                     email : req.body.email,
                     nome : req.body.nome,
                     cognome : req.body.cognome

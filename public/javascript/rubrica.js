@@ -30,6 +30,7 @@ function format ( d ) {
 
 //funzione compila tab modifica contatto e invio dati
 function Modifica ( d ) {
+    console.log(d);
     //dati non modificabili
     let codFiscale = $('#codiceFiscale');
     let nome = $('#Nome');
@@ -43,7 +44,7 @@ function Modifica ( d ) {
     cognome.text(d.cognome);
     dataNascita.text(d.data_nascita);
     luogoNascita.text(d.luogo_nascita);
-    if(d.sesso ==='F')
+    if(d.sesso === 'F')
         sesso.text("Donna");
     else
         sesso.text("Uomo");
@@ -51,7 +52,7 @@ function Modifica ( d ) {
     let selectStatoCivile = $("#statocivile");
     $.ajax({
         type: "GET",
-        url: "http://ecuptservice.ak12srl.it/statocivile",
+        url: "https://app.cupt.it/statocivile",
         dataType: "json",
         contentType: 'plain/text',
         success: function (data, textStatus, jqXHR) {
@@ -72,7 +73,7 @@ function Modifica ( d ) {
     $("#listaprovinceresidenza").select({ dropdownParent: "#modal-container" });
     $.ajax({
         type: "GET",
-        url: "http://ecuptservice.ak12srl.it/comuni/listaprovince",
+        url: "https://app.cupt.it/comuni/listaprovince",
         dataType: "json",
         contentType: 'plain/text',
         success: function (data, textStatus, jqXHR) {
@@ -97,7 +98,7 @@ function Modifica ( d ) {
         let send = {codIstat: this.value};
         $.ajax({
             type: "POST",
-            url: "http://ecuptservice.ak12srl.it/comuni/listacomuni",
+            url: "https://app.cupt.it/comuni/listacomuni",
             data: JSON.stringify(send),
             dataType: "json",
             contentType: 'application/json',

@@ -1,6 +1,5 @@
 let strutture = require('../models/strutture');
 let request = require('request');
-let uri = require('../bin/url');
 
 exports.getRegistrazione = function (req, res, next) {
     if (strutture.db._readyState !== 1) return handleError({status: 500, message: "Il servizio è momentaneamente non disponibile"},res);
@@ -16,7 +15,7 @@ exports.convertiCodFisc = function (req, res) {
         return res.status(400).send("Dati mancanti");
     let options = {
         method: 'GET',
-        uri: uri.convertiCodFisc,
+        uri: "http://localhost:3001/codicefiscaleinverso",
         headers:{
             codfisc : req.body.cod
         },
@@ -36,7 +35,7 @@ exports.getLuogoNascitaByCodCat = function (req, res) {
         return res.status(400).send("Dati mancanti");
     let options = {
         method : 'GET',
-        uri: uri.luogonascitaConCodCat + '?codcatastale=' + req.body.cod,
+        uri: "http://localhost:3001/comuni/getByCodCatastale?codcatastale=" + req.body.cod,
         json : true
     };
     request(options,function (err, response, body) {
@@ -53,7 +52,7 @@ exports.getLuogoNascitaEstero = function (req, res) {
         return res.status(400).send("Dati mancanti");
     let options = {
         method : 'GET',
-        uri: uri.luogonascitaEstero,
+        uri: "http://localhost:3001/nazioni",
         json : true
     };
     request(options,function (err, response, body) {

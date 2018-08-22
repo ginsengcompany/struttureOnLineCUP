@@ -1,6 +1,5 @@
 let strutture = require('../models/strutture');
 let request = require('request');
-let uri = require('../bin/url');
 
 exports.getNuovoContatto = function (req, res, next) {
     if (strutture.db._readyState !== 1) return handleError({status: 500, message: "Il servizio è momentaneamente non disponibile"},res);
@@ -18,7 +17,7 @@ exports.addContact = function (req, res) {
         if (!str) return handleError({status: 404, message: "Azienda Ospedaliera non trovata"},res);
         let options = {
             method: 'POST',
-            uri: 'http://ecuptservice.ak12srl.it/auth/aggiungiContatto',
+            uri: 'http://localhost:3001/auth/aggiungiContatto',
             headers:{
                 "x-access-token" : req.session.tkn
             },
@@ -38,7 +37,7 @@ exports.convertiCodFisc = function (req, res) {
         return res.status(400).send("Dati mancanti");
     let options = {
         method: 'GET',
-        uri: uri.convertiCodFisc,
+        uri: "http://localhost:3001/codicefiscaleinverso",
         headers:{
             codfisc : req.body.cod
         },
@@ -58,7 +57,7 @@ exports.getLuogoNascitaByCodCat = function (req, res) {
         return res.status(400).send("Dati mancanti");
     let options = {
         method : 'GET',
-        uri: uri.luogonascitaConCodCat + '?codcatastale=' + req.body.cod,
+        uri: "http://localhost:3001/comuni/getByCodCatastale?codcatastale=" + req.body.cod,
         json : true
     };
     request(options,function (err, response, body) {
@@ -75,7 +74,7 @@ exports.getLuogoNascitaEstero = function (req, res) {
         return res.status(400).send("Dati mancanti");
     let options = {
         method : 'GET',
-        uri: uri.luogonascitaEstero,
+        uri: "http://localhost:3001/nazioni",
         json : true
     };
     request(options,function (err, response, body) {

@@ -29,6 +29,7 @@ router.get('/:azienda/prenotazione/contatti', prenotazioneController.getContatti
 router.post('/:azienda/prenotazione/datiImpegnativa', prenotazioneController.invioDatiImpegnativa);
 router.get('/:azienda/prenotazione/annullaprenotazionesospesa', prenotazioneController.annullaprenotazionesospesa);
 
+
 /* VERIFICA CONTENUTO IMPEGNATIVA */
 //router.get('/:azienda/verificaContenutoImpegnativa', verificaContenutoImpegnativaController.getContenutoImpegnativa);
 router.post('/:azienda/prenotazione/prestazioniErogabili', verificaContenutoImpegnativaController.getPrestazioniErogabili);
