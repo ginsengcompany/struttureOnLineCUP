@@ -169,3 +169,7 @@ main {
 .hideinit {
     display: none;
 }
+
+.dropdown .dropdown-menu.dropdown-primary .dropdown-item:active, .dropdown .dropdown-menu.dropdown-color .dropdown-item:hover {
+    background-color: #6C94B2 !important
+}
