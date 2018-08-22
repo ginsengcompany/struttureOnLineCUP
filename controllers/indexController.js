@@ -33,6 +33,10 @@ exports.getLogin = function (req, res, next) {
     });
 };
 
+exports.redirectToLogin = function (req, res, next) {
+   res.redirect("/" + req.params.azienda  + "/login");
+};
+
 exports.logout = function (req, res, next) {
     delete req.session.auth;
     res.status(200).send("logout");
