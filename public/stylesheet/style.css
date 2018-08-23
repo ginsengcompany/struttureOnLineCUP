@@ -173,3 +173,9 @@ main {
 .dropdown .dropdown-menu.dropdown-primary .dropdown-item:active, .dropdown .dropdown-menu.dropdown-color .dropdown-item:hover {
     background-color: #6C94B2 !important
 }
+
+.btn-outline-color-primary {
+    border: 2px solid #003964 !important;
+    background-color: transparent !important;
+    color: #003964 !important
+}
