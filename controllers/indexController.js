@@ -42,6 +42,21 @@ exports.logout = function (req, res, next) {
     res.status(200).send("logout");
 };
 
+exports.downloadMe = function (req, res, next) {
+    let options = {
+        method: 'GET',
+        uri: uri.downloadMe,
+        headers: {
+            "x-access-token" : req.session.tkn
+        }
+    };
+    request(options, function (err, response, body) {
+        if(err)
+            return res.status(500).send("Il servizio è momentaneamente non disponibile");
+        res.send(response.body);
+    });
+};
+
 function handleError(stato,res) {
     res.status(stato.status).render('error',{
         error:{
