@@ -43,17 +43,45 @@ block body
                             a#termService.dropdown-item(href="#" data-toggle='modal' data-target='#modalTermini')
                                 i.fa.fa-sticky-note.color-primary
                                 span.clearfix.d-none.d-sm-inline-block.color-primary Termini d'uso
-                            a#downloadMe.dropdown-item
+                            a#downloadMe.dropdown-item(href="#" data-toggle='modal' data-target='#modalacception')
                                 i.fa.fa-address-card.color-primary
                                 span.clearfix.d-none.d-sm-inline-block.color-primary Richiedi le tue informazioni
-                            a#logout.dropdown-item
+                            a#logout.dropdown-item(href="#" data-toggle="modal" data-target="#modalLogout")
                                 i.fa.fa-times.color-primary
                                 span.clearfix.d-none.d-sm-inline-block.color-primary Esci
+    div#modalLogout.modal.fade(tabindex='-1' role='dialog' aria-hidden='true')
+        div.modal-dialog.modal-notify(role='document')
+            div.modal-content
+                div.modal-header.text-center.btn-color-primary
+                    h4.modal-title.w-100.font-weight-bold(style='color:white;') Info
+                    button.close(type='button' data-dismiss='modal' aria-label='Close')
+                        span.white-text(aria-hidden='true') &times;
+                div.modal-body
+                    div.text-center
+                        font(size='5')
+                            p Sei sicuro di voler procedere?
+                .modal-footer.justify-content-center
+                    a#btnmodalLogout.btn.btn-primary(type="button") Si
+                    a.btn.btn-outline-color-primary.waves-effect(type="button" data-dismiss="modal") No
+    div#modalacception.modal.fade(tabindex='-1' role='dialog' aria-hidden='true')
+        div.modal-dialog.modal-notify(role='document')
+            div.modal-content
+                div.modal-header.text-center.btn-color-primary
+                    h4#titlemodalacception.modal-title.w-100.font-weight-bold(style='color:white;') Info
+                    button.close(type='button' data-dismiss='modal' aria-label='Close')
+                        span.white-text(aria-hidden='true') &times;
+                div.modal-body
+                    div.text-center
+                        font(size='5')
+                            p#paragrafomodalacception Sei sicuro di voler procedere?
+                .modal-footer.justify-content-center
+                    a#btnmodalacceptionconferma.btn.btn-primary(type="button") Si
+                    a.btn.btn-outline-color-primary.waves-effect(type="button" data-dismiss="modal") No
     div#modalinfonavbar.modal.fade(tabindex='-1' role='dialog' aria-hidden='true')
         div.modal-dialog.modal-notify(role='document')
             div.modal-content
                 div.modal-header.text-center.btn-color-primary
-                    h4.modal-title.w-100.font-weight-bold(style='color:white;') Errore
+                    h4.modal-title.w-100.font-weight-bold(style='color:white;') Info
                     button.close(type='button' data-dismiss='modal' aria-label='Close')
                         span.white-text(aria-hidden='true') &times;
                 div.modal-body

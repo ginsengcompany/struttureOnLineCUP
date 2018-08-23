@@ -2,7 +2,7 @@ $(document).ready(function () {
     $(".button-collapse").sideNav();
 });
 
-$("#logout").click(function () {
+$("#btnmodalLogout").click(function () {
     $.ajax({
         type: "GET",
         url: "logout",
@@ -14,7 +14,7 @@ $("#logout").click(function () {
     });
 });
 
-$("#downloadMe").click(function () {
+$("#btnmodalacceptionconferma").click(function () {
     $.ajax({
         type: 'GET',
         url: "downloadMe",
