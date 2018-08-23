@@ -13,3 +13,19 @@ $("#logout").click(function () {
         }
     });
 });
+
+$("#downloadMe").click(function () {
+    $.ajax({
+        type: 'GET',
+        url: "downloadMe",
+        dataType: "text",
+        success: function (data, textStatus, jqXHR) {
+            $('#paragrafomodalNavbar').text(data);
+            $('#modalinfonavbar').modal('show');
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            $('#paragrafomodalNavbar').text(jqXHR.responseText);
+            $('#modalinfonavbar').modal('show');
+        }
+    });
+});

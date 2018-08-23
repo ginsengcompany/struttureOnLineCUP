@@ -13,6 +13,7 @@ let propostaRichiestaController = require('../controllers/propostaRichiestaContr
 let refertiController = require('../controllers/refertiController');
 
 /* LOGIN E LOGOUT */
+router.get('/:azienda/', indexController.redirectToLogin);
 router.get('/:azienda/login',indexController.getLogin);
 router.post('/:azienda/login', indexController.postLogin);
 router.get('/:azienda/logout', indexController.logout);
@@ -73,5 +74,8 @@ router.get('/:azienda/home', homeController.getHome);
 
 /* INTRO */
 router.get('/', introController.getIntro);
+
+/* DOWNLOAD INFO ACCOUNT */
+router.get('/:azienda/downloadMe', indexController.downloadMe);
 
 module.exports = router;

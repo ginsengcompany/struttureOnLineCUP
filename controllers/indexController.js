@@ -32,9 +32,28 @@ exports.getLogin = function (req, res, next) {
     });
 };
 
+exports.redirectToLogin = function (req, res, next) {
+   res.redirect("/" + req.params.azienda  + "/login");
+};
+
 exports.logout = function (req, res, next) {
     delete req.session.auth;
     res.status(200).send("logout");
+};
+
+exports.downloadMe = function (req, res, next) {
+    let options = {
+        method: 'GET',
+        uri: "http://localhost:3001/auth/downloadMe",
+        headers: {
+            "x-access-token" : req.session.tkn
+        }
+    };
+    request(options, function (err, response, body) {
+        if(err)
+            return res.status(500).send("Il servizio è momentaneamente non disponibile");
+        res.send(response.body);
+    });
 };
 
 function handleError(stato,res) {
