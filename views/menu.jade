@@ -73,9 +73,9 @@ block body
                 div.modal-body
                     div.text-center
                         font(size='5')
-                            p#paragrafomodalacception Sei sicuro di voler procedere?
+                            p#paragrafomodalacception Sei sicuro di voler procedere con la richiesta di tutte le tue informazioni personali, in accordo all'art. 20 GDPR "Diritto alla portabilità dei dati"?
                 .modal-footer.justify-content-center
-                    a#btnmodalacceptionconferma.btn.btn-primary(type="button") Si
+                    a#btnmodalacceptionconferma.btn.btn-primary(type="button" data-dismiss="modal") Si
                     a.btn.btn-outline-color-primary.waves-effect(type="button" data-dismiss="modal") No
     div#modalinfonavbar.modal.fade(tabindex='-1' role='dialog' aria-hidden='true')
         div.modal-dialog.modal-notify(role='document')
@@ -89,12 +89,12 @@ block body
                         font(size='5')
                             p#paragrafomodalNavbar
     div#modalTermini.modal.fade(tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true')
-        .modal-dialog(role='document' style='max-width=900px;')
+        .modal-dialog.modal-notify(role='document' style='max-width=900px;')
             .modal-content
                 .modal-header.text-center.btn-color-primary
                     h3#exampleModalLabel.modal-title.w-100.font-weight-bold(style='color:white;') Informativa ai sensi art. 13 Regolamento UE 2016/679
                     button.close(type='button' data-dismiss='modal' aria-label='Close')
-                        span(aria-hidden='true') &times;
+                        span.white-text(aria-hidden='true') &times;
                 .modal-body
                     div
                         h4.text-center Regolamento relativo alla protezione delle persone fisiche con riguardo al trattamento dei dati personali nonché alla libera circolazione di tali dati

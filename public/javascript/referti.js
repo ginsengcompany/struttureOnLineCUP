@@ -8,6 +8,9 @@ let datiInvioEmail = {
     cognome: ""
 };
 let contatti;
+$("#centralModalAlert").on("hidden.bs.modal", function () {
+    $('#barra').hide();
+});
 $(document).ready(function () {
     $('.mdb-select').material_select();
     let selectNome = $("#selectContatto");
