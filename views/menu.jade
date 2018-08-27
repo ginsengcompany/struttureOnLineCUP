@@ -46,9 +46,29 @@ block body
                             a#downloadMe.dropdown-item.menuAccount(href="#" data-toggle='modal' data-target='#modalacception')
                                 i.fa.fa-address-card.color-primary
                                 span.clearfix.d-sm-inline-block.color-primary(style="padding-left:5px") Richiedi le tue informazioni
+                            a#elimAccount.dropdown-item.menuAccount(href="#" data-toggle='modal' data-target='#modalElimAccount')
+                                i.fa.fa-user-times.color-primary
+                                span.clearfix.d-sm-inline-block.color-primary(style="padding-left:5px") Elimina account
                             a#logout.dropdown-item.menuAccount(href="#" data-toggle="modal" data-target="#modalLogout")
                                 i.fa.fa-times.color-primary
                                 span.clearfix.d-sm-inline-block.color-primary(style="padding-left:5px") Esci
+    div#modalElimAccount.modal.fade(tabindex='-1' role='dialog' aria-hidden='true')
+        div.modal-dialog.modal-notify(role='document')
+            div.modal-content
+                div.modal-header.text-center.btn-color-primary
+                    h4.modal-title.w-100.font-weight-bold(style='color:white;') Info
+                    button.close(type='button' data-dismiss='modal' aria-label='Close')
+                        span.white-text(aria-hidden='true') &times;
+                div.modal-body
+                    div.text-center
+                        font(size='5')
+                            p Se sei sicuro di voler procedere con la richiesta di eliminazione dell'intero account, inserisci la password e clicca su conferma. Ti ricordiamo che saranno eliminati tutti i dati relativi al tuo account.
+                    .md-form
+                        i.fa.fa-lock.prefix.dark-grey-text
+                        input#modalPasswordElimAccount.form-control(type='password', name='password', required='', style='color:#003964')
+                        label(for='modalPasswordElimAccount') Password
+                .modal-footer.justify-content-center
+                    a#btnmodalElimAccountConferma.btn.btn-primary(type="button" data-dismiss="modal") Conferma
     div#modalLogout.modal.fade(tabindex='-1' role='dialog' aria-hidden='true')
         div.modal-dialog.modal-notify(role='document')
             div.modal-content
