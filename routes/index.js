@@ -17,6 +17,8 @@ router.get('/:azienda/', indexController.redirectToLogin);
 router.get('/:azienda/login',indexController.getLogin);
 router.post('/:azienda/login', indexController.postLogin);
 router.get('/:azienda/logout', indexController.logout);
+router.get('/:azienda/elimAccount', indexController.elimAccount);
+router.post('/:azienda/checkme', indexController.checkMe);
 
 /* REGISTRAZIONE */
 router.get('/:azienda/registrazione', registrazioneController.getRegistrazione);

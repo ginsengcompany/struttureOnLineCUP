@@ -33,7 +33,6 @@ function eseguiLogin() {
         contentType : 'application/json',
         success: function (data, textStatus, jqXHR) {
             if(data.auth){
-                sessionStorage.setItem('tkn',data.token);
                 window.location.href = 'home';
             }
         },
