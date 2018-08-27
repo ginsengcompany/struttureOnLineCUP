@@ -34,7 +34,7 @@ url.luogonascitaEstero =        host + "/nazioni";
 url.annullaprenotazionesospesa = host + "/auth/annullaprenotazionesospesaWeb";
 url.inviarefertoemail =         host + "/referti/inviarefertoemail";
 url.downloadMe =                host + "/auth/downloadMe";
-url.checkme =                   localhost + "/auth/checkMe";
+url.checkme =                   host + "/auth/checkMe";
 
 // Exports the variables and above so that other modules can use them
 module.exports = url;
