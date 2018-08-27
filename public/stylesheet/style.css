@@ -179,3 +179,7 @@ main {
     background-color: transparent !important;
     color: #003964 !important
 }
+
+.menuAccount:hover span {
+    color: white !important;
+}

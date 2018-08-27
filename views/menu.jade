@@ -40,15 +40,15 @@ block body
                             i.fa.fa-user-circle-o
                             span.clearfix.d-none.d-sm-inline-block Account
                         .dropdown-menu.dropdown-menu-right.dropdown-color(aria-labelledby="accountnavbar")
-                            a#termService.dropdown-item(href="#" data-toggle='modal' data-target='#modalTermini')
+                            a#termService.dropdown-item.menuAccount(href="#" data-toggle='modal' data-target='#modalTermini')
                                 i.fa.fa-sticky-note.color-primary
-                                span.clearfix.d-none.d-sm-inline-block.color-primary Termini d'uso
-                            a#downloadMe.dropdown-item(href="#" data-toggle='modal' data-target='#modalacception')
+                                span.clearfix.d-sm-inline-block.color-primary(style="padding-left:5px") Termini d'uso
+                            a#downloadMe.dropdown-item.menuAccount(href="#" data-toggle='modal' data-target='#modalacception')
                                 i.fa.fa-address-card.color-primary
-                                span.clearfix.d-none.d-sm-inline-block.color-primary Richiedi le tue informazioni
-                            a#logout.dropdown-item(href="#" data-toggle="modal" data-target="#modalLogout")
+                                span.clearfix.d-sm-inline-block.color-primary(style="padding-left:5px") Richiedi le tue informazioni
+                            a#logout.dropdown-item.menuAccount(href="#" data-toggle="modal" data-target="#modalLogout")
                                 i.fa.fa-times.color-primary
-                                span.clearfix.d-none.d-sm-inline-block.color-primary Esci
+                                span.clearfix.d-sm-inline-block.color-primary(style="padding-left:5px") Esci
     div#modalLogout.modal.fade(tabindex='-1' role='dialog' aria-hidden='true')
         div.modal-dialog.modal-notify(role='document')
             div.modal-content
@@ -218,10 +218,10 @@ block footer
                     hr.deep-purple.accent-2.mb-4.mt-0.d-inline-block.mx-auto(style='width: 60px;')
                     p
                         i.fa.fa-globe &nbsp;
-                        a.font-italic(href='http://www.ak12srl.it') ak-12 website
+                        a#siteak12.font-italic ak-12 website
                     p
                         i.fa.fa-globe &nbsp;
-                        a.font-italic(href='https://www.gesan.it/') gesan website
+                        a#sitegesan.font-italic gesan website
         .footer-copyright.text-center.py-3(style='background-color: #243a51 !important;')
             | © 2018 Copyright:
             a(href='/')  AK-12 S.r.l
