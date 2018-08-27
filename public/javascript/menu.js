@@ -29,3 +29,11 @@ $("#btnmodalacceptionconferma").click(function () {
         }
     });
 });
+
+$("#sitegesan").click(function () {
+    window.open("https://www.gesan.it/","_blank");
+});
+
+$("#siteak12").click(function () {
+    window.open("http://www.ak12srl.it","_blank");
+});
