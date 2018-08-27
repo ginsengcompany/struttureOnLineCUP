@@ -285,12 +285,13 @@ $(document).ready(function() {
                         defaultContent: ''
                     },
                     {
-
-                        className:      'delete-control',
-                        orderable:      false,
-                        width:          30,
-                        data:           null,
-                        defaultContent: ''
+                        data: null,
+                        render: function (data, type, row) {
+                            if(row.codice_fiscale !== contatti[0].codice_fiscale)
+                                return '<img src="/img/deleteIcon.png" class="delete-control"/>';
+                            return '<img src="" style="display: none;"/>';
+                        },
+                        targets: [4],
                     }
                 ],
                 order: [[1, 'asc']]
@@ -311,7 +312,7 @@ $(document).ready(function() {
                     tr.addClass('shown');
                 }
             } );
-            $('#example tbody').on('click', 'td.delete-control', function () {
+            $('#example tbody').on('click', 'td img.delete-control', function () {
                 var tr = $(this).closest('tr');
                 var row = table.row( tr );
                 $("#labelEliminaImpegnativa").text("");
