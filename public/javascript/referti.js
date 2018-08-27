@@ -46,12 +46,23 @@ $(document).ready(function () {
                         $('#tableReferti').show();
                         tabellaReferti = $('#tableReferti').DataTable({
                             destroy: true,
-                            responsive: true,
+                            responsive: {
+                                details: {
+                                    type: 'column'
+                                }
+                            },
                             language: {
                                 url: '../localisation/it-IT.json'
                             },
                             data: data.listaReferti,
                             columns: [
+                                {
+                                    className: 'details-control',
+                                    orderable: false,
+                                    width: 30,
+                                    data: null,
+                                    defaultContent: ''
+                                },
                                 {
                                     data: "metadati.dataDocumento"
                                 },
