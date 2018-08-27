@@ -317,39 +317,7 @@ $(document).ready(function() {
                 var tr = $(this).closest('tr');
                 var row = table.row( tr );
                 $("#labelEliminaImpegnativa").text("");
-
-                if(row.data().codice_fiscale === contatti[0].codice_fiscale){
-                    $("#labelEliminaImpegnativa").append("Sei sicuro di voler eliminare il tuo account? <br> in questo modo perderai tutti i dati e i contatti collegato ad esso <br>" + '<b>'+row.data().nome + ' ' +row.data().cognome);
-                    $("#centralModalDanger").modal();
-
-                    $("#btnconfermaEliminazione").click(function (e) {
-                        window.location.href = 'login';
-                        $.ajax({
-                            type: "GET",
-                            url: window.location.href + "/eliminaAccount",
-                            success: function (data, textStatus, jqXHR) {
-                                $("#centralModalDanger").hidden;
-                                if(jqXHR.status === 200) {
-
-                                    $('#paragrafomodalPrenotazione').text(jqXHR.responseText);
-                                    $('#centralModalAlert').modal('show');
-                                    setTimeout(function () {
-                                        window.location.href = 'login';
-                                    }, 2000);
-                                }
-                            },
-                            error: function (jqXHR, textStatus, errorThrown) {
-                                $('#paragrafomodalPrenotazione').title("ERRORE");
-                                $('#paragrafomodalPrenotazione').text(jqXHR.responseText);
-                                $('#centralModalAlert').modal('show');
-                                setTimeout(function () {
-                                    window.location.href = 'rubrica';
-                                }, 2000);
-                            }
-                        });
-                    });
-                }
-                else{
+                if(row.data().codice_fiscale !== contatti[0].codice_fiscale){
                     $("#labelEliminaImpegnativa").append("Sei sicuro di voler eliminare il contatto: <br>" + '<b>'+row.data().nome + ' ' +row.data().cognome);
                     $("#centralModalDanger").modal();
                     $("#btnconfermaEliminazione").click(function (e) {
@@ -380,7 +348,6 @@ $(document).ready(function() {
                         });
                     });
                 }
-
             } );
             $('#example tbody').on('click', 'td.edit-control', function () {
                 var tr = $(this).closest('tr');
