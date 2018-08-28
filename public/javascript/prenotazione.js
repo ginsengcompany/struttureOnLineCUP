@@ -16,7 +16,8 @@ allWells = $('.setup-content-2');
 nextPrenotazione = $('#invioPrenotazione');
 nextVerificaContenuto = $("#continuaPrenotazione");
 allWells.hide();
-navListItems.click(function (e) {
+let prestazioniVerifica = {erogabili:[],non_erogabili:[]}, prestReparti, datiPrenotazione, assistito;
+navListItems.click( async function (e) {
     e.preventDefault();
     let $target = $($(this).attr('href')),
         $item = $(this);
@@ -25,75 +26,65 @@ navListItems.click(function (e) {
     allWells.hide();
     $target.show();
     if ($target[0].id === "step-2") {
-        datiPrenotazione = sessionStorage.getItem('datiPrenotazione');
-        datiPrenotazione = JSON.parse(datiPrenotazione);
-        assistito = sessionStorage.getItem('assistito');
-        assistito = JSON.parse(assistito);
-        for (let i = 0; i < datiPrenotazione.prestazioni.length; i++) {
+        $('#nome').val(assistito.nome);
+        $('#cognome').val(assistito.cognome);
+        $('#codFisc').val(assistito.codice_fiscale);
+        for (let i = 0; i < datiPrenotazione.prestazioni.length; i++)
+            await verificaPrestazioni(datiPrenotazione.prestazioni[i]);
+        let prestazioni = [];
+        let rowTable = "";
+        let caricato = 0;
+        if(prestazioniVerifica.non_erogabili.length > 0 && prestazioniVerifica.erogabili.length === 0) {
+            $("#paragrafomodalPrenotazione").text("La struttura ospedaliera non eroga le prestazioni richieste.");
+            $("#centralModalAlert").modal("show");
+            setTimeout(function () {
+                window.location.href = 'home';
+            }, 2000);
+            return;
+        }
+        else if (prestazioniVerifica.non_erogabili.length > 0){
+            let messaggio = "La struttura non eroga le seguenti prestazioni: ";
+            for(let j=0;j<prestazioniVerifica.non_erogabili.length;j++){
+                messaggio += prestazioniVerifica.non_erogabili[j].desprest;
+                if(j !== (prestazioniVerifica.non_erogabili.length - 1))
+                    messaggio += ", ";
+            }
+            $("#paragrafomodalPrenotazione").text(messaggio);
+            $("#centralModalAlert").modal("show");
+        }
+        for (let i = 0; i < prestazioniVerifica.erogabili.length; i++) {
             $.ajax({
                 type: "POST",
-                data: JSON.stringify(datiPrenotazione.prestazioni[i]),
-                url: window.location.href + "/prestazioniErogabili",
+                data: JSON.stringify(prestazioniVerifica.erogabili[i]),
+                url: window.location.href + "/prelevaReparti",
                 dataType: "json",
                 contentType: 'application/json',
-                success: function (data, textStatus, jqXHR) {
-                    let messaggio;
-                    if (data.prestazioni_non_erogabili.length > 0 && data.prestazioni_erogabili.length === 0) { //Tutte le prestazioni non sono erogabili
-                        $('#paragrafomodalPrenotazione').text("Nessuna prestazione è erogabile");
-                        $('#centralModalAlert').modal('show');
+                success: function (data2, textStatus2, jqXHR2) {
+                    prestazioni.push({
+                        prestazione: prestazioniVerifica.erogabili[i],
+                        reparti: data2
+                    });
+                    prestReparti = prestazioni;
+                    rowTable += "<tr>" + "<td>" + prestazioniVerifica.erogabili[i].desprest + "</td><td>" +
+                        "<select id='selectPrestazione" + i +
+                        "' class='mdb-select'><option value='0' selected>" + data2[0].descrizione +
+                        "</option>";
+                    for (let k = 1; k < data2.length; k++) {
+                        rowTable += "<option value='" + k +
+                            "'>" + data2[k].descrizione + "</option>";
                     }
-                    else {
-                        messaggio = "Le seguenti prestazioni non sono erogabili\n";
-                        for (let i = 0; i < data.prestazioni_non_erogabili.length; i++)
-                            messaggio += data.prestazioni_non_erogabili[i].desprest + "\n";
-                        if (data.prestazioni_non_erogabili.length > 0) {
-                            alert(messaggio);
-                        }
-                        let prestazioni = [];
-                        let rowTable = "";
-                        let caricato = 0;
-                        sessionStorage.setItem("prestazioniErogabili", JSON.stringify(data.prestazioni_erogabili));
-                        for (let i = 0; i < data.prestazioni_erogabili.length; i++) {
-                            $.ajax({
-                                type: "POST",
-                                data: JSON.stringify(data.prestazioni_erogabili[i]),
-                                url: window.location.href + "/prelevaReparti",
-                                dataType: "json",
-                                contentType: 'application/json',
-                                success: function (data2, textStatus2, jqXHR2) {
-                                    prestazioni.push({
-                                        prestazione: data.prestazioni_erogabili[i],
-                                        reparti: data2
-                                    });
-                                    sessionStorage.setItem("prestReparti", JSON.stringify(prestazioni));
-                                    rowTable += "<tr>" + "<td>" + data.prestazioni_erogabili[i].desprest + "</td><td>" +
-                                        "<select id='selectPrestazione" + i +
-                                        "' class='mdb-select'><option value='0' selected>" + data2[0].descrizione +
-                                        "</option>";
-                                    for (let k = 1; k < data2.length; k++) {
-                                        rowTable += "<option value='" + k +
-                                            "'>" + data2[k].descrizione + "</option>";
-                                    }
-                                    rowTable += "</select></td></tr>";
-                                    caricato++;
-                                    if (caricato === data.prestazioni_erogabili.length) {
-                                        $("#bodyDataTable").append(rowTable);
-                                        let table = $('#example').DataTable({
-                                            language: {
-                                                url: '../localisation/it-IT.json'
-                                            },
-                                            retrieve: true,
-                                            paging: false
-                                        });
-                                        $("select").material_select();
-                                    }
-                                },
-                                error: function (jqXHR, textStatus, errorThrown) {
-                                    $('#paragrafomodalPrenotazione').text(jqXHR.responseText);
-                                    $('#centralModalAlert').modal('show');
-                                }
-                            });
-                        }
+                    rowTable += "</select></td></tr>";
+                    caricato++;
+                    if (caricato === prestazioniVerifica.erogabili.length) {
+                        $("#bodyDataTable").append(rowTable);
+                        let table = $('#example').DataTable({
+                            language: {
+                                url: '../localisation/it-IT.json'
+                            },
+                            retrieve: true,
+                            paging: false
+                        });
+                        $("select").material_select();
                     }
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
@@ -101,88 +92,83 @@ navListItems.click(function (e) {
                     $('#centralModalAlert').modal('show');
                 }
             });
-            $('#nome').val(assistito.nome);
-            $('#cognome').val(assistito.cognome);
-            $('#codFisc').val(assistito.codice_fiscale);
         }
     }
-    else
-        if ($target[0].id === "step-3") {
-            let prest = JSON.parse(sessionStorage.getItem("prestReparti"));
-            for (let i = 0; i < prest.length; i++) {
-                let index = $("#selectPrestazione" + i + " option:selected").val();
-                prest[i].reparti[index].repartoScelto = true;
-            }
-            $('#barra').show();
-            $('#btnProssimaDisp').hide();
-            $('#btnRicercaData').hide();
-            $('#btnConfermaPreno').hide();
-            $("#btnAnnullaStep3").hide();
-            $.ajax({
-                type: "POST",
-                data: JSON.stringify(prest),
-                url: window.location.href + "/primaDisponibilita",
-                dataType: "json",
-                contentType: 'application/json',
-                success: function (data, textStatus, jqXHR) {
-                    datiDisponibilita = data;
-                    $('#barra').hide();
-                    $('#example2').show();
-                    $('#btnProssimaDisp').show();
-                    $('#btnRicercaData').show();
-                    $('#btnConfermaPreno').show();
-                    $("#btnAnnullaStep3").show();
-                    table2 = $('#example2').DataTable({
-                        responsive: true,
-                        language: {
-                            url: '../localisation/it-IT.json'
+    else if ($target[0].id === "step-3") {
+        let prest = prestReparti;
+        for (let i = 0; i < prest.length; i++) {
+            let index = $("#selectPrestazione" + i + " option:selected").val();
+            prest[i].reparti[index].repartoScelto = true;
+        }
+        $('#barra').show();
+        $('#btnProssimaDisp').hide();
+        $('#btnRicercaData').hide();
+        $('#btnConfermaPreno').hide();
+        $("#btnAnnullaStep3").hide();
+        $.ajax({
+            type: "POST",
+            data: JSON.stringify(prest),
+            url: window.location.href + "/primaDisponibilita",
+            dataType: "json",
+            contentType: 'application/json',
+            success: function (data, textStatus, jqXHR) {
+                datiDisponibilita = data;
+                $('#barra').hide();
+                $('#example2').show();
+                $('#btnProssimaDisp').show();
+                $('#btnRicercaData').show();
+                $('#btnConfermaPreno').show();
+                $("#btnAnnullaStep3").show();
+                table2 = $('#example2').DataTable({
+                    responsive: true,
+                    language: {
+                        url: '../localisation/it-IT.json'
+                    },
+                    data: data.appuntamenti,
+                    columns: [
+                        {
+                            data: "desprest",
                         },
-                        data: data.appuntamenti,
-                        columns: [
-                            {
-                                data: "desprest",
-                            },
-                            {
-                                data: "reparti[0].descrizione",
-                            },
-                            {
-                                data: "reparti[0].desunitaop",
-                            },
-                            {
-                                data: "dataAppuntamento",
-                            },
-                            {
-                                data: "oraAppuntamento",
-                            },
-                            {
-                                data: "reparti[0].nomeMedico",
-                            },
-                            {
-                                data: "reparti[0].ubicazioneReparto",
-                            },
-                        ],
-                        columnDefs: [
-                            {
-                                targets: '_all',
-                                defaultContent: 'Non Disponibile',
-                                "render": function (data) {
-                                    if (data === "")
-                                        return 'Non Disponibile';
-                                    else {
-                                        return data
-                                    }
+                        {
+                            data: "reparti[0].descrizione",
+                        },
+                        {
+                            data: "reparti[0].desunitaop",
+                        },
+                        {
+                            data: "dataAppuntamento",
+                        },
+                        {
+                            data: "oraAppuntamento",
+                        },
+                        {
+                            data: "reparti[0].nomeMedico",
+                        },
+                        {
+                            data: "reparti[0].ubicazioneReparto",
+                        },
+                    ],
+                    columnDefs: [
+                        {
+                            targets: '_all',
+                            defaultContent: 'Non Disponibile',
+                            "render": function (data) {
+                                if (data === "")
+                                    return 'Non Disponibile';
+                                else {
+                                    return data
                                 }
                             }
-                        ]
-                    });
-                },
-                error: function (jqXHR, textStatus, errorThrown) {
-                    $('#barra').hide();
-                }
-            });
-        }
+                        }
+                    ]
+                });
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                $('#barra').hide();
+            }
+        });
     }
-);
+});
 $('#btnProssimaDisp').click( async function () {
     $('#barra').show();
     $('#example2').parents('div.dataTables_wrapper').first().hide();
@@ -374,16 +360,12 @@ $('#btnConfermaPreno').click(function () {
     $('#example2').hide();
     $('#example2').parents('div.dataTables_wrapper').first().hide();
     $('#barra').show();
-
-    let datiAssistito = JSON.parse(sessionStorage.getItem("assistito"));
-    let datiImpegnativa = JSON.parse(sessionStorage.getItem("datiPrenotazione"));
-
     let datiConferma = {
-        assistito: datiAssistito,
+        assistito: assistito,
         appuntamenti: datiDisponibilita.appuntamenti,
-        dataEmissioneRicetta: datiImpegnativa.dataEmissioneRicetta,
-        codiceImpegnativa: datiImpegnativa.nre,
-        classePriorita: datiImpegnativa.classePriorita,
+        dataEmissioneRicetta: datiPrenotazione.dataEmissioneRicetta,
+        codiceImpegnativa: datiPrenotazione.nre,
+        classePriorita: datiPrenotazione.classePriorita,
         termid: datiDisponibilita.termid
     };
     $.ajax({
@@ -393,7 +375,7 @@ $('#btnConfermaPreno').click(function () {
         dataType: "json",
         contentType: 'application/json',
         success: function (data, textStatus, jqXHR) {
-            let response = JSON.parse(data);
+            let response = data;
             $('#btnProssimaDisp').hide();
             $('#btnRicercaData').hide();
             $('#btnConfermaPreno').hide();
@@ -533,8 +515,8 @@ nextPrenotazione.click(function () {
         dataType: "json",
         contentType: 'application/json',
         success: function (data, textStatus, jqXHR) {
-            sessionStorage.setItem("datiPrenotazione", JSON.stringify(data));
-            sessionStorage.setItem("assistito", JSON.stringify(sendObject.assistito));
+            datiPrenotazione = data;
+            assistito = sendObject.assistito;
             $('#barra').hide();
             nextStepSteps.removeAttr('disabled').trigger('click');
         },
@@ -715,3 +697,26 @@ $('#btn-step-4').click(function () {
     stepper.addClass('step-4');
 });
 
+function verificaPrestazioni(datiPren) {
+    return new Promise( f => {
+        $.ajax({
+            type: "POST",
+            data: JSON.stringify(datiPren),
+            url: window.location.href + "/prestazioniErogabili",
+            dataType: "json",
+            contentType: 'application/json',
+            success: function (data, textStatus, jqXHR) {
+                if(data.prestazioni_non_erogabili.length > 0)
+                    prestazioniVerifica.non_erogabili.push(data.prestazioni_non_erogabili[0]);
+                else
+                    prestazioniVerifica.erogabili.push(data.prestazioni_erogabili[0]);
+                f(true);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                $('#paragrafomodalPrenotazione').text(jqXHR.responseText);
+                $('#centralModalAlert').modal('show');
+                f(false);
+            }
+        });
+    });
+}
