@@ -469,7 +469,7 @@ $('#btnTerminaPrenotazione').click(function () {
 
 });
 
-$("#codiceImpegnativa1").on("keypress", function (e) {
+/*$("#codiceImpegnativa1").on("keypress", function (e) {
     if(e.keyCode === 13 && ($("#codiceImpegnativa1").val().length === 15) || ($("#codiceImpegnativa1").val().length + $("#codiceImpegnativa2").val().length === 15)) { //tasto ENTER
         e.preventDefault();
         $("#invioPrenotazione").trigger('click');
@@ -481,7 +481,7 @@ $("#codiceImpegnativa2").on("keypress", function (e) {
         e.preventDefault();
         $("#invioPrenotazione").trigger('click');
     }
-});
+});*/
 
 $('#centralModalNotifiche').on('show.bs.modal', function () {
     $('#inputEmailConferma').val(emailSelezionato).trigger("change");
