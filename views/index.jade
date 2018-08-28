@@ -34,6 +34,13 @@ block body
                                     button.btn.btn-color-primary.waves-effect.waves-light(type='submit') Entra
                             .text-center.mt-4
                                 a#btnRegistrati.btn.btn-color-primary.waves-effect.waves-light(href="registrazione") Registrati
+            #toast-container.toast-bottom-full-width(aria-live='polite', role='alert')
+                .toast.toast-info.btn-color-primary.text-center
+                    button.toast-close-button(type='button', role='button') ×
+                    .toast-message
+                        label Questo sito non utilizza cookie analytics di terze parti al fine di raccogliere informazioni aggregate sul numero degli utenti e su come visitano questo sito. Per info privacy consultare la pagina seguente:
+                            u
+                                a.font-italic(href='https://app.cupt.it/terminiservizio/display') termini e condizioni
         div#centralModalInfo.modal.fade(tabindex='-1' role='dialog' aria-hidden='true')
             div.modal-dialog.modal-notify(role='document')
                 div.modal-content
