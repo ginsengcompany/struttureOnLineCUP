@@ -34,13 +34,19 @@ block body
                                     button.btn.btn-color-primary.waves-effect.waves-light(type='submit') Entra
                             .text-center.mt-4
                                 a#btnRegistrati.btn.btn-color-primary.waves-effect.waves-light(href="registrazione") Registrati
-            #toast-container.toast-bottom-full-width(aria-live='polite', role='alert')
-                .toast.toast-info.btn-color-primary.text-center
-                    button.toast-close-button(type='button', role='button') ×
-                    .toast-message
-                        label Questo sito non utilizza cookie analytics di terze parti al fine di raccogliere informazioni aggregate sul numero degli utenti e su come visitano questo sito. Per info privacy consultare la pagina seguente:
-                            u
-                                a.font-italic(href='https://app.cupt.it/terminiservizio/display') termini e condizioni
+            #gdprBar.modal.bottom.modal-content-clickable.show(style='padding-right: 16px; display: block;')
+                .modal-dialog.modal-frame.modal-bottom.modal-notify.modal-notify
+                    .modal-content
+                        .modal-body.text-center
+                            .d-lg-flex
+                                p.pt-3.pr-2(style='flex:4;')
+                                    | Questo sito non utilizza cookie analytics di terze parti al fine di raccogliere informazioni aggregate sul numero degli utenti e su come visitano questo sito
+                                .d-lg-inline-flex(style='padding-top: 10px;align-items: flex-start;')
+                                    a(href='https://app.cupt.it/terminiservizio/display', target="_blank")
+                                        button#gdprBtnInformativa.btn.btn-color-primary Leggi Informativa
+                                    button#gdprBtnOk.btn.btn-color-primary(type='button')
+                                        i.fa.fa-check
+                                        | OK
         div#centralModalInfo.modal.fade(tabindex='-1' role='dialog' aria-hidden='true')
             div.modal-dialog.modal-notify(role='document')
                 div.modal-content
@@ -58,3 +64,4 @@ block body
     script(type='text/javascript', src='/javascript/bootstrap.min.js')
     script(type='text/javascript', src='/javascript/mdb.min.js')
     script(type='text/javascript', src='/javascript/index.js')
+    script(type='text/javascript', src='/javascript/js.cookie.js')

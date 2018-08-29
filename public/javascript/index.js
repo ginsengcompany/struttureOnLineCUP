@@ -2,7 +2,15 @@
 $(".logo_login").hide();
 //rende invisibile la card della login
 $('#rowcard').hide();
+$("#gdprBar").hide();
 $(document).ready(function () {
+    let gdprCookies = Cookies.get('gdpr');
+    console.log(gdprCookies);
+    if(gdprCookies === '1') {
+        $("#gdprBar").hide();
+    }
+    else
+        $("#gdprBar").show();
     //rende visibili e animati i loghi
     $('.logo-login').show();
     $('.logo-login').addClass('animated fadeInDown');
@@ -15,6 +23,11 @@ $(document).ready(function () {
     $('#loginForm').submit(function () {
         eseguiLogin();
         return false;
+    });
+
+    $('#gdprBtnOk').click( function () {
+        Cookies.set('gdpr', 1, { expires: 7 });
+        $("#gdprBar").remove();
     });
 });
 //esegue il tentativo di login dell'utente
