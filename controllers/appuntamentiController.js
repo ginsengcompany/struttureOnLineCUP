@@ -2,6 +2,12 @@ let strutture = require('../models/strutture');
 let request = require('request');
 let uri = require('../bin/url');
 
+/*
+Tutte le funzioni prima di eseguire le relative operazioni controllano se la struttura passata come parametro in query
+esiste nel DB, ciò protegge la rotta a cui la funzione è associata
+ */
+
+// La funzione renderizza la pagina per la lista degli appuntamenti
 exports.getAppuntamenti = function (req, res, next) {
     if (strutture.db._readyState !== 1) return handleError({status: 500, message: "Il servizio è momentaneamente non disponibile"},res);
     strutture.findOne({denominazioneUrl : req.params.azienda}, function (err, str) {
@@ -10,7 +16,9 @@ exports.getAppuntamenti = function (req, res, next) {
         res.render('appuntamenti',{datiAzienda:str,parametroAzienda:req.params.azienda, pagetitle: "Lista appuntamenti"});
     });
 };
-
+/*
+La funzione effettua una REST al servizio ecupt per ricevere i contatti del care giver
+ */
 exports.getContatti = function (req,res,next) {
     if (strutture.db._readyState !== 1) return handleError({status: 500, message: "Il servizio è momentaneamente non disponibile"},res);
     strutture.findOne({denominazioneUrl : req.params.azienda}, function (err, str) {
@@ -32,6 +40,10 @@ exports.getContatti = function (req,res,next) {
     });
 };
 
+/*
+La funzione effettua una REST verso il servizio ecupt per recuperare e visualizzare all'utente la lista
+degli appuntamenti del contatto scelto
+ */
 exports.getListaAppuntamentiAssistito = function (req, res) {
     if (strutture.db._readyState !== 1) return handleError({status: 500, message: "Il servizio è momentaneamente non disponibile"},res);
     strutture.findOne({denominazioneUrl : req.params.azienda}, function (err, str) {
@@ -56,6 +68,12 @@ exports.getListaAppuntamentiAssistito = function (req, res) {
     });
 };
 
+/*
+La funzione effettua una REST verso il servizio ecupt per annullare gli appuntamenti relativi all'impegnativa selezionata.
+L'appuntamento o gli appuntamenti possono essere annullati finchè questa non vengono accettati.
+Una volta annullato uno o più appuntamenti relativi ad un'impegnativa, se essa non è scaduta può essere di nuovo presa in carico
+in tutte le strutture
+ */
 exports.annullaImpegnativa = function (req, res) {
     if (strutture.db._readyState !== 1) return handleError({status: 500, message: "Il servizio è momentaneamente non disponibile"},res);
     strutture.findOne({denominazioneUrl : req.params.azienda}, function (err, str) {
@@ -81,6 +99,7 @@ exports.annullaImpegnativa = function (req, res) {
     });
 };
 
+//La funzione viene utilizzata dalle funzioni precedenti per gli stati d'errore della rotta
 function handleError(stato,res) {
     res.status(stato.status).render('error',{
         error:{
