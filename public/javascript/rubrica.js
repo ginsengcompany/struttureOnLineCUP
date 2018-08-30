@@ -1,7 +1,5 @@
-/* Formatting function for row details - modify as you need */
+//Funzione che formatta la riga da inserire nella tabella dei contatti
 function format ( d ) {
-    // `d` is the original data object for the row
-
     return '<table   cellpadding="15" cellspacing="10" border="0" align="center"  style="padding-left:50px; width:100%;" >'+
         '<tr>'+
         '<th style="font-weight: bold">Codice Fiscale:</th>'+
@@ -28,7 +26,7 @@ function format ( d ) {
         '</table>';
 }
 
-//funzione compila tab modifica contatto e invio dati
+//funzione che gestisce la modfica del contatto selezionato
 function Modifica ( d ) {
     //dati non modificabili
     let codFiscale = $('#codiceFiscale');
@@ -37,7 +35,6 @@ function Modifica ( d ) {
     let dataNascita = $('#DataNascita');
     let luogoNascita = $('#LuogoNascita');
     let sesso = $('#Sesso');
-
     codFiscale.text(d.codice_fiscale);
     nome.text(d.nome);
     cognome.text(d.cognome);
@@ -49,6 +46,7 @@ function Modifica ( d ) {
         sesso.text("Uomo");
     //dati modificabili
     let selectStatoCivile = $("#statocivile");
+    //REST che recupera la lista degli stati civili da inserire nella select
     $.ajax({
         type: "GET",
         url: "http://ecuptservice.ak12srl.it/statocivile",
@@ -70,6 +68,7 @@ function Modifica ( d ) {
     let selectProvinceResidenza = $("#listaprovinceresidenza");
     $('#listaprovinceresidenza').append('<option value="'+d.provincia+'" selected>' + d.provincia + '</option>');
     $("#listaprovinceresidenza").select({ dropdownParent: "#modal-container" });
+    //REST per recuperare la lista delle province
     $.ajax({
         type: "GET",
         url: "http://ecuptservice.ak12srl.it/comuni/listaprovince",
@@ -86,15 +85,14 @@ function Modifica ( d ) {
             console.log(textStatus);
         }
     });
-
     $('#listacomuneresidenza').material_select('destroy');
     $('#listacomuneresidenza').find('option').remove();
     $('#listacomuneresidenza').append('<option value="'+d.istatComuneResidenza+'" selected>' + d.comune_residenza + '</option>');
     $('#listacomuneresidenza').material_select();
-
     $('#listaprovinceresidenza').on('change', function () {
         let selectComuneResidenza = $("#listacomuneresidenza");
         let send = {codIstat: this.value};
+        //REST lista comuni
         $.ajax({
             type: "POST",
             url: "http://ecuptservice.ak12srl.it/comuni/listacomuni",
@@ -115,23 +113,20 @@ function Modifica ( d ) {
             }
         });
     });
-
     let btnConferma = $('#ConfermaModifica');// button conferma modifica
     $('#ConfermaModifica').prop("disabled",true);
-    document.getElementById("formIndirizzo").value= d.indirizzores;
+    document.getElementById("formIndirizzo").value = d.indirizzores;
     $('#formIndirizzo').on('input',function () {
         if( $('#formIndirizzo').value != d.indirizzores){
             $('#ConfermaModifica').prop("disabled",false);
         }
     });
-
     document.getElementById("formTelefono").value= d.telefono;
     $('#formTelefono').on('input',function () {
         if($('#formTelefono').value != d.telefono){
             $('#ConfermaModifica').prop("disabled",false);
         }
     });
-
     document.getElementById("formEmail").value= d.email;
     $('#formEmail').on('input',function () {
         if($('#formEmail').value != d.email){
@@ -139,14 +134,12 @@ function Modifica ( d ) {
         }
     });
     $('#listacomuneresidenza').on('change', function () {
-
         if($('#listacomuneresidenza').val() != d.istatComuneResidenza){
             $('#ConfermaModifica').prop("disabled",false);
         }
     });
-
+    //Gestisce il click sul pulsante per confermare le modfiche apportate al contatto
     btnConferma.click(function () {
-
         let isValid = true;
         if(!$('#formTelefono').val() || !document.getElementById("formTelefono").validity.valid || document.getElementById("formTelefono").value.trim()=== '') {
             isValid = false;
@@ -178,9 +171,7 @@ function Modifica ( d ) {
             $("#indirizzoHelp").fadeIn();
         }else
             $("#indirizzoHelp").fadeOut();
-
         if (isValid) {
-
             let codicestatocivile = $('#statocivile').val().toUpperCase();
             let statocivile = $("#statocivile").find("option[value='" + codicestatocivile + "']").text().toUpperCase();
             //dati personali
@@ -201,7 +192,6 @@ function Modifica ( d ) {
                   comuneresidenza = $("#listacomuneresidenza").find("option[value='" + codicecomuneresidenza + "']").text().toUpperCase();
             }
             let indirizzo = $('#formIndirizzo').val().toUpperCase();
-
             let assistito = {
                 email: email,
                 nome: d.nome,
@@ -219,7 +209,7 @@ function Modifica ( d ) {
                 istatComuneResidenza: d.codicecomuneresidenza,
                 statocivile: statocivile
             };
-            console.log(assistito);
+            //REST invia i dati del contatto modificati
             $.ajax({
                 type: "POST",
                 url: window.location.href +  "/modificaContatto",
@@ -245,15 +235,12 @@ function Modifica ( d ) {
             });
         }
     });
-
 }
-/* Formatting function for row details - modify as you need */
-
 
 $(document).ready(function() {
-    $('#test').hide();
-    $('.mdb-select').material_select();
-
+    $('#test').hide(); //nasconde la form di modifica del contatto
+    $('.mdb-select').material_select(); // Rende le select material
+    //Chiamata REST per la ricezione dei contatti
     $.ajax({
         type: "GET",
         url: window.location.href + "/contatti",
@@ -261,30 +248,28 @@ $(document).ready(function() {
         contentType: 'plain/text',
         success: function (data, textStatus, jqXHR) {
             let contatti = data;
-            var table = $('#example').DataTable( {
-
-                language: {
+            let table = $('#example').DataTable( {
+                language: { //carica la lingua della tabella
                     url: '../localisation/it-IT.json'
                 },
-                data: contatti,
-                columns : [
-                    {
+                data: contatti, //contenuto della tabella (contatti dell'utente)
+                columns : [ //definisce le colonne
+                    { //prima colonna per aprire la riga e visualizzare i dati del contatto selezionato
                         className:      'details-control',
                         orderable:      false,
                         data:           null,
                         defaultContent: ''
                     },
-                    { data : "nome" },
-                    { data : "cognome" },
-                    {
-
+                    { data : "nome" }, //nome del contatto
+                    { data : "cognome" }, //cognome del contatto
+                    { // colonna con il button edit del contatto
                         className:      'edit-control',
                         orderable:      false,
                         width:          30,
                         data:           null,
                         defaultContent: ''
                     },
-                    {
+                    { //elimina contatto
                         data: null,
                         render: function (data, type, row) {
                             if(row.codice_fiscale !== contatti[0].codice_fiscale)
@@ -294,32 +279,33 @@ $(document).ready(function() {
                         targets: [4],
                     }
                 ],
-                order: [[1, 'asc']]
-            } );
-            // Add event listener for opening and closing details
+                order: [[1, 'asc']] //ordinamento delle righe in tabella
+            });
+            // Evento di apertura e chiusura della visualizzazione in dettaglio dei dati del contatto selezionato
             $('#example tbody').on('click', 'td.details-control', function () {
-                var tr = $(this).closest('tr');
-                var row = table.row( tr );
+                let tr = $(this).closest('tr');
+                let row = table.row( tr );
+                //Se questa riga è aperta allora viene chiusa
                 if ( row.child.isShown() ) {
-                    // This row is already open - close it
                     row.child.hide();
                     tr.removeClass('shown');
                 }
-                else {
-                    // Open this row
+                else { //altrimenti apri
                     row.child( format(row.data()) ).show();
                     console.log(row.data());
                     tr.addClass('shown');
                 }
             } );
+            // Evento click sul tasto per eliminare il contatto
             $('#example tbody').on('click', 'td img.delete-control', function () {
-                var tr = $(this).closest('tr');
-                var row = table.row( tr );
+                let tr = $(this).closest('tr');
+                let row = table.row( tr );
                 $("#labelEliminaImpegnativa").text("");
-                if(row.data().codice_fiscale !== contatti[0].codice_fiscale){
+                if(row.data().codice_fiscale !== contatti[0].codice_fiscale){ //Solo il care giver non può essere eliminato con questa operazione
                     $("#labelEliminaImpegnativa").append("Sei sicuro di voler eliminare il contatto: <br>" + '<b>'+row.data().nome + ' ' +row.data().cognome);
                     $("#centralModalDanger").modal();
                     $("#btnconfermaEliminazione").click(function (e) {
+                        //REST elimina contatto
                         $.ajax({
                             type: "POST",
                             url: window.location.href + "/eliminaContatto",
@@ -348,22 +334,21 @@ $(document).ready(function() {
                     });
                 }
             } );
+            // Visualizza la form di modifica del contatto
             $('#example tbody').on('click', 'td.edit-control', function () {
-                var tr = $(this).closest('tr');
-                var row = table.row( tr );
+                let tr = $(this).closest('tr');
+                let row = table.row( tr );
                 let d = row.data();
                 Modifica(d);
                 $('#tableprincipale').hide();
                 $('#test').show();
-
                 $('#tableModifica').DataTable({
-
                     searching: false,
                     paging: false,
                     info:false
                 });
 
-            } );
+            });
         },
         error: function (jqXHR, textStatus, errorThrown) {
             console.log(textStatus);

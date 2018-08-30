@@ -16,6 +16,7 @@ allWells = $('.setup-content-2');
 nextPrenotazione = $('#invioPrenotazione');
 nextVerificaContenuto = $("#continuaPrenotazione");
 allWells.hide();
+//variabile che contiene le prestazioni erogabili e non contenute nell'impegnativa
 let prestazioniVerifica = {erogabili:[],non_erogabili:[]}, prestReparti, datiPrenotazione, assistito;
 navListItems.click( async function (e) {
     e.preventDefault();
@@ -25,16 +26,16 @@ navListItems.click( async function (e) {
     $item.addClass('btn-amber');
     allWells.hide();
     $target.show();
-    if ($target[0].id === "step-2") {
+    if ($target[0].id === "step-2") { // Gestisce lo step 2 VERIFICA IMPEGNATIVA
         $('#nome').val(assistito.nome);
         $('#cognome').val(assistito.cognome);
         $('#codFisc').val(assistito.codice_fiscale);
-        for (let i = 0; i < datiPrenotazione.prestazioni.length; i++)
-            await verificaPrestazioni(datiPrenotazione.prestazioni[i]);
+        for (let i = 0; i < datiPrenotazione.prestazioni.length; i++) //Cicla sulle prestazioni dell'impegnativa
+            await verificaPrestazioni(datiPrenotazione.prestazioni[i]); //controlla se ogni singola prestazione è erogabile dalla struttura
         let prestazioni = [];
         let rowTable = "";
         let caricato = 0;
-        if(prestazioniVerifica.non_erogabili.length > 0 && prestazioniVerifica.erogabili.length === 0) {
+        if(prestazioniVerifica.non_erogabili.length > 0 && prestazioniVerifica.erogabili.length === 0) { //Nessuna prestazione erogabile
             $("#paragrafomodalPrenotazione").text("La struttura ospedaliera non eroga le prestazioni richieste.");
             $("#centralModalAlert").modal("show");
             setTimeout(function () {
@@ -42,7 +43,7 @@ navListItems.click( async function (e) {
             }, 2000);
             return;
         }
-        else if (prestazioniVerifica.non_erogabili.length > 0){
+        else if (prestazioniVerifica.non_erogabili.length > 0){ //Non tutte le prestazioni sono erogabili
             let messaggio = "La struttura non eroga le seguenti prestazioni: ";
             for(let j=0;j<prestazioniVerifica.non_erogabili.length;j++){
                 messaggio += prestazioniVerifica.non_erogabili[j].desprest;
@@ -53,6 +54,7 @@ navListItems.click( async function (e) {
             $("#centralModalAlert").modal("show");
         }
         for (let i = 0; i < prestazioniVerifica.erogabili.length; i++) {
+            //REST riceve i reparti relativi a ogni singola prestazione
             $.ajax({
                 type: "POST",
                 data: JSON.stringify(prestazioniVerifica.erogabili[i]),
@@ -65,6 +67,7 @@ navListItems.click( async function (e) {
                         reparti: data2
                     });
                     prestReparti = prestazioni;
+                    //aggiunge i reparti nella select contenuta a sua volta nella riga relativa alla prestazione
                     rowTable += "<tr>" + "<td>" + prestazioniVerifica.erogabili[i].desprest + "</td><td>" +
                         "<select id='selectPrestazione" + i +
                         "' class='mdb-select'><option value='0' selected>" + data2[0].descrizione +
@@ -94,7 +97,7 @@ navListItems.click( async function (e) {
             });
         }
     }
-    else if ($target[0].id === "step-3") {
+    else if ($target[0].id === "step-3") { //Gestisce lo step 3 PROPOSTA RICHIESTA
         let prest = prestReparti;
         for (let i = 0; i < prest.length; i++) {
             let index = $("#selectPrestazione" + i + " option:selected").val();
@@ -105,6 +108,7 @@ navListItems.click( async function (e) {
         $('#btnRicercaData').hide();
         $('#btnConfermaPreno').hide();
         $("#btnAnnullaStep3").hide();
+        //REST riceve la prima disponibilità per tutte le prestazioni erogabili
         $.ajax({
             type: "POST",
             data: JSON.stringify(prest),
@@ -169,6 +173,8 @@ navListItems.click( async function (e) {
         });
     }
 });
+//gestisce il click sul pulsante prossima disponibilità oraria
+//la funzione attende la risposta del servizio in modo da poter controllare se le disponibilità sono cambiate, il numero max di tentivi è 5
 $('#btnProssimaDisp').click( async function () {
     $('#barra').show();
     $('#example2').parents('div.dataTables_wrapper').first().hide();
@@ -192,9 +198,10 @@ $('#btnProssimaDisp').click( async function () {
         $("#btnAnnullaStep3").show();
     }
 });
-
+//Promise che effettua la REST per ottenere la prossima disponibilità oraria
 function retryDispOrario() {
     return new Promise( f => {
+        //REST per la prossima disponibilità oraria
         $.ajax({
             type: "POST",
             data: JSON.stringify(datiDisponibilita),
@@ -265,7 +272,7 @@ function retryDispOrario() {
         });
     });
 }
-
+//gestisce il click sul pulsante prossima disponibilità con data di inizio ricerca, visualizza il datepicker per la scelta della data
 $('#btnRicercaData').click(function (event) {
     //let picker = input.pickadate('picker');
     event.stopPropagation();
@@ -273,7 +280,7 @@ $('#btnRicercaData').click(function (event) {
     //picker.open();
     $('#data').trigger('click');
 });
-
+//Gestisce l'evento on change del datepicker per la data di inizio ricerca
 $("#data").on('change', function () {
     let dataValue = $(this).val();
     if (dataValue !== '') {
@@ -284,6 +291,7 @@ $("#data").on('change', function () {
         $('#example2').hide();
         $('#example2').parents('div.dataTables_wrapper').first().hide();
         $('#barra').show();
+        //REST prossima disponibilità con data d'inizio ricerca
         $.ajax({
             type: "POST",
             data: JSON.stringify(datiDisponibilita),
@@ -351,7 +359,7 @@ $("#data").on('change', function () {
         });
     }
 });
-
+//Gestisce il click sul button conferma prenotazione
 $('#btnConfermaPreno').click(function () {
     $('#btnProssimaDisp').hide();
     $('#btnRicercaData').hide();
@@ -360,6 +368,7 @@ $('#btnConfermaPreno').click(function () {
     $('#example2').hide();
     $('#example2').parents('div.dataTables_wrapper').first().hide();
     $('#barra').show();
+    //Dati per la conferma prenotazione
     let datiConferma = {
         assistito: assistito,
         appuntamenti: datiDisponibilita.appuntamenti,
@@ -368,6 +377,7 @@ $('#btnConfermaPreno').click(function () {
         classePriorita: datiPrenotazione.classePriorita,
         termid: datiDisponibilita.termid
     };
+    //REST conferma prenotazione
     $.ajax({
         type: "POST",
         data: JSON.stringify(datiConferma),
@@ -391,13 +401,13 @@ $('#btnConfermaPreno').click(function () {
             }, 2000);
         },
         error: function (jqXHR, textStatus, errorThrown) {
-            if (jqXHR.status === 502)
+            if (jqXHR.status === 502) //502 equivale all'errore proxy error in tal caso chiama la REST datiimpegnativa al max 3 volte per sapere se la prenotazione è avvenuta o meno
             {
                 let i=0, stato;
                 do {
                     stato = retryConfermaPrenotazione();
                     i++;
-                } while(i<3 && stato !== 409);
+                } while(i<3 && stato !== 409); //409 impegnativa prenotata
                 if (stato === 409){ //prenotazione completata
                     $('#btnProssimaDisp').hide();
                     $('#btnRicercaData').hide();
@@ -413,7 +423,7 @@ $('#btnConfermaPreno').click(function () {
                         window.location.href = 'home';
                     }, 2000);
                 }
-                else {
+                else { //La prenotazione non è riuscita
                     $('#btnProssimaDisp').hide();
                     $('#btnRicercaData').hide();
                     $('#btnConfermaPreno').hide();
@@ -429,7 +439,7 @@ $('#btnConfermaPreno').click(function () {
                     }, 2000);
                 }
             }
-            else {
+            else { //Errore durante la prenotazione
                 $('#btnProssimaDisp').hide();
                 $('#btnRicercaData').hide();
                 $('#btnConfermaPreno').hide();
@@ -448,6 +458,7 @@ $('#btnConfermaPreno').click(function () {
     });
 });
 
+//Funzione che chiama la REST datiimpegnativa per capire se l'impegnativa risulta già prenotata
 function retryConfermaPrenotazione() {
         $.ajax({
             type: "POST",
@@ -487,6 +498,7 @@ $('#centralModalNotifiche').on('show.bs.modal', function () {
     $('#inputEmailConferma').val(emailSelezionato).trigger("change");
 });
 
+//Gestisce il passaggio al terzo step
 nextVerificaContenuto.click(function () {
     let curStep = $(this).closest(".setup-content-2"),
         curStepBtn = curStep.attr("id"),
@@ -494,6 +506,7 @@ nextVerificaContenuto.click(function () {
 
     nextStepSteps.removeAttr('disabled').trigger('click');
 });
+//Gestisce il passaggio al secondo step
 nextPrenotazione.click(function () {
     let curStep = $(this).closest(".setup-content-2"),
         curStepBtn = curStep.attr("id"),
@@ -508,6 +521,7 @@ nextPrenotazione.click(function () {
     };
     $('#barra').show();
     $("#invioPrenotazione").prop("disabled", true);
+    //REST per prendere in carico l'impegnativa
     $.ajax({
         type: "POST",
         url: window.location.href + "/datiImpegnativa",
@@ -528,6 +542,7 @@ nextPrenotazione.click(function () {
         }
     });
 });
+//Quando si entra in pagina visualizza il primo step
 $('div.setup-panel-2 div a.btn-amber').trigger('click');
 
 $(document).ready(function () {
@@ -538,6 +553,7 @@ $(document).ready(function () {
     $('#codiceImpegnativa2').val('');
     $('.mdb-select').material_select();
     let selectNome = $("#selectNominativo");
+    //REST lista contatti
     $.ajax({
         type: "GET",
         url: window.location.href + "/contatti",
@@ -569,6 +585,7 @@ $(document).ready(function () {
             $('#centralModalAlert').modal('show');
         }
     });
+    //Gestisce l'input sulla prima input relativa al codice impegnativa
     $('#codiceImpegnativa1').on('input', function () {
         $('input[type=text]').val(function () {
             return this.value.toUpperCase();
@@ -590,6 +607,7 @@ $(document).ready(function () {
             $("#rowBottoneInvio").hide();
         }
     });
+    ////Gestisce l'input sulla seconda input relativa al codice impegnativa
     $('#codiceImpegnativa2').on('input', function () {
         $('#codiceImpegnativa2').attr({
             "max": 15
@@ -602,6 +620,7 @@ $(document).ready(function () {
         else
             $("#rowBottoneInvio").show();
     });
+    //Istanzia il datepicker
     $('#data').pickadate({
         monthsFull: ['Gennaio', 'Febbraio', 'Marzo', 'Aprile', 'Maggio', 'Giugno', 'Luglio', 'Agosto', 'Settembre', 'Ottobre', 'Novembre', 'Dicembre'],
         monthsShort: ['Gen', 'Feb', 'Mar', 'Apr', 'Mag', 'Giu', 'Lug', 'Ago', 'Set', 'Ott', 'Nov', 'Dic'],
@@ -624,7 +643,7 @@ $(document).ready(function () {
         min: new Date()
     });
 });
-
+//Gestisce il click sul button di annullamento della prenotazione in corso
 $(".annulla-presaincarico").click(function () {
     $('.enableButtons').prop('disabled', true);
     $("#barra").show();
@@ -696,7 +715,7 @@ $('#btn-step-4').click(function () {
         stepper.removeClass('step-3');
     stepper.addClass('step-4');
 });
-
+//Verifica le prestazioni erogabili
 function verificaPrestazioni(datiPren) {
     return new Promise( f => {
         $.ajax({
