@@ -2,6 +2,9 @@ let strutture = require('../models/strutture');
 let request = require('request');
 let uri = require('../bin/url');
 
+/*
+La funzione renderizza lapagina rubrica contenente i contatti del care giver
+ */
 exports.getRubrica = function (req, res, next) {
     if (strutture.db._readyState !== 1) return handleError({status: 500, message: "Il servizio è momentaneamente non disponibile"},res);
     strutture.findOne({denominazioneUrl : req.params.azienda}, function (err, str) {
@@ -11,6 +14,9 @@ exports.getRubrica = function (req, res, next) {
     });
 };
 
+/*
+La funzione effettua una REST per ottenere la lista dei contatti dell'utente
+ */
 exports.getContatti = function (req,res,next) {
     if (strutture.db._readyState !== 1) return handleError({status: 500, message: "Il servizio è momentaneamente non disponibile"},res);
     strutture.findOne({denominazioneUrl : req.params.azienda}, function (err, str) {
@@ -31,6 +37,10 @@ exports.getContatti = function (req,res,next) {
         });
     });
 };
+
+/*
+La funzione effettua una REST verso il servizio dell'ecupt rivolto all'oblio dei dati del care giver
+ */
 exports.deleteAccount = function (req,res,next) {
     if (strutture.db._readyState !== 1) return handleError({status: 500, message: "Il servizio è momentaneamente non disponibile"},res);
     strutture.findOne({denominazioneUrl : req.params.azienda}, function (err, str) {
@@ -52,6 +62,9 @@ exports.deleteAccount = function (req,res,next) {
     });
 };
 
+/*
+La funzione effettua una REST verso il servizio dell'ecupt rivolto alla cancellazione del contatto selezionato
+ */
 exports.deleteContact = function (req, res) {
     if (strutture.db._readyState !== 1) return handleError({status: 500, message: "Il servizio è momentaneamente non disponibile"},res);
     strutture.findOne({denominazioneUrl : req.params.azienda}, function (err, str) {
@@ -74,6 +87,9 @@ exports.deleteContact = function (req, res) {
     });
 };
 
+/*
+La funzione effettua una REST verso il servizio dell'ecupt rivolto al salvataggio delle modifiche effettuate a un contatto
+ */
 exports.reviewContact = function (req, res) {
     if (strutture.db._readyState !== 1) return handleError({status: 500, message: "Il servizio è momentaneamente non disponibile"},res);
     strutture.findOne({denominazioneUrl : req.params.azienda}, function (err, str) {

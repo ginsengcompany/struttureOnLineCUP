@@ -2,6 +2,10 @@ let strutture = require('../models/strutture');
 let request = require('request');
 let uri = require('../bin/url');
 
+/*
+La funzione effettua una REST verso il servizio dell'ecupt rivolto a restituire la prima disponibilità a partire dal
+giorno corrente per ogni singola prestazione erogabile
+ */
 exports.primaDisponibilita = function (req, res) {
     if (strutture.db._readyState !== 1) return handleError({status: 500, message: "Il servizio è momentaneamente non disponibile"},res);
     strutture.findOne({denominazioneUrl : req.params.azienda}, function (err, str) {
@@ -32,6 +36,10 @@ exports.primaDisponibilita = function (req, res) {
     });
 };
 
+/*
+La funzione effettua una REST verso il servizio dell'ecupt rivolto a fornire in blocco le prime disponibilità partendo
+dalla data più piccola presente nel body
+ */
 exports.invioProssimaDisponibilita = function (req, res) {
     if (strutture.db._readyState !== 1) return handleError({status: 500, message: "Il servizio è momentaneamente non disponibile"},res);
     strutture.findOne({denominazioneUrl : req.params.azienda}, function (err, str) {
@@ -66,6 +74,10 @@ exports.invioProssimaDisponibilita = function (req, res) {
     });
 };
 
+/*
+La funzione effettua una REST verso il servizio dell'ecupt rivolto a fornire in blocco le prime disponibilità partendo
+dalla data di ricerca presente nel body
+ */
 exports.invioRicercaData = function (req, res) {
     if (strutture.db._readyState !== 1) return handleError({status: 500, message: "Il servizio è momentaneamente non disponibile"},res);
     strutture.findOne({denominazioneUrl : req.params.azienda}, function (err, str) {
@@ -90,6 +102,10 @@ exports.invioRicercaData = function (req, res) {
     });
 };
 
+/*
+La funzione effettua una REST verso il servizio dell'ecupt rivolto a confermare l'appuntamento o gli appuntamenti
+presenti nell'impegnativa
+ */
 exports.confermaPrenotazione = function (req, res) {
     if (strutture.db._readyState !== 1) return handleError({status: 500, message: "Il servizio è momentaneamente non disponibile"},res);
     strutture.findOne({denominazioneUrl : req.params.azienda}, function (err, str) {

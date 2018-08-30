@@ -2,6 +2,15 @@ let request = require('request');
 let strutture = require('../models/strutture');
 let uri = require('../bin/url');
 
+/*
+Alcuni le funzioni prima di eseguire le relative operazioni controllano se la struttura passata come parametro in query
+esiste nel DB, ciò protegge la rotta a cui la funzione è associata
+ */
+
+/*
+La funzione viene invocata quando l'utente vuole effettuare l'accesso al portale.
+La funzione effettua una REST al servizio di login dell'ecupt
+ */
 exports.postLogin = function (req, res, next) {
     let options = {
         method: 'POST',
@@ -22,6 +31,9 @@ exports.postLogin = function (req, res, next) {
     });
 };
 
+/*
+La funzione renderizza la pagina di login del portale
+ */
 exports.getLogin = function (req, res, next) {
     if (strutture.db._readyState !== 1) return handleError({status: 500, message: "Il servizio è momentaneamente non disponibile"},res);
     strutture.findOne({denominazioneUrl : req.params.azienda}, function (err, str) {
@@ -33,15 +45,26 @@ exports.getLogin = function (req, res, next) {
     });
 };
 
+/*
+La funzione esegue il redirect alla rotta che renderizza la pagina di login
+ */
 exports.redirectToLogin = function (req, res, next) {
    res.redirect("/" + req.params.azienda  + "/login");
 };
 
+/*
+La funzione effettua il logout dell'utente e rimuove la proprietà auth
+che identifica l'autenticazione dell'utente dalla sessione
+ */
 exports.logout = function (req, res, next) {
     delete req.session.auth;
     res.status(200).send("logout");
 };
 
+/*
+La funzione effettua una REST verso il servizio ecupt che invia una mail con allegato il file contenente i dati del care giver e dei suoi contatti
+salvati sul DB, la mail viene inviata all'indirizzo di posta elettronica del care giver
+ */
 exports.downloadMe = function (req, res, next) {
     if (strutture.db._readyState !== 1) return handleError({status: 500, message: "Il servizio è momentaneamente non disponibile"},res);
     strutture.findOne({denominazioneUrl : req.params.azienda}, function (err, str) {
@@ -62,6 +85,10 @@ exports.downloadMe = function (req, res, next) {
     });
 };
 
+/*
+La funzione effettua la REST al servizio dell'ecupt rivolto all'eliminazione dell'intero account del care giver.
+Quest'azione rimuove ogni dato relativo all'account considerato.
+ */
 exports.elimAccount = function (req, res) {
     if (strutture.db._readyState !== 1) return handleError({status: 500, message: "Il servizio è momentaneamente non disponibile"},res);
     strutture.findOne({denominazioneUrl : req.params.azienda}, function (err, str) {
@@ -84,6 +111,10 @@ exports.elimAccount = function (req, res) {
     });
 };
 
+/*
+La funzione effettua una REST verso il servizio dell'ecupt rivolto a confermare la password inviata dal care giver, tutto
+ciò per autenticare il care giver prima di eseguire un operazione importante sui suoi dati
+ */
 exports.checkMe = function (req, res) {
     if (strutture.db._readyState !== 1) return handleError({status: 500, message: "Il servizio è momentaneamente non disponibile"},res);
     strutture.findOne({denominazioneUrl : req.params.azienda}, function (err, str) {
@@ -108,6 +139,7 @@ exports.checkMe = function (req, res) {
     });
 };
 
+//La funzione viene utilizzata dalle funzioni precedenti per gli stati d'errore della rotta
 function handleError(stato,res) {
     res.status(stato.status).render('error',{
         error:{
