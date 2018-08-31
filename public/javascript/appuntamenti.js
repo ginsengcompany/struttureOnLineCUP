@@ -155,7 +155,6 @@ $(document).ready(function () {
                             });
                             $('#test').show();
                             $('#barra').hide();
-                            console.log(listaAppuntamenti[0].appuntamenti);
                             /*for(let i = 0; i < listaAppuntamenti.length; i++) {
                                 for (let j = 0; j < listaAppuntamenti[i].appuntamenti.length; j++)
                                     if (listaAppuntamenti[i].appuntamenti[j].dataaccettazione === "" ||listaAppuntamenti[i].appuntamenti[j].dataaccettazione === null)
