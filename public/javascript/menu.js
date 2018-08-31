@@ -1,8 +1,10 @@
+//Inizializza la side navbar
 $(document).ready(function () {
     $(".button-collapse").sideNav();
 });
-
+//Gestisce il click sul button di conferma di logout nel modal relativo a questa operazione
 $("#btnmodalLogout").click(function () {
+    //REST login
     $.ajax({
         type: "GET",
         url: "logout",
@@ -13,7 +15,7 @@ $("#btnmodalLogout").click(function () {
         }
     });
 });
-
+//Gestisce il click del button nel relativo modal per ricevere i dati dell'account via email
 $("#btnmodalacceptionconferma").click(function () {
     $.ajax({
         type: 'GET',
@@ -29,21 +31,20 @@ $("#btnmodalacceptionconferma").click(function () {
         }
     });
 });
-
+//Gestisce il click sulla label del sito della gesan
 $("#sitegesan").click(function () {
     window.open("https://www.gesan.it/","_blank");
 });
-
+//Gestisce il click sulla label del sito di ak12srl
 $("#siteak12").click(function () {
     window.open("http://www.ak12srl.it","_blank");
 });
-
+//Gestisce il click sul button elimina account nel relativo modal
 $("#btnmodalElimAccountConferma").click(function () {
     let passwordConferma = $("#modalPasswordElimAccount").val();
-    console.log(passwordConferma);
     if (!passwordConferma || !passwordConferma.trim())
         return;
-    console.log("oltre return");
+    //REST per verificare la password inserita nel modal
     $.ajax({
         type: 'POST',
         url: 'checkMe',
@@ -75,5 +76,4 @@ $("#btnmodalElimAccountConferma").click(function () {
             $("#modalPasswordElimAccount").val("");
         }
     });
-
 });

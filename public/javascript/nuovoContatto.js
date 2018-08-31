@@ -1,4 +1,4 @@
-//Set Stepper
+//Inizializza lo stepper
 $(function () {
     $('[data-toggle="tooltip"]').tooltip()
 });
@@ -14,9 +14,8 @@ allWells = $('.setup-content-2');
 nextBtn = $('#btnForm1');
 btnRegistrati = $("#btnregistrazione");
 allPrevBtn = $('.prevBtn-2');
-
 allWells.hide();
-
+//Gestisce l'avanzamento dello stepper
 navListItems.click(function (e) {
     e.preventDefault();
     let $target = $($(this).attr('href')),
@@ -27,14 +26,14 @@ navListItems.click(function (e) {
     $target.show();
     //$target.find('input:eq(0)').focus();
 });
-
+//Gestisce il retrocedere dello stepper
 allPrevBtn.click(function(){
     let curStep = $(this).closest(".setup-content-2"),
         curStepBtn = curStep.attr("id"),
         prevStepSteps = $('div.setup-panel-2 div a[href="#' + curStepBtn + '"]').parent().prev().children("a");
     prevStepSteps.removeAttr('disabled').trigger('click');
 });
-
+//Controlla l'inserimento dei dati nella form e passa allo stepper successivo
 nextBtn.click(function(){
     let curStep = $(this).closest(".setup-content-2"),
         curStepBtn = curStep.attr("id"),
@@ -108,13 +107,14 @@ nextBtn.click(function(){
         nextStepSteps.removeAttr('disabled').trigger('click');
     }
 });
-
+//Trigger del click sul button per visualizzare il primo step
 $('div.setup-panel-2 div a.btn-amber').trigger('click');
 //$('#btn-step-3').trigger('click');
 
 $(document).ready(function () {
     $('.mdb-select').material_select();
     let selectStatoCivile = $("#statocivile");
+    //Popola la select dello stato civile
     $.ajax({
         type: "GET",
         url: "http://ecuptservice.ak12srl.it/statocivile",
@@ -131,6 +131,7 @@ $(document).ready(function () {
         }
     });
     let selectProvinceResidenza = $("#listaprovinceresidenza");
+    //Popola la select delle province di residenza
     $.ajax({
         type: "GET",
         url: "http://ecuptservice.ak12srl.it/comuni/listaprovince",
@@ -147,9 +148,11 @@ $(document).ready(function () {
             console.log(textStatus);
         }
     });
+    //Gestisce l'evento on change della select relativa alla lista di province di residenza
     $('#listaprovinceresidenza').on('change', function () {
         let selectComuneResidenza = $("#listacomuneresidenza");
         let send = {codIstat: this.value};
+        //Popola la select dei comuni di residenza
         $.ajax({
             type: "POST",
             url: "http://ecuptservice.ak12srl.it/comuni/listacomuni",
@@ -170,8 +173,11 @@ $(document).ready(function () {
             }
         });
     });
+    //Gestisce l'evento input sull'input text relativa al codice fiscale
     $("#formCodFisc").on('input', function () {
+        //Se il codice fiscale inserito è formato da 16 caratteri
         if($("#formCodFisc").val().length === 16){
+            //Invia il codice fiscale e ottiene i dati da inserire nel resto della form
             $.ajax({
                 type: "POST",
                 url: window.location.href + "/codicefiscaleinverso",
@@ -181,7 +187,7 @@ $(document).ready(function () {
                 dataType: "json",
                 contentType: 'application/json',
                 success: function (data, textStatus, jqXHR) {
-                    if(data.codcatastale[0] === "Z"){ //estero
+                    if(data.codcatastale[0] === "Z"){ //nato all'estero
                         $.ajax({
                             type: "POST",
                             url: window.location.href + "/getCodCatZ",
@@ -212,7 +218,7 @@ $(document).ready(function () {
                             }
                         })
                     }
-                    else { //italiano
+                    else { //nato in italia
                         $.ajax({
                             type: "POST",
                             url: window.location.href + "/getByCodCat",
@@ -286,12 +292,13 @@ $('#btn-step-3').click(function () {
         stepper.removeClass('step-1');
     stepper.addClass('step-3');
 });
-
+//Gestisce il click sul button aggiugni nuovo contatto
 btnRegistrati.click(function() {
     //Controllo campi form 2
     let curForm = $(this).closest(".setup-content-2");
     let formParameters = curForm.find("input[type='text'],input[type='url'],input[type='password'],input[type='email'],input[type='checkbox'],select");
     let isValid = true;
+    //Controlla i dati inseriti
     for(let i=0;i<formParameters.length;i++){
          if(formParameters[i].id === "listacomuneresidenza"){
             if(!formParameters[i].value){
@@ -330,7 +337,7 @@ btnRegistrati.click(function() {
                  $("#emailHelp").fadeOut();
          }
     }
-    if(isValid){
+    if(isValid){//Se tutto ok
         //dati anagrafici
         let nome = $('#formNome').val().toUpperCase();
         let cognome = $('#formCognome').val().toUpperCase();
@@ -350,7 +357,6 @@ btnRegistrati.click(function() {
         let codicecomuneresidenza = $('#listacomuneresidenza').val().toUpperCase();
         let comuneresidenza = $("#listacomuneresidenza").find("option[value='" + codicecomuneresidenza + "']").text().toUpperCase();
         let indirizzo = $('#formIndirizzo').val().toUpperCase();
-
         let assistito = {
             email: email,
             nome: nome,
@@ -368,6 +374,7 @@ btnRegistrati.click(function() {
             istatComuneResidenza: codicecomuneresidenza,
             statocivile: statocivile
         };
+        //REST aggiungi nuovo contatto
         $.ajax({
             type: "POST",
             url: window.location.href,

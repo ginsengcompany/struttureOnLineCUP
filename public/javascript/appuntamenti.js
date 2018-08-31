@@ -1,10 +1,10 @@
+//nasconde la tabella degli appuntamenti
 $("#tableAppuntamenti").hide();
 let descImpegnativa, dataAppuntamento, dataAccettazione, datiAnnullamento;
-
-
-/* Formatting function for row details - modify as you need */
+/*
+Crea le righe degli appuntamenti passati come argomento nella function
+ */
 function format(d) {
-
     let x = "";
     for (let i = 0; i < d.length; i++) {
         x = x +
@@ -29,20 +29,17 @@ function format(d) {
             '<td>' + d[i].reparti[0].descrizione + '</td>' +
             '</tr>';
     }
-
-    // `d` is the original data object for the row
     return '<table   cellpadding="15" cellspacing="10"  border="0.5" align="center"  style="padding-left:50px; width:75%;" >' +
         x +
         '</table>';
 }
-
+//nasconde la barra di caricamento
 $('#barra').hide();
-
 let listaAppuntamenti;
 $(document).ready(function () {
-    $('.mdb-select').material_select();
-
+    $('.mdb-select').material_select(); //inizializza le select material
     let selectNome = $("#selectContatto");
+    //REST Popola la select dei contatti
     $.ajax({
         type: "GET",
         url: window.location.href + "/contatti",
@@ -57,19 +54,17 @@ $(document).ready(function () {
                 selectNome.append('<option value="' + i + '">' + data[i].nomeCompletoConCodiceFiscale + '</option>');
             }
             $('.mdb-select').material_select();
+            //Gestisce l'evento on change sulla select dei contatti del care giver
             $('#selectContatto').on('change', function () {
                 $("#rowAutoFill").show();
                 let nomeSelezionato = $("#selectContatto option:selected").val();
-
                 /*let result = data.findIndex(function(object) {
                     return object.nomeCompletoConCodiceFiscale === nomeSelezionato;
                 });*/
-
                 $('#labelNessunAppuntamento').hide();
                 $('#barra').show();
                 $('#test').hide();
-
-
+                //REST lista appuntamenti del contatto scelto
                 $.ajax({
                     type: "POST",
                     data: JSON.stringify(data[nomeSelezionato]),
@@ -77,20 +72,17 @@ $(document).ready(function () {
                     dataType: "json",
                     contentType: 'application/json',
                     success: function (data, textStatus, jqXHR) {
-                        if (!data.empty) {
+                        if (!data.empty) { //La lista appuntamenti non è vuota, popola la tabella
                             listaAppuntamenti = data;
                             $('#tableAppuntamenti').dataTable().fnDestroy();
                             $('#tableAppuntamenti').empty();
-
-                            var table = $("#tableAppuntamenti").DataTable({
+                            let table = $("#tableAppuntamenti").DataTable({
                                 language: {
                                     url: '../localisation/it-IT.json'
                                 },
                                 data: listaAppuntamenti,
-
                                 columns: [
                                     {
-
                                         className: 'details-control',
                                         orderable: false,
                                         width: 30,
@@ -98,14 +90,12 @@ $(document).ready(function () {
                                         defaultContent: ''
                                     },
                                     {
-
                                         className: 'delete-control',
                                         orderable: false,
                                         width: 30,
                                         data: null,
                                         defaultContent: ''
                                     },
-
                                     {
                                         title: "DESCRIZIONE",
                                         data: null, render: function (data, type, row) {
@@ -124,7 +114,6 @@ $(document).ready(function () {
                                             return dataAppuntamento;
                                         }
                                     },
-
                                     {
                                         title: "IMPEGNATIVA",
                                         data: null, render: function (data, type, row) {
@@ -152,19 +141,18 @@ $(document).ready(function () {
                                 rowGroup: {
                                     dataSrc: "codiceImpegnativa"
                                 }
-
                             });
                             $('#test').show();
                             $('#barra').hide();
-                            console.log(listaAppuntamenti[0].appuntamenti);
                             /*for(let i = 0; i < listaAppuntamenti.length; i++) {
                                 for (let j = 0; j < listaAppuntamenti[i].appuntamenti.length; j++)
                                     if (listaAppuntamenti[i].appuntamenti[j].dataaccettazione === "" ||listaAppuntamenti[i].appuntamenti[j].dataaccettazione === null)
                                         console.log(listaAppuntamenti[i].appuntamenti[j].dataaccettazione);
                             }*/
+                            //Gestisce il click per visualizzare in dettaglio l'appuntamento selezionato
                             $('#tableAppuntamenti tbody').on('click', 'td.details-control', function () {
-                                var tr = $(this).closest('tr');
-                                var row = table.row(tr);
+                                let tr = $(this).closest('tr');
+                                let row = table.row(tr);
                                 if (row.child.isShown()) {
                                     // This row is already open - close it
                                     row.child.hide();
@@ -176,9 +164,10 @@ $(document).ready(function () {
                                     tr.addClass('shown');
                                 }
                             });
+                            //Gestisce l'eliminazione dell'appuntamento selezionato
                             $('#tableAppuntamenti tbody').on('click', 'td.delete-control', function () {
-                                var tr = $(this).closest('tr');
-                                var row = table.row(tr);
+                                let tr = $(this).closest('tr');
+                                let row = table.row(tr);
                                 for (let i = 0; i < row.data().appuntamenti.length; i++) {
                                     dataAccettazione = row.data().appuntamenti[i].dataaccettazione;
                                     if (row.data().appuntamenti[i].dataaccettazione !== "" && row.data().appuntamenti[i].dataaccettazione !== null) {
@@ -189,8 +178,6 @@ $(document).ready(function () {
                                 if (dataAccettazione === "" || dataAccettazione === null) {
                                     $("#labelEliminaImpegnativa").text("");
                                     $("#labelEliminaImpegnativa").append("Sei sicuro di voler eliminare tutti gli appuntamenti inerenti all'impegnativa: <br>" + '<b>' + row.data().codiceImpegnativa) + '</b>';
-                                    console.log(row.data().codiceImpegnativa);
-                                    console.log(row.data().assistito.codice_fiscale);
                                     datiAnnullamento = {
                                         codiceImpegnativa: row.data().codiceImpegnativa,
                                         assistito: {
@@ -242,7 +229,7 @@ $(document).ready(function () {
         }
     });
 });
-
+//Esegue il reload della pagina
 $('#centralModal').on('hidden.bs.modal', function () {
     location.reload();
 });
