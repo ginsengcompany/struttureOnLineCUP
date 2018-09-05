@@ -8,7 +8,6 @@ $("#rowBottoneInvio").hide();
 $('#barra').hide();
 $('#example2').hide();
 $('#data').hide();
-$('#centralModalNotifiche').modal('hide');
 let navListItems, allWells, nextPrenotazione, nextVerificaContenuto, allPrevBtn, btnConfermaPrenotazione,
     datiDisponibilita, table2, emailSelezionato;
 navListItems = $('div.setup-panel-2 div a');
@@ -494,10 +493,6 @@ $("#codiceImpegnativa2").on("keypress", function (e) {
     }
 });*/
 
-$('#centralModalNotifiche').on('show.bs.modal', function () {
-    $('#inputEmailConferma').val(emailSelezionato).trigger("change");
-});
-
 //Gestisce il passaggio al terzo step
 nextVerificaContenuto.click(function () {
     let curStep = $(this).closest(".setup-content-2"),
@@ -573,7 +568,6 @@ $(document).ready(function () {
                 let nomeSelezionato = $("#selectNominativo option:selected").val();
                 emailSelezionato = data[nomeSelezionato].email;
                 $("#rowCodiceImpegnativa1").show();
-                //$('#centralModalNotifiche').modal('show');
                 $("#rowAutoFill").show();
                 $("#nomeAutofill").val(data[nomeSelezionato].nome);
                 $("#cognomeAutofill").val(data[nomeSelezionato].cognome);
