@@ -329,13 +329,14 @@ btnRegistrati.click(function() {
                 $("#telefonoHelp").fadeOut();
         }
         //Controllo Email
+        /*
         else if(formParameters[i].id === 'formEmail') {
              if(!formParameters[i].validity.valid){
                  isValid = false;
                  $("#emailHelp").fadeIn();
              }else
                  $("#emailHelp").fadeOut();
-         }
+         }*/
     }
     if(isValid){//Se tutto ok
         //dati anagrafici
