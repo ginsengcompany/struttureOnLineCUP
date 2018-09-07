@@ -277,6 +277,7 @@ $('#btnRicercaData').click(function (event) {
     event.stopPropagation();
     event.preventDefault();
     //picker.open();
+    $("select").material_select('destroy');
     $('#data').trigger('click');
 });
 //Gestisce l'evento on change del datepicker per la data di inizio ricerca
@@ -624,6 +625,7 @@ $(document).ready(function () {
         showWeekdaysFull: undefined,
         clear: 'Cancella',
         close: 'Chiudi',
+        today: 'Oggi',
         closeOnSelect: true,
         closeOnClear: false,
         firstDay: 1,
