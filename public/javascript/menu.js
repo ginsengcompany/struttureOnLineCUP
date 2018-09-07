@@ -40,10 +40,8 @@ $("#siteak12").click(function () {
 
 $("#btnmodalElimAccountConferma").click(function () {
     let passwordConferma = $("#modalPasswordElimAccount").val();
-    console.log(passwordConferma);
     if (!passwordConferma || !passwordConferma.trim())
         return;
-    console.log("oltre return");
     $.ajax({
         type: 'POST',
         url: 'checkMe',

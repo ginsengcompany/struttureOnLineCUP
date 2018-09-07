@@ -8,7 +8,6 @@ $("#rowBottoneInvio").hide();
 $('#barra').hide();
 $('#example2').hide();
 $('#data').hide();
-$('#centralModalNotifiche').modal('hide');
 let navListItems, allWells, nextPrenotazione, nextVerificaContenuto, allPrevBtn, btnConfermaPrenotazione,
     datiDisponibilita, table2, emailSelezionato;
 navListItems = $('div.setup-panel-2 div a');
@@ -271,6 +270,7 @@ $('#btnRicercaData').click(function (event) {
     event.stopPropagation();
     event.preventDefault();
     //picker.open();
+    $("select").material_select('destroy');
     $('#data').trigger('click');
 });
 
@@ -483,10 +483,6 @@ $("#codiceImpegnativa2").on("keypress", function (e) {
     }
 });*/
 
-$('#centralModalNotifiche').on('show.bs.modal', function () {
-    $('#inputEmailConferma').val(emailSelezionato).trigger("change");
-});
-
 nextVerificaContenuto.click(function () {
     let curStep = $(this).closest(".setup-content-2"),
         curStepBtn = curStep.attr("id"),
@@ -557,7 +553,6 @@ $(document).ready(function () {
                 let nomeSelezionato = $("#selectNominativo option:selected").val();
                 emailSelezionato = data[nomeSelezionato].email;
                 $("#rowCodiceImpegnativa1").show();
-                //$('#centralModalNotifiche').modal('show');
                 $("#rowAutoFill").show();
                 $("#nomeAutofill").val(data[nomeSelezionato].nome);
                 $("#cognomeAutofill").val(data[nomeSelezionato].cognome);
@@ -611,6 +606,7 @@ $(document).ready(function () {
         showWeekdaysFull: undefined,
         clear: 'Cancella',
         close: 'Chiudi',
+        today: "Oggi",
         closeOnSelect: true,
         closeOnClear: false,
         firstDay: 1,

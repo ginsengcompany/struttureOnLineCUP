@@ -127,7 +127,6 @@ $(document).ready(function () {
                                     {
                                         title: "IMPEGNATIVA",
                                         data: null, render: function (data, type, row) {
-                                            console.log(data);
                                             if (data.codiceImpegnativa !== "" && data.codiceImpegnativa != null) {
                                                 return data.codiceImpegnativa;
                                             }
@@ -155,7 +154,6 @@ $(document).ready(function () {
                             });
                             $('#test').show();
                             $('#barra').hide();
-                            console.log(listaAppuntamenti[0].appuntamenti);
                             /*for(let i = 0; i < listaAppuntamenti.length; i++) {
                                 for (let j = 0; j < listaAppuntamenti[i].appuntamenti.length; j++)
                                     if (listaAppuntamenti[i].appuntamenti[j].dataaccettazione === "" ||listaAppuntamenti[i].appuntamenti[j].dataaccettazione === null)
@@ -188,8 +186,6 @@ $(document).ready(function () {
                                 if (dataAccettazione === "" || dataAccettazione === null) {
                                     $("#labelEliminaImpegnativa").text("");
                                     $("#labelEliminaImpegnativa").append("Sei sicuro di voler eliminare tutti gli appuntamenti inerenti all'impegnativa: <br>" + '<b>' + row.data().codiceImpegnativa) + '</b>';
-                                    console.log(row.data().codiceImpegnativa);
-                                    console.log(row.data().assistito.codice_fiscale);
                                     datiAnnullamento = {
                                         codiceImpegnativa: row.data().codiceImpegnativa,
                                         assistito: {
