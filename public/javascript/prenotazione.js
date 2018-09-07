@@ -270,6 +270,7 @@ $('#btnRicercaData').click(function (event) {
     event.stopPropagation();
     event.preventDefault();
     //picker.open();
+    $("select").material_select('destroy');
     $('#data').trigger('click');
 });
 
@@ -605,6 +606,7 @@ $(document).ready(function () {
         showWeekdaysFull: undefined,
         clear: 'Cancella',
         close: 'Chiudi',
+        today: "Oggi",
         closeOnSelect: true,
         closeOnClear: false,
         firstDay: 1,
