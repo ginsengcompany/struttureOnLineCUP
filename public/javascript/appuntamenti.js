@@ -200,6 +200,8 @@ $(document).ready(function () {
                                     $("#centralModalDanger").modal();
                                 }
                                 $("#btnAnnullaImpegnativa").click(function () {
+                                    $('#tableAppuntamenti').parents('div.dataTables_wrapper').first().hide();
+                                    $("#tableAppuntamenti").hide();
                                     $("#barra").show();
                                     $.ajax({
                                         type: "POST",
@@ -219,6 +221,7 @@ $(document).ready(function () {
                                     })
                                 });
                             });
+                            $('#tableAppuntamenti').parents('div.dataTables_wrapper').first().show();
                             $("#tableAppuntamenti").show();
                         }
                     },
