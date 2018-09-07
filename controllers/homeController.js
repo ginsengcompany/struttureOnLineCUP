@@ -1,5 +1,8 @@
 let strutture = require('../models/strutture');
 
+/*
+La funzione renderizza la pagina home contenente le possibili azioni concesse all'utente
+ */
 exports.getHome = function (req, res, next) {
     if (strutture.db._readyState !== 1) return handleError({status: 500, message: "Il servizio è momentaneamente non disponibile"},res);
     strutture.findOne({denominazioneUrl : req.params.azienda}, function (err, str) {
@@ -9,6 +12,7 @@ exports.getHome = function (req, res, next) {
     });
 };
 
+//La funzione viene utilizzata dalle funzioni precedenti per gli stati d'errore della rotta
 function handleError(stato,res) {
     res.status(stato.status).render('error',{
         error:{

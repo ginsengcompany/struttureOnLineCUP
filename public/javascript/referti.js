@@ -14,11 +14,13 @@ $("#centralModalAlert").on("hidden.bs.modal", function () {
 $(document).ready(function () {
     $('.mdb-select').material_select();
     let selectNome = $("#selectContatto");
+    //REST per ricevere la lista dei contatti
     $.ajax({
         type: "GET",
         url: window.location.href + "/contatti",
         dataType: "json",
         success: function (data, textStatus, jqXHR) {
+            //Popola la select dei contatti
             $('.mdb-select').material_select('destroy');
             data.sort(function (a, b) {
                 return (a.nomeCompletoConCodiceFiscale > b.nomeCompletoConCodiceFiscale) ? 1 : ((b.nomeCompletoConCodiceFiscale > a.nomeCompletoConCodiceFiscale) ? -1 : 0);
@@ -29,11 +31,13 @@ $(document).ready(function () {
             }
             $('.mdb-select').material_select();
             contatti = data;
+            //Gestisce l'evento on change sulla select dei contatti
             $('#selectContatto').on('change', function () {
                 let nomeSelezionato = $("#selectContatto option:selected").val();
                 $('#labelNessunReferto').hide();
                 $('#barra').show();
                 $('#colTableReferti').hide();
+                //REST per ottenere la lista dei referti relativi al contatto scelto
                 $.ajax({
                     type: "POST",
                     headers: {'cf': data[nomeSelezionato].codice_fiscale},
@@ -56,7 +60,7 @@ $(document).ready(function () {
                             },
                             data: data.listaReferti,
                             columns: [
-                                {
+                                { //button visualizza la riga in dettaglio se lo schermo non renderizza per intero la tabella
                                     className: 'details-control',
                                     orderable: false,
                                     width: 30,
@@ -75,7 +79,7 @@ $(document).ready(function () {
                                 {
                                     data: "metadati.autoreDocumento"
                                 },
-                                {
+                                { //button per inviare il referto per mail e per visualizzare il referto in pdf
                                     data: null,
                                     render: function (data, type, row) {
                                         return '<button type="button" class="btn btn-color-primary btn-sm btn-rounded scaricaPDF">Apri</button><button type="button" data-toggle="modal" data-target="#centralModalAlert" class="btn btn-color-primary btn-sm btn-rounded emailPDF">Invia Email</button>'
@@ -97,6 +101,7 @@ $(document).ready(function () {
                                 },
                             ],
                         });
+                        //Evento del click sul pulsante scarica per visualizza il pdf nel browser
                         $('#tableReferti tbody').on('click', '.scaricaPDF', function () {
                             $("#barra").show();
                             let data = tabellaReferti.row($(this).parents('tr')).data();
@@ -115,6 +120,7 @@ $(document).ready(function () {
                                 }
                             });
                         });
+                        //Evento del click sul pulsante invia mail per visualizzare il modal per inviare il referto via mail
                         $('#tableReferti tbody').on('click', '.emailPDF', function () {
                             datiInvioEmail = {
                                 id: "",
@@ -136,7 +142,6 @@ $(document).ready(function () {
                         $('#barra').hide();
                         $('#labelNessunReferto').text("Nessun referto per l'assistito selezionato");
                         $('#labelNessunReferto').show();
-
                     }
                 });
             });
@@ -146,9 +151,12 @@ $(document).ready(function () {
         }
     });
 });
+
+//Gestore del click sul button del modal per inviare il referto via mail
 $('#btninvioemail').on('click', function () {
     $("#barra").show();
     datiInvioEmail.email = $("#formEmail").val();
+    //REST per inviare il referto
     $.ajax({
         type: "POST",
         dataType: "text",

@@ -2,6 +2,9 @@ let strutture = require('../models/strutture');
 let uri = require('../bin/url');
 let request = require('request');
 
+/*
+La funzione renderizza la pagina verificaContenutoImpegnativa
+ */
 exports.getContenutoImpegnativa = function (req, res, next) {
     if (strutture.db._readyState !== 1) return handleError({status: 500, message: "Il servizio è momentaneamente non disponibile"},res);
     strutture.findOne({denominazioneUrl : req.params.azienda}, function (err, str) {
@@ -11,6 +14,10 @@ exports.getContenutoImpegnativa = function (req, res, next) {
     });
 };
 
+/*
+La funzione effettua una REST verso il servizio dell'ecupt rivolto al controllo di quali prestazioni contenute
+nell'impegnativa sono erogabili dalla struttura
+ */
 exports.getPrestazioniErogabili = function (req, res) {
     if (strutture.db._readyState !== 1) return handleError({status: 500, message: "Il servizio è momentaneamente non disponibile"},res);
     strutture.findOne({denominazioneUrl : req.params.azienda}, function (err, str) {
@@ -39,6 +46,10 @@ exports.getPrestazioniErogabili = function (req, res) {
     });
 };
 
+/*
+La funzione effettua una REST verso il servizio dell'ecupt rivolto alla ricerca dei reparti per una singola prestazione
+erogabile
+ */
 exports.getReparti = function (req, res) {
     if (strutture.db._readyState !== 1) return handleError({status: 500, message: "Il servizio è momentaneamente non disponibile"},res);
     strutture.findOne({denominazioneUrl : req.params.azienda}, function (err, str) {
@@ -62,6 +73,7 @@ exports.getReparti = function (req, res) {
     });
 };
 
+//La funzione viene utilizzata dalle funzioni precedenti per gli stati d'errore della rotta
 function handleError(stato,res) {
     res.status(stato.status).render('error',{
         error:{

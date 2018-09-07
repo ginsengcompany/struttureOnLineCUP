@@ -2,6 +2,15 @@ let strutture = require('../models/strutture');
 let request = require('request');
 let uri = require('../bin/url');
 
+/*
+Tutte le funzioni prima di eseguire le relative operazioni controllano se la struttura passata come parametro in query
+esiste nel DB, ciò protegge la rotta a cui la funzione è associata
+ */
+
+/*
+La funzione renderizza la pagina contenente la procedura di prenotazione delle prestazione arogabili dalla struttura
+presenti nell'impegnativa
+ */
 exports.getPrenotazione = function (req, res, next) {
     if (strutture.db._readyState !== 1) return handleError({status: 500, message: "Il servizio è momentaneamente non disponibile"},res);
     strutture.findOne({denominazioneUrl : req.params.azienda}, function (err, str) {
@@ -11,6 +20,9 @@ exports.getPrenotazione = function (req, res, next) {
     });
 };
 
+/*
+La funzione effettua una REST al servizio ecupt per ricevere i contatti del care giver
+ */
 exports.getContatti = function (req, res, next) {
     if (strutture.db._readyState !== 1) return handleError({status: 500, message: "Il servizio è momentaneamente non disponibile"},res);
     strutture.findOne({denominazioneUrl : req.params.azienda}, function (err, str) {
@@ -32,6 +44,10 @@ exports.getContatti = function (req, res, next) {
     });
 };
 
+/*
+La funzione effettua una REST indirizzata al servizio dell'ecupt che prende in carico l'impegnativa presso la struttura
+su cui si sta tentando di prenotare e restituisce, in caso di successo, le prestazioni contenute nell'impegnativa
+ */
 exports.invioDatiImpegnativa = function (req, res) {
     if (strutture.db._readyState !== 1) return handleError({status: 500, message: "Il servizio è momentaneamente non disponibile"},res);
     strutture.findOne({denominazioneUrl : req.params.azienda}, function (err, str) {
@@ -55,6 +71,10 @@ exports.invioDatiImpegnativa = function (req, res) {
     });
 };
 
+/*
+La funzione effettua una REST verso il servizio dell'ecupt rivolto all'annullamento della prenotazione sospesa
+(in corso e non ancora confermata)
+ */
 exports.annullaprenotazionesospesa = function (req, res, next) {
     if (strutture.db._readyState !== 1) return handleError({status: 500, message: "Il servizio è momentaneamente non disponibile"},res);
     strutture.findOne({denominazioneUrl : req.params.azienda}, function (err, str) {
@@ -77,6 +97,7 @@ exports.annullaprenotazionesospesa = function (req, res, next) {
     });
 };
 
+//La funzione viene utilizzata dalle funzioni precedenti per gli stati d'errore della rotta
 function handleError(stato,res) {
     res.status(stato.status).render('error',{
         error:{

@@ -2,6 +2,9 @@ let strutture = require('../models/strutture');
 let request = require('request');
 let uri = require('../bin/url');
 
+/*
+La funzione renderizza la pagina per consultare i referti del car giver e dei suoi contatti
+ */
 exports.getReferti = function (req, res, next) {
     if (strutture.db._readyState !== 1) return handleError({status: 500, message: "Il servizio è momentaneamente non disponibile"},res);
     strutture.findOne({denominazioneUrl : req.params.azienda}, function (err, str) {
@@ -11,7 +14,9 @@ exports.getReferti = function (req, res, next) {
     });
 };
 
-
+/*
+La funzione effettua una REST al servizio ecupt per ricevere i contatti del care giver
+ */
 exports.getContatti = function (req,res,next) {
     if (strutture.db._readyState !== 1) return handleError({status: 500, message: "Il servizio è momentaneamente non disponibile"},res);
     strutture.findOne({denominazioneUrl : req.params.azienda}, function (err, str) {
@@ -33,6 +38,9 @@ exports.getContatti = function (req,res,next) {
     });
 };
 
+/*
+La funzione effettua una REST al servizio dell'ecupt rivolto a fornire la lista dei referti
+ */
 exports.getListaRefertiAssistito = function (req, res) {
     if (strutture.db._readyState !== 1) return handleError({status: 500, message: "Il servizio è momentaneamente non disponibile"},res);
     strutture.findOne({denominazioneUrl : req.params.azienda}, function (err, str) {
@@ -57,6 +65,9 @@ exports.getListaRefertiAssistito = function (req, res) {
     });
 };
 
+/*
+La funzione effettua una REST verso il servizio dell'ecupt rivolto a fornire il referto codificato in base 64
+ */
 exports.scaricaReferto = function (req, res) {
     if (strutture.db._readyState !== 1) return handleError({status: 500, message: "Il servizio è momentaneamente non disponibile"},res);
     strutture.findOne({denominazioneUrl : req.params.azienda}, function (err, str) {
@@ -80,6 +91,10 @@ exports.scaricaReferto = function (req, res) {
     });
 };
 
+/*
+La funzione effettua una REST verso il servizio dell'ecupt rivolto a inviare il referto selezionato con una mail
+all'indirizzo di posta elettronica del care giver
+ */
 exports.inviaemail = function (req, res) {
     if (strutture.db._readyState !== 1) return handleError({status: 500, message: "Il servizio è momentaneamente non disponibile"},res);
     strutture.findOne({denominazioneUrl : req.params.azienda}, function (err, str) {
@@ -110,6 +125,7 @@ exports.inviaemail = function (req, res) {
     });
 };
 
+//La funzione viene utilizzata dalle funzioni precedenti per gli stati d'errore della rotta
 function handleError(stato,res) {
     res.status(stato.status).render('error',{
         error:{

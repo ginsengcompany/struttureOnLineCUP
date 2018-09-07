@@ -2,6 +2,9 @@ let strutture = require('../models/strutture');
 let request = require('request');
 let uri = require('../bin/url');
 
+/*
+La funzione renderizza la pagina per inserire un nuovo contatto nella lista contatti.
+ */
 exports.getNuovoContatto = function (req, res, next) {
     if (strutture.db._readyState !== 1) return handleError({status: 500, message: "Il servizio è momentaneamente non disponibile"},res);
     strutture.findOne({denominazioneUrl : req.params.azienda}, function (err, str) {
@@ -11,6 +14,10 @@ exports.getNuovoContatto = function (req, res, next) {
     });
 };
 
+/*
+La funzione effettua una REST al servizio dell'ecupt per aggiungere un nuovo contatto nella lista dei contatti
+del care giver
+ */
 exports.addContact = function (req, res) {
     if (strutture.db._readyState !== 1) return handleError({status: 500, message: "Il servizio è momentaneamente non disponibile"},res);
     strutture.findOne({denominazioneUrl : req.params.azienda}, function (err, str) {
@@ -33,6 +40,10 @@ exports.addContact = function (req, res) {
     });
 };
 
+/*
+La funzione effettua una REST verso il servizio dell'ecupt che passato il codice fiscale
+restituisce tutte le informazioni ricavabili da esso
+ */
 exports.convertiCodFisc = function (req, res) {
     if (!req.body.hasOwnProperty("cod"))
         return res.status(400).send("Dati mancanti");
@@ -53,6 +64,9 @@ exports.convertiCodFisc = function (req, res) {
     });
 };
 
+/*
+La funzione effettua una REST verso il servizio dell'ecupt rivolto a fornire i comuni della provincia contenuta nel body
+ */
 exports.getLuogoNascitaByCodCat = function (req, res) {
     if (!req.body.hasOwnProperty("cod"))
         return res.status(400).send("Dati mancanti");
@@ -70,6 +84,10 @@ exports.getLuogoNascitaByCodCat = function (req, res) {
     });
 };
 
+/*
+La funzione effettua una REST verso il servizio dell'ecupt rivolto a fornire una lista delle nazioni
+e restituisce la nazione di nascita a cui si riferisce il codice fiscale dell'assistito
+ */
 exports.getLuogoNascitaEstero = function (req, res) {
     if (!req.body.hasOwnProperty("cod"))
         return res.status(400).send("Dati mancanti");
@@ -96,6 +114,7 @@ exports.getLuogoNascitaEstero = function (req, res) {
     });
 };
 
+//La funzione viene utilizzata dalle funzioni precedenti per gli stati d'errore della rotta
 function handleError(stato,res) {
     res.status(stato.status).render('error',{
         error:{
