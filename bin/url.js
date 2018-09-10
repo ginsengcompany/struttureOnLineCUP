@@ -6,7 +6,7 @@ const url = {};
 let localhost = "http://192.168.125.24:3001";
 let serverHost = "http://ecuptservice.ak12srl.it";
 
-let host = localhost;
+let host = serverHost;
 
 url.loginURL =                  host + "/auth/login";
 url.primaDisponibilitaURL =     host + "/ricercaprimadisponibilita";
