@@ -5,7 +5,6 @@ $('#rowcard').hide();
 $("#gdprBar").hide();
 $(document).ready(function () {
     let gdprCookies = Cookies.get('gdpr');
-    console.log(gdprCookies);
     if(gdprCookies === '1') {
         $("#gdprBar").hide();
     }
@@ -29,6 +28,24 @@ $(document).ready(function () {
         Cookies.set('gdpr', 1, { expires: 7 });
         $("#gdprBar").remove();
     });
+
+    $('#btninvioemail').click(function () {
+        $.ajax({
+            type: "POST",
+            url: "recpass",
+            data: JSON.stringify({mail: $('#formEmail').val()}),
+            dataType : "json",
+            contentType : 'application/json',
+            success: function (data, textStatus, jqXHR) {
+                $('#paragrafomodalLogin').text(data);
+                $('#centralModalInfo').modal('show');
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                $('#paragrafomodalLogin').text(jqXHR.responseText);
+                $('#centralModalInfo').modal('show');
+            }
+        });
+    })
 });
 //esegue il tentativo di login dell'utente
 function eseguiLogin() {

@@ -34,6 +34,8 @@ block body
                                     button.btn.btn-color-primary.waves-effect.waves-light(type='submit') Entra
                             .text-center.mt-4
                                 a#btnRegistrati.btn.btn-color-primary.waves-effect.waves-light(href="registrazione") Registrati
+                            .text-center.mt-4
+                                a(href='' data-toggle="modal" data-target="#centralModalAlert" style='color:#6C94B2') Password dimenticata?
             #gdprBar.modal.bottom.modal-content-clickable.show(style='padding-right: 16px; display: block;')
                 .modal-dialog.modal-frame.modal-bottom.modal-notify.modal-notify
                     .modal-content
@@ -58,6 +60,20 @@ block body
                         div.text-center
                             font(size='5')
                                 p#paragrafomodalLogin
+        div#centralModalAlert.modal.fade(tabindex='-1' role='dialog' aria-hidden='true')
+            div.modal-dialog.modal-notify(role='document')
+                div.modal-content
+                    div.modal-header.text-center.btn-color-primary
+                        h4.modal-title.w-100.font-weight-bold(style='color:white;') Recupera password
+                        button.close(type='button' data-dismiss='modal' aria-label='Close')
+                            span.white-text(aria-hidden='true') &times;
+                    div.modal-body
+                        .md-form
+                            i.fa.fa-envelope.prefix.dark-grey-text
+                            input#formEmail.form-control(type='email' required='')
+                            label(for='formEmail') Inserisci email
+                        .md-form
+                            button#btninvioemail.btn.btn-color-primary.btn-lg.btn-block.btn-rounded.enableButtons(type='button' data-dismiss="modal") Invia email di recupero
 
     script(type='text/javascript', src='/javascript/jquery-3.3.1.min.js')
     script(type='text/javascript', src='/javascript/popper.min.js')

@@ -35,6 +35,7 @@ url.annullaprenotazionesospesa = host + "/auth/annullaprenotazionesospesaWeb";
 url.inviarefertoemail =         host + "/referti/inviarefertoemail";
 url.downloadMe =                host + "/auth/downloadMe";
 url.checkme =                   host + "/auth/checkMe";
+url.recPass =                   host + "/auth/passwordsmarrita";
 
 // Exports the variables and above so that other modules can use them
 module.exports = url;
