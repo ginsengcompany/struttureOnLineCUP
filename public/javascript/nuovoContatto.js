@@ -118,7 +118,7 @@ $(document).ready(function () {
     //Popola la select dello stato civile
     $.ajax({
         type: "GET",
-        url: "http://ecuptservice.ak12srl.it/statocivile",
+        url: "https://app.cupt.it/statocivile",
         dataType: "json",
         contentType: 'plain/text',
         success: function (data, textStatus, jqXHR) {
@@ -135,7 +135,7 @@ $(document).ready(function () {
     //Popola la select delle province di residenza
     $.ajax({
         type: "GET",
-        url: "http://ecuptservice.ak12srl.it/comuni/listaprovince",
+        url: "https://app.cupt.it/comuni/listaprovince",
         dataType: "json",
         contentType: 'plain/text',
         success: function (data, textStatus, jqXHR) {
@@ -156,7 +156,7 @@ $(document).ready(function () {
         //Popola la select dei comuni di residenza
         $.ajax({
             type: "POST",
-            url: "http://ecuptservice.ak12srl.it/comuni/listacomuni",
+            url: "https://app.cupt.it/comuni/listacomuni",
             data: JSON.stringify(send),
             dataType: "json",
             contentType: 'application/json',

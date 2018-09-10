@@ -124,7 +124,7 @@ $(document).ready(function () {
     let selectStatoCivile = $("#statocivile");
     $.ajax({
         type: "GET",
-        url: "http://ecuptservice.ak12srl.it/statocivile",
+        url: "https://app.cupt.it/statocivile",
         dataType: "json",
         contentType: 'plain/text',
         success: function (data, textStatus, jqXHR) {
@@ -141,7 +141,7 @@ $(document).ready(function () {
     //chiamata REST per il prelievo delle province
     $.ajax({
         type: "GET",
-        url: "http://ecuptservice.ak12srl.it/comuni/listaprovince",
+        url: "https://app.cupt.it/comuni/listaprovince",
         dataType: "json",
         contentType: 'plain/text',
         success: function (data, textStatus, jqXHR) {
@@ -164,7 +164,7 @@ $(document).ready(function () {
         let send = {codIstat: this.value};
         $.ajax({
             type: "POST",
-            url: "http://ecuptservice.ak12srl.it/comuni/listacomuni",
+            url: "https://app.cupt.it/comuni/listacomuni",
             data: JSON.stringify(send),
             dataType: "json",
             contentType: 'application/json',
@@ -499,7 +499,7 @@ btnRegistrati.click(function() {
         //POST registrazione
         $.ajax({
             type: "POST",
-            url: "http://ecuptservice.ak12srl.it/auth/registrazione",
+            url: "https://app.cupt.it/auth/registrazione",
             data: JSON.stringify(sendObject),
             dataType: "json",
             contentType: 'application/json',
