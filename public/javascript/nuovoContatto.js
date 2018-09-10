@@ -112,6 +112,7 @@ $('div.setup-panel-2 div a.btn-amber').trigger('click');
 //$('#btn-step-3').trigger('click');
 
 $(document).ready(function () {
+    $('#formCodFisc').val('');
     $('.mdb-select').material_select();
     let selectStatoCivile = $("#statocivile");
     //Popola la select dello stato civile
@@ -197,6 +198,7 @@ $(document).ready(function () {
                             dataType: "json",
                             contentType: 'application/json',
                             success : function (data2, textStatus, jqXHR) {
+                                $("#codice-fiscaleHelp").fadeOut();
                                 datiLuogoNascita.comune = data2.descrizione.toUpperCase();
                                 datiLuogoNascita.codcomune = data2.codcatastale;
                                 $("#date-picker-example").val(data.datanascita);
@@ -208,6 +210,7 @@ $(document).ready(function () {
                                 $(".provnascita").hide();
                             },
                             error: function (jqXHR, textStatus, errorThrown) {
+                                $("#codice-fiscaleHelp").fadeIn();
                                 $(".hideinit").hide();
                                 datiLuogoNascita = {
                                     provincia: "",
@@ -228,6 +231,7 @@ $(document).ready(function () {
                             dataType: "json",
                             contentType: 'application/json',
                             success : function (data2, textStatus, jqXHR) {
+                                $("#codice-fiscaleHelp").fadeOut();
                                 datiLuogoNascita.provincia = data2.provincia.toUpperCase();
                                 datiLuogoNascita.codprovincia = data2.codice;
                                 datiLuogoNascita.comune = data2.nome.toUpperCase();
@@ -240,6 +244,7 @@ $(document).ready(function () {
                                 $(".hideinit").show();
                             },
                             error: function (jqXHR, textStatus, errorThrown) {
+                                $("#codice-fiscaleHelp").fadeIn();
                                 $(".hideinit").hide();
                                 datiLuogoNascita = {
                                     provincia: "",
@@ -252,6 +257,7 @@ $(document).ready(function () {
                     }
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
+                    $("#codice-fiscaleHelp").fadeIn();
                     $(".hideinit").hide();
                     datiLuogoNascita = {
                         provincia: "",
@@ -351,7 +357,7 @@ btnRegistrati.click(function() {
         let codicestatocivile = $('#statocivile').val().toUpperCase();
         let statocivile = $("#statocivile").find("option[value='" + codicestatocivile + "']").text().toUpperCase();
         //dati personali
-        let email = $('#formEmail').val();
+        let email = $('#formEmail').val().toLowerCase();
         let telefono = $('#formTelefono').val().toUpperCase();
         let codiceprovinciaresidenza = $("#listaprovinceresidenza").val().toUpperCase();
         let provinciaresidenza = $("#listaprovinceresidenza").find("option[value='" + codiceprovinciaresidenza + "']").text().toUpperCase();

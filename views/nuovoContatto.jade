@@ -51,7 +51,7 @@ block content
                                     i.fa.fa-id-card.prefix.dark-grey-text
                                     input#formCodFisc.form-control.text-uppercase(type='text' required='' maxlength="16")
                                     label(for='formCodFisc') Codice Fiscale
-                                    small#codice-fiscaleHelp.form-text.text-muted.red-text.font-italic(style="display: none;") Campo obbligatorio
+                                    small#codice-fiscaleHelp.form-text.text-muted.red-text.font-italic(style="display: none;") Codice fiscale errato
                         .row
                             .col-12.hideinit
                                 .md-form
@@ -79,6 +79,7 @@ block content
                                 .md-form.hideinit
                                     select#statocivile.mdb-select(name='statocivile' required='')
                                         option(value='', disabled='', selected='') Stato civile
+                                    label Stato civile
                                     small#stato-civileHelp.form-text.text-muted.red-text.font-italic(style="display: none;") Campo obbligatorio
 
                         .md-form
