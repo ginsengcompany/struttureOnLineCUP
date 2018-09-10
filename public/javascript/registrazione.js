@@ -177,6 +177,31 @@ $(document).ready(function () {
             }
         });
     });
+    let oggi = new Date();
+    let minDate = new Date(oggi.getUTCFullYear() - 118, 0, 1);
+    $("#date-picker-example").pickadate({
+        monthsFull: ['Gennaio', 'Febbraio', 'Marzo', 'Aprile', 'Maggio', 'Giugno', 'Luglio', 'Agosto', 'Settembre', 'Ottobre', 'Novembre', 'Dicembre'],
+        monthsShort: ['Gen', 'Feb', 'Mar', 'Apr', 'Mag', 'Giu', 'Lug', 'Ago', 'Set', 'Ott', 'Nov', 'Dic'],
+        weekdaysFull: ['Domenica', 'Lunedì', 'Martedì', 'Mercoledì', 'Giovedì', 'Venerdì', 'Sabato'],
+        weekdaysShort: ['Dom', 'Lun', 'Mar', 'Mer', 'Gio', 'Ven', 'Sab'],
+        showMonthsShort: undefined,
+        showWeekdaysFull: undefined,
+        clear: 'Cancella',
+        close: 'Chiudi',
+        today: 'Oggi',
+        closeOnSelect: true,
+        closeOnClear: false,
+        firstDay: 1,
+        selectYears: 150,
+        format: 'dd/mm/yyyy',
+        formatSubmit: 'dd/mm/yyyy',
+        labelMonthNext: 'Mese successivo',
+        labelMonthPrev: 'Mese precedente',
+        labelMonthSelect: 'Seleziona un mese',
+        labelYearSelect: 'Seleziona un anno',
+        min: minDate,
+        max: new Date()
+    });
     $("#formCodFisc").on('input', function () {
         if($("#formCodFisc").val().length === 16){
             $.ajax({
