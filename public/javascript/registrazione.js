@@ -61,7 +61,12 @@ nextBtn.click(function(){
     for(let i=0; i< curInputs.length; i++){
         //Controllo Username
         if(curInputs[i].id === 'formUsername') {
-            if(!curInputs[i].validity.valid || curInputs[i].value.trim() === ''){
+            if(!(curInputs[i].value.trim().length >= 3 && curInputs[i].value.trim().length <= 16))
+            {
+                $("#usernameHelp").fadeIn();
+                $("#usernameHelp").text("Il nome utente deve essere maggiore di 3 caratteri alfanumerici e minore di 16 caratteri alfanumerici")
+            }
+            else if(!curInputs[i].validity.valid || curInputs[i].value.trim() === ''){
                 isValid = false;
                 $("#usernameHelp").fadeIn();
             }else

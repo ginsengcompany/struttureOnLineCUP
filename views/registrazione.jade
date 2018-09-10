@@ -36,7 +36,7 @@ block content
                             h3.font-weight-bold.pl-0.my-4(style='color:#495057;') Dati account
                         .md-form
                             i.fa.fa-user.prefix.dark-grey-text
-                            input#formUsername.form-control(type='text' required)
+                            input#formUsername.form-control(type='text' minlength=  "3" maxlength = "16" required='')
                             label(for='formUsername') Username
                             small#usernameHelp.form-text.text-muted.font-italic.red-text(style="display: none;") Campo obbligatorio
                         .md-form
