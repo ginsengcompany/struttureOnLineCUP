@@ -38,7 +38,7 @@ navListItems.click( async function (e) {
             $("#centralModalAlert").modal("show");
             setTimeout(function () {
                 window.location.href = 'home';
-            }, 2000);
+            }, 10000);
             return;
         }
         else if (prestazioniVerifica.non_erogabili.length > 0){
@@ -388,7 +388,7 @@ $('#btnConfermaPreno').click(function () {
             $('#btn-step-4').removeAttr('disabled').trigger('click');
             setTimeout(function () {
                 window.location.href = 'home';
-            }, 2000);
+            }, 10000);
         },
         error: function (jqXHR, textStatus, errorThrown) {
             if (jqXHR.status === 502)
@@ -411,7 +411,7 @@ $('#btnConfermaPreno').click(function () {
                     $('#btn-step-4').removeAttr('disabled').trigger('click');
                     setTimeout(function () {
                         window.location.href = 'home';
-                    }, 2000);
+                    }, 10000);
                 }
                 else {
                     $('#btnProssimaDisp').hide();
@@ -426,7 +426,7 @@ $('#btnConfermaPreno').click(function () {
                     $('#btn-step-4').removeAttr('disabled').trigger('click');
                     setTimeout(function () {
                         window.location.href = 'home';
-                    }, 2000);
+                    }, 10000);
                 }
             }
             else {
@@ -442,7 +442,7 @@ $('#btnConfermaPreno').click(function () {
                 $('#btn-step-4').removeAttr('disabled').trigger('click');
                 setTimeout(function () {
                     window.location.href = 'home';
-                }, 2000);
+                }, 10000);
             }
         }
     });
@@ -646,7 +646,7 @@ $(".annulla-presaincarico").click(function () {
             setTimeout(function () {
                 $('.enableButtons').prop('disabled', false);
                 window.location.href = "home";
-            },2000);
+            },10000);
         }
     });
 });

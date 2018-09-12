@@ -508,7 +508,7 @@ btnRegistrati.click(function() {
                     $('#btn-step-3').removeAttr('disabled').trigger('click');
                     setTimeout(function () {
                         window.location.href = 'login';
-                    }, 2000);
+                    }, 10000);
                 }
             },
             error: function (jqXHR, textStatus, errorThrown) {
