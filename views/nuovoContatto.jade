@@ -133,6 +133,17 @@ block content
                             strong Fine
                         h2.text-center.font-weight-bold.my-4.green-text Contatto Aggiunto!
                         h2.text-center.font-weight-bold.my-4.green-text Sarai reindirizzato alla lista contatti
+    div#centralModalError.modal.fade(tabindex='-1' role='dialog' aria-hidden='true')
+        div.modal-dialog.modal-notify(role='document')
+            div.modal-content
+                div.modal-header.text-center.btn-color-primary
+                    h4.modal-title.w-100.font-weight-bold(style='color:white;') Warning
+                    button.close(type='button' data-dismiss='modal' aria-label='Close')
+                        span.white-text(aria-hidden='true') &times;
+                div.modal-body
+                    div.text-center
+                        font(size='5')
+                            p#paragrafomodalError
 block javascript
     script(type='text/javascript', src='/javascript/jquery-3.3.1.min.js')
     script(type='text/javascript', src='/javascript/popper.min.js')
