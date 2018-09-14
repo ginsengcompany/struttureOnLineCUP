@@ -78,6 +78,9 @@ function Modifica ( d ) {
         contentType: 'plain/text',
         success: function (data, textStatus, jqXHR) {
             $('select[name="listaprovince"]').material_select('destroy');
+            data.sort(function (a, b) {
+                return (a.nome > b.nome) ? 1 : ((b.nome > a.nome) ? -1 : 0);
+            });
             for (let i = 0; i < data.length; i++) {
                 selectProvinceResidenza.append('<option value="' + data[i].codIstat + '">' + data[i].provincia + '</option>');
             }
@@ -105,6 +108,9 @@ function Modifica ( d ) {
             success: function (data, textStatus, jqXHR) {
                 $('#listacomuneresidenza').material_select('destroy');
                 $('#listacomuneresidenza').find('option').remove();
+                data.sort(function (a, b) {
+                    return (a.nome > b.nome) ? 1 : ((b.nome > a.nome) ? -1 : 0);
+                });
                 selectComuneResidenza.append('<option value="" disabled="" selected="">' + "Seleziona il comune" + '</option>');
                 for (let i = 0; i < data.length; i++) {
                     selectComuneResidenza.append('<option value="' + data[i].codice + '">' + data[i].nome + '</option>');
