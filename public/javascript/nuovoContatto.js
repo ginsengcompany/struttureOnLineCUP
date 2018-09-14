@@ -41,66 +41,66 @@ nextBtn.click(function(){
         formParameters = curStep.find("input[type='text'],input[type='url'],input[type='password'],input[type='email'],select"),
         isValid = true;
     for(let i=0; i< formParameters.length; i++){
-        if(formParameters[i].id === "formNome"){
-            if(!formParameters[i].value || formParameters[i].value.trim() === ''){
-                isValid = false;
-                $("#nomeHelp").fadeIn();
+            if(formParameters[i].id === "formNome"){
+                if(!formParameters[i].value || formParameters[i].value.trim() === ''){
+                    isValid = false;
+                    $("#nomeHelp").fadeIn();
+                }
+                else
+                    $("#nomeHelp").fadeOut();
             }
-            else
-                $("#nomeHelp").fadeOut();
-        }
-        else if(formParameters[i].id === "formCognome"){
-            if(!formParameters[i].value || formParameters[i].value.trim() === ''){
-                isValid = false;
-                $("#cognomeHelp").fadeIn();
+            else if(formParameters[i].id === "formCognome"){
+                if(!formParameters[i].value || formParameters[i].value.trim() === ''){
+                    isValid = false;
+                    $("#cognomeHelp").fadeIn();
+                }
+                else
+                    $("#cognomeHelp").fadeOut();
             }
-            else
-                $("#cognomeHelp").fadeOut();
-        }
-        else if(formParameters[i].id === "date-picker-example"){
-            if(!formParameters[i].value || formParameters[i].value.trim() === ''){
-                isValid = false;
-                $("#data-nascitaHelp").fadeIn();
+            else if(formParameters[i].id === "date-picker-example"){
+                if(!formParameters[i].value || formParameters[i].value.trim() === ''){
+                    isValid = false;
+                    $("#data-nascitaHelp").fadeIn();
+                }
+                else
+                    $("#data-nascitaHelp").fadeOut();
             }
-            else
-                $("#data-nascitaHelp").fadeOut();
-        }
-        else if(formParameters[i].id === "formCodFisc"){
-            if(!formParameters[i].value || formParameters[i].value.trim() === '' || formParameters[i].value.length !== 16){
-                isValid = false;
-                $("#codice-fiscaleHelp").fadeIn();
+            else if(formParameters[i].id === "formCodFisc"){
+                if(!formParameters[i].value || formParameters[i].value.trim() === '' || formParameters[i].value.length !== 16){
+                    isValid = false;
+                    $("#codice-fiscaleHelp").fadeIn();
+                }
+                else
+                    $("#codice-fiscaleHelp").fadeOut();
             }
-            else
-                $("#codice-fiscaleHelp").fadeOut();
-        }
-        else if(formParameters[i].id === "listacomunenascita"){
-            if(!datiLuogoNascita.codcomune){
-                isValid = false;
-                $("#comunenascitaHelp").fadeIn();
-                if(!datiLuogoNascita.codprovincia && $('#formCodFisc').val().toUpperCase()[11] !== "Z")
-                    $("#provincia-nascitaHelp").fadeIn();
+            else if(formParameters[i].id === "listacomunenascita"){
+                if(!datiLuogoNascita.codcomune){
+                    isValid = false;
+                    $("#comunenascitaHelp").fadeIn();
+                    if(!datiLuogoNascita.codprovincia && $('#formCodFisc').val().toUpperCase()[11] !== "Z")
+                        $("#provincia-nascitaHelp").fadeIn();
+                }
+                else{
+                    $("#comunenascitaHelp").fadeOut();
+                    $("#provincia-nascitaHelp").fadeOut();
+                }
             }
-            else{
-                $("#comunenascitaHelp").fadeOut();
-                $("#provincia-nascitaHelp").fadeOut();
+            else if(formParameters[i].id === "formSesso"){
+                if(!formParameters[i].value){
+                    isValid = false;
+                    $("#sessoHelp").fadeIn();
+                }
+                else
+                    $("#sessoHelp").fadeOut();
             }
-        }
-        else if(formParameters[i].id === "formSesso"){
-            if(!formParameters[i].value){
-                isValid = false;
-                $("#sessoHelp").fadeIn();
+            else if(formParameters[i].id === "statocivile"){
+                if(!formParameters[i].value){
+                    isValid = false;
+                    $("#stato-civileHelp").fadeIn();
+                }
+                else
+                    $("#stato-civileHelp").fadeOut();
             }
-            else
-                $("#sessoHelp").fadeOut();
-        }
-        else if(formParameters[i].id === "statocivile"){
-            if(!formParameters[i].value){
-                isValid = false;
-                $("#stato-civileHelp").fadeIn();
-            }
-            else
-                $("#stato-civileHelp").fadeOut();
-        }
 
     }
     if (isValid){
@@ -337,7 +337,7 @@ btnRegistrati.click(function() {
     let isValid = true;
     //Controlla i dati inseriti
     for(let i=0;i<formParameters.length;i++){
-        if(formParameters[i].id === "listacomuneresidenza"){
+         if(formParameters[i].id === "listacomuneresidenza"){
             if(!formParameters[i].value){
                 isValid = false;
                 $("#comune-residenzaHelp").fadeIn();
@@ -390,7 +390,7 @@ btnRegistrati.click(function() {
         //dati personali
         let email = $('#formEmail').val().toLowerCase();
         let telefono = $('#formTelefono').val().toUpperCase();
-        let codiceprovinciaresidenza = $("#listaprovinceresidenza").val().toUpperCase();
+        let codiceprovinciaresidenza = $("#listaprovinceresidenza").val();
         let provinciaresidenza = $("#listaprovinceresidenza").find("option[value='" + codiceprovinciaresidenza + "']").text().toUpperCase();
         let codicecomuneresidenza = $('#listacomuneresidenza').val().toUpperCase();
         let comuneresidenza = $("#listacomuneresidenza").find("option[value='" + codicecomuneresidenza + "']").text().toUpperCase();
@@ -407,6 +407,7 @@ btnRegistrati.click(function() {
             luogo_nascita: comunenascita,
             istatComuneNascita: codicecomunenascita,
             provincia: provinciaresidenza,
+            codIstatProvinciaResidenza: codiceprovinciaresidenza,
             comune_residenza: comuneresidenza,
             indirizzores: indirizzo,
             istatComuneResidenza: codicecomuneresidenza,

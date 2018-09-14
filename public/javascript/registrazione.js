@@ -61,12 +61,12 @@ nextBtn.click(function(){
     for(let i=0; i< curInputs.length; i++){
         //Controllo Username
         if(curInputs[i].id === 'formUsername') {
-            if(!(curInputs[i].value.trim().length >= 3 && curInputs[i].value.trim().length <= 16))
-            {
-                $("#usernameHelp").fadeIn();
-                $("#usernameHelp").text("Il nome utente deve essere maggiore di 3 caratteri alfanumerici e minore di 16 caratteri alfanumerici")
-            }
-            else if(!curInputs[i].validity.valid || curInputs[i].value.trim() === ''){
+           if(!(curInputs[i].value.trim().length >= 3 && curInputs[i].value.trim().length <= 16))
+           {
+               $("#usernameHelp").fadeIn();
+               $("#usernameHelp").text("Il nome utente deve essere maggiore di 3 caratteri alfanumerici e minore di 16 caratteri alfanumerici")
+           }
+           else if(!curInputs[i].validity.valid || curInputs[i].value.trim() === ''){
                 isValid = false;
                 $("#usernameHelp").fadeIn();
             }else
@@ -145,10 +145,10 @@ $(document).ready(function () {
         dataType: "json",
         contentType: 'plain/text',
         success: function (data, textStatus, jqXHR) {
-            $('select[name="listaprovince"]').material_select('destroy');
             data.sort(function (a, b) {
                 return (a.nome > b.nome) ? 1 : ((b.nome > a.nome) ? -1 : 0);
             });
+            $('select[name="listaprovince"]').material_select('destroy');
             for (let i = 0; i < data.length; i++) {
                 selectProvinceResidenza.append('<option value="' + data[i].codIstat + '">' + data[i].provincia + '</option>');
             }
@@ -464,7 +464,7 @@ btnRegistrati.click(function() {
         let username = $('#formUsername').val();
         let password = $('#formPassword').val();
         let password2 = $('#formConfermaPassword').val();
-        let email = $('#formEmail').val();
+        let email = $('#formEmail').val().toLowerCase();
         let email2 = $('#formConfermaEmail').val();
         let nome = $('#formNome').val().toUpperCase();
         let cognome = $('#formCognome').val().toUpperCase();
@@ -477,10 +477,10 @@ btnRegistrati.click(function() {
         let codicecomunenascita = datiLuogoNascita.codcomune;
         let comunenascita = datiLuogoNascita.comune;
         let codiceprovinciaresidenza = $("#listaprovinceresidenza").val();
-        let provinciaresidenza = $("#listaprovinceresidenza").find("option[value='" + codiceprovinciaresidenza + "']").text();
+        let provinciaresidenza = $("#listaprovinceresidenza").find("option[value='" + codiceprovinciaresidenza + "']").text().toUpperCase();
         let codicecomuneresidenza = $('#listacomuneresidenza').val();
         let indirizzo = $('#formIndirizzo').val().toUpperCase();
-        let comuneresidenza = $("#listacomuneresidenza").find("option[value='" + codicecomuneresidenza + "']").text();
+        let comuneresidenza = $("#listacomuneresidenza").find("option[value='" + codicecomuneresidenza + "']").text().toUpperCase();
         let statocivile = $("#statocivile").find("option[value='" + codicestatocivile + "']").text();
         //crea l'oggetto da inviare alla REST per la registrazione
         let sendObject = {
@@ -497,6 +497,7 @@ btnRegistrati.click(function() {
             luogo_nascita: comunenascita,
             istatComuneNascita: codicecomunenascita,
             provincia: provinciaresidenza,
+            codIstatProvinciaResidenza: codiceprovinciaresidenza,
             comune_residenza: comuneresidenza,
             indirizzores: indirizzo,
             istatComuneResidenza: codicecomuneresidenza,
