@@ -39,7 +39,7 @@ navListItems.click( async function (e) {
             $("#centralModalAlert").modal("show");
             setTimeout(function () {
                 window.location.href = 'home';
-            }, 2000);
+            }, 10000);
             return;
         }
         else if (prestazioniVerifica.non_erogabili.length > 0){ //Non tutte le prestazioni sono erogabili
@@ -398,7 +398,7 @@ $('#btnConfermaPreno').click(function () {
             $('#btn-step-4').removeAttr('disabled').trigger('click');
             setTimeout(function () {
                 window.location.href = 'home';
-            }, 2000);
+            }, 10000);
         },
         error: function (jqXHR, textStatus, errorThrown) {
             if (jqXHR.status === 502) //502 equivale all'errore proxy error in tal caso chiama la REST datiimpegnativa al max 3 volte per sapere se la prenotazione è avvenuta o meno
@@ -421,7 +421,7 @@ $('#btnConfermaPreno').click(function () {
                     $('#btn-step-4').removeAttr('disabled').trigger('click');
                     setTimeout(function () {
                         window.location.href = 'home';
-                    }, 2000);
+                    }, 10000);
                 }
                 else { //La prenotazione non è riuscita
                     $('#btnProssimaDisp').hide();
@@ -436,7 +436,7 @@ $('#btnConfermaPreno').click(function () {
                     $('#btn-step-4').removeAttr('disabled').trigger('click');
                     setTimeout(function () {
                         window.location.href = 'home';
-                    }, 2000);
+                    }, 10000);
                 }
             }
             else { //Errore durante la prenotazione
@@ -452,7 +452,7 @@ $('#btnConfermaPreno').click(function () {
                 $('#btn-step-4').removeAttr('disabled').trigger('click');
                 setTimeout(function () {
                     window.location.href = 'home';
-                }, 2000);
+                }, 10000);
             }
         }
     });
@@ -665,7 +665,7 @@ $(".annulla-presaincarico").click(function () {
             setTimeout(function () {
                 $('.enableButtons').prop('disabled', false);
                 window.location.href = "home";
-            },2000);
+            },10000);
         }
     });
 });
