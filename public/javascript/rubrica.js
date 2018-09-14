@@ -108,12 +108,12 @@ function Modifica ( d ) {
                     $('#listacomuneresidenza').material_select();
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
-                    console.log(textStatus);
+                    console.log(jqXHR.responseText);
                 }
             });
         },
         error: function (jqXHR, textStatus, errorThrown) {
-            console.log(textStatus);
+            console.log(jqXHR.responseText);
         }
     });
     $('#listacomuneresidenza').material_select('destroy');
@@ -143,7 +143,8 @@ function Modifica ( d ) {
                 $('#listacomuneresidenza').material_select();
             },
             error: function (jqXHR, textStatus, errorThrown) {
-                console.log(textStatus);
+                console.log("listacomuni");
+                console.log(jqXHR.responseText);
             }
         });
     });
@@ -226,6 +227,7 @@ function Modifica ( d ) {
                   comuneresidenza = $("#listacomuneresidenza").find("option[value='" + codicecomuneresidenza + "']").text().toUpperCase();
             }
             let indirizzo = $('#formIndirizzo').val().toUpperCase();
+            console.log(d);
             let assistito = {
                 email: email,
                 nome: d.nome,
