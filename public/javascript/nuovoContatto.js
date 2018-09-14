@@ -390,7 +390,7 @@ btnRegistrati.click(function() {
         //dati personali
         let email = $('#formEmail').val().toLowerCase();
         let telefono = $('#formTelefono').val().toUpperCase();
-        let codiceprovinciaresidenza = $("#listaprovinceresidenza").val().toUpperCase();
+        let codiceprovinciaresidenza = $("#listaprovinceresidenza").val();
         let provinciaresidenza = $("#listaprovinceresidenza").find("option[value='" + codiceprovinciaresidenza + "']").text().toUpperCase();
         let codicecomuneresidenza = $('#listacomuneresidenza').val().toUpperCase();
         let comuneresidenza = $("#listacomuneresidenza").find("option[value='" + codicecomuneresidenza + "']").text().toUpperCase();
@@ -407,6 +407,7 @@ btnRegistrati.click(function() {
             luogo_nascita: comunenascita,
             istatComuneNascita: codicecomunenascita,
             provincia: provinciaresidenza,
+            codIstatProvinciaResidenza: codiceprovinciaresidenza,
             comune_residenza: comuneresidenza,
             indirizzores: indirizzo,
             istatComuneResidenza: codicecomuneresidenza,

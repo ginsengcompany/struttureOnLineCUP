@@ -66,7 +66,7 @@ function Modifica ( d ) {
         }
     });
     let selectProvinceResidenza = $("#listaprovinceresidenza");
-    $('#listaprovinceresidenza').append('<option value="'+d.codIstat +'" selected>' + d.provincia + '</option>');
+    //$('#listaprovinceresidenza').append('<option value="'+d.codIstat +'" selected>' + d.provincia + '</option>');
     $("#listaprovinceresidenza").select({ dropdownParent: "#modal-container" });
     //REST per recuperare la lista delle province
     $.ajax({
@@ -82,7 +82,35 @@ function Modifica ( d ) {
             for (let i = 0; i < data.length; i++) {
                 selectProvinceResidenza.append('<option value="' + data[i].codIstat + '">' + data[i].provincia + '</option>');
             }
+            let provinciares = $("#listaprovinceresidenza").find("option[value='" + d.codIstatProvinciaResidenza + "']");
+            provinciares.attr('selected', '');
             $('select[name="listaprovince"]').material_select();
+            let selectComuneResidenza = $("#listacomuneresidenza");
+            let send = {codIstat: d.codIstatProvinciaResidenza};
+            $.ajax({
+                type: "POST",
+                url: "http://ecuptservice.ak12srl.it/comuni/listacomuni",
+                data: JSON.stringify(send),
+                dataType: "json",
+                contentType: 'application/json',
+                success: function (data, textStatus, jqXHR) {
+                    $('#listacomuneresidenza').material_select('destroy');
+                    $('#listacomuneresidenza').find('option').remove();
+                    data.sort(function (a, b) {
+                        return (a.nome > b.nome) ? 1 : ((b.nome > a.nome) ? -1 : 0);
+                    });
+                    selectComuneResidenza.append('<option value="" disabled="" selected="">' + "Seleziona il comune" + '</option>');
+                    for (let i = 0; i < data.length; i++) {
+                        selectComuneResidenza.append('<option value="' + data[i].codice + '">' + data[i].nome + '</option>');
+                    }
+                    let comuneres = $("#listacomuneresidenza").find("option[value='" + d.istatComuneResidenza + "']");
+                    comuneres.attr('selected', '');
+                    $('#listacomuneresidenza').material_select();
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    console.log(textStatus);
+                }
+            });
         },
         error: function (jqXHR, textStatus, errorThrown) {
             console.log(textStatus);
@@ -90,7 +118,7 @@ function Modifica ( d ) {
     });
     $('#listacomuneresidenza').material_select('destroy');
     $('#listacomuneresidenza').find('option').remove();
-    $('#listacomuneresidenza').append('<option value="'+d.istatComuneResidenza+'" selected>' + d.comune_residenza + '</option>');
+    //$('#listacomuneresidenza').append('<option value="'+d.istatComuneResidenza+'" selected>' + d.comune_residenza + '</option>');
     $('#listacomuneresidenza').material_select();
     $('#listaprovinceresidenza').on('change', function () {
         let selectComuneResidenza = $("#listacomuneresidenza");
@@ -298,7 +326,6 @@ $(document).ready(function() {
                 }
                 else { //altrimenti apri
                     row.child( format(row.data()) ).show();
-                    console.log(row.data());
                     tr.addClass('shown');
                 }
             } );
