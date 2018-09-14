@@ -163,6 +163,9 @@ $(document).ready(function () {
             success: function (data, textStatus, jqXHR) {
                 $('#listacomuneresidenza').material_select('destroy');
                 $('#listacomuneresidenza').find('option').remove();
+                data.sort(function (a, b) {
+                    return (a.nome > b.nome) ? 1 : ((b.nome > a.nome) ? -1 : 0);
+                });
                 selectComuneResidenza.append('<option value="" disabled="" selected="">' + "Seleziona il comune" + '</option>');
                 for (let i = 0; i < data.length; i++) {
                     selectComuneResidenza.append('<option value="' + data[i].codice + '">' + data[i].nome + '</option>');
