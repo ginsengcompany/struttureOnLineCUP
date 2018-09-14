@@ -145,6 +145,9 @@ $(document).ready(function () {
         dataType: "json",
         contentType: 'plain/text',
         success: function (data, textStatus, jqXHR) {
+            data.sort(function (a, b) {
+                return (a.nome > b.nome) ? 1 : ((b.nome > a.nome) ? -1 : 0);
+            });
             $('select[name="listaprovince"]').material_select('destroy');
             for (let i = 0; i < data.length; i++) {
                 selectProvinceResidenza.append('<option value="' + data[i].codIstat + '">' + data[i].provincia + '</option>');
