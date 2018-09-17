@@ -34,10 +34,10 @@ block body
                                     button.btn.btn-color-primary.waves-effect.waves-light(type='submit') Entra
                             .text-center.mt-4
                                 a#btnRegistrati.btn.btn-color-primary.waves-effect.waves-light(href="registrazione") Registrati
-                            .text-center.mt-4
-                                a(href='' data-toggle="modal" data-target="#centralModalAlert" style='color:#6C94B2') Password dimenticata?
                         .card-footer(style="background-color:white;")
-                            a.float-right(href='mailto:ecuptservice.mail@gmail.com' style='color:#6C94B2') Contattaci
+                            .d-flex.flex-row-reverse
+                                a.p-2.card-link(href='mailto:ecuptservice.mail@gmail.com' style='color:#6C94B2') Contattaci
+                                a.p-2.card-link(href='' data-toggle="modal" data-target="#centralModalAlert" style='color:#6C94B2') Recupera password
             #gdprBar.modal.bottom.modal-content-clickable.show(style='padding-right: 16px; display: block;')
                 .modal-dialog.modal-frame.modal-bottom.modal-notify.modal-notify
                     .modal-content

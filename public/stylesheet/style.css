@@ -183,3 +183,8 @@ main {
 .menuAccount:hover span {
     color: white !important;
 }
+
+.card-link:hover
+{
+    color: #003964 !important;
+}
