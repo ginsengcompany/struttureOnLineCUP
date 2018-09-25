@@ -25,8 +25,12 @@ block body
                         a.textnavbar(href='appuntamenti') Lista appuntamenti
                     li
                         a.textnavbar(href='rubrica') Lista contatti
-                    li
-                        a.textnavbar(href='referti') Lista referti
+                    if datiAzienda.pagamenti === true
+                        li
+                            a.textnavbar(href='pagamenti') Pagamenti
+                    if datiAzienda.referti === true
+                        li
+                            a.textnavbar(href='referti') Lista referti
                 .sidenav-bg.mask-strong
             nav.navbar.fixed-top.navbar-toggleable-md.navbar-expand-lg.scrolling-navbar.double-nav
                 .float-left
